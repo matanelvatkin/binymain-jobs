@@ -1,7 +1,28 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+
+:root {
+  --bg-color:#F5F5F5;
+  --bg-secondary-color:#537FE7;
+  --primary-color:#F8F8FA;
+  --text-color: #120D26  ;
+  --text-secondary-color:#5669FF;
+  --text-third-color:#747688;
+  --text-Fourth-color :#FFFFFF;
+  --input-color:#F8F8FA;
+ 
 }
 
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Open Sans', sans-serif;
+}
+
+label {
+  font-size: var(--font-size-label);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
