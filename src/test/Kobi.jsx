@@ -1,4 +1,9 @@
+import Input from "../components/Input";
+
 export default function Kobi() {
-  return(
-  <div>kobi</div>)
+  return (
+    <>
+      <Input text="kobi"></Input>
+    </>
+  );
 }
