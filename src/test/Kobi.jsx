@@ -1,6 +1,4 @@
-export default function Kobi(){
-    return
-    <div>
-        
-    </div>
+export default function Kobi() {
+  return(
+  <div>kobi</div>)
 }
