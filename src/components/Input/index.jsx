@@ -14,12 +14,13 @@ const Input = ({ text, style = {}, className = "", ...props }) => {
     <div className={`${styles.Name} ${className}`} style={style} {...props}>
       <form>
         <label>
-          {text} <input type="text" value={inputText} onChange={handleChange} />
+          <div>{text} </div>
+          <input type="text" value={inputText} onChange={handleChange} />
         </label>
       </form>
-      <h5>
+      {/* <h5>
         {text}: {inputText}
-      </h5>
+      </h5> */}
     </div>
   );
 };
