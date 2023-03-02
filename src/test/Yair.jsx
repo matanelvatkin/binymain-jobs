@@ -1,6 +1,9 @@
+import Layout from "../layout/Layout";
+
 export default function Yair(){
-    return
+    return(
     <div>
-        
+    <Layout/>
     </div>
+    )
 }
