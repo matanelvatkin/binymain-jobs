@@ -1,6 +1,11 @@
+import HeaderHome from "../components/HeaderHome";
+import SecondHeader from "../components/SecondHeader";
+
 export default function Sapir(){
 
-  return  <div>
-        sapir
+  return(
+    <div>
+        <SecondHeader/>
     </div>
+  ) 
 }
