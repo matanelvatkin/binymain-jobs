@@ -1,6 +1,9 @@
+import Home from "../pages/Home"
+
 export default function Yisrael(){
-    return
+    return(
     <div>
-        
+        <Home/>
     </div>
+    )
 }
