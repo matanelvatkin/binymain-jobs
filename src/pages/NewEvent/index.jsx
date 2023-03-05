@@ -10,12 +10,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       {...props}
     >
       <div>header</div>
-      <Input text="שם האירוע"></Input>
+      <Input text="שם האירוע" />
       <Input text="תקציר"></Input>
       <Input text="שם המפרסם"></Input>
       <Input text="טלפון"></Input>
       <Input text="מייל"></Input>
       <div>תאריך</div>
+      <Input />
 
       <div>מיקום</div>
 
