@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
 import EventCard from "../../components/EventCard";
 import Header from "../../layout/Header";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import headerContext from "../../context/headerContext";
 
 // Creator: Yisrael_Olonoff
 // i created the home page using the "Header", "EventCard",
@@ -12,20 +13,24 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 // on the page.
 
 function Home() {
+  const { setHeader } = useContext(headerContext);
   const navigate = useNavigate();
   const navToNewEvent = () => {
     navigate("/newEvent");
+    console.log(setHeader);
   };
   return (
     <div className={styles.main}>
-      <Header />
       <p>Up Coming Events</p>
       <EventCard />
       <div className={styles.button}>
         <ClassicButton
           width={"200px"}
-          text={"Publish Event"}
-          onClick={navToNewEvent}
+          text={"פרסם אירוע"}
+          onClick={() => {
+            navToNewEvent();
+            setHeader("פרסם אירוע");
+          }}
         />
       </div>
     </div>

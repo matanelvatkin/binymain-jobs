@@ -5,22 +5,14 @@ import { useState } from "react";
 // color: _______________
 // icon: ________________
 
-const Input = ({ text, style = {}, className = "", ...props }) => {
-  const [inputText, setInputText] = useState("");
-  const handleChange = (e) => {
-    setInputText(e.target.value);
-  };
+const Input = (props) => {
+  const { label, style = {}, className = "", onChange, ...inputProps } = props;
   return (
     <div className={`${styles.Name} ${className}`} style={style} {...props}>
-      <form>
-        <label>
-          <div>{text} </div>
-          <input type="text" value={inputText} onChange={handleChange} />
-        </label>
-      </form>
-      {/* <h5>
-        {text}: {inputText}
-      </h5> */}
+      <label>
+        <div>{label} </div>
+        <input {...inputProps} onChange={onChange} />
+      </label>
     </div>
   );
 };
