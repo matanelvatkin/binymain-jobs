@@ -1,6 +1,7 @@
+import Select from "../components/Select"
+
 export default function Matanel(){
-    return
-    <div>
-        
-    </div>
+    const choossArray = ["a", "b", "c", "d", "e", "f"];
+    return(
+        <Select choossArray={choossArray}/>)
 }

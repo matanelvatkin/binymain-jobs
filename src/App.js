@@ -1,12 +1,13 @@
 import { BrowserRouter } from "react-router-dom";
-import Main from "./layout/Main";
+import Layout from "./layout/Layout";
 import MainTest from "./test/MainTest";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Main />
+        <Layout />
+        <MainTest />
       </BrowserRouter>
     </div>
   );
