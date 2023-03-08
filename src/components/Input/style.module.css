@@ -1,0 +1,49 @@
+.label {
+  width: 332px;
+  height: 19px;
+
+  font-family: "Heebo";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 19px;
+
+  text-align: right;
+  letter-spacing: 0.01em;
+
+  /* Gray / 5 */
+
+  color: #9c9ca8;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.input {
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 10px;
+
+  width: 335px;
+  height: 46px;
+
+  /* Gray / 1 */
+
+  background: #f8f8fa;
+  border-radius: 10px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
