@@ -1,18 +1,22 @@
 import { useState } from "react"
-import ContextFakeData from "../../context/fackData"
+import fakeDataContext from "../../context/fakeDataContext"
+import headerContext from "../../context/headerContext"
 import Header from "../Header"
 import Main from "../Main"
 
 function Layout() {
 
-const [setFakeData,fakeData]=useState("bla bla")
+const [fakeData ,setFakeData]=useState("bla bla")
+const [header, setHeader] = useState("home")
 
   return (
     <>
+    <headerContext.Provider value={{header,setHeader}}>
       <Header/>
-    <ContextFakeData.Provider value={{fakeData}}>
+    <fakeDataContext.Provider value={{fakeData}}>
       <Main/>
-    </ContextFakeData.Provider>
+    </fakeDataContext.Provider>
+    </headerContext.Provider>
     {/* <popUp/> */}
     </>
   )

@@ -15,7 +15,6 @@ import Header from '../../layout/Header'
 function Home() {
     return (
         <div className={styles.main}>
-            <Header />
             <p>
                 Up Coming Events
             </p>
