@@ -1,5 +1,5 @@
 import { useState } from "react"
-import ContextFakeData from "../../context/fackData"
+import ContextFakeData from "../../context/fakeData"
 import Header from "../Header"
 import Main from "../Main"
 
