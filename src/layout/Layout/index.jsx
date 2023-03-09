@@ -1,8 +1,8 @@
-import { useState } from "react";
-import fakeDataContext from "../../context/fakeDataContext";
-import headerContext from "../../context/headerContext";
-import Header from "../Header";
-import Main from "../Main";
+import { useState } from "react"
+import fakeDataContext from "../../context/fakeDataContext"
+import headerContext from "../../context/headerContext"
+import Header from "../Header"
+import Main from "../Main"
 
 function Layout() {
   const [fakeData, setFakeData] = useState("bla bla");

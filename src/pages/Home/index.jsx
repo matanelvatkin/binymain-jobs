@@ -17,9 +17,10 @@ function Home() {
   const navToNewEvent = () => {
     navigate("/newEvent");
   };
+  setHeader('home');
   return (
     <div className={styles.main}>
-      <p>Up Coming Events</p>
+      <p>אירועים קרובים</p>
       <EventCard />
       <div className={styles.button}>
         <ClassicButton
