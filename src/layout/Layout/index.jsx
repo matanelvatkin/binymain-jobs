@@ -7,7 +7,7 @@ import Main from "../Main"
 function Layout() {
 
 const [fakeData ,setFakeData]=useState("bla bla")
-const [header, setHeader] = useState("home")
+const [header, setHeader] = useState("")
 
   return (
     <>

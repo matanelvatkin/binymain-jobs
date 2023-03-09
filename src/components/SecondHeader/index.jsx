@@ -12,7 +12,7 @@ function SecondHeader({text , ...props}) {
     return (
     <div className={styles.secondHeader}>
         <div className={styles.text}>{text}</div>
-        <BsArrowRight className={styles.arrowBack} onClick={() =>{setHeader("home") ; navigate("/")}}/>
+        <BsArrowRight className={styles.arrowBack} onClick={() =>{navigate("/")}}/>
     </div>
       
   )

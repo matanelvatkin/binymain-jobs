@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './style.module.css'
 import ClassicButton from '../../components/ClassicButton copy'
 import EventCard from '../../components/EventCard'
-import Header from '../../layout/Header'
-
+import headerContext from '../../context/headerContext'
 
 // Creator: Yisrael_Olonoff
 // i created the home page using the "Header", "EventCard",
@@ -13,6 +12,10 @@ import Header from '../../layout/Header'
 
 
 function Home() {
+
+const {setHeader} = useContext(headerContext)
+setHeader("home")
+
     return (
         <div className={styles.main}>
             <p>
