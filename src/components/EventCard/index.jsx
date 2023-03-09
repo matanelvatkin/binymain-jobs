@@ -18,17 +18,17 @@ function EventCard() {
             src: 'https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg',
             date: '01/03/2023',
             time: '19:30-23:00',
-            title: 'Picture Festival',
+            title: 'פסטיבל צילום',
             price: '39.90',
-            location: 'Binyamin-Tech'
+            location: 'בניין החברה לפיתוח'
         },
         {
             src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRudDbHeW2OobhX8E9fAY-ctpUAHeTNWfaqJA&usqp=CAU',
             date: '13/04/2023',
             time: '17:30-21:00',
-            title: 'Mentor',
+            title: 'מנטור - יעוץ עסקי',
             price: '29.90',
-            location: 'Ofra'
+            location: 'עופרה'
         },
     ]
 
