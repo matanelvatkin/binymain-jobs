@@ -102,7 +102,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "date",
       type: "date",
       label: "תאריך האירוע",
-      placeholder: "בחר תאריך בימן",
+      placeholder: "בחר תאריך ביומן",
       required: true,
     },
     {
