@@ -1,21 +1,23 @@
 import { useState } from "react"
-import ContextFakeData from "../../context/fakeData"
+import ContextFakeData from "../../context/fackData"
 import Header from "../Header"
 import Main from "../Main"
 
 function Layout() {
-
-const [setFakeData,fakeData]=useState("bla bla")
+  const [fakeData, setFakeData] = useState("bla bla");
+  const [header, setHeader] = useState("home");
 
   return (
     <>
-      <Header/>
-    <ContextFakeData.Provider value={{fakeData}}>
-      <Main/>
-    </ContextFakeData.Provider>
-    {/* <popUp/> */}
+      <headerContext.Provider value={{ header, setHeader }}>
+        <Header />
+        <fakeDataContext.Provider value={{ fakeData }}>
+          <Main />
+        </fakeDataContext.Provider>
+      </headerContext.Provider>
+      {/* <popUp/> */}
     </>
-  )
+  );
 }
 
-export default Layout
+export default Layout;
