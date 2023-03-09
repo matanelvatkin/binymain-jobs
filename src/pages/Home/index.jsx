@@ -19,6 +19,7 @@ function Home() {
     navigate("/newEvent");
     console.log(setHeader);
   };
+  setHeader('home');
   return (
     <div className={styles.main}>
       <p>אירועים קרובים</p>
