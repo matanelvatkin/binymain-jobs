@@ -21,7 +21,7 @@ function Home() {
   };
   return (
     <div className={styles.main}>
-      <p>Up Coming Events</p>
+      <p>אירועים קרובים</p>
       <EventCard />
       <div className={styles.button}>
         <ClassicButton
