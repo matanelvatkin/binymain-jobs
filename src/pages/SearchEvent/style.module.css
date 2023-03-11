@@ -1,0 +1,24 @@
+.content {
+    direction: rtl;
+    margin-right: 15px;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.footerBtn {
+    display: flex;
+}
+
+#back {
+    background-color: white;
+    color: black;
+}
+
+.dateBtnSelection {
+    display: flex;
+}
+
+
