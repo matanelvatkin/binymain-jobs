@@ -28,3 +28,12 @@ font-family: 'Open Sans', sans-serif;
     inset 4px 4px 12px rgba(124, 142, 139, 0.25);
     
 }
+
+.active {
+  background-color: #537FE7;
+}
+
+.icon {
+  width: 35px;
+  height: 37px;
+}

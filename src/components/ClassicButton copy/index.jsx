@@ -16,7 +16,7 @@ function ClassicButton({ text, type, width, func, ...props }) {
                 type={type}
                 style={{ width: width }}
                 onClick={func} 
-                className={styles.button} 
+                className={props.oppositeColor ? props.isActive ? styles.button : styles.oppositeColorBtn : styles.button} 
                 {...props}
                 >
                 {text} 

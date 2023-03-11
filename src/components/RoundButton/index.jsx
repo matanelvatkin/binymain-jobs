@@ -12,11 +12,11 @@ function RoundButton({ icon, func, text, ...props }) {
   return (
     <div className={styles.main}>
       <button
-        className={styles.button}
-        func={func}
+        className={props.isActive ? styles.button+' '+styles.active : styles.button}
+        onClick={func}
         {...props}
       >
-        {icon}
+        <img className={styles.icon} src={icon} id={props.id} />
       </button>
       <span>
         {text}
