@@ -6,15 +6,17 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 // creator: Hadar Naiman
-export default function DateInput() {
+export default function DateInput({...props}) {
     const [datepicker, setdatepicker] = useState(false);
-    const [selectDate, setSelectDate] = useState();
+    const [selectDate, setSelectDate] = useState(props.val ? props.val : new Date());
 
 
     function dateSelectHandle(date) {
-        setSelectDate(date)
+        setSelectDate(() => date)
         setdatepicker(!datepicker)
-        console.log(selectDate)
+        console.log(date)
+        if(typeof props.func === 'function')
+            props.func(date)
     }
 
     function dateFormat(dateString) {
@@ -38,8 +40,8 @@ export default function DateInput() {
             {datepicker &&
                 <div><DatePicker inline
                     dateFormat="dd/MM/yyyy"
-                    selected={selectDate}
-                    onChange={(date) => dateSelectHandle(date)} /></div>}
+                    selected={props.val ? props.val : selectDate}
+                    onSelect={(date) => dateSelectHandle(date)} /></div>}
         </div>
     )
 }

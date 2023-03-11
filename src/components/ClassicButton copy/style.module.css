@@ -27,6 +27,28 @@
     
 }
 
+.oppositeColorBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: 40px;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  margin: 20px;
+  transition: 0.1s;
+}
+
+.active {
+  background-color: var(--bg-secondary-color);
+  color: var(--text-Fourth-color);
+}
+
 /* .button:disabled{
     background-color: gray ;
     color:rgb(180, 175, 175);
