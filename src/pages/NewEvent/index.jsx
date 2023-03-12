@@ -4,6 +4,7 @@ import Input from "../../components/Input";
 import Select from "../../components/Select";
 import styles from "./style.module.css";
 import headerContext from "../../context/headerContext";
+import axios from "axios";
 import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
 
@@ -40,6 +41,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "טלמון",
   ];
   const { setHeader, header } = headerContext;
+  const [prevValues, setPrevValues] = useState([]);
   const [values, setValues] = useState({
     eventName: "",
     summary: "",
@@ -59,6 +61,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     type: "",
     payment: "",
   });
+
   const inputs = [
     {
       id: 1,
@@ -155,6 +158,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 13,
       name: "cardImageURL",
       type: "file",
+      type: "file",
       label: "תמונת אירוע",
       // required: true,
     },
@@ -162,11 +166,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 14,
       name: "coverImageURL",
       type: "file",
+      type: "file",
       label: "תמונת כיסוי",
     },
     {
       id: 15,
       name: "gallery",
+      type: "file",
       type: "file",
       label: "העלה תמונות לגלריה",
     },
@@ -185,8 +191,23 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       placeholder: "עלות",
     },
   ];
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    for (const key in values) {
+      if (Array.isArray(values[key])) {
+        for (const file of values[key]) {
+          formData.append(key, file);
+        }
+      } else {
+        formData.append(key, values[key]);
+      }
+    }
+    console.log(formData);
+    axios.post("http://localhost:8080/event", formData).then(() => {
+      window.location.reload(false);
+    });
 
     const eventData = {
       eventName: values.eventName,
@@ -220,9 +241,22 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       }
     });
   };
+
   const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    if (e.target.type === "file") {
+      const files = e.target.value;
+      setValues({ ...values, [e.target.name]: files });
+    } else {
+      setValues({ ...values, [e.target.name]: e.target.value });
+    }
   };
+
+  //   const createEvent = () => {
+  //     axios.post('http://localhost:3001/event', formData)
+  //     .then(()=>{
+  //         window.location.reload(false);
+  //     })
+  // }
 
   return (
     <div
@@ -231,7 +265,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       style={style}
       {...props}
     >
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        className={styles.form}
+        enctype="multipart/form-data"
+      >
         {inputs.map((input) => {
           if (input.type !== "select")
             return (
@@ -240,6 +278,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 {...input}
                 value={values[input.name]}
                 onChange={onChange}
+                className={styles.inputs}
               />
             );
           else
@@ -253,7 +292,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         })}
 
         <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"Save"} />
+          <ClassicButton width={"200px"} text={"Save"} type={"submit"} />
         </div>
       </form>
     </div>

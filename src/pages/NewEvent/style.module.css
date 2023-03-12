@@ -3,10 +3,18 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 5px;
-  font-family: "Open Sans", sans-serif;
 }
 
-.button {
-  bottom: 0;
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  direction: rtl;
+  gap: 6px;
+  width: 100%;
+}
+
+.inputs {
+  display: flex;
+  align-items: center;
 }

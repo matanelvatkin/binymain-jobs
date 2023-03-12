@@ -1,16 +1,27 @@
 import axios from "axios";
 
-const apiCalls = async (method, url, data) => {
-  // axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`
-  try {
-    const res = await axios({
-      method: method,
-      url: url,
-      data: data,
-    });
+const apiCalls = async (
+  method,
+  port,
+  url,
+  information = null,
+  param = null,
+  header = null
+) => {
+  const fullUrl = `http://localhost:${port}/api/${url}`;
 
-    return res;
+  try {
+    const data = await axios({
+      method: method,
+      url: fullUrl,
+      data: information,
+      params: { q: param },
+      Headers: { header },
+    });
+    console.log(data.data);
+    return data.data;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };
