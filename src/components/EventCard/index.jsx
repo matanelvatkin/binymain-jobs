@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './style.module.css'
 import { BiShekel } from 'react-icons/bi'
 import { ImLocation2 } from 'react-icons/im'
+import axios from 'axios'
 
 // creator: Yisrael Olonoff
 // i created a card that will contain only necessary
@@ -13,7 +14,7 @@ import { ImLocation2 } from 'react-icons/im'
 
 
 function EventCard() {
-    const card = [
+    const [card, setCard] = useState([
         {
             src: 'https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg',
             date: '01/03/2023',
@@ -30,7 +31,13 @@ function EventCard() {
             price: '29.90',
             location: 'עופרה'
         },
-    ]
+    ]);
+
+    useEffect(()=>{
+        axios.get('http://localhost:8080/event').then((allEvents) => {
+            setCard(allEvents.data);
+        })
+    }, [])
 
     return (
         <>
