@@ -4,8 +4,11 @@ import Input from "../../components/Input";
 import Select from "../../components/Select";
 import styles from "./style.module.css";
 import headerContext from "../../context/headerContext";
+import apiCalls from "../../function/apiCalls";
+import { useNavigate } from "react-router-dom";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
+  const nav = useNavigate();
   const dataloc = [
     "עלמון",
     "עמיחי",
@@ -40,9 +43,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [values, setValues] = useState({
     eventName: "",
     summary: "",
-    advertiser: "",
-    tel: "",
-    email: "",
+    advertiserName: "",
+    advertiserTel: "",
+    advertiserEmail: "",
     date: "",
     beginningTime: "",
     finishTime: "",
@@ -75,7 +78,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
     {
       id: 3,
-      name: "advertiser",
+      name: "advertiserName",
       type: "text",
       label: "שם המפרסם",
       placeholder: "שם המפרסם",
@@ -83,7 +86,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
     {
       id: 4,
-      name: "tel",
+      name: "advertiserTel",
       type: "text",
       label: "טלפון",
       placeholder: "טלפון",
@@ -91,7 +94,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
     {
       id: 5,
-      name: "email",
+      name: "advertiserEmail",
       type: "email",
       label: "מייל",
       placeholder: "מייל",
@@ -184,11 +187,43 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   ];
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const eventData = {
+      eventName: values.eventName,
+      summary: values.summary,
+      advertiser: {
+        name: values.advertiserName,
+        tel: values.advertiserTel,
+        email: values.advertiserEmail,
+      },
+      date: values.date,
+      beginningTime: values.beginningTime,
+      finishTime: values.finishTime,
+      place: values.place,
+      category: values.category,
+      targetAudience: values.targetAudience,
+      registrationPageUrl: values.registrationPageUrl,
+      cardImageUrl: values.cardImageUrl,
+      coverImageUrl: values.coverImageUrl,
+      gallery: values.gallery,
+      type: values.type,
+      payment: values.payment,
+    };
+    console.log(eventData);
+    apiCalls(
+      "post",
+      "http://localhost:5000/api/event/createvent",
+      eventData
+    ).then((res) => {
+      if (res.status === 200) {
+        nav("/");
+      }
+    });
   };
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  console.log(values);
+
   return (
     <div
       dir="RTL"
