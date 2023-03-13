@@ -21,4 +21,24 @@
     display: flex;
 }
 
+.categories {
+    display: flex;
+}
 
+.categories div {
+    margin-top: 1.5%;
+    margin-right: 2%;
+}
+
+.audiences {
+    display: flex;
+}
+
+.audiences div {
+    margin-top: 1.5%;
+    margin-right: 2%;
+}
+
+.section {
+    margin-top: 1.5%;
+}

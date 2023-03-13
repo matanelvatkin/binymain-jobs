@@ -6,27 +6,30 @@ import ClassicButton from '../../components/ClassicButton copy'
 import RoundButton from '../../components/RoundButton'
 import DateInput from '../../components/DateInput'
 import { useNavigate } from 'react-router-dom'
+import apiCalls from '../../function/apiCalls'
 
 export default function SearchEvent() {
 
-    //mokdata for illustration
-    //api call needed
+    const [loading, setLoading] = useState(true)
 
-    const [categories, setCategories] = useState([
-        {
-            name: 'fun',
-            icon: 'https://s3-alpha-sig.figma.com/img/4c48/56f6/93038ef985ad0c9f082357568bfaaf83?Expires=1679270400&Signature=fh5-RzlWWUkpgsZft0-Y9X4vORux9U3LvFFLMgXDQ6znN68e3A4ut8rh0519rRRkmMmFXsdWaR4z1Dvnm30~yJGWEVfR8tWbOyZ7IIJ660QTIo1rGDulb6R690xLV8DsZ9TEsBaih3WdTFx9KrBqabRrdt~yxSAtNnlHGUVjE9uLwnqGOElR8TCPAd2nZ60Rgo5cYXnVVcRRFnZhpCBX~PiXqD~jdQEMD1rKdVzQmOz~UyGZKm47aD05Ync6dSH9ODa5fue75k1LNtHqqsxgfdyKHDovnii82l1HLOaGUgCnXZkhp654l0TfmpBAWGhyCeXNiTW9sTbvP85~XNs8Rg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-            isActive: false
-        }
-    ])
+    const [categories, setCategories] = useState([])
 
-    const [audiences, setAudiences] = useState([
-        {
-            name: 'women',
-            icon: 'https://s3-alpha-sig.figma.com/img/5212/9f43/6c8041243a448203f1fd6bb0b39310d2?Expires=1679270400&Signature=d05lWZrnMVDrzvIXU30djv3GDOSjqGt5PrzakylO7dTgkw3DkNDBZAnjM89XKdgf2Ip6Ze~hxyjhuQ2MDXjR2CEXs48s6nGkmM1U8yXYK6K21nyXvna3AMv1D5UrpKBtr5CGjbXLmTFeS4SqU2fgV80AJf8s7ELK0JNh5dBi8716Iobhpt-mcE9cRRpOtLFUGB5YHUkGVsgvyDFmBMia7x2BLFHp0qPOwQHtRlVeaIZ7QIcQbgHGBlNWrVC4p60iA4xApPwh54qTsLDRaJYtQMQxWbIkn2O820fzldS8FgQ2-Jk15AVV3TzRVvYf6at~hvUU~4BkWfC5YG5uLfwzYA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-            isActive: false
-        }
-    ])
+    const [audiences, setAudiences] = useState([])
+     
+    async function fetchData(){
+        let apiCategories = await apiCalls('get', 2000, '/setting/categories')
+        let apiAudiences = await apiCalls('get', 2000, '/setting/audiences')
+        
+        setCategories(()=> apiCategories[0].settingData.map(v => ({...v, isActive: false})))
+        setAudiences(()=> apiAudiences[0].settingData.map(v => ({...v, isActive: false})))
+    }
+
+    useEffect(()=>{fetchData()},[])
+
+    useEffect(()=>{
+        if(audiences && categories)
+            setLoading(() => false)
+    },[audiences, categories])
 
     const [location, setLocation] = useState()
 
@@ -119,25 +122,33 @@ export default function SearchEvent() {
   return (
     <div>
         <div className={style.content}>
-            <div className={'categories'}>
+            <div className={style.section}>
                 <span className={style.title}>{translation.category}</span>
-                {
-                    categories.map((category, i) => <RoundButton text={translation[category.name]} icon={category.icon} func={clickCategory} id={i} isActive={category.isActive} />)
-                }
+                <div className={style.categories}>
+                    {
+                        !loading ?
+                        categories.map((category, i) => <RoundButton text={translation[category.name]} icon={category.icon} func={clickCategory} id={i} isActive={category.isActive} />) :
+                        <p>loading</p>
+                    }
+                </div>
             </div>
 
-            <div className={'audience'}>
+            <div className={style.section}>
                 <span className={style.title}>{translation.audience}</span>
-                {
-                    audiences.map((audience, i) => <RoundButton text={translation[audience.name]} icon={audience.icon} id={i} func={clickAudience} isActive={audience.isActive} />)
-                }
+                <div className={style.audiences}>
+                    {
+                        !loading ? 
+                        audiences.map((audience, i) => <RoundButton text={translation[audience.name]} icon={audience.icon} id={i} func={clickAudience} isActive={audience.isActive} />) :
+                        <p>loading</p>
+                    }
+                </div>
             </div>
 
-            <div className={'location'}>
+            <div className={style.section}>
                 <span className={style.title}>{translation.location}</span>
             </div>
 
-            <div className={'date'}>
+            <div className={style.section}>
                 <span className={style.title}>{translation.date}</span>
                 <div className={style.dateBtnSelection}>
                     <ClassicButton width={100} text={translation.today} isActive={btnDates.today} name='today' func={handleTodayTomorrwBtn} oppositeColor />
