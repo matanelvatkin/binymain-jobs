@@ -34,8 +34,8 @@ function EventCard() {
     ]);
 
     useEffect(()=>{
-        axios.get('http://localhost:8080/event').then((allEvents) => {
-            setCard(allEvents.data);
+        axios.get('http://localhost:2000/event').then((event) => {
+            setCard(event.data);
         })
     }, [])
 

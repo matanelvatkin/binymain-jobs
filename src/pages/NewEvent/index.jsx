@@ -10,7 +10,6 @@ import axios from 'axios';
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const { setHeader, header } = headerContext;
-  const [prevValues, setPrevValues] = useState([]);
   const [values, setValues] = useState({
     eventName: "",
     summary: "",
@@ -118,6 +117,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "coverImageURL",
       type: "file",
       label: "תמונת כיסוי",
+      multiple: true,
     },
     {
       id: 15,
@@ -147,34 +147,29 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     for (const key in values) {
       if (Array.isArray(values[key])) {
         for (const file of values[key]) {
-          formData.append(key, file);
+          if (file instanceof File) {
+            formData.append(key, file);
+          }
         }
       } else {
         formData.append(key, values[key]);
       }
     }
-    console.log(formData);
-    axios.post('http://localhost:8080/event', formData)
-    .then(()=>{
-        window.location.reload(false);
-    })
+    console.log(formData)
+    // axios.post('http://localhost:2000/event', formData)
+    // .then(()=>{
+    //     window.location.alert('Succesfuly Saved!');
+    // })
   };
 
   const onChange = (e) => {
     if (e.target.type === "file") {
       const files = e.target.value;
-      setValues({...values, [e.target.name]: files});
+      setValues({ ...values, [e.target.name]: files });
     } else {
       setValues({ ...values, [e.target.name]: e.target.value });
     }
   };
-
-//   const createEvent = () => {
-//     axios.post('http://localhost:3001/event', formData)
-//     .then(()=>{
-//         window.location.reload(false);
-//     })
-// }
 
   console.log(header);
   return (
@@ -185,27 +180,42 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       {...props}
     >
       {/* <SecondHeader /> */}
-      <form 
-      onSubmit={handleSubmit}
-      className={styles.form}
-      enctype="multipart/form-data" 
+      <form
+        onSubmit={handleSubmit}
+        className={styles.form}
+        enctype="multipart/form-data"
       >
         {inputs.map((input) => {
-          if (input.type !== "select")
-            return (
-              <Input
-                key={input.id}
-                {...input}
-                value={values[input.name]}
-                onChange={onChange}
-                className={styles.inputs}
-              />
-            );
-          else return <Select placeholder={input.placeholder} />;
+          if (input.type !== "select") {
+            if (input.name === "gallery") {
+              return (
+                <Input
+                  key={input.id}
+                  {...input}
+                  value={values[input.name]}
+                  onChange={onChange}
+                  className={styles.inputs}
+                  multiple={true}
+                />
+              );
+            } else {
+              return (
+                <Input
+                  key={input.id}
+                  {...input}
+                  value={values[input.name]}
+                  onChange={onChange}
+                  className={styles.inputs}
+                />
+              );
+            }
+          } else {
+            return <Select placeholder={input.placeholder} />;
+          }
         })}
 
         <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"Save"} type={'submit'}/>
+          <ClassicButton width={"200px"} text={"Save"} type={'submit'} />
         </div>
       </form>
     </div>
