@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import styles from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
 import EventCard from "../../components/EventCard";
-import Header from "../../layout/Header";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import headerContext from "../../context/headerContext";
 
@@ -13,13 +12,17 @@ import headerContext from "../../context/headerContext";
 // on the page.
 
 function Home() {
+
   const { setHeader } = useContext(headerContext);
   const navigate = useNavigate();
+
   const navToNewEvent = () => {
     navigate("/newEvent");
     console.log(setHeader);
   };
+
   setHeader('home');
+
   return (
     <div className={styles.main}>
       <p>אירועים קרובים</p>

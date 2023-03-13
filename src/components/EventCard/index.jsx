@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styles from './style.module.css'
 import { BiShekel } from 'react-icons/bi'
 import { ImLocation2 } from 'react-icons/im'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import headerContext from '../../context/headerContext'
 
 // creator: Yisrael Olonoff
 // i created a card that will contain only necessary
@@ -14,22 +16,43 @@ import axios from 'axios'
 
 
 function EventCard() {
+
+    // eventName: "",
+    // summary: "",
+    // advertiser: "",
+    // tel: "",
+    // email: "",
+    // date: "",
+    // beginningTime: "",
+    // finishTime: "",
+    // place: "",
+    // category: "",
+    // targetAudience: "",
+    // registrationPageUrl: "",
+    // cardImageUrl: "",
+    // coverImageUrl: "",
+    // gallery: "",
+    // type: "",
+    // payment: "",
+
     const [card, setCard] = useState([
         {
-            src: 'https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg',
+            cardImageUrl: 'https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg',
             date: '01/03/2023',
-            time: '19:30-23:00',
-            title: 'פסטיבל צילום',
-            price: '39.90',
-            location: 'בניין החברה לפיתוח'
+            beginningTime: '19:30',
+            finishTime: '23:00',
+            eventName: 'פסטיבל צילום',
+            payment: '39.90',
+            place: 'בניין החברה לפיתוח'
         },
         {
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRudDbHeW2OobhX8E9fAY-ctpUAHeTNWfaqJA&usqp=CAU',
+            cardImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRudDbHeW2OobhX8E9fAY-ctpUAHeTNWfaqJA&usqp=CAU',
             date: '13/04/2023',
-            time: '17:30-21:00',
-            title: 'מנטור - יעוץ עסקי',
-            price: '29.90',
-            location: 'עופרה'
+            beginningTime: '17:30',
+            finishTime: '21:00',
+            eventName: 'מנטור - יעוץ עסקי',
+            payment: '29.90',
+            place: 'עופרה'
         },
     ]);
 
@@ -39,15 +62,29 @@ function EventCard() {
         })
     }, [])
 
+    const { setHeader } = useContext(headerContext);
+
+    const navigate = useNavigate();
+
+    const navToViewEvent = () => {
+      navigate("/viewEvent/:event");
+    };
+
     return (
         <>
             {card.map((v) => {
                 return (
-                    <div className={styles.main}>
+                    <div 
+                    className={styles.main}
+                    onDoubleClick={() => {
+                        navToViewEvent();
+                        setHeader("פרטי אירוע");
+                      }}
+                    >
 
                         <img
                             className={styles.img}
-                            src={v.src}
+                            src={v.cardImageUrl}
                             alt='Event pic'
                         />
 
@@ -58,26 +95,27 @@ function EventCard() {
                                         {v.date}
                                     </span>
                                     <span>
-                                        {v.time}
+                                        {v.beginningTime}-
+                                        {v.finishTime}
                                     </span>
                                 </div>
 
                                 <h4
-                                    className={styles.title}
+                                    className={styles.eventName}
                                 >
-                                    {v.title}
+                                    {v.eventName}
                                 </h4>
                             </div>
 
                             <div className={styles.second}>
                                 <div className={styles.paragraphs}>
                                     <BiShekel />
-                                    <p>{v.price}</p>
+                                    <p>{v.payment}</p>
                                 </div>
 
                                 <div className={styles.paragraphs}>
                                     <ImLocation2 />
-                                    <p>{v.location}</p>
+                                    <p>{v.place}</p>
                                 </div>
                             </div>
                         </div>
