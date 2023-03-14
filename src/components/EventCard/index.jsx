@@ -35,30 +35,12 @@ function EventCard() {
     // type: "",
     // payment: "",
 
-    const [card, setCard] = useState([
-        {
-            cardImageUrl: 'https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg',
-            date: '01/03/2023',
-            beginningTime: '19:30',
-            finishTime: '23:00',
-            eventName: 'פסטיבל צילום',
-            payment: '39.90',
-            place: 'בניין החברה לפיתוח'
-        },
-        {
-            cardImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRudDbHeW2OobhX8E9fAY-ctpUAHeTNWfaqJA&usqp=CAU',
-            date: '13/04/2023',
-            beginningTime: '17:30',
-            finishTime: '21:00',
-            eventName: 'מנטור - יעוץ עסקי',
-            payment: '29.90',
-            place: 'עופרה'
-        },
-    ]);
+    const [card, setCard] = useState([]);
 
-    useEffect(()=>{
-        axios.get('http://localhost:2000/event').then((event) => {
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/event').then((event) => {
             setCard(event.data);
+            console.log(event.data);
         })
     }, [])
 
@@ -67,26 +49,30 @@ function EventCard() {
     const navigate = useNavigate();
 
     const navToViewEvent = () => {
-      navigate("/viewEvent/:event");
+        navigate('/viewEvent/:event');
     };
+
 
     return (
         <>
             {card.map((v) => {
                 return (
-                    <div 
-                    className={styles.main}
-                    onDoubleClick={() => {
-                        navToViewEvent();
-                        setHeader("פרטי אירוע");
-                      }}
+                    <div
+                        className={styles.main}
+                        key={v._id}
+                        onDoubleClick={() => {
+                            navToViewEvent(v._id);
+                            setHeader("פרטי אירוע");
+                        }}
                     >
 
-                        <img
-                            className={styles.img}
-                            src={v.cardImageUrl}
-                            alt='Event pic'
-                        />
+                        <div className={styles.imgFrame}>
+                            <img
+                                className={styles.img}
+                                src={v.coverImageURL}
+                                alt='Event pic'
+                            />
+                        </div>
 
                         <div className={styles.infoBar}>
                             <div className={styles.first}>
