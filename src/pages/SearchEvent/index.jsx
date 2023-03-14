@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import apiCalls from '../../function/apiCalls'
 
 export default function SearchEvent() {
+    const navigate = useNavigate()
 
     const [loading, setLoading] = useState(true)
 
@@ -94,29 +95,55 @@ export default function SearchEvent() {
     }
 
     function handleSubmit() {
-        let dbFilter = {}
+        let dbQuery = {$and: []}
         let activeCategories = categories.filter(category => category.isActive)
         let activeAudiences = audiences.filter(audience => audience.isActive)
 
-        if(activeCategories.length) {
-            dbFilter.category = {$in: []}
-            activeCategories.forEach(category => dbFilter.category.$in.push({$elemMatch: {name: category.name}}))
+        if(activeCategories.length >= 2) {
+            dbQuery.$and.push({category: {$in: []}}) 
+            activeCategories.forEach(category => dbQuery.$and[0].category.$in.push({$elemMatch: {name: category.name}}))
+        } else if(activeCategories.length) {
+            dbQuery.$and.push({category: {$elemMatch: {name: activeCategories[0].name}}})
         }
-
-        if(activeAudiences.length) {
-            dbFilter.targetAudience = {$in: []}
-            activeAudiences.forEach(audience => dbFilter.targetAudience.$in.push({$elemMatch: {name: audience.name}}))
+    
+        if(activeAudiences.length >= 2) {
+            dbQuery.$and.push({targetAudience: {$in: []}})
+            let audeinceQueryIndex = dbQuery.$and.findIndex(v => Object.keys(v)[0] == 'targetAudience')
+            activeAudiences.forEach(audience => dbQuery.$and[audeinceQueryIndex].$in.push({$elemMatch: {name: audience.name}}))
+        } else if(activeAudiences.length) {
+            dbQuery.$and.push({targetAudience: {$elemMatch: {name: activeAudiences[0].name}}})
         }
+    
+        let hoursDiffrence = 23 - date.getHours()
+        let minutesDiffrence = 59 - date.getMinutes()
+        let secondsDiffrence = 59 - date.getSeconds()
 
         if(btnDates.thisWeek) {
+            let today = new Date().getDay()
+            if(today === 7) {
+                let endDayOfWeek = new Date(date.getTime() + (6 * 24 * 60**2 * 1000) + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + (secondsDiffrence * 1000))
+                dbQuery.$and.push({date: {$gt: date, $lt: endDayOfWeek}})
+            }else if(today === 6) {
+                let endOfDay = new Date(date.getTime() + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + secondsDiffrence * 1000 ) 
+                dbQuery.$and.push({date: {$gt: date, $lt: endOfDay}})
+            } else {
+                let endDayOfWeek = new Date(date.getTime() + ((6 - today) * 24 * 60**2 * 1000) + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + (secondsDiffrence * 1000))
+                dbQuery.$and.push({date: {$gt: date, $lt: endDayOfWeek}})
+            }
 
         } else {
-            dbFilter.date = date
+            let endOfDay = new Date(date.getTime() + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + secondsDiffrence * 1000 ) 
+            dbQuery.$and.push({date: {$gt: date, $lt: endOfDay}})
         }
+
+        let query = JSON.stringify(dbQuery)
+        const encodedQueryString = encodeURIComponent(query);
+
+        navigate(`/searchEvent/result/${encodedQueryString}`)
     }
 
     function useBackBtn() {
-        useNavigate(-1)
+        navigate(-1)
     }
 
   return (
