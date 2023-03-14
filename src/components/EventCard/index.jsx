@@ -15,7 +15,7 @@ import headerContext from '../../context/headerContext'
 // have real data to work with.
 
 
-function EventCard() {
+function EventCard({ events }) {
 
     // eventName: "",
     // summary: "",
@@ -35,13 +35,15 @@ function EventCard() {
     // type: "",
     // payment: "",
 
-    const [card, setCard] = useState([]);
+    const [card, setCard] = useState(events ? events : []);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/event').then((event) => {
+        if(!events) {
+            axios.get('http://localhost:5000/api/event').then((event) => {
             setCard(event.data);
             console.log(event.data);
-        })
+            })
+        }
     }, [])
 
     const { setHeader } = useContext(headerContext);
