@@ -7,6 +7,7 @@ import RoundButton from '../../components/RoundButton'
 import DateInput from '../../components/DateInput'
 import { useNavigate } from 'react-router-dom'
 import apiCalls from '../../function/apiCalls'
+import Loader from '../../components/Loader'
 
 export default function SearchEvent() {
     const navigate = useNavigate()
@@ -155,7 +156,7 @@ export default function SearchEvent() {
                     {
                         !loading ?
                         categories.map((category, i) => <RoundButton text={translation[category.name]} icon={category.icon} func={clickCategory} id={i} isActive={category.isActive} />) :
-                        <p>loading</p>
+                        <Loader />
                     }
                 </div>
             </div>
@@ -166,7 +167,7 @@ export default function SearchEvent() {
                     {
                         !loading ? 
                         audiences.map((audience, i) => <RoundButton text={translation[audience.name]} icon={audience.icon} id={i} func={clickAudience} isActive={audience.isActive} />) :
-                        <p>loading</p>
+                        <Loader />
                     }
                 </div>
             </div>
