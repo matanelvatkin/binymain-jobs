@@ -48,8 +48,8 @@ function EventCard() {
 
     const navigate = useNavigate();
 
-    const navToViewEvent = () => {
-        navigate('/viewEvent/:event');
+    const navToViewEvent = (eventID) => {
+        navigate('/viewEvent/:' + eventID);
     };
 
 
