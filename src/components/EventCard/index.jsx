@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styles from './style.module.css'
 import { BiShekel } from 'react-icons/bi'
 import { ImLocation2 } from 'react-icons/im'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import headerContext from '../../context/headerContext'
 
 // creator: Yisrael Olonoff
 // i created a card that will contain only necessary
@@ -14,42 +16,63 @@ import axios from 'axios'
 
 
 function EventCard() {
-    const [card, setCard] = useState([
-        {
-            src: 'https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg',
-            date: '01/03/2023',
-            time: '19:30-23:00',
-            title: 'פסטיבל צילום',
-            price: '39.90',
-            location: 'בניין החברה לפיתוח'
-        },
-        {
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRudDbHeW2OobhX8E9fAY-ctpUAHeTNWfaqJA&usqp=CAU',
-            date: '13/04/2023',
-            time: '17:30-21:00',
-            title: 'מנטור - יעוץ עסקי',
-            price: '29.90',
-            location: 'עופרה'
-        },
-    ]);
 
-    useEffect(()=>{
-        axios.get('http://localhost:2000/event').then((event) => {
+    // eventName: "",
+    // summary: "",
+    // advertiser: "",
+    // tel: "",
+    // email: "",
+    // date: "",
+    // beginningTime: "",
+    // finishTime: "",
+    // place: "",
+    // category: "",
+    // targetAudience: "",
+    // registrationPageUrl: "",
+    // cardImageUrl: "",
+    // coverImageUrl: "",
+    // gallery: "",
+    // type: "",
+    // payment: "",
+
+    const [card, setCard] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/event').then((event) => {
             setCard(event.data);
+            console.log(event.data);
         })
     }, [])
+
+    const { setHeader } = useContext(headerContext);
+
+    const navigate = useNavigate();
+
+    const navToViewEvent = (eventID) => {
+        navigate('/viewEvent/:' + eventID);
+    };
+
 
     return (
         <>
             {card.map((v) => {
                 return (
-                    <div className={styles.main}>
+                    <div
+                        className={styles.main}
+                        key={v._id}
+                        onDoubleClick={() => {
+                            navToViewEvent(v._id);
+                            setHeader("פרטי אירוע");
+                        }}
+                    >
 
-                        <img
-                            className={styles.img}
-                            src={v.src}
-                            alt='Event pic'
-                        />
+                        <div className={styles.imgFrame}>
+                            <img
+                                className={styles.img}
+                                src={v.coverImageURL}
+                                alt='Event pic'
+                            />
+                        </div>
 
                         <div className={styles.infoBar}>
                             <div className={styles.first}>
@@ -58,26 +81,27 @@ function EventCard() {
                                         {v.date}
                                     </span>
                                     <span>
-                                        {v.time}
+                                        {v.beginningTime}-
+                                        {v.finishTime}
                                     </span>
                                 </div>
 
                                 <h4
-                                    className={styles.title}
+                                    className={styles.eventName}
                                 >
-                                    {v.title}
+                                    {v.eventName}
                                 </h4>
                             </div>
 
                             <div className={styles.second}>
                                 <div className={styles.paragraphs}>
                                     <BiShekel />
-                                    <p>{v.price}</p>
+                                    <p>{v.payment}</p>
                                 </div>
 
                                 <div className={styles.paragraphs}>
                                     <ImLocation2 />
-                                    <p>{v.location}</p>
+                                    <p>{v.place}</p>
                                 </div>
                             </div>
                         </div>
