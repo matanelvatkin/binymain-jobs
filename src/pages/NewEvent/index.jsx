@@ -174,6 +174,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "coverImageURL",
       type: "file",
       label: "תמונת כיסוי",
+      multiple: true,
     },
     {
       id: 15,

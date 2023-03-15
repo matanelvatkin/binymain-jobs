@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styles from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
 import EventCard from "../../components/EventCard";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import headerContext from "../../context/headerContext";
 
 // Creator: Yisrael_Olonoff
@@ -14,10 +14,13 @@ import headerContext from "../../context/headerContext";
 function Home() {
   const { setHeader } = useContext(headerContext);
   const navigate = useNavigate();
+
   const navToNewEvent = () => {
     navigate("/newEvent");
   };
-  setHeader('home');
+
+  setHeader("home");
+
   return (
     <div className={styles.main}>
       <p>אירועים קרובים</p>

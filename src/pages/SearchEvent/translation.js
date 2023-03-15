@@ -12,7 +12,15 @@ const translation = {
     search: 'חפש',
     back: 'חזרה',
     fun: 'כיף',
-    women: 'נשים'
+    women: 'נשים',
+    family: 'משפחה',
+    adults: 'מבוגרים',
+    teenagers: 'נוער',
+    kids: 'ילדים',
+    lectures: 'הרצאות',
+    food: 'אוכל',
+    "local art craft": 'יצירה מקומית',
+    music: 'מוזיקה'
 }
 
 export default translation
