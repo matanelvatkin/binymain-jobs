@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const nav = useNavigate();
-  const dataloc = [
+  const placeData = [
     "עלמון",
     "עמיחי",
     "עטרת",
@@ -40,8 +40,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "שילה",
     "טלמון",
   ];
+  const categoryData = ["הרצאות", "אוכל", "יצירה מקומית", "מוסיקה", "כיף"];
+  const targetAudienceData = ["גברים", "נשים", "נוער", "משפחה"];
+  const paymentData = ["בתשלום", "בחינם"];
+  const typeData = ["חדפעמי", "יומי", "שבועי"];
+
   const { setHeader, header } = headerContext;
-  const [prevValues, setPrevValues] = useState([]);
   const [values, setValues] = useState({
     eventName: "",
     summary: "",
@@ -51,15 +55,19 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     date: "",
     beginningTime: "",
     finishTime: "",
-    place: "",
-    category: "",
-    targetAudience: "",
-    registrationPageUrl: "",
-    cardImageUrl: "",
-    coverImageUrl: "",
-    gallery: "",
+    // place: "",
+    // category: "",
+    // targetAudience: "",
+    registrationPageURL: "",
     type: "",
     payment: "",
+  });
+  const [filesValues, setFilesValues] = useState({
+    cardImageURL:
+      "https://cdn.pixabay.com/photo/2023/03/03/17/35/gray-cat-7828134_1280.jpg",
+    coverImageURL:
+      "https://cdn.pixabay.com/photo/2023/02/12/12/06/ocean-7784940_1280.jpg",
+    gallery: "",
   });
 
   const inputs = [
@@ -158,7 +166,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 13,
       name: "cardImageURL",
       type: "file",
-      type: "file",
       label: "תמונת אירוע",
       // required: true,
     },
@@ -166,14 +173,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 14,
       name: "coverImageURL",
       type: "file",
-      type: "file",
       label: "תמונת כיסוי",
     },
     {
       id: 15,
       name: "gallery",
-      type: "file",
-      type: "file",
+      type: "text",
       label: "העלה תמונות לגלריה",
     },
     {
@@ -194,20 +199,22 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    for (const key in values) {
-      if (Array.isArray(values[key])) {
-        for (const file of values[key]) {
-          formData.append(key, file);
-        }
-      } else {
-        formData.append(key, values[key]);
-      }
-    }
-    console.log(formData);
-    axios.post("http://localhost:8080/event", formData).then(() => {
-      window.location.reload(false);
-    });
+    // const formData = new FormData();
+    // for (const key in values) {
+    //   if (Array.isArray(values[key])) {
+    //     for (const file of values[key]) {
+    //       formData.append(key, file);
+    //     }
+    //   } else {
+    //     formData.append(key, values[key]);
+    //   }
+    // }
+    // console.log(formData);
+    // axios
+    //   .post("http://localhost:5000/api/event/createvent", formData)
+    //   .then(() => {
+    //     window.location.reload(false);
+    //   });
 
     const eventData = {
       eventName: values.eventName,
@@ -223,19 +230,17 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       place: values.place,
       category: values.category,
       targetAudience: values.targetAudience,
-      registrationPageUrl: values.registrationPageUrl,
-      cardImageUrl: values.cardImageUrl,
-      coverImageUrl: values.coverImageUrl,
-      gallery: values.gallery,
+      registrationPageURL: values.registrationPageURL,
+      cardImageURL: filesValues.cardImageURL,
+      coverImageURL: filesValues.coverImageURL,
+      gallery: filesValues.gallery,
       type: values.type,
       payment: values.payment,
     };
+    console.log(values);
+    console.log(filesValues);
     console.log(eventData);
-    apiCalls(
-      "post",
-      "http://localhost:5000/api/event/createvent",
-      eventData
-    ).then((res) => {
+    apiCalls("post", "5000", "event/createvent", eventData).then((res) => {
       if (res.status === 200) {
         nav("/");
       }
@@ -244,11 +249,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const onChange = (e) => {
     if (e.target.type === "file") {
-      const files = e.target.value;
-      setValues({ ...values, [e.target.name]: files });
+      setFilesValues({ ...filesValues, [e.target.name]: e.target.value });
     } else {
       setValues({ ...values, [e.target.name]: e.target.value });
     }
+    console.log(values);
   };
 
   //   const createEvent = () => {
@@ -284,9 +289,23 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           else
             return (
               <Select
+                {...input}
                 placeholder={input.placeholder}
                 value={values[input.name]}
-                choossArray={dataloc}
+                values={values}
+                setValues={setValues}
+                choossArray={
+                  input.name === "place"
+                    ? placeData
+                    : input.name === "category"
+                    ? categoryData
+                    : input.name === "targetAudience"
+                    ? targetAudienceData
+                    : input.name === "type"
+                    ? typeData
+                    : paymentData
+                }
+                //
               />
             );
         })}
