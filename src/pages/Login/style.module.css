@@ -1,0 +1,43 @@
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    direction: rtl;
+}
+
+.inputs{
+    width: 90%;
+    font-size: medium;
+}
+
+.icon{
+    font-size: large;
+    margin-left: 10px;
+}
+
+.firstButton{
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    direction: rtl;
+}
+
+.secondButton{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    direction: rtl;
+}
