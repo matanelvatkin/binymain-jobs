@@ -200,22 +200,22 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const formData = new FormData();
-    // for (const key in values) {
-    //   if (Array.isArray(values[key])) {
-    //     for (const file of values[key]) {
-    //       formData.append(key, file);
-    //     }
-    //   } else {
-    //     formData.append(key, values[key]);
-    //   }
-    // }
-    // console.log(formData);
-    // axios
-    //   .post("http://localhost:5000/api/event/createvent", formData)
-    //   .then(() => {
-    //     window.location.reload(false);
-    //   });
+    const formData = new FormData();
+    for (const key in values) {
+      if (Array.isArray(values[key])) {
+        for (const file of values[key]) {
+          formData.append(key, file);
+        }
+      } else {
+        formData.append(key, values[key]);
+      }
+    }
+    console.log(formData);
+    axios
+      .post("http://localhost:5000/api/event/createvent", formData)
+      .then(() => {
+        window.location.reload(false);
+      });
 
     const eventData = {
       eventName: values.eventName,

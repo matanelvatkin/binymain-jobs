@@ -71,7 +71,7 @@ function EventCard({ events }) {
                         <div className={styles.imgFrame}>
                             <img
                                 className={styles.img}
-                                src={v.coverImageURL}
+                                src={v.cardImageURL||v.coverImageURL}
                                 alt='Event pic'
                             />
                         </div>

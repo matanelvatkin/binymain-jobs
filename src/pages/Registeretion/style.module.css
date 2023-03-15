@@ -1,0 +1,24 @@
+.main{
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+}
+
+.formArea{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    direction: rtl;
+}
+
+.inputs{
+    font-size: medium;
+}
+
+.icon{
+    font-size: large;
+    margin-left: 10px;
+}
