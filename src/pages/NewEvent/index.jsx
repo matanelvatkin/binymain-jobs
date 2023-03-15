@@ -1,33 +1,73 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
-import SecondHeader from "../../components/SecondHeader";
 import Select from "../../components/Select";
 import styles from "./style.module.css";
 import headerContext from "../../context/headerContext";
-import axios from 'axios';
-
+import axios from "axios";
+import apiCalls from "../../function/apiCalls";
+import { useNavigate } from "react-router-dom";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
+  const nav = useNavigate();
+  const placeData = [
+    "עלמון",
+    "עמיחי",
+    "עטרת",
+    "בית חורון",
+    "דולב",
+    "עלי",
+    "גני מודיעין",
+    "גבע בנימין",
+    "גבעון החדשה",
+    "חשמונאים",
+    "כפר אדומים",
+    "כפר האורנים",
+    "כוכב השחר",
+    "כוכב יעקב",
+    "מעלה לבונה",
+    "מעלה מכמש",
+    "מתתיהו",
+    "מבוא חורון",
+    "מצפה יריחו",
+    "נעלה",
+    "נחליאל",
+    "נוה צוף",
+    `ניל"י`,
+    "עופרה",
+    "פסגות",
+    "רימונים",
+    "שילה",
+    "טלמון",
+  ];
+  const categoryData = ["הרצאות", "אוכל", "יצירה מקומית", "מוסיקה", "כיף"];
+  const targetAudienceData = ["גברים", "נשים", "נוער", "משפחה"];
+  const paymentData = ["בתשלום", "בחינם"];
+  const typeData = ["חדפעמי", "יומי", "שבועי"];
+
   const { setHeader, header } = headerContext;
   const [values, setValues] = useState({
     eventName: "",
     summary: "",
-    advertiser: "",
-    tel: "",
-    email: "",
+    advertiserName: "",
+    advertiserTel: "",
+    advertiserEmail: "",
     date: "",
     beginningTime: "",
     finishTime: "",
-    place: "",
-    category: "",
-    targetAudience: "",
-    registrationPageUrl: "",
-    cardImageUrl: "",
-    coverImageUrl: "",
-    gallery: "",
+    // place: "",
+    // category: "",
+    // targetAudience: "",
+    registrationPageURL: "",
     type: "",
     payment: "",
+  });
+  const [filesValues, setFilesValues] = useState({
+    cardImageURL:
+      "https://cdn.pixabay.com/photo/2023/03/03/17/35/gray-cat-7828134_1280.jpg",
+    coverImageURL:
+      "https://cdn.pixabay.com/photo/2023/02/12/12/06/ocean-7784940_1280.jpg",
+    gallery: "",
   });
 
   const inputs = [
@@ -36,55 +76,70 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "eventName",
       type: "text",
       label: "שם האירוע",
+      placeholder: "שם האירוע",
+      required: true,
     },
     {
       id: 2,
       name: "summary",
       type: "text",
       label: "תקציר",
+      placeholder: "תקציר",
+      required: true,
     },
     {
       id: 3,
-      name: "advertiser",
+      name: "advertiserName",
       type: "text",
       label: "שם המפרסם",
+      placeholder: "שם המפרסם",
+      required: true,
     },
     {
       id: 4,
-      name: "tel",
+      name: "advertiserTel",
       type: "text",
       label: "טלפון",
+      placeholder: "טלפון",
+      required: true,
     },
     {
       id: 5,
-      name: "email",
+      name: "advertiserEmail",
       type: "email",
       label: "מייל",
+      placeholder: "מייל",
+      required: true,
     },
     {
       id: 6,
       name: "date",
       type: "date",
-      label: "תאריך",
+      label: "תאריך האירוע",
+      placeholder: "בחר תאריך ביומן",
+      required: true,
     },
     {
       id: 7,
       name: "beginningTime",
       type: "time",
       label: "זמן התחלה",
+      placeholder: "זמן התחלה",
     },
     {
       id: 8,
       name: "finishTime",
       type: "time",
       label: "זמן סיום",
+      placeholder: "זמן סיום",
     },
     {
       id: 9,
       name: "place",
       type: "select",
       label: "מקום",
-      placeholder: "מיקום",
+      placeholder: "בחר מיקום",
+      required: true,
     },
     {
       id: 10,
@@ -105,12 +160,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "registrationPageURL",
       type: "text",
       label: "דף הרשמה לאירוע",
+      placeholder: "דף הרשמה לאירוע",
     },
     {
       id: 13,
       name: "cardImageURL",
       type: "file",
       label: "תמונת אירוע",
+      // required: true,
     },
     {
       id: 14,
@@ -122,7 +179,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 15,
       name: "gallery",
-      type: "file",
+      type: "text",
       label: "העלה תמונות לגלריה",
     },
     {
@@ -143,35 +200,70 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    for (const key in values) {
-      if (Array.isArray(values[key])) {
-        for (const file of values[key]) {
-          if (file instanceof File) {
-            formData.append(key, file);
-          }
-        }
-      } else {
-        formData.append(key, values[key]);
+    // const formData = new FormData();
+    // for (const key in values) {
+    //   if (Array.isArray(values[key])) {
+    //     for (const file of values[key]) {
+    //       formData.append(key, file);
+    //     }
+    //   } else {
+    //     formData.append(key, values[key]);
+    //   }
+    // }
+    // console.log(formData);
+    // axios
+    //   .post("http://localhost:5000/api/event/createvent", formData)
+    //   .then(() => {
+    //     window.location.reload(false);
+    //   });
+
+    const eventData = {
+      eventName: values.eventName,
+      summary: values.summary,
+      advertiser: {
+        name: values.advertiserName,
+        tel: values.advertiserTel,
+        email: values.advertiserEmail,
+      },
+      date: values.date,
+      beginningTime: values.beginningTime,
+      finishTime: values.finishTime,
+      place: values.place,
+      category: values.category,
+      targetAudience: values.targetAudience,
+      registrationPageURL: values.registrationPageURL,
+      cardImageURL: filesValues.cardImageURL,
+      coverImageURL: filesValues.coverImageURL,
+      gallery: filesValues.gallery,
+      type: values.type,
+      payment: values.payment,
+    };
+    console.log(values);
+    console.log(filesValues);
+    console.log(eventData);
+    apiCalls("post", "5000", "event/createvent", eventData).then((res) => {
+      if (res.status === 200) {
+        nav("/");
       }
-    }
-    console.log(formData)
-    // axios.post('http://localhost:2000/event', formData)
-    // .then(()=>{
-    //     window.location.alert('Succesfuly Saved!');
-    // })
+    });
   };
 
   const onChange = (e) => {
     if (e.target.type === "file") {
-      const files = e.target.value;
-      setValues({ ...values, [e.target.name]: files });
+      setFilesValues({ ...filesValues, [e.target.name]: e.target.value });
     } else {
       setValues({ ...values, [e.target.name]: e.target.value });
     }
+    console.log(values);
   };
 
-  console.log(header);
+  //   const createEvent = () => {
+  //     axios.post('http://localhost:3001/event', formData)
+  //     .then(()=>{
+  //         window.location.reload(false);
+  //     })
+  // }
+
   return (
     <div
       dir="RTL"
@@ -179,43 +271,48 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       style={style}
       {...props}
     >
-      {/* <SecondHeader /> */}
       <form
         onSubmit={handleSubmit}
         className={styles.form}
         enctype="multipart/form-data"
       >
         {inputs.map((input) => {
-          if (input.type !== "select") {
-            if (input.name === "gallery") {
-              return (
-                <Input
-                  key={input.id}
-                  {...input}
-                  value={values[input.name]}
-                  onChange={onChange}
-                  className={styles.inputs}
-                  multiple={true}
-                />
-              );
-            } else {
-              return (
-                <Input
-                  key={input.id}
-                  {...input}
-                  value={values[input.name]}
-                  onChange={onChange}
-                  className={styles.inputs}
-                />
-              );
-            }
-          } else {
-            return <Select placeholder={input.placeholder} />;
-          }
+          if (input.type !== "select")
+            return (
+              <Input
+                key={input.id}
+                {...input}
+                value={values[input.name]}
+                onChange={onChange}
+                className={styles.inputs}
+              />
+            );
+          else
+            return (
+              <Select
+                {...input}
+                placeholder={input.placeholder}
+                value={values[input.name]}
+                values={values}
+                setValues={setValues}
+                choossArray={
+                  input.name === "place"
+                    ? placeData
+                    : input.name === "category"
+                    ? categoryData
+                    : input.name === "targetAudience"
+                    ? targetAudienceData
+                    : input.name === "type"
+                    ? typeData
+                    : paymentData
+                }
+                //
+              />
+            );
         })}
 
         <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"Save"} type={'submit'} />
+          <ClassicButton width={"200px"} text={"Save"} type={"submit"} />
         </div>
       </form>
     </div>

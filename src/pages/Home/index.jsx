@@ -12,16 +12,14 @@ import headerContext from "../../context/headerContext";
 // on the page.
 
 function Home() {
-
   const { setHeader } = useContext(headerContext);
   const navigate = useNavigate();
 
   const navToNewEvent = () => {
     navigate("/newEvent");
-    console.log(setHeader);
   };
 
-  setHeader('home');
+  setHeader("home");
 
   return (
     <div className={styles.main}>

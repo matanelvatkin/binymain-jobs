@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./style.module.css";
 import { BsArrowRightShort, BsArrowUpShort } from "react-icons/bs";
 
@@ -11,20 +11,30 @@ const Select = ({
   icon = "https://www.clipartmax.com/png/small/151-1517427_icon-contact-flat-web-business-symbol-location-icon-for-resume.png",
   style = {},
   className = "",
+  values,
+  setValues,
   ...props
 }) => {
+  // const [value, setValue] = useState();
   const [valueText, setValueText] = useState(placeholder);
   const [openPopup, setOpenPopup] = useState(false);
+  useEffect(() => {
+    setValues({ ...values, place: valueText });
+  }, [valueText]);
   const lableOnclick = () => {
     setOpenPopup((prev) => !prev);
   };
   const changeTextValue = (e) => {
     setValueText(e.target.innerText);
     setOpenPopup(false);
+    // setValue(valueText);
   };
   return (
     <div>
-      <div className={`${styles.select_container} ${className}`}>
+      <div
+        className={`${styles.select_container} ${className}`}
+        value={valueText}
+      >
         <img className={styles.icon} src={icon} />
         <p className={`${styles.select}`} onClick={lableOnclick}>
           {valueText}
@@ -34,7 +44,9 @@ const Select = ({
             style={{ width: "40px", marginRight: "10px", marginTop: "10px" }}
           />
         ) : (
-          <BsArrowRightShort style={{ width: "40px", marginRight: "10px" ,marginTop:"10px" }} />
+          <BsArrowRightShort
+            style={{ width: "40px", marginRight: "10px", marginTop: "10px" }}
+          />
         )}
       </div>
       {openPopup ? (
