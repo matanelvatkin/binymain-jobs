@@ -5,8 +5,13 @@ import RoundButton from "../../components/RoundButton";
 import ClassicButton from "../../components/ClassicButton copy";
 import headerContext from "../../context/headerContext";
 import { AiFillCalendar } from "react-icons/ai";
+import { MdOutlinePlace } from "react-icons/md"
 import apiCalls from "../../function/apiCalls";
 import translation from "./translation.js";
+import { useNavigatenpm } from "react-router-dom";
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import { IoIosArrowBack } from 'react-icons/io';
+import { BiMoney } from 'react-icons/bi';
 
 // Creator: Naama Orlan
 //This page view the details of a specific event.
@@ -44,46 +49,61 @@ export default function ViewEvent () {
 
     return (
         <div className={style.content}>
-        <div className={style.coverImage}>
+        <div >
             {
                 !loading ? 
-                <img src={eventData.coverImageURL} alt='cover-img'/> :
+                <img src={eventData.coverImageURL} className={style.coverImage} alt='cover-img'/> :
                 <p>loading...</p>
             }
         </div>
-        <div className={style.heading}>
+        <div className={style.section}>
             {
                 !loading ? 
-               <h1>{eventData.eventName}</h1>
+               <h1 className={style.heading}>{eventData.eventName}</h1>
                 : <p>loading...</p>
             }
         </div>
         
-        <div className={style.heading}>
+        <div className={style.section}>
             {
                 !loading ? 
-               <p>{eventData.date}<br/>{eventData.beginningTime} - {eventData.finishTime}</p> 
+                <div className={style.dataSection}>
+                    <div className={style.reactIcon}><FaRegCalendarAlt /></div>
+                    <div className={style.dateOfEvent}> {eventData.date.slice(0,10)}</div>
+                    <br/>
+                    <div  style={{marginRight:'15px'}} className={style.hourOfEvent}>{eventData.beginningTime} - {eventData.finishTime}</div>
+                </div>
+        
+               
                : <p>loading...</p>
             }
         </div>
 
-        <div className={style.heading}>
+        <div className={style.section}>
             {
                 !loading ? 
-               <p>{eventData.place}</p> 
+                <div className={style.dataSection}>
+                    <div className={style.reactIcon}><MdOutlinePlace /></div>
+                    <div className={style.placeOfEvent}> {eventData.place}</div>
+                    
+                </div>        
                : <p>loading...</p>
             }
         </div>
 
-        <div className={style.heading}>
+        <div className={style.section}>
             {
                 !loading ? 
-               <p>כניסה חופשית</p> 
+                <div className={style.dataSection}>
+                    <div className={style.reactIcon}><BiMoney/></div>
+                    <div className={style.placeOfEvent}> כניסה חופשית</div>                    
+                </div>        
                : <p>loading...</p>
+                
             }
         </div>
 
-        <div className={style.details}>
+        <div className={style.section}>
             {
                 !loading ? 
                 <div><p>{translation.details}</p><p> {eventData.summary}</p> </div>
@@ -91,7 +111,7 @@ export default function ViewEvent () {
                : <p>loading...</p>
             }
         </div>
-        <ClassicButton width={100} text={translation.cards}/>           
+        <ClassicButton width={100} text={translation.cards} />           
         </div>
     );
     
