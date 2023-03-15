@@ -1,14 +1,15 @@
 import axios from "axios";
+import dotenv from 'dotenv'
 
+dotenv.config()
 const apiCalls = async (
   method,
-  port,
   url,
   information = null,
   param = null,
   header = null
 ) => {
-  const fullUrl = `http://localhost:${port}/api/${url}`;
+  const fullUrl = `${process.env.SERVER}/api/${url}`;
 
   try {
     const data = await axios({
