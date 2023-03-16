@@ -1,12 +1,15 @@
 .main{
+    width: 100vw;
+    height: 65vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .form{
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,7 +19,7 @@
 }
 
 .inputs{
-    width: 90%;
+    width: 100%;
     font-size: medium;
 }
 
@@ -31,6 +34,16 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    direction: rtl;
+}
+
+.secondButtonContainer{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
     direction: rtl;
 }
 

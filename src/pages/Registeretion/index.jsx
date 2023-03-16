@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './style.module.css'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -11,9 +11,12 @@ function Registeretion() {
     const {setHeader} = useContext(headerContext)
     setHeader('דף הרשמה')
 
-    const fullNameInput = useRef()
-    const phoneNumberInput = useRef()
-    const emailInput = useRef()
+    const [userData, setUserData] = useState({
+      name: '',
+      phone: '',
+      email: '',
+    })
+
 
     const navigate = useNavigate();
 
@@ -28,7 +31,6 @@ function Registeretion() {
           type: "text",
           placeholder: `🙍🏽‍♂️ שם פרטי + שם משפחה`,
           required: true,
-          inputRef: fullNameInput,
         },
         {
           id: 2,
@@ -36,7 +38,6 @@ function Registeretion() {
           type: "text",
           placeholder: "📱 הטלפון שלך",
           required: true,
-          inputRef: phoneNumberInput,
         },
         {
           id: 3,
@@ -44,21 +45,17 @@ function Registeretion() {
           type: "email",
           placeholder: '📧 כתובת אימייל',
           required: true,
-          inputRef: emailInput,
         },
     ];
 
     const createUser = (e) => {
         e.preventDefault();
-        console.log(fullNameInput.current.value, phoneNumberInput.current.value, emailInput.current.value);
-
-        const newUserData = {
-            fullName: fullNameInput.current.value,
-            phoneNumber: phoneNumberInput.current.value,
-            email: emailInput.current.value,
-          };
-          console.log(newUserData);
+          console.log(userData);
     }
+
+    const handleChange = (e) => {
+        setUserData({ ...userData, [e.target.name]: e.target.value });
+    };
 
   return (
     <div className={styles.main}>
@@ -69,7 +66,7 @@ function Registeretion() {
                 key={input.id}
                 {...input}
                 className={styles.inputs}
-                inputRef={inputs.inputRef}
+                onChange={handleChange}
               />
             )
             })}
