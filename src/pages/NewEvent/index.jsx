@@ -373,6 +373,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               <Input
                 key={input.id}
                 {...input}
+                width={'300px'}
                 value={values[input.name]}
                 onChange={onChange}
                 className={styles.inputs}

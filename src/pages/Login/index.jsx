@@ -14,8 +14,9 @@ import axios from 'axios';
 
 function Login() {
   const { setHeader } = useContext(headerContext)
-
-  const [checked, setChecked] = useState(false);
+  setHeader('home')
+  
+  const [checked, setChecked] = useState(true);
   const [userInfo, setUserInfo] = useState({})
 
   const navigate = useNavigate();
