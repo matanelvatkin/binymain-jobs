@@ -306,35 +306,35 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         window.location.reload(false);
       });
 
-    // const eventData = {
-    //   eventName: values.eventName,
-    //   summary: values.summary,
-    //   advertiser: {
-    //     name: values.advertiserName,
-    //     tel: values.advertiserTel,
-    //     email: values.advertiserEmail,
-    //   },
-    //   date: values.date,
-    //   beginningTime: values.beginningTime,
-    //   finishTime: values.finishTime,
-    //   place: values.place,
-    //   category: values.category,
-    //   targetAudience: values.targetAudience,
-    //   registrationPageURL: values.registrationPageURL,
-    //   cardImageURL: filesValues.cardImageURL,
-    //   coverImageURL: filesValues.coverImageURL,
-    //   gallery: filesValues.gallery,
-    //   type: values.type,
-    //   payment: values.payment,
-    // };
+    const eventData = {
+      eventName: values.eventName,
+      summary: values.summary,
+      advertiser: {
+        name: values.advertiserName,
+        tel: values.advertiserTel,
+        email: values.advertiserEmail,
+      },
+      date: values.date,
+      beginningTime: values.beginningTime,
+      finishTime: values.finishTime,
+      place: values.place,
+      category: values.category,
+      targetAudience: values.targetAudience,
+      registrationPageURL: values.registrationPageURL,
+      cardImageURL: filesValues.cardImageURL,
+      coverImageURL: filesValues.coverImageURL,
+      gallery: filesValues.gallery,
+      type: values.type,
+      payment: values.payment,
+    };
     console.log(values);
     // console.log(filesValues);
     // console.log(eventData);
-    // apiCalls("post", "event/createvent", eventData).then((res) => {
-    //   if (res.status === 200) {
-    //     nav("/");
-    //   }
-    // });
+    apiCalls("post", "event/createvent", eventData).then((res) => {
+      if (res.status === 200) {
+        nav("/");
+      }
+    });
   };
   useEffect(() => {
     setConstancy(values.type);
