@@ -6,16 +6,13 @@ import headerContext from '../../context/headerContext'
 import Input from '../../components/Input'
 import ClassicButton from '../../components/ClassicButton copy'
 import {IoIosCreate} from 'react-icons/io'
+import axios from 'axios'
 
 function Registeretion() {
     const {setHeader} = useContext(headerContext)
     setHeader('דף הרשמה')
 
-    const [userData, setUserData] = useState({
-      name: '',
-      phone: '',
-      email: '',
-    })
+    const [userData, setUserData] = useState({})
 
 
     const navigate = useNavigate();
@@ -23,6 +20,7 @@ function Registeretion() {
     const navToHome= () => {
       navigate("/");
     };
+    
 
     const inputs = [
         {
@@ -51,6 +49,12 @@ function Registeretion() {
     const createUser = (e) => {
         e.preventDefault();
           console.log(userData);
+          axios
+      .post("http://localhost:5000/api/user/creatUser", userData)
+      .then(() => {
+       console.log('user saved succesfuly!');
+       navigate('/login')      
+      });
     }
 
     const handleChange = (e) => {
@@ -65,13 +69,15 @@ function Registeretion() {
               <Input
                 key={input.id}
                 {...input}
+                type={'text'}
+                width={'300px'}
                 className={styles.inputs}
                 onChange={handleChange}
               />
             )
             })}
             <ClassicButton
-            width={'60%'}
+            width={'70%'}
             type={'submit'}
             >
                <IoIosCreate className={styles.icon}/> צור משתמש
