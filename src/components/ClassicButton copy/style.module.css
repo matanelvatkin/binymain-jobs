@@ -3,11 +3,11 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
-  height: 40px;
+  height: 35px;
   cursor: pointer;
   background-color: var(--bg-secondary-color);
   color: var(--text-Fourth-color);
-  border-radius: 5px;
+  border-radius: 18px;
   border: none;
   font-family: "Poppins", sans-serif;
   font-weight: bold;

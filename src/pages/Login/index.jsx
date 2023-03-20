@@ -16,11 +16,7 @@ function Login() {
   const { setHeader } = useContext(headerContext)
 
   const [checked, setChecked] = useState(false);
-  const [userInfo, setUserInfo] = useState({
-    name: '',
-    phone: '',
-    token: '',
-  })
+  const [userInfo, setUserInfo] = useState({})
 
   const navigate = useNavigate();
 
@@ -34,13 +30,13 @@ function Login() {
 
   const loginAouth = (e) => {
     e.preventDefault();
-    console.log(userInfo);
-    // useEffect(() => {
-    //         axios.get('http://localhost:5000/api/users', userInfo).then((res) => {
-    //             if(res.status===200) {
-    //         console.log();
-    //         }})
-    // }, [])
+            axios
+            .get('http://localhost:5000/api/user/findUser')
+            .then((res) => {
+              console.log(res);
+                if(res.status===200) {
+                  navToHome()
+            }})
   }
 
   const handleChange = (e) => {
@@ -71,6 +67,7 @@ function Login() {
 
   return (
     <div className={styles.main}>
+      <div className={styles.container}>
       <h2>התחברות</h2>
       <form className={styles.form} onSubmit={loginAouth}>
         {inputs.map((input) => {
@@ -80,6 +77,7 @@ function Login() {
               <Input
                 key={input.id}
                 {...input}
+                width={'300px'}
                 className={styles.inputs}
                 onChange={handleChange}
               />
@@ -111,6 +109,7 @@ function Login() {
           <FiUserPlus className={styles.icon} /> הרשמה
         </ClassicButton>
         </div>
+      </div>
       </div>
     </div>
   )
