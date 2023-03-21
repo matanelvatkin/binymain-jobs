@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './style.module.css'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -14,31 +14,32 @@ function Registeretion() {
 
     const [userData, setUserData] = useState({})
 
-
     const navigate = useNavigate();
-
-    const navToHome= () => {
-      navigate("/");
-    };
     
-
     const inputs = [
         {
           id: 1,
           name: "fullName",
           type: "text",
-          placeholder: `🙍🏽‍♂️ שם פרטי + שם משפחה`,
+          placeholder: `🙍🏽‍♂️ שם מלא`,
           required: true,
         },
         {
           id: 2,
-          name: "phoneNumber",
-          type: "text",
-          placeholder: "📱 הטלפון שלך",
+          name: "password",
+          type: "password",
+          placeholder: "🗝️ הגדר סיסמא",
           required: true,
         },
         {
           id: 3,
+          name: "confirmPassword",
+          type: "password",
+          placeholder: "🗝️ אמת סיסמא",
+          required: true,
+        },
+        {
+          id: 4,
           name: "email",
           type: "email",
           placeholder: '📧 כתובת אימייל',
@@ -61,6 +62,7 @@ function Registeretion() {
         setUserData({ ...userData, [e.target.name]: e.target.value });
     };
 
+
   return (
     <div className={styles.main}>
         <form className={styles.formArea} onSubmit={createUser}>
@@ -69,7 +71,6 @@ function Registeretion() {
               <Input
                 key={input.id}
                 {...input}
-                type={'text'}
                 width={'300px'}
                 className={styles.inputs}
                 onChange={handleChange}
