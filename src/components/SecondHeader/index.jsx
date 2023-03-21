@@ -9,10 +9,20 @@ function SecondHeader({text , ...props}) {
     const navigate = useNavigate()
     const {setHeader}= useContext(headerContext)
 
+    const handleNavigate = () => {
+      const currentLocation = window.location.pathname;
+      if(currentLocation === '/registeretion'){
+        navigate('/login')
+      }else{
+        navigate("/")
+      }
+    }
+
+
     return (
     <div className={styles.secondHeader}>
         <div className={styles.text}>{text}</div>
-        <BsArrowRight className={styles.arrowBack} onClick={() =>{navigate("/")}}/>
+        <BsArrowRight className={styles.arrowBack} onClick={handleNavigate}/>
     </div>
       
   )

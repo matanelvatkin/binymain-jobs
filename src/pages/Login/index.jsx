@@ -31,14 +31,23 @@ function Login() {
 
   const loginAouth = (e) => {
     e.preventDefault();
-            axios
-            .get('http://localhost:5000/api/user/findUser')
-            .then((res) => {
-              console.log(res);
-                if(res.status===200) {
-                  navToHome()
-            }})
-  }
+    axios.post("http://localhost:5000/api/user/login", {
+      fullName: userInfo.fullName,
+      password: userInfo.password
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          navToHome();
+        } else {
+          console.log('error');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   const handleChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
@@ -53,14 +62,14 @@ function Login() {
       id: 1,
       name: "fullName",
       type: "text",
-      placeholder: `🙍🏽‍♂️ שם פרטי + שם משפחה`,
+      placeholder: `🙍🏽‍♂️ שם מלא`,
       required: true,
     },
     {
       id: 2,
-      name: "phoneNumber",
-      type: "text",
-      placeholder: "📱 הטלפון שלך",
+      name: "password",
+      type: "password",
+      placeholder: "🗝️ סיסמא",
       required: true,
     },
   ];
