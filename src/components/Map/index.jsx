@@ -9,7 +9,8 @@ const containerStyle = {
 function Map() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: `AIzaSyDU2cin9T65k4O0yKEpC9fM19TEitaeba8`,
+    googleMapsApiKey: process.env.REACT_APP_API_GOOGLE_MAPS,
+    // `AIzaSyDU2cin9T65k4O0yKEpC9fM19TEitaeba8`,
   });
   let infoWindow;
   const [map, setMap] = useState(null);
