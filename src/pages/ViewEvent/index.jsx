@@ -33,7 +33,8 @@ export default function ViewEvent () {
     const [ eventData, setEventData ] = useState();
     
     async function fetchEvent () {
-        let apiData = await apiCalls ('get', 2000, '/event/' + event);
+        let apiData = await apiCalls ('get', 'event/' + event);
+        console.log(apiData);
         setEventData(apiData);        
     }
 
