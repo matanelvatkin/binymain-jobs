@@ -216,7 +216,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 6,
       name: "date",
-      type: "date",
+      type: "dateInput",
       label: "החל מתאריך",
       placeholder: "בחר תאריך ביומן",
       required: true,
