@@ -7,7 +7,7 @@ const apiCalls = async (
   param = null,
   header = null
 ) => {
-  const baseUrl = "http://localhost:6000"
+  const baseUrl = "https://server-vike.vercel.app/";
   // const baseUrl = "https://server-production-7ef9.up.railway.app/"
   const fullUrl = `${baseUrl}/api/${url}`;
 

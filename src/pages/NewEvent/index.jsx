@@ -8,6 +8,7 @@ import axios from "axios";
 import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
 import PersonalEvent from "../../components/PersonalEvent";
+import DateInput from "../../components/DateInput";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const nav = useNavigate();
@@ -51,23 +52,26 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "בהתאמה אישית",
   ];
 
-  const {setHeader} = useContext (headerContext);
-  setHeader("פרסם אירוע")
+  const { setHeader } = useContext(headerContext);
+  setHeader("פרסם אירוע");
   const [values, setValues] = useState({
     eventName: "",
     summary: "",
     advertiserName: "",
     advertiserTel: "",
     advertiserEmail: "",
-    date: "",
-    endDate: "",
+    isReapeated: false,
+    repeatType: "",
+    date: [],
+    repeatSettingsType: "",
+    repeatSettingsRepeatEnd: "",
     beginningTime: "",
     finishTime: "",
+    place: "",
     registrationPageURL: "",
     type: "",
     payment: "",
-    days:[],
-    repeat:""
+    days: [],
   });
   const [filesValues, setFilesValues] = useState({
     cardImageURL:
@@ -139,7 +143,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 6,
       name: "date",
-      type: "date",
+      type: "dateInput",
       label: "תאריך האירוע",
       placeholder: "בחר תאריך ביומן",
       required: true,
@@ -369,18 +373,18 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         encType="multipart/form-data"
       >
         {inputs.map((input) => {
-          if (input.type !== "select")
+          if (input.type !== "select" && input.type !== "dateInput")
             return (
               <Input
                 key={input.id}
                 {...input}
-                width={'300px'}
+                width={"300px"}
                 value={values[input.name]}
                 onChange={onChange}
                 className={styles.inputs}
               />
             );
-          else
+          else if (input.type === "select")
             return (
               <Select
                 {...input}
@@ -393,10 +397,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 choossArray={input.name === "type" ? typeData : paymentData}
               />
             );
+          else return <DateInput />;
         })}
-        {constancy&&constancy !== "בהתאמה אישית" && 
+        {constancy &&
+          constancy !== "בהתאמה אישית" &&
           getEventArrayInputs().map((input) => {
-            if (input.type !== "select")
+            if (input.type !== "select" && input.type !== "dateInput")
               return (
                 <Input
                   key={input.id}
@@ -406,7 +412,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   className={styles.inputs}
                 />
               );
-            else
+            else if (input.type === "select")
               return (
                 <Select
                   {...input}
@@ -425,6 +431,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   }
                 />
               );
+            else return <DateInput />;
           })}
         {constancy === "בהתאמה אישית" && (
           <PersonalEvent
