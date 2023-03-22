@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
@@ -51,7 +51,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "בהתאמה אישית",
   ];
 
-  const { setHeader, header } = headerContext;
+  const {setHeader} = useContext (headerContext);
+  setHeader("פרסם אירוע")
   const [values, setValues] = useState({
     eventName: "",
     summary: "",
