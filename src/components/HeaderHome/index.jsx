@@ -7,12 +7,13 @@ import { useNavigate } from 'react-router-dom';
 function HeaderHome() {
   const navigate = useNavigate()
   return (
-    <div className={styles.headerHome_container}>
+    <div  className={styles.headerHome_container}>
       <div className={styles.title}>
-         <h1> HereEvent </h1>
+         <h1 b="inputSearch"> HereEvent </h1>
       </div>
       <div className={styles.options}>
-        <span>..אירועים באיזור שלך | <FiSearch className={styles.icon}/></span>
+        <span htmlFor="inputSearch" ><input className={styles.input} type="text" placeholder="אירועים באיזור שלך.." dir='rtl'name='inputSearch'/>| <FiSearch className={styles.icon}/></span>
+        {/* <span>..אירועים באיזור שלך | <FiSearch className={styles.icon}/></span> */}
         <span onClick={() =>{navigate("/searchEvent")}}>  חיפוש מתקדם | <CgPlayListSearch className={styles.icon}/></span>   
       </div >
     </div>

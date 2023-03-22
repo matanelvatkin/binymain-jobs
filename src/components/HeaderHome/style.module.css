@@ -53,3 +53,14 @@ padding: 8px 20px 0 0 ;
 
 }
 
+.input{
+    background-color: transparent;
+    border: none;
+    color: #CCCCCC;
+    font-size: 16px;
+}
+
+.input::placeholder{
+    color: #CCCCCC;
+    font-size: 16px;
+}
