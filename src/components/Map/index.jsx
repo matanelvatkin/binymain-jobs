@@ -1,3 +1,4 @@
+import styles from "./style.module.css";
 import React, { useCallback, useState } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
@@ -10,7 +11,6 @@ function Map() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_API_GOOGLE_MAPS,
-    // `AIzaSyDU2cin9T65k4O0yKEpC9fM19TEitaeba8`,
   });
   let infoWindow;
   const [map, setMap] = useState(null);
@@ -71,7 +71,7 @@ function Map() {
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
-    setZoom(14);
+    setZoom(11);
   }, []);
 
   return isLoaded ? (
