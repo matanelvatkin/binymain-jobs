@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const apiCalls = async (
-  method,
+  method, 
   url,
   information = null,
   param = null,
   header = null
 ) => {
-  const baseUrl = "http://localhost:6000"
+  const baseUrl = "http://localhost:5000"
   // const baseUrl = "https://server-production-7ef9.up.railway.app/"
   const fullUrl = `${baseUrl}/api/${url}`;
 
