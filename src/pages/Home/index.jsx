@@ -24,12 +24,11 @@ function Home() {
   return (
     <div className={styles.main}>
       <div className={styles.eventsContainer}>
-      <p>אירועים קרובים</p>
       <EventCard />
       </div>
       <div className={styles.button}>
         <ClassicButton
-          width={"110px"}
+          width={"120px"}
           text={"פרסם אירוע"}
           onClick={() => {
             navToNewEvent();
