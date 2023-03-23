@@ -12,7 +12,7 @@ import { useNavigatenpm } from "react-router-dom";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiMoney } from "react-icons/bi";
-// import BackArrow from "../../components/BackArrow";
+import BackArrow from "../../components/BackArrow";
 
 // Creator: Naama Orlan
 //This page view the details of a specific event.
@@ -59,7 +59,10 @@ export default function ViewEvent() {
         ) : (
           <p>loading...</p>
         )}
-        {/* <div className={style.backArrow}> <BackArrow color={"black"} /></div> */}
+        <div className={style.backArrow}>
+          {" "}
+          <BackArrow color={"black"} />
+        </div>
       </div>
       <div className={style.section}>
         {!loading ? (

@@ -19,7 +19,7 @@ const apiCalls = async (
       params: { q: param },
       Headers: { header },
     });
-    console.log(data.data);
+    console.log(data);
     return data.data;
   } catch (error) {
     console.log(error);

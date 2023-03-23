@@ -55,11 +55,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
   const [values, setValues] = useState({
-    eventName: "",
-    summary: "",
-    advertiserName: "",
-    advertiserTel: "",
-    advertiserEmail: "",
+    eventName: "kobi",
+    summary: "test",
+    advertiserName: "kobi",
+    advertiserTel: "test",
+    advertiserEmail: "kobi@test",
     isReapeated: false,
     repeatType: "",
     date: [],
@@ -67,9 +67,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     repeatSettingsRepeatEnd: "",
     beginningTime: "",
     finishTime: "",
-    place: "",
+    place: "kobi",
     registrationPageURL: "",
-    type: "",
+    // type: "",
     payment: "",
     days: [],
   });
@@ -133,7 +133,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
     {
       id: 16,
-      name: "type",
+      name: "repeatType",
       type: "select",
       label: "תדירות",
       placeholder: "תדירות",
@@ -287,59 +287,60 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   ];
 
   const getEventArrayInputs = () => {
-    if (values.type === "תדירות") return [];
-    else if (values.type === "אירוע ללא חזרה") return oneTimeEventArray;
-    else if (values.type !== "בהתאמה אישית") return dayliEvent;
+    if (values.repeatType === "תדירות") return [];
+    else if (values.repeatType === "אירוע ללא חזרה") return oneTimeEventArray;
+    else if (values.repeatType !== "בהתאמה אישית") return dayliEvent;
     else return [];
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    for (const key in values) {
-      if (Array.isArray(values[key])) {
-        for (const file of values[key]) {
-          formData.append(key, file);
-        }
-      } else {
-        formData.append(key, values[key]);
-      }
-    }
-    console.log(formData);
-    axios
-      .post("http://localhost:5000/api/event/createvent", formData)
-      .then(() => {
-        window.location.reload(false);
-      });
-
-    // const eventData = {
-    //   eventName: values.eventName,
-    //   summary: values.summary,
-    //   advertiser: {
-    //     name: values.advertiserName,
-    //     tel: values.advertiserTel,
-    //     email: values.advertiserEmail,
-    //   },
-    //   date: values.date,
-    //   beginningTime: values.beginningTime,
-    //   finishTime: values.finishTime,
-    //   place: values.place,
-    //   category: values.category,
-    //   targetAudience: values.targetAudience,
-    //   registrationPageURL: values.registrationPageURL,
-    //   cardImageURL: filesValues.cardImageURL,
-    //   coverImageURL: filesValues.coverImageURL,
-    //   gallery: filesValues.gallery,
-    //   type: values.type,
-    //   payment: values.payment,
-    // };
-    console.log(values);
-    // console.log(filesValues);
-    // console.log(eventData);
-    // apiCalls("post", "event/createvent", eventData).then((res) => {
-    //   if (res.status === 200) {
-    //     nav("/");
+    // const formData = new FormData();
+    // for (const key in values) {
+    //   if (Array.isArray(values[key])) {
+    //     for (const file of values[key]) {
+    //       formData.append(key, file);
+    //     }
+    //   } else {
+    //     formData.append(key, values[key]);
     //   }
-    // });
+    // }
+    // console.log(formData);
+    // axios
+    //   .post("http://localhost:5000/api/event/createvent", formData)
+    //   .then(() => {
+    //     window.location.reload(false);
+    //   });
+
+    const eventData = {
+      eventName: values.eventName,
+      summary: values.summary,
+      advertiser: {
+        name: values.advertiserName,
+        tel: values.advertiserTel,
+        email: values.advertiserEmail,
+      },
+      date: values.date,
+      beginningTime: values.beginningTime,
+      finishTime: values.finishTime,
+      place: values.place,
+      category: values.category,
+      targetAudience: values.targetAudience,
+      registrationPageURL: values.registrationPageURL,
+      cardImageURL: filesValues.cardImageURL,
+      coverImageURL: filesValues.coverImageURL,
+      gallery: filesValues.gallery,
+      repeatType: values.repeatType,
+      payment: values.payment,
+    };
+    console.log(values);
+    console.log(filesValues);
+    console.log(eventData);
+    apiCalls("post", "event/createvent", eventData).then((res) => {
+      if (res.status === 200) {
+        console.log(res);
+        nav("/newEvent");
+      }
+    });
   };
   useEffect(() => {
     setConstancy(values.type);
@@ -394,7 +395,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                choossArray={input.name === "type" ? typeData : paymentData}
+                choossArray={
+                  input.name === "repeatType" ? typeData : paymentData
+                }
               />
             );
           else return <DateInput />;
