@@ -167,7 +167,7 @@ export default function SearchEvent() {
                     {
                         !loading ? 
                         audiences.map((audience, i) => <RoundButton text={translation[audience.name]} icon={audience.icon} id={i} func={clickAudience} isActive={audience.isActive} />) :
-                        <Loader />
+                        <Loader />cd
                     }
                 </div>
             </div>

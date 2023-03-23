@@ -19,7 +19,7 @@ function Main() {
         <Route path="/searchEvent" element={<SearchEvent/>}/>
         <Route path="/searchEvent/result/:query" element={<SearchResult/>}/>
         <Route path="/viewEvent/:event" element={<ViewEvent/>}/>
-        <Route path="*" element={<Navigate to="/"/>} />
+        {/* <Route path="*" element={<Navigate to="/"/>} /> */}
       </Routes>
     </main>
   )
