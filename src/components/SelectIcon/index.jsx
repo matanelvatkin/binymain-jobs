@@ -29,6 +29,8 @@ const SelectIcon = ({array=[] , text, icon, ...props}) => {
           text={category}
           icon={icon}
           isActive={activeArray.includes(category)}
+          activeArray={activeArray}
+          setActiveArray={setActiveArray}
           func={() => handleCategoryClick(category)}
           {...props}
         />
