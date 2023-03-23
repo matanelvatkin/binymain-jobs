@@ -12,8 +12,8 @@ function HeaderHome() {
          <h1> HereEvent </h1>
       </div>
       <div className={styles.options}>
-        <span onClick={() =>{navigate("/searchEvent")}}>..אירועים באיזור שלך | <FiSearch className={styles.icon}/></span>
-        <span>  חיפוש מתקדם | <CgPlayListSearch className={styles.icon}/></span>   
+        <span>..אירועים באיזור שלך | <FiSearch className={styles.icon}/></span>
+        <span onClick={() =>{navigate("/searchEvent")}}>  חיפוש מתקדם | <CgPlayListSearch className={styles.icon}/></span>   
       </div >
     </div>
   )

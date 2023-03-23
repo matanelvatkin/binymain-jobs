@@ -33,7 +33,6 @@ function Home() {
           text={"פרסם אירוע"}
           onClick={() => {
             navToNewEvent();
-            setHeader("פרסם אירוע");
           }}
         />
       </div>

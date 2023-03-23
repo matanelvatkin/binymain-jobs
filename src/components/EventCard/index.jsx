@@ -51,7 +51,7 @@ function EventCard({ events }) {
     const navigate = useNavigate();
 
     const navToViewEvent = (eventID) => {
-        navigate('/viewEvent/:' + eventID);
+        navigate('/viewEvent/' + eventID);
     };
 
 
@@ -62,7 +62,7 @@ function EventCard({ events }) {
                     <div
                         className={styles.main}
                         key={v._id}
-                        onDoubleClick={() => {
+                        onClick={() => {
                             navToViewEvent(v._id);
                         }}
                     >
