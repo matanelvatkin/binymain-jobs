@@ -68,7 +68,7 @@ function Registeretion() {
 
   return (
     <div className={styles.main}>
-        <form className={styles.formArea} onSubmit={createUser}>
+        <form className={styles.formArea} onSubmit={createUser} autoComplete="off">
         {inputs.map((input) => {
             return (
               <Input

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import headerContext from '../../context/headerContext';
 import styles from "./style.module.css";
 import Input from '../../components/Input'
@@ -49,8 +49,20 @@ function Login() {
 
 
   const handleChange = (e) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-  }
+    const { name, value } = e.target;
+    if (checked) {
+      // If the toggle switch is on, save the value in local storage
+      localStorage.setItem(name, value);
+    } else {
+      // If the toggle switch is off, retrieve the value from local storage
+      const storedValue = localStorage.getItem(name);
+      if (storedValue) {
+        setUserInfo({ ...userInfo, [name]: storedValue });
+        return;
+      }
+    }
+    setUserInfo({ ...userInfo, [name]: value });
+  };
 
   const handleToggleSwitch = (e) => {
     setChecked(e.target.checked);
@@ -78,11 +90,9 @@ function Login() {
     <div className={styles.main}>
       <div className={styles.container}>
       <h2>התחברות</h2>
-      <form className={styles.form} onSubmit={loginAouth}>
+      <form className={styles.form} onSubmit={loginAouth} autoComplete='off'>
         {inputs.map((input) => {
-          if (input.type !== "select")
             return (
-
               <Input
                 key={input.id}
                 {...input}
