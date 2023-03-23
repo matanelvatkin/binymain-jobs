@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react"
+import DateInput from "../DateInput"
 import Input from "../Input"
 import Select from "../Select"
 import styles from "./style.module.css"
 
-// creator: israel israeli
+// creator: matanel vatkin
 // color: _______________
 // icon: ________________
 
 const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
    const days = [,"א" ,"ב" ,"ג" ,"ד" ,"ה" ,'ו' ,"ש"]
-   const repeat = ['חודשי','בשבועיים','שבועי','ללא']
+   const repeat = ['חודשי','דו חודשי','שבועי','ללא']
    const [repeatDay,setRepeatDay] = useState("")
    const [choossDay,setChoossDay] = useState([])
    const onClickDay = (e)=>{
@@ -26,7 +27,7 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
    const event = [{
       id: 6,
       name: "date",
-      type: "date",
+      type: "dateInput",
       label: "החל מתאריך",
       placeholder: "בחר תאריך ביומן",
       required: true,
@@ -100,7 +101,7 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
    </div>
       <Select placeholder="חזרה" choossArray={repeat} name="repeat" setValues={setRepeatDay}/>
       {event.map((input)=>{
-          if(input.type !== "select")
+          if(input.type !== "select"&& input.type !== "dateInput")
           return (
             <Input
               key={input.id}
@@ -110,7 +111,7 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
               className={styles.inputs}
             />
           );
-        else
+        else if (input.type === "select")
           return (
               <Select
                 {...input}
@@ -128,9 +129,11 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
                     : choossArray['targetAudienceData']
                 }
               />
-            );})}
+            );
+            else return <DateInput />})}
       </>
    )
 }
+
 
 export default PersonalEvent
