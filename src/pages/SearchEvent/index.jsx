@@ -13,14 +13,17 @@ export default function SearchEvent() {
     const navigate = useNavigate()
 
     const [loading, setLoading] = useState(true)
-
     const [categories, setCategories] = useState([])
-
     const [audiences, setAudiences] = useState([])
      
     async function fetchData(){
-        let apiCategories = await apiCalls('get', 2000, '/setting/categories')
-        let apiAudiences = await apiCalls('get', 2000, '/setting/audiences')
+        let apiCategories, apiAudiences
+        try {
+            apiCategories = await apiCalls('get', '/setting/categories')
+            apiAudiences = await apiCalls('get', '/setting/audiences')
+        } catch(e) {
+            console.log();
+        }
         
         setCategories(()=> apiCategories[0].settingData.map(v => ({...v, isActive: false})))
         setAudiences(()=> apiAudiences[0].settingData.map(v => ({...v, isActive: false})))
@@ -63,7 +66,6 @@ export default function SearchEvent() {
     setHeader(translation.advencedSearch)
 
     function clickCategory(e) {
-        console.log(e.target);
         setCategories(prev =>  prev.map((v,i) => i == e.target.id ? ({...v, isActive: !v.isActive}) : v))
     }
 
@@ -96,23 +98,22 @@ export default function SearchEvent() {
     }
 
     function handleSubmit() {
-        let dbQuery = {$and: []}
+        let dbQuery = {}
         let activeCategories = categories.filter(category => category.isActive)
         let activeAudiences = audiences.filter(audience => audience.isActive)
 
         if(activeCategories.length >= 2) {
-            dbQuery.$and.push({category: {$in: []}}) 
-            activeCategories.forEach(category => dbQuery.$and[0].category.$in.push({$elemMatch: {name: category.name}}))
+            dbQuery.category = {$in: []} 
+            activeCategories.forEach(category => dbQuery.category.$in.push(category._id))
         } else if(activeCategories.length) {
-            dbQuery.$and.push({category: {$elemMatch: {name: activeCategories[0].name}}})
+            dbQuery.category ={$in: [activeCategories[0]._id]}
         }
     
         if(activeAudiences.length >= 2) {
-            dbQuery.$and.push({targetAudience: {$in: []}})
-            let audeinceQueryIndex = dbQuery.$and.findIndex(v => Object.keys(v)[0] == 'targetAudience')
-            activeAudiences.forEach(audience => dbQuery.$and[audeinceQueryIndex].$in.push({$elemMatch: {name: audience.name}}))
+            dbQuery.targetAudience = {$in: []}
+            activeAudiences.forEach(audience => dbQuery.targetAudience.$in.push(audience._id))
         } else if(activeAudiences.length) {
-            dbQuery.$and.push({targetAudience: {$elemMatch: {name: activeAudiences[0].name}}})
+            dbQuery.targetAudience = {$in: [activeAudiences[0]._id]}
         }
     
         let hoursDiffrence = 23 - date.getHours()
@@ -123,19 +124,21 @@ export default function SearchEvent() {
             let today = new Date().getDay()
             if(today === 7) {
                 let endDayOfWeek = new Date(date.getTime() + (6 * 24 * 60**2 * 1000) + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + (secondsDiffrence * 1000))
-                dbQuery.$and.push({date: {$gt: date, $lt: endDayOfWeek}})
+                dbQuery.date = {$gte: date.toISOString(), $lte: endDayOfWeek.toISOString()}
             }else if(today === 6) {
                 let endOfDay = new Date(date.getTime() + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + secondsDiffrence * 1000 ) 
-                dbQuery.$and.push({date: {$gt: date, $lt: endOfDay}})
+                dbQuery.date = {$gte: date.toISOString(), $lte: endOfDay.toISOString()}
             } else {
                 let endDayOfWeek = new Date(date.getTime() + ((6 - today) * 24 * 60**2 * 1000) + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + (secondsDiffrence * 1000))
-                dbQuery.$and.push({date: {$gt: date, $lt: endDayOfWeek}})
+                dbQuery.date = {$gte: date.toISOString(), $lte: endDayOfWeek.toISOString()}
             }
 
         } else {
             let endOfDay = new Date(date.getTime() + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + secondsDiffrence * 1000 ) 
-            dbQuery.$and.push({date: {$gt: date, $lt: endOfDay}})
+            dbQuery.date = {$gte: date.toISOString(), $lte: endOfDay.toISOString()}
         }
+        
+    
 
         let query = JSON.stringify(dbQuery)
         const encodedQueryString = encodeURIComponent(query);
@@ -146,7 +149,7 @@ export default function SearchEvent() {
     function useBackBtn() {
         navigate(-1)
     }
-
+ 
   return (
     <div>
         <div className={style.content}>
@@ -167,7 +170,7 @@ export default function SearchEvent() {
                     {
                         !loading ? 
                         audiences.map((audience, i) => <RoundButton text={translation[audience.name]} icon={audience.icon} id={i} func={clickAudience} isActive={audience.isActive} />) :
-                        <Loader />cd
+                        <Loader />
                     }
                 </div>
             </div>
