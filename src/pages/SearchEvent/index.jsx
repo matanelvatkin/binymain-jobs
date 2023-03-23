@@ -124,18 +124,18 @@ export default function SearchEvent() {
             let today = new Date().getDay()
             if(today === 7) {
                 let endDayOfWeek = new Date(date.getTime() + (6 * 24 * 60**2 * 1000) + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + (secondsDiffrence * 1000))
-                dbQuery.date = {$gte: date.toISOString(), $lte: endDayOfWeek.toISOString()}
+                dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endDayOfWeek.toISOString()}}
             }else if(today === 6) {
                 let endOfDay = new Date(date.getTime() + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + secondsDiffrence * 1000 ) 
-                dbQuery.date = {$gte: date.toISOString(), $lte: endOfDay.toISOString()}
+                dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endOfDay.toISOString()}}
             } else {
                 let endDayOfWeek = new Date(date.getTime() + ((6 - today) * 24 * 60**2 * 1000) + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + (secondsDiffrence * 1000))
-                dbQuery.date = {$gte: date.toISOString(), $lte: endDayOfWeek.toISOString()}
+                dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endDayOfWeek.toISOString()}}
             }
 
         } else {
             let endOfDay = new Date(date.getTime() + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + secondsDiffrence * 1000 ) 
-            dbQuery.date = {$gte: date.toISOString(), $lte: endOfDay.toISOString()}
+            dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endOfDay.toISOString()}}
         }
         
     
