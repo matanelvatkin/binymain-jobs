@@ -2,7 +2,6 @@
 display: flex;
 flex-direction: column;
 align-items: center;
-gap: 1px;
 font-family: 'Open Sans', sans-serif;
 }
 
@@ -31,8 +30,11 @@ font-family: 'Open Sans', sans-serif;
 
 .active {
   background-color: var(--bg-secondary-color);
-  height: 52px;
-  width: 52px;
+  height: 53px;
+  width: 53px;
+  box-shadow: inset -4px -4px 12px rgba(0, 0, 0, 0.1),
+  inset 4px 4px 12px rgba(0, 0, 0, 0.1); 
+  
 }
 
 .icon {
