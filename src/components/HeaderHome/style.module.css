@@ -8,6 +8,8 @@
     height: 170px;
     top: 0px;
     border-radius: 0px 0px 33px 33px;
+    position: fixed;
+    top: 0;
 }
 
 .title{

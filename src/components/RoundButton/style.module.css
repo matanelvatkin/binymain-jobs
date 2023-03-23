@@ -2,7 +2,6 @@
 display: flex;
 flex-direction: column;
 align-items: center;
-gap: 1px;
 font-family: 'Open Sans', sans-serif;
 }
 
@@ -10,8 +9,8 @@ font-family: 'Open Sans', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60px;
-  width: 60px;
+  height: 55px;
+  width: 55px;
   cursor: pointer;
   background-color: var(--bg-color);
   color: var(--text-third-color);
@@ -21,16 +20,21 @@ font-family: 'Open Sans', sans-serif;
   font-weight: bold;
   box-shadow: 0 3px 8px rgba(21, 57, 42, 0.25), 3px 3px 8px rgba(21, 57, 42, 0.25)
   , 0 3px 8px rgba(21, 57, 42, 0.25), 0 0 ;
+  transition: 0.2s;
 }
 
-.button:focus {
+/* .button:focus {
   box-shadow: inset -4px -4px 12px rgba(124, 142, 139, 0.25),
-    inset 4px 4px 12px rgba(124, 142, 139, 0.25);
-    
-}
+    inset 4px 4px 12px rgba(124, 142, 139, 0.25);    
+} */
 
 .active {
-  background-color: #537FE7;
+  background-color: var(--bg-secondary-color);
+  height: 53px;
+  width: 53px;
+  box-shadow: inset -4px -4px 12px rgba(0, 0, 0, 0.1),
+  inset 4px 4px 12px rgba(0, 0, 0, 0.1); 
+  
 }
 
 .icon {

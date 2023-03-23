@@ -9,7 +9,7 @@ import styles from "./style.module.css";
 // <Button type={'submit'} width={'200px'} text={'Click'}></Button>
 
 
-function ClassicButton({ text, type, width, func, ...props }) {
+function ClassicButton({ text, children, type, width, func, ...props }) {
     return (
         <>
             <button
@@ -20,6 +20,7 @@ function ClassicButton({ text, type, width, func, ...props }) {
                 {...props}
                 >
                 {text} 
+                {children}
             </button>
         </>
     )
