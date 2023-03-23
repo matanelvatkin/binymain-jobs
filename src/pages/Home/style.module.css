@@ -1,7 +1,7 @@
 .main{
-    min-height: 65vh;
+    min-height: 86vh;
     width: 100vw;
-    margin-top: 54%;
+    margin-top: 15.2vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 5px;
+    gap: 1vh;
 }
 
 .button{

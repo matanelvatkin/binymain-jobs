@@ -1,6 +1,6 @@
 .secondHeader {
-  width: 100%;
-  height: 72px;
+  width: 100vw;
+  height: 14vh;
   background-color: var(--bg-secondary-color);
   display: flex;
   align-items: center;
