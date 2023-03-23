@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import DateInput from "../DateInput"
 import Input from "../Input"
 import Select from "../Select"
 import styles from "./style.module.css"
@@ -9,7 +10,7 @@ import styles from "./style.module.css"
 
 const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
    const days = [,"א" ,"ב" ,"ג" ,"ד" ,"ה" ,'ו' ,"ש"]
-   const repeat = ['חודשי','בשבועיים','שבועי','ללא']
+   const repeat = ['חודשי','דו חודשי','שבועי','ללא']
    const [repeatDay,setRepeatDay] = useState("")
    const [choossDay,setChoossDay] = useState([])
    const onClickDay = (e)=>{
@@ -100,7 +101,7 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
    </div>
       <Select placeholder="חזרה" choossArray={repeat} name="repeat" setValues={setRepeatDay}/>
       {event.map((input)=>{
-          if(input.type !== "select")
+          if(input.type !== "select"&& input.type !== "dateInput")
           return (
             <Input
               key={input.id}
@@ -128,7 +129,11 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
                     : choossArray['targetAudienceData']
                 }
               />
-            );})}
+            );
+            else return <DateInput />})}
       </>
    )
 }
+
+
+export default PersonalEvent

@@ -62,6 +62,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     advertiserEmail: "kobi@test",
     isReapeated: false,
     repeatType: "",
+    endType: "",
+    endValue: "",
     date: [],
     repeatSettingsType: "",
     repeatSettingsRepeatEnd: "",
@@ -80,9 +82,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       "https://cdn.pixabay.com/photo/2023/02/12/12/06/ocean-7784940_1280.jpg",
     gallery: "",
   });
-
   const [constancy, setConstancy] = useState();
-
+  const [chooseRadio, setChooseRadio] = useState('date');
   const inputs = [
     {
       id: 1,
@@ -222,6 +223,29 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       required: true,
     },
     {
+      id: 20,
+      name: "endType",
+      type: "radio",
+      values: "endDate",
+      label: "סיים בתאריך",
+      placeholder: "endDate",
+    },
+    {
+      id: 21,
+      name: "endType",
+      type: "radio",
+      values: "endRepeat",
+      label: "מספר החזרות של באירוע",
+      placeholder: "endRepeat",
+    },
+    {
+      id: 22,
+      name: "endTypeString",
+      type: chooseRadio,
+      label: "חזרה עד",
+      placeholder: chooseRadio==="dateInput"?"תאריך":"מספר חזרות",
+    },
+    {
       id: 7,
       name: "beginningTime",
       type: "time",
@@ -343,14 +367,18 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     });
   };
   useEffect(() => {
-    setConstancy(values.type);
-  }, [values.type]);
+    setConstancy(values.repeatType);
+  }, [values.repeatType]);
 
   const onChange = (e) => {
     if (e.target.type === "file") {
       setFilesValues({ ...filesValues, [e.target.name]: e.target.value });
+    } else if (e.target.type !== "radio") {
+      setValues({ ...values, [e.target.name]: e.target.value });
     } else {
       setValues({ ...values, [e.target.name]: e.target.value });
+      if (e.target.placeholder === "endDate") setChooseRadio("dateInput");
+      else setChooseRadio("text");
     }
   };
 
@@ -434,7 +462,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   }
                 />
               );
-            else return <DateInput />;
+            else if (input.type === "dateInput") return <DateInput />;
           })}
         {constancy === "בהתאמה אישית" && (
           <PersonalEvent
