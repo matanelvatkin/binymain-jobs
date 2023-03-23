@@ -15,7 +15,7 @@ const PersonalEvent = ({
   ...props
 }) => {
   const days = [, "א", "ב", "ג", "ד", "ה", "ו", "ש"];
-  const repeat = ["חודשי", "דו חודשי", "שבועי", "ללא"];
+  const repeat = ['ללא', 'שבועי', 'דו חודשי', 'חודשי'];
   const [repeatDay, setRepeatDay] = useState("");
   const [choossDay, setChoossDay] = useState([]);
   const onClickDay = (e) => {
