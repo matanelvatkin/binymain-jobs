@@ -49,14 +49,17 @@ function Registeretion() {
 
     const createUser = (e) => {
         e.preventDefault();
-          console.log(userData);
+        if(userData.password===userData.confirmPassword){
+        const { confirmPassword, ...data } = userData;
+          // console.log(data);
           axios
-      .post("http://localhost:5000/api/user/creatUser", userData)
+      .post("http://localhost:5000/api/user/creatUser", data)
       .then(() => {
        console.log('user saved succesfuly!');
        navigate('/login')      
       });
-    }
+    }else alert('ססמאות לא תואמות')
+  }
 
     const handleChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
