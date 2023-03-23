@@ -8,6 +8,7 @@ import ViewEvent from "../../pages/ViewEvent"
 import SearchResult from "../../pages/SearchResult"
 import Login from "../../pages/Login"
 import Registeretion from "../../pages/Registeretion"
+import Test from "../../pages/Test"
 
 
 function Main() {
@@ -18,6 +19,7 @@ function Main() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/test" element={<Test/>}/>
         <Route path="/registeretion" element={<Registeretion/>}/>
         <Route path="/newEvent" element={<NewEvent/>}/>
         <Route path="/searchEvent" element={<SearchEvent/>}/>

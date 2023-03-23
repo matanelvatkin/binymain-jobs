@@ -64,7 +64,6 @@ function EventCard({ events }) {
                         key={v._id}
                         onClick={() => {
                             navToViewEvent(v._id);
-                            setHeader("פרטי אירוע");
                         }}
                     >
 
