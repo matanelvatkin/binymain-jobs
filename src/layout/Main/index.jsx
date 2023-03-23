@@ -6,6 +6,8 @@ import NewEvent from "../../pages/NewEvent"
 import SearchEvent from "../../pages/SearchEvent"
 import ViewEvent from "../../pages/ViewEvent"
 import SearchResult from "../../pages/SearchResult"
+import Login from "../../pages/Login"
+import Registeretion from "../../pages/Registeretion"
 
 
 function Main() {
@@ -15,6 +17,8 @@ function Main() {
       {/* {x} */}
       <Routes>
         <Route path="/" element={<Home/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/registeretion" element={<Registeretion/>}/>
         <Route path="/newEvent" element={<NewEvent/>}/>
         <Route path="/searchEvent" element={<SearchEvent/>}/>
         <Route path="/searchEvent/result/:query" element={<SearchResult/>}/>

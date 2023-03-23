@@ -32,8 +32,31 @@
   align-items: center;
   padding: 12px 16px;
   gap: 10px;
+  height: 46px;
 
-  width: 335px;
+  /* Gray / 1 */
+
+  background: #f8f8fa;
+  border-radius: 10px;
+  border-style: hidden;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.input[type="password"] {
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 10px;
   height: 46px;
 
   /* Gray / 1 */

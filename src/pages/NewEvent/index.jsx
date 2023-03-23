@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
@@ -8,6 +8,7 @@ import axios from "axios";
 import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
 import PersonalEvent from "../../components/PersonalEvent";
+import DateInput from "../../components/DateInput";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const nav = useNavigate();
@@ -51,22 +52,26 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "בהתאמה אישית",
   ];
 
-  const { setHeader, header } = headerContext;
+  const { setHeader } = useContext(headerContext);
+  setHeader("פרסם אירוע");
   const [values, setValues] = useState({
-    eventName: "",
-    summary: "",
-    advertiserName: "",
-    advertiserTel: "",
-    advertiserEmail: "",
-    date: "",
-    endDate: "",
+    eventName: "kobi",
+    summary: "test",
+    advertiserName: "kobi",
+    advertiserTel: "test",
+    advertiserEmail: "kobi@test",
+    isReapeated: false,
+    repeatType: "",
+    date: [],
+    repeatSettingsType: "",
+    repeatSettingsRepeatEnd: "",
     beginningTime: "",
     finishTime: "",
+    place: "kobi",
     registrationPageURL: "",
-    type: "",
+    // type: "",
     payment: "",
-    days:[],
-    repeat:""
+    days: [],
   });
   const [filesValues, setFilesValues] = useState({
     cardImageURL:
@@ -128,7 +133,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
     {
       id: 16,
-      name: "type",
+      name: "repeatType",
       type: "select",
       label: "תדירות",
       placeholder: "תדירות",
@@ -138,7 +143,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 6,
       name: "date",
-      type: "date",
+      type: "dateInput",
       label: "תאריך האירוע",
       placeholder: "בחר תאריך ביומן",
       required: true,
@@ -211,7 +216,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 6,
       name: "date",
-      type: "date",
+      type: "dateInput",
       label: "החל מתאריך",
       placeholder: "בחר תאריך ביומן",
       required: true,
@@ -282,9 +287,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   ];
 
   const getEventArrayInputs = () => {
-    if (values.type === "תדירות") return [];
-    else if (values.type === "אירוע ללא חזרה") return oneTimeEventArray;
-    else if (values.type !== "בהתאמה אישית") return dayliEvent;
+    if (values.repeatType === "תדירות") return [];
+    else if (values.repeatType === "אירוע ללא חזרה") return oneTimeEventArray;
+    else if (values.repeatType !== "בהתאמה אישית") return dayliEvent;
     else return [];
   };
   const handleSubmit = (e) => {
@@ -324,15 +329,16 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       cardImageURL: filesValues.cardImageURL,
       coverImageURL: filesValues.coverImageURL,
       gallery: filesValues.gallery,
-      type: values.type,
-      day:values.days,
-      repeat:values.repeat,
+      repeatType: values.repeatType,
       payment: values.payment,
     };
     console.log(values);
+    console.log(filesValues);
+    console.log(eventData);
     apiCalls("post", "event/createvent", eventData).then((res) => {
       if (res.status === 200) {
-        nav("/");
+        console.log(res);
+        nav("/newEvent");
       }
     });
   };
@@ -368,17 +374,18 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         encType="multipart/form-data"
       >
         {inputs.map((input) => {
-          if (input.type !== "select")
+          if (input.type !== "select" && input.type !== "dateInput")
             return (
               <Input
                 key={input.id}
                 {...input}
+                width={"300px"}
                 value={values[input.name]}
                 onChange={onChange}
                 className={styles.inputs}
               />
             );
-          else
+          else if (input.type === "select")
             return (
               <Select
                 {...input}
@@ -388,13 +395,17 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                choossArray={input.name === "type" ? typeData : paymentData}
+                choossArray={
+                  input.name === "repeatType" ? typeData : paymentData
+                }
               />
             );
+          else return <DateInput />;
         })}
-        {constancy&&constancy !== "בהתאמה אישית" && 
+        {constancy &&
+          constancy !== "בהתאמה אישית" &&
           getEventArrayInputs().map((input) => {
-            if (input.type !== "select")
+            if (input.type !== "select" && input.type !== "dateInput")
               return (
                 <Input
                   key={input.id}
@@ -404,7 +415,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   className={styles.inputs}
                 />
               );
-            else
+            else if (input.type === "select")
               return (
                 <Select
                   {...input}
@@ -423,6 +434,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   }
                 />
               );
+            else return <DateInput />;
           })}
         {constancy === "בהתאמה אישית" && (
           <PersonalEvent

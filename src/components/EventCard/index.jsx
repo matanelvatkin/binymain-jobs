@@ -51,7 +51,7 @@ function EventCard({ events }) {
     const navigate = useNavigate();
 
     const navToViewEvent = (eventID) => {
-        navigate('/viewEvent/:' + eventID);
+        navigate('/viewEvent/' + eventID);
     };
 
 
@@ -62,7 +62,7 @@ function EventCard({ events }) {
                     <div
                         className={styles.main}
                         key={v._id}
-                        onDoubleClick={() => {
+                        onClick={() => {
                             navToViewEvent(v._id);
                             setHeader("פרטי אירוע");
                         }}
@@ -71,7 +71,7 @@ function EventCard({ events }) {
                         <div className={styles.imgFrame}>
                             <img
                                 className={styles.img}
-                                src={v.coverImageURL}
+                                src={v.cardImageURL||v.coverImageURL}
                                 alt='Event pic'
                             />
                         </div>
