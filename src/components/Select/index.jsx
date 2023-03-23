@@ -19,7 +19,7 @@ const Select = ({
   const [valueText, setValueText] = useState(placeholder);
   const [openPopup, setOpenPopup] = useState(false);
   useEffect(() => {
-    setValues({ ...values, place: valueText });
+    setValues({ ...values, [props.name]: valueText });
   }, [valueText]);
   const lableOnclick = () => {
     setOpenPopup((prev) => !prev);
@@ -52,7 +52,7 @@ const Select = ({
       {openPopup ? (
         <div className={`${styles.select_box}`}>
           {choossArray.map((opt) => (
-            <p className={`${styles.option}`} onClick={changeTextValue}>
+            <p key={opt} className={`${styles.option}`} onClick={changeTextValue}>
               {opt}
             </p>
           ))}

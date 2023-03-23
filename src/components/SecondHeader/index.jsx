@@ -1,20 +1,20 @@
 import React, { useContext } from 'react'
 import styles from "./style.module.css"
-import {BsArrowRight} from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom'
+import { BsArrowRight } from 'react-icons/bs'
 import headerContext from '../../context/headerContext'
+import BackArrow from "../../components/BackArrow"
 
-function SecondHeader({text , ...props}) {
-    
-    const navigate = useNavigate()
-    const {setHeader}= useContext(headerContext)
+function SecondHeader({ text, ...props }) {
 
-    return (
+  const { setHeader } = useContext(headerContext)
+
+
+  return (
     <div className={styles.secondHeader}>
-        <div className={styles.text}>{text}</div>
-        <BsArrowRight className={styles.arrowBack} onClick={() =>{navigate("/")}}/>
+      <div className={styles.text}>{text}</div>
+      <div><BackArrow /></div>
     </div>
-      
+
   )
 }
 
