@@ -64,7 +64,6 @@ function EventCard({ events }) {
                         key={v._id}
                         onDoubleClick={() => {
                             navToViewEvent(v._id);
-                            setHeader("פרטי אירוע");
                         }}
                     >
 
