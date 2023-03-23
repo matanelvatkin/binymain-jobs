@@ -33,10 +33,9 @@ function Login() {
     e.preventDefault();
     axios.post("http://localhost:5000/api/user/login", {
       fullName: userInfo.fullName,
-      password: userInfo.password
+      password: userInfo.password,
     })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           navToHome();
         } else {
