@@ -1,50 +1,56 @@
-import { useParams } from "react-router-dom";
-import EventCard from "../../components/EventCard";
-import { useState, useEffect } from "react";
-import apiCalls from "../../function/apiCalls";
-import Loader from "../../components/Loader";
-import EmptySearch from "../../components/EmptySearch";
-import InvalidQuery from "../../components/InvalidQuery";
+import { useParams } from 'react-router-dom'
+import EventCard from '../../components/EventCard'
+import { useState, useEffect } from 'react'
+import apiCalls from '../../function/apiCalls'
+import Loader from '../../components/Loader'
+import EmptySearch from '../../components/EmptySearch'
+import InvalidQuery from '../../components/InvalidQuery'
+
 
 export default function SearchResult() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isInvalidQuery, setIsInvalidQuery] = useState(false);
-  const [events, setEvents] = useState();
+  
+  const [isLoading, setIsLoading] = useState(true)
+  const [isInvalidQuery, setIsInvalidQuery] = useState(false)
+  const [events, setEvents] = useState()
 
-  let { query } = useParams();
-  let filter = JSON.parse(decodeURIComponent(query));
+  let { query } = useParams()
+  let filter = JSON.parse(decodeURIComponent(query))
 
+  filter.date.$gte = new Date(filter.date.$gte).toISOString()
+  filter.date.$lte = new Date(filter.date.$lte).toISOString()
+
+  console.log(filter);
+  
   async function fetchEvents() {
-    let apiEvents = await apiCalls("get", "/event", filter);
-    setEvents(() => apiEvents);
+    let apiEvents = await apiCalls('post', 'event', filter)
+    setEvents(() => apiEvents)
   }
 
-  useEffect(() => {
+  useEffect(()=>{
     try {
-      fetchEvents();
-    } catch (err) {
+      fetchEvents()
+    }catch(err) {
       console.log(err);
-      setIsInvalidQuery(() => true);
+      setIsInvalidQuery(() => true)
     }
-  }, []);
+  },[])
 
-  useEffect(() => {
-    if (Array.isArray(events)) setIsLoading(() => false);
-  }, [events]);
+  useEffect(()=>{
+    if(Array.isArray(events))
+      setIsLoading(() => false) 
+  },[events])
 
   return (
     <div>
-      {!isInvalidQuery ? (
-        isLoading ? (
-          <Loader />
-        ) : !events ? (
-          <EmptySearch />
-        ) : (
-          <EventCard events={events} />
-        )
-      ) : (
-        <InvalidQuery />
-      )}
+      {
+        !isInvalidQuery ?
+          isLoading ? 
+            <Loader /> :
+            !events ? 
+              <EmptySearch /> :
+              <EventCard events={events} /> : 
+          <InvalidQuery />
+      }
     </div>
-  );
+  )
 }
