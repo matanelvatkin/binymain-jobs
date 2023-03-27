@@ -7,7 +7,7 @@ import styles from './style.module.css'
 // for each string with the name of that string.
 // also it alows you to choose multiple choices. 
 
-const SelectIcon = ({array=[] , text, icon, ...props}) => {
+const SelectIcon = ({array=[] ,text, icon, ...props}) => {
   const [activeArray, setActiveArray] = useState([]);
 
   const handleCategoryClick = (category) => {
@@ -20,14 +20,16 @@ const SelectIcon = ({array=[] , text, icon, ...props}) => {
     }
   };
 
+  
+
   return (
     <div className={styles.main}>
         
       {array.map((category, index) => (
         <RoundButton
           key={index}
-          text={category}
-          icon={icon}
+          text={category.name}
+          icon={category.icon}
           isActive={activeArray.includes(category)}
           activeArray={activeArray}
           setActiveArray={setActiveArray}
