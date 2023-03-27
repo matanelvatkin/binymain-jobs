@@ -8,10 +8,11 @@ import Main from "../Main"
 function Layout() {
   const [fakeData, setFakeData] = useState("bla bla");
   const [header, setHeader] = useState("home");
+  const[search, setSearch]= useState("")
 
   return (
     <>
-      <headerContext.Provider value={{ header, setHeader }}>
+      <headerContext.Provider value={{ header, setHeader , search, setSearch }}>
         <Header />
         <fakeDataContext.Provider value={{ fakeData }}>
           <Main />

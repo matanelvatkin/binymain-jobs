@@ -3,15 +3,15 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
-  height: 35px;
+  height: 37px;
   cursor: pointer;
   background-color: var(--bg-secondary-color);
   color: var(--text-Fourth-color);
-  border-radius: 18px;
+  border-radius: 10px;
   border: none;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  font-size: medium;
+  /* font-family: "Poppins", sans-serif; */
+  /* font-weight: bold; */
+  font-size:  medium;
   transition: 0.1s;
 }
 
