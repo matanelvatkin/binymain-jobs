@@ -6,8 +6,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {/* <Layout /> */}
-        <MainTest />
+        <Layout />
+        {/* <MainTest /> */}
       </BrowserRouter>
     </div>
   );

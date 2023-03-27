@@ -1,4 +1,5 @@
 import { useState } from "react"
+import ForgetPassword from "../../components/ForgetPassword"
 import fakeDataContext from "../../context/fakeDataContext"
 import headerContext from "../../context/headerContext"
 import Header from "../Header"

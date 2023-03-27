@@ -1,4 +1,4 @@
-
+/* 
   
   .auth_container {
     display: flex;
@@ -53,6 +53,67 @@
     margin: 10px 0 10px 0;
     border: none;
     width: 30%;
-  }  
+  }   */
 
 
+  .main{
+    width: 100vw;
+    margin-top: 54%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    direction: rtl;
+}
+
+.inputs{
+    font-size: medium;
+}
+
+.icon{
+    font-size: large;
+    margin-left: 10px;
+}
+
+.firstButton{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    direction: rtl;
+}
+
+.secondButtonContainer{
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    direction: rtl;
+}
+
+.secondButton{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    direction: rtl;
+}

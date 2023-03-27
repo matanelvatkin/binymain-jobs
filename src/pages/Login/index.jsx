@@ -93,7 +93,7 @@ function Login() {
               />
             )
         })}
-
+            <span style={{fontSize:"small"} } onClick={navigate('/ForgetPassword')}>שכחת סיסמא?</span>
         <ToggleSwitch
           text={'זכור אותי'}
           checked={checked}

@@ -9,6 +9,8 @@ import SearchResult from "../../pages/SearchResult"
 import Login from "../../pages/Login"
 import Registeretion from "../../pages/Registeretion"
 import Test from "../../pages/Test"
+import ResetPassword from "../../components/ResetPassword"
+import ForgetPassword from "../../components/ForgetPassword"
 
 
 function Main() {
@@ -25,6 +27,9 @@ function Main() {
         <Route path="/searchEvent" element={<SearchEvent/>}/>
         <Route path="/searchEvent/result/:query" element={<SearchResult/>}/>
         <Route path="/viewEvent/:event" element={<ViewEvent/>}/>
+        <Route path="/ForgetPassword" element={<ForgetPassword/>}/>
+        <Route path="/resetPassword" element={<ResetPassword/>}/>
+
         <Route path="*" element={<Navigate to="/"/>} />
       </Routes>
     </main>
