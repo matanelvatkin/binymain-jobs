@@ -9,8 +9,8 @@ font-family: 'Open Sans', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 55px;
-  width: 55px;
+  height: 60px;
+  width: 60px;
   cursor: pointer;
   background-color: var(--bg-color);
   color: var(--text-third-color);
@@ -23,21 +23,23 @@ font-family: 'Open Sans', sans-serif;
   transition: 0.2s;
 }
 
-/* .button:focus {
-  box-shadow: inset -4px -4px 12px rgba(124, 142, 139, 0.25),
-    inset 4px 4px 12px rgba(124, 142, 139, 0.25);    
-} */
+.button:hover >.icon{
+  width: 42px;
+  height: 42px;
+}
 
 .active {
   background-color: var(--bg-secondary-color);
-  height: 53px;
-  width: 53px;
+  height: 58px;
+  width: 58px;
   box-shadow: inset -4px -4px 12px rgba(0, 0, 0, 0.1),
   inset 4px 4px 12px rgba(0, 0, 0, 0.1); 
   
 }
 
+
 .icon {
-  width: 35px;
+  width: 37px;
   height: 37px;
+  transition: .15s;
 }
