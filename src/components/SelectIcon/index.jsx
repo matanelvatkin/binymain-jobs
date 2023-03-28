@@ -3,11 +3,13 @@ import RoundButton from '../RoundButton';
 import styles from './style.module.css'
 
 // creator: Yisrael Olonoff
-// this function takes an array of strings and returns RoundButtons
-// for each string with the name of that string.
-// also it alows you to choose multiple choices. 
+// this function takes an array of objects containing icon and name keys,
+// and returns RoundButtons for each object with the name and icon of the object.
+// it takes a header as a props.
+// it alows you to choose multiple choices and save them in activeArray state.
+// example: <SelectIcon array={array} header={'My header'} /> 
 
-const SelectIcon = ({array=[] ,text, icon, ...props}) => {
+const SelectIcon = ({array=[] , header, text, icon, ...props}) => {
   const [activeArray, setActiveArray] = useState([]);
 
   const handleCategoryClick = (category) => {
@@ -24,7 +26,9 @@ const SelectIcon = ({array=[] ,text, icon, ...props}) => {
 
   return (
     <div className={styles.main}>
-        
+      <div className={styles.container}>
+        <p className={styles.header}>{header}</p>
+        <div className={styles.icons}>
       {array.map((category, index) => (
         <RoundButton
           key={index}
@@ -37,6 +41,8 @@ const SelectIcon = ({array=[] ,text, icon, ...props}) => {
           {...props}
         />
       ))}
+    </div>
+    </div>
     </div>
   );
 }
