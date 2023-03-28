@@ -1,13 +1,15 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import styles from "./style.module.css";
 import {FiSearch} from 'react-icons/fi'
 import {TbListSearch} from 'react-icons/tb'
 import {BiAnalyse} from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom';
+import headerContext from '../../context/headerContext';
 
 function HeaderHome() {
   const navigate = useNavigate()
   const [headerHeight, setHeaderHeight] = useState(14)
+  const{ search , setSearch } = useContext(headerContext)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,8 +33,13 @@ function HeaderHome() {
          <BiAnalyse className={styles.logo}/>
       </div>
       <div className={styles.options}>
-        <span className={styles.iconContainer}><FiSearch className={styles.icon}/></span>
-        <span className={styles.iconContainer} onClick={() =>{navigate("/searchEvent")}}> <TbListSearch className={styles.icon}/></span>   
+        <span className={styles.iconContainer}>
+        <FiSearch className={styles.icon}/>
+          <input dir='rtl' placeholder='חפש...' className={styles.input} type="search" defaultValue={search} onChange={(e)=>setSearch(e.target.value)}/>
+        </span>
+        <span 
+        className={styles.iconContainer} onClick={() =>{navigate("/searchEvent")}}> <TbListSearch className={styles.icon}/>
+        </span>   
       </div >
     </div>
   )

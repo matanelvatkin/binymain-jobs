@@ -53,23 +53,38 @@
 
 .options{
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content:flex-end;
+    flex-direction: column;
+    direction: rtl;
+    justify-content:center;
     width: 100%; 
-    margin-right: 10px;
-    gap: 5px;
-    
+    margin-right: 10px;    
 }
 
 .iconContainer{
 display: flex;
 align-items: center;
+height: 30px;
+width:fit-content;
 }
 
 .icon{
     color: var(--text-Fourth-color);
-    height: 25px;
-    width: 25px;
+    height: 32px;
+    width: 32px;
     cursor: pointer;
+}
+
+.input{
+    background-color: transparent;
+    border: none;
+    color: #CCCCCC;
+    font-size: 16px;
+    width: 100%;
+    padding: 6px;
+    margin: 8px;
+}
+
+.input::placeholder{
+    color: #CCCCCC;
+    font-size: 16px;
 }

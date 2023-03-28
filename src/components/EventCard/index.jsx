@@ -45,7 +45,7 @@ function EventCard({ events }) {
         }
     }, [])
 
-    const { setHeader } = useContext(headerContext);
+    const { search } = useContext(headerContext);
 
     const navigate = useNavigate();
 
@@ -56,7 +56,8 @@ function EventCard({ events }) {
 
     return (
         <>
-            {card.map((v) => {
+            {card.filter((v=>v.eventName.includes(search)||v.place.includes(search)))
+            .map((v) => {
                 return (
                     <div
                         className={styles.main}
