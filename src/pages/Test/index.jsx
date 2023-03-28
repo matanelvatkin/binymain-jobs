@@ -20,8 +20,7 @@ function Test() {
 
   return (
     <div className={styles.main}>
-      Test
-      <SelectIcon array={categories} />
+      <SelectIcon array={categories} header={'קטגוריה'} />
     </div>
   )
 }

@@ -18,7 +18,7 @@ function RoundButton({ icon, func, text, ...props }) {
       >
         <img className={styles.icon} src={icon} id={props.id} />
       </button>
-      <span>
+      <span className={styles.text}>
         {text}
       </span>
     </div>
