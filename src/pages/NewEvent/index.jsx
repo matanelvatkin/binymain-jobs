@@ -470,6 +470,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             setValues={setValues}
             onChange={onChange}
             choossArray={{ categoryData, targetAudienceData, placeData }}
+            chooseRadio={chooseRadio} setChooseRadio={setChooseRadio}
           />
         )}
         <div className={styles.button}>

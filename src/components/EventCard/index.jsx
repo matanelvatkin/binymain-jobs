@@ -39,7 +39,7 @@ function EventCard({ events }) {
 
     useEffect(() => {
         if(!events) {
-            axios.post('http://localhost:5000/api/event').then((event) => {
+            axios.post('http://localhost:5556/api/event').then((event) => {
             setCard(event.data);
             })
         }

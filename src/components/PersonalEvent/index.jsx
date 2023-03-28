@@ -8,7 +8,7 @@ import styles from "./style.module.css"
 // color: _______________
 // icon: ________________
 
-const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
+const PersonalEvent = ({values,setValues, onChange,choossArray,chooseRadio, setChooseRadio,...props }) => {
    const days = [,"א" ,"ב" ,"ג" ,"ד" ,"ה" ,'ו' ,"ש"]
    const repeat = ['חודשי','דו חודשי','שבועי','ללא']
    const [repeatDay,setRepeatDay] = useState("")
@@ -31,6 +31,28 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
       label: "החל מתאריך",
       placeholder: "בחר תאריך ביומן",
       required: true,
+    },,{
+      id: 20,
+      name: "endType",
+      type: "radio",
+      values: "endDate",
+      label: "סיים בתאריך",
+      placeholder: "endDate",
+    },
+    {
+      id: 21,
+      name: "endType",
+      type: "radio",
+      values: "endRepeat",
+      label: "מספר החזרות של באירוע",
+      placeholder: "endRepeat",
+    },
+    {
+      id: 22,
+      name: "endTypeString",
+      type: chooseRadio,
+      label: "חזרה עד",
+      placeholder: chooseRadio==="dateInput"?"תאריך":"מספר חזרות",
     },
     {
       id: 7,
@@ -94,7 +116,7 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
       name: "gallery",
       type: "text",
       label: "העלה תמונות לגלריה",
-    },]
+    }]
    return (<>
    <div className={styles.days_div}>
       {days.map((day)=><input type="button" className={styles.day} style={{background:choossDay.includes(day)?"#537FE7":"white"}} value={day} onClick={onClickDay}/>)}

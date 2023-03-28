@@ -53,7 +53,7 @@ function Registeretion() {
         const { confirmPassword, ...data } = userData;
           // console.log(data);
           axios
-      .post("http://localhost:5000/api/user/creatUser", data)
+      .post("http://localhost:5556/api/user/creatUser", data)
       .then(() => {
        console.log('user saved succesfuly!');
        navigate('/login')      
