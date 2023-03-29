@@ -32,7 +32,7 @@ function Login() {
   const loginAouth = (e) => {
     e.preventDefault();
     axios.post("http://localhost:5000/api/user/login", {
-      fullName: userInfo.fullName,
+      email: userInfo.email,
       password: userInfo.password,
     })
       .then((res) => {
@@ -44,6 +44,7 @@ function Login() {
       })
       .catch((err) => {
         console.log(err);
+        alert('אימייל/סיסמא לא נכונים')
       });
   };
 
@@ -71,9 +72,9 @@ function Login() {
   const inputs = [
     {
       id: 1,
-      name: "fullName",
-      type: "text",
-      placeholder: `🙍🏽‍♂️ שם מלא`,
+      name: "email",
+      type: "email",
+      placeholder: '📧 אימייל',
       required: true,
     },
     {
@@ -90,10 +91,11 @@ function Login() {
     <div className={styles.main}>
       <div className={styles.container}>
       <h2>התחברות</h2>
-      <form className={styles.form} onSubmit={loginAouth} autoComplete='off'>
+      <form className={styles.form} onSubmit={loginAouth} >
         {inputs.map((input) => {
             return (
               <Input
+              autoComplete='off'
                 key={input.id}
                 {...input}
                 width={'300px'}

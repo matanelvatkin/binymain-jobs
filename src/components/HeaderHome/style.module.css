@@ -1,34 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Boogaloo:&display=swap');
 
-
-.headerHome_container{
+.main{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     direction: ltr;
     background-color: var(--bg-secondary-color);
     width: 100vw;
-    height: 14vh;
+    height: 18vh;
     top: 0px;
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 0px 40px;
     position: fixed;
     top: 0;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
     transition: .3s;
 }
 
-.titleContainer{
-    width: 100%;
+.headerHome_container{
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+}
+
+.titleContainer{
+    margin-top: 12px;
+    margin-left: 7px;
+    width: 82%;
+    height: fit-content;
+    display: flex;
+    justify-content: start;
     gap: 2px;
 }
 .title{
     font-family: 'Boogaloo', cursive;
     font-style: normal;
+    font-size: xxx-large;
     color: var(--text-Fourth-color);
-    margin-left: 10px;
 }
 
 .logo{
@@ -52,19 +64,26 @@
 
 
 .options{
+    margin-top: 4px;
+    margin-right: 3px;
+    width: 18%;
     display: flex;
     flex-direction: column;
     direction: rtl;
     justify-content:center;
-    width: 100%; 
-    margin-right: 10px;    
+    width: fit-content;    
 }
 
-.iconContainer{
+.searchContainer{
 display: flex;
 align-items: center;
-height: 30px;
+direction: rtl;
+height: fit-content;
 width:fit-content;
+gap: 8px;
+width: 100%;
+margin-bottom: 6px;
+margin-right: 5px;
 }
 
 .icon{
@@ -76,12 +95,12 @@ width:fit-content;
 
 .input{
     background-color: transparent;
+    border-radius: 10px;
     border: none;
     color: #CCCCCC;
-    font-size: 16px;
-    width: 100%;
+    font-size: 18px;
+    width: 280px;
     padding: 6px;
-    margin: 8px;
 }
 
 .input::placeholder{
