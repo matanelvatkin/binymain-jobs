@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const PORT = process.env.PORT ? process.env.PORT : 5000
-
+const PORT = process.env.PORT ? process.env.PORT : 5556
 const apiCalls = async (
     method,
     url,
@@ -9,7 +8,7 @@ const apiCalls = async (
     param = null,
     header = null
 ) => {
-    const baseUrl = process.env.REACT_APP_BASE_URL || `http://localhost:${PORT}` || "https://server-production-7ef9.up.railway.app"
+    const baseUrl = process.env.REACT_APP_BASE_URL || `http://localhost:${PORT}`
     const fullUrl = `${baseUrl}/api/${url}`;
     try {
         const data = await axios({

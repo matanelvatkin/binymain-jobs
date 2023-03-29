@@ -25,6 +25,10 @@ function Login() {
     navigate("/registeretion");
   };
 
+  const navToForgetPassword = () => {
+    navigate('/forgetPassword');
+  };
+
   const navToHome = () => {
     navigate("/");
   };
@@ -104,13 +108,13 @@ function Login() {
               />
             )
         })}
-
+        <span style={{fontSize:"small"} } onClick={navToForgetPassword}>שכחת סיסמא?</span>
+            
         <ToggleSwitch
           text={'זכור אותי'}
           checked={checked}
           onChange={handleToggleSwitch}
         />
-
         <div className={styles.firstButton}>
           <ClassicButton
             width={'70%'}

@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react'
 import styles from "./style.module.css";
 import {FiSearch} from 'react-icons/fi'
+import {CgPlayListSearch} from 'react-icons/cg'
+import Logo from '../../images/logo.png';
 import {TbListSearch} from 'react-icons/tb'
 import {BiAnalyse} from 'react-icons/bi'
 import {BsThreeDotsVertical} from 'react-icons/bs'

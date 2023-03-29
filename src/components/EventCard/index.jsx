@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import styles from './style.module.css'
 import { BiShekel } from 'react-icons/bi'
 import { ImLocation2 } from 'react-icons/im'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import headerContext from '../../context/headerContext'
+import apiCalls from '../../function/apiCalls'
 
 // creator: Yisrael Olonoff
 // i created a card that will contain only necessary
@@ -39,8 +39,9 @@ function EventCard({ events }) {
 
     useEffect(() => {
         if(!events) {
-            axios.post('http://localhost:5000/api/event').then((event) => {
-            setCard(event.data);
+            apiCalls("post","/event")
+            .then((event) => {
+            setCard(event);
             })
         }
     }, [])
@@ -56,7 +57,7 @@ function EventCard({ events }) {
 
     return (
         <>
-            {card.filter((v=>v.eventName.includes(search)||v.place.includes(search)))
+            {card?.filter((v=>v.eventName.includes(search)||v.place.includes(search)))
             .map((v) => {
                 return (
                     <div
@@ -66,7 +67,6 @@ function EventCard({ events }) {
                             navToViewEvent(v._id);
                         }}
                     >
-
                         <div className={styles.imgFrame}>
                             <img
                                 className={styles.img}

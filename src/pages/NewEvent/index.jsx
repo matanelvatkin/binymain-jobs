@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
+import SelectIcon from "../../components/SelectIcon";
 import styles from "./style.module.css";
 import headerContext from "../../context/headerContext";
 import axios from "axios";
@@ -9,6 +10,7 @@ import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
 import PersonalEvent from "../../components/PersonalEvent";
 import DateInput from "../../components/DateInput";
+import { settingsContext } from "../../layout/Layout";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const nav = useNavigate();
@@ -52,6 +54,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "בהתאמה אישית",
   ];
 
+  const [categories, setCategories] = useState([]);
+  const [audiences, setAudiences] = useState([]);
+  const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
   const [values, setValues] = useState({
@@ -72,6 +77,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     place: "kobi",
     registrationPageURL: "",
     // type: "",
+    category:[],
+    targetAudience:[],
     payment: "",
     days: [],
   });
@@ -83,7 +90,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     gallery: "",
   });
   const [constancy, setConstancy] = useState();
-  const [chooseRadio, setChooseRadio] = useState('date');
+  const [chooseRadio, setChooseRadio] = useState("date");
   const inputs = [
     {
       id: 1,
@@ -243,7 +250,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "endTypeString",
       type: chooseRadio,
       label: "חזרה עד",
-      placeholder: chooseRadio==="dateInput"?"תאריך":"מספר חזרות",
+      placeholder: chooseRadio === "dateInput" ? "תאריך" : "מספר חזרות",
     },
     {
       id: 7,
@@ -270,14 +277,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 10,
       name: "category",
-      type: "select",
+      type: "selection",
       label: "קטגוריה",
       placeholder: "קטגוריה",
     },
     {
       id: 11,
       name: "targetAudience",
-      type: "select",
+      type: "selection",
       label: "קהל יעד",
       placeholder: "קהל יעד",
     },
@@ -349,6 +356,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       place: values.place,
       category: values.category,
       targetAudience: values.targetAudience,
+
       registrationPageURL: values.registrationPageURL,
       cardImageURL: filesValues.cardImageURL,
       coverImageURL: filesValues.coverImageURL,
@@ -361,7 +369,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log(eventData);
     apiCalls("post", "event/createvent", eventData).then((res) => {
       if (res.status === 200) {
-        console.log(res);
         nav("/newEvent");
       }
     });
@@ -369,6 +376,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   useEffect(() => {
     setConstancy(values.repeatType);
   }, [values.repeatType]);
+
+  useEffect(() => {
+    setAudiences(settingContext.audiences);
+    setCategories(settingContext.categories);
+  }, []);
 
   const onChange = (e) => {
     if (e.target.type === "file") {
@@ -381,14 +393,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       else setChooseRadio("text");
     }
   };
-
-  //   const createEvent = () => {
-  //     axios.post('http://localhost:3001/event', formData)
-  //     .then(()=>{
-  //         window.location.reload(false);
-  //     })
-  // }
-
+  useEffect(() => {
+    console.log(values);
+  },[values])
   return (
     <div
       dir="RTL"
@@ -402,7 +409,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         encType="multipart/form-data"
       >
         {inputs.map((input) => {
-          if (input.type !== "select" && input.type !== "dateInput")
+          if (
+            input.type !== "select" &&
+            input.type !== "dateInput" &&
+            input.type !== "selection"
+          )
             return (
               <Input
                 key={input.id}
@@ -428,12 +439,20 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 }
               />
             );
-          else return <DateInput />;
+          else if (input.type === "dateInput") return <DateInput />;
+          else
+            <SelectIcon
+              array={input.name === "category" ? categories : audiences}
+            />;
         })}
         {constancy &&
           constancy !== "בהתאמה אישית" &&
           getEventArrayInputs().map((input) => {
-            if (input.type !== "select" && input.type !== "dateInput")
+            if (
+              input.type !== "select" &&
+              input.type !== "dateInput" &&
+              input.type !== "selection"
+            )
               return (
                 <Input
                   key={input.id}
@@ -463,6 +482,15 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 />
               );
             else if (input.type === "dateInput") return <DateInput />;
+            else
+              return (
+                <SelectIcon
+                  array={input.name === "category" ? categories : audiences}
+                  setValues={setValues}
+                  name={input.name}
+                  values={values}
+                />
+              );
           })}
         {constancy === "בהתאמה אישית" && (
           <PersonalEvent
@@ -470,6 +498,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             setValues={setValues}
             onChange={onChange}
             choossArray={{ categoryData, targetAudienceData, placeData }}
+            chooseRadio={chooseRadio}
+            setChooseRadio={setChooseRadio}
           />
         )}
         <div className={styles.button}>
