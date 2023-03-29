@@ -48,8 +48,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "טלמון",
   ];
   const [loading, setLoading] = useState(true);
-  const categoryData = ["הרצאות", "אוכל", "יצירה מקומית", "מוסיקה", "כיף"];
-  const audiencesData = ["גברים", "נשים", "נוער", "משפחה"];
+
   const paymentData = ["בתשלום", "בחינם"];
   const typeData = [
     "אירוע ללא חזרה",
@@ -64,24 +63,24 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
   const [values, setValues] = useState({
-    eventName: "kobi",
-    summary: "test",
-    advertiserName: "kobi",
-    advertiserTel: "test",
-    advertiserEmail: "kobi@test",
-    isReapeated: false,
+    eventName: "",
+    summary: "",
+    advertiserName: "",
+    advertiserTel: "",
+    advertiserEmail: "",
+    isRepeated: false,
     repeatType: "",
     endType: "",
     endValue: "",
-    date: [],
+    date: "",
     repeatSettingsType: "",
     repeatSettingsRepeatEnd: "",
     beginningTime: "",
     finishTime: "",
-    place: "kobi",
+    place: "",
     registrationPageURL: "",
-    categoryData: "",
-    audiencesData: "",
+    categories: [],
+    audiences: [],
     payment: "",
     days: [],
   });
@@ -92,7 +91,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       "https://cdn.pixabay.com/photo/2023/02/12/12/06/ocean-7784940_1280.jpg",
     gallery: [],
   });
-  const [constancy, setConstancy] = useState();
+  const [constancy, setConstancy] = useState("ללא חזרה");
 
   const inputs = [
     {
@@ -202,7 +201,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "cardImageURL",
       type: "file",
       label: "תמונת אירוע",
-      // required: true,
     },
     {
       id: 16,
@@ -214,107 +212,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 17,
       name: "gallery",
-      type: "text",
+      type: "file",
       label: "העלה תמונות לגלריה",
     },
   ];
-
-  // const dayliEvent = [
-  //   {
-  //     id: 6,
-  //     name: "date",
-  //     type: "dateInput",
-  //     label: "החל מתאריך",
-  //     placeholder: "בחר תאריך ביומן",
-  //     required: true,
-  //   },
-  //   {
-  //     id: 20,
-  //     name: "endType",
-  //     type: "radio",
-  //     values: "endDate",
-  //     label: "סיים בתאריך",
-  //     placeholder: "endDate",
-  //   },
-  //   {
-  //     id: 21,
-  //     name: "endType",
-  //     type: "radio",
-  //     values: "endRepeat",
-  //     label: "מספר החזרות של באירוע",
-  //     placeholder: "endRepeat",
-  //   },
-  //   {
-  //     id: 22,
-  //     name: "endTypeString",
-  //     type: chooseRadio,
-  //     label: "חזרה עד",
-  //     placeholder: chooseRadio === "dateInput" ? "תאריך" : "מספר חזרות",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "beginningTime",
-  //     type: "time",
-  //     label: "זמן התחלה",
-  //     placeholder: "זמן התחלה",
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "finishTime",
-  //     type: "time",
-  //     label: "זמן סיום",
-  //     placeholder: "זמן סיום",
-  //   },
-  //   {
-  //     id: 9,
-  //     name: "place",
-  //     type: "select",
-  //     label: "מקום",
-  //     placeholder: "בחר מיקום",
-  //     required: true,
-  //   },
-  //   {
-  //     id: 10,
-  //     name: "category",
-  //     type: "selectIcon",
-  //     label: "קטגוריה",
-  //     placeholder: "קטגוריה",
-  //   },
-  //   {
-  //     id: 11,
-  //     name: "audiences",
-  //     type: "selectIcon",
-  //     label: "קהל יעד",
-  //     placeholder: "קהל יעד",
-  //   },
-  //   {
-  //     id: 12,
-  //     name: "registrationPageURL",
-  //     type: "text",
-  //     label: "דף הרשמה לאירוע",
-  //     placeholder: "דף הרשמה לאירוע",
-  //   },
-  //   {
-  //     id: 13,
-  //     name: "cardImageURL",
-  //     type: "file",
-  //     label: "תמונת אירוע",
-  //     // required: true,
-  //   },
-  //   {
-  //     id: 14,
-  //     name: "coverImageURL",
-  //     type: "file",
-  //     label: "תמונת כיסוי",
-  //     multiple: true,
-  //   },
-  //   {
-  //     id: 15,
-  //     name: "gallery",
-  //     type: "text",
-  //     label: "העלה תמונות לגלריה",
-  //   },
-  // ];
 
   const [eventData, setEventData] = useState({
     eventName: values.eventName,
@@ -340,20 +241,20 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    for (const key in filesValues) {
-      if (Array.isArray(filesValues[key])) {
-        for (const file of filesValues[key]) {
+    for (const key in values) {
+      if (Array.isArray(values[key])) {
+        for (const file of values[key]) {
           formData.append(key, file);
         }
       } else {
         formData.append(key, values[key]);
       }
-      formData.append(values.eventName);
-      console.log(values[key]);
-      console.log("formData: ", formData.values());
+      console.log("values", values);
+      // console.log("eventData", eventData);
+      // console.log("formData: ", formData.values());
     }
 
-    apiCalls("post", "event/createvent", formData, {
+    apiCalls("post", "event/createvent", values, {
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
       if (res.status === 200) {
@@ -424,7 +325,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                array={input.name === "category" ? categoryData : audiencesData}
+                array={input.name === "category" ? categories : audiences}
               />
             );
           else if (input.type === "select")
@@ -442,10 +343,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 }
               />
             );
-          else if (constancy === "ללא חזרה") return <NoRepeatEvent />;
-          else if (constancy === "אירוע יומי") return <DailyEvent />;
-          else if (constancy === "אירוע שבועי") return <WeeklyEvent />;
-          else if (constancy === "בהתאמה אישית") return <PersonalEvent />;
+          else if (input.type === "אירוע ללא חזרה")
+            return <NoRepeatEvent values={values} setValues={setValues} />;
+          else if (input.type === "אירוע יומי")
+            return <DailyEvent values={values} setValues={setValues} />;
+          else if (input.type === "אירוע שבועי")
+            return <WeeklyEvent values={values} setValues={setValues} />;
+          else if (input.type === "בהתאמה אישית")
+            return <PersonalEvent values={values} setValues={setValues} />;
           else
             return (
               <Input
@@ -457,67 +362,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
         })}
-        {/*       
-          constancy !== "בהתאמה אישית" &&
-          getEventArrayInputs().map((input) => {
-            if (
-              input.type !== "select" &&
-              input.type !== "dateInput" &&
-              input.type !== "selectIcon"
-            )
-          
-            else if (input.type === "select")
-              return (
-                <Select
-                  {...input}
-                  placeholder={input.placeholder}
-                  value={values[input.name]}
-                  values={values}
-                  setValues={setValues}
-                  key={input.id}
-                  name={input.name}
-                  choossArray={
-                    input.name === "place"
-                      ? placeData
-                      : input.name === "category"
-                      ? categoryData
-                      : audiencesData
-                  }
-                />
-              );
-            else if (input.type === "selectIcon")
-              return (
-                <SelectIcon
-                  {...input}
-                  key={input.id}
-                  value={values[input.name]}
-                  name={input.name}
-                  values={values}
-                  setValues={setValues}
-                  array={
-                    input.name === "category" ? categoryData : audiencesData
-                  }
-                />
-              );
-            else if (input.type === "dateInput") return <DateInput />;
-          })}
-        {constancy === "בהתאמה אישית"  (
-          <PersonalEvent
-            values={values}
-            setValues={setValues}
-            onChange={onChange}
-          />
-        )}
-        return (
-              <Input
-                key={input.id}
-                {...input}
-                width={"300px"}
-                value={values[input.name]}
-                onChange={onChange}
-                className={styles.inputs}
-              />
-            ); */}
+
         <div className={styles.button}>
           <ClassicButton width={"200px"} text={"Save"} type={"submit"} />
         </div>

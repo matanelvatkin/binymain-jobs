@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import DateInput from "../DateInput";
 import Input from "../Input";
 import styles from "./style.module.css";
 
-export default function NoRepeatEvent() {
+export default function DailyEvent() {
   const [chooseRadio, setChooseRadio] = useState("");
   const chooseRadioClick = (e) => {
     setChooseRadio(e.target.value);

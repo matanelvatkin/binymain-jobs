@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import DateInput from "../DateInput";
 import Input from "../Input";
 import Select from "../Select";
+import SelectIcon from "../SelectIcon";
 import styles from "./style.module.css";
 
 // creator: matanel vatkin
@@ -10,14 +11,22 @@ import styles from "./style.module.css";
 
 const PersonalEvent = ({
   values,
-  setValues,
+  setValues = () => {},
   onChange,
   choossArray,
   // chooseRadio,
   // setChooseRadio,
   ...props
 }) => {
-  const days = [, "א", "ב", "ג", "ד", "ה", "ו", "ש"];
+  const days = [
+    { name: "א" },
+    { name: "ב" },
+    { name: "ג" },
+    { name: "ד" },
+    { name: "ה" },
+    { name: "ו" },
+    { name: "ש" },
+  ];
   const repeat = ["דו חודשי", "שבועי", "ללא חזרה"];
   const [repeatDay, setRepeatDay] = useState("");
   const [chooseDay, setChooseDay] = useState([]);
@@ -44,17 +53,7 @@ const PersonalEvent = ({
         <DateInput />
       </label>
       <div className={styles.days_div}>
-        {days.map((day) => (
-          <input
-            type="button"
-            className={styles.day}
-            style={{
-              background: chooseDay.includes(day) ? "#537FE7" : "white",
-            }}
-            value={day}
-            onClick={onClickDay}
-          />
-        ))}
+        <SelectIcon array={days} text={days} inText={true} header={"ימים"} />
       </div>
       <Select choossArray={repeat} placeholder="ללא חזרה" icon="" />
       <Input

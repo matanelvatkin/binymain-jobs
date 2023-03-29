@@ -28,10 +28,7 @@ const SelectIcon = ({
       setActiveArray([...activeArray, category]);
     }
   };
-  useEffect(() => {
-    console.log(values, name);
-    setValues(...values, { name: activeArray });
-  }, [activeArray]);
+
   return (
     <div className={styles.main}>
       <div className={styles.container}>
