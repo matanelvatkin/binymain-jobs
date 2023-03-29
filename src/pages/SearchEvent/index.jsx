@@ -8,28 +8,20 @@ import DateInput from '../../components/DateInput'
 import { useNavigate } from 'react-router-dom'
 import apiCalls from '../../function/apiCalls'
 import Loader from '../../components/Loader'
+import { settingsContext } from '../../layout/Layout'
 
 export default function SearchEvent() {
     const navigate = useNavigate()
-
+    const settingContext = useContext(settingsContext)
     const [loading, setLoading] = useState(true)
     const [categories, setCategories] = useState([])
     const [audiences, setAudiences] = useState([])
      
-    async function fetchData(){
-        let apiCategories, apiAudiences
-        try {
-            apiCategories = await apiCalls('get', '/setting/categories')
-            apiAudiences = await apiCalls('get', '/setting/audiences')
-        } catch(e) {
-            console.log();
-        }
-        
-        setCategories(()=> apiCategories[0].settingData.map(v => ({...v, isActive: false})))
-        setAudiences(()=> apiAudiences[0].settingData.map(v => ({...v, isActive: false})))
-    }
 
-    useEffect(()=>{fetchData()},[])
+    useEffect(()=>{
+        setAudiences(settingContext.audiences)
+        setCategories(settingContext.categories)
+    },[])
 
     useEffect(()=>{
         if(audiences && categories)
@@ -116,26 +108,22 @@ export default function SearchEvent() {
             dbQuery.targetAudience = {$in: [activeAudiences[0]._id]}
         }
     
-        let hoursDiffrence = 23 - date.getHours()
-        let minutesDiffrence = 59 - date.getMinutes()
-        let secondsDiffrence = 59 - date.getSeconds()
+        const queryDate = new Date(date.toDateString())
 
         if(btnDates.thisWeek) {
             let today = new Date().getDay()
             if(today === 7) {
-                let endDayOfWeek = new Date(date.getTime() + (6 * 24 * 60**2 * 1000) + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + (secondsDiffrence * 1000))
-                dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endDayOfWeek.toISOString()}}
+                let endDayOfWeek = new Date(new Date(date.getTime() + (6 * 24 * 60**2 * 1000)).toDateString())
+                dbQuery.date = {$gte: queryDate, $lte: endDayOfWeek}
             }else if(today === 6) {
-                let endOfDay = new Date(date.getTime() + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + secondsDiffrence * 1000 ) 
-                dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endOfDay.toISOString()}}
+                dbQuery.date = queryDate
             } else {
-                let endDayOfWeek = new Date(date.getTime() + ((6 - today) * 24 * 60**2 * 1000) + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + (secondsDiffrence * 1000))
-                dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endDayOfWeek.toISOString()}}
+                let today = new Date().getDay()
+                let endDayOfWeek = new Date(new Date(date.getTime() + ((6 - today) * 24 * 60**2 * 1000)).toDateString())
+                dbQuery.date = {$gte: date, $lte: endDayOfWeek}
             }
-
-        } else {
-            let endOfDay = new Date(date.getTime() + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + secondsDiffrence * 1000 ) 
-            dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endOfDay.toISOString()}}
+        } else { 
+            dbQuery.date = queryDate
         }
         
     

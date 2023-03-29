@@ -39,6 +39,7 @@
   background: #f8f8fa;
   border-radius: 10px;
   border-style: hidden;
+  border: 1.5px solid rgba(0,0,0,.15);
 
   /* Inside auto layout */
 
@@ -64,6 +65,8 @@
   background: #f8f8fa;
   border-radius: 10px;
   border-style: hidden;
+  border: 1.5px solid rgba(0,0,0,.15);
+
 
   /* Inside auto layout */
 
@@ -117,6 +120,8 @@
   background: #f8f8fa;
   border-radius: 10px;
   border-style: hidden;
+  border: 1.5px solid rgba(0,0,0,.15);
+
   /* Inside auto layout */
 
   flex: none;

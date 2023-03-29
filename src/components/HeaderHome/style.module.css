@@ -14,6 +14,8 @@
     border-radius: 0px 0px 10px 10px;
     position: fixed;
     top: 0;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
+    transition: .3s;
 }
 
 .titleContainer{
@@ -31,17 +33,12 @@
 
 .logo{
     color: var(--text-Fourth-color);
-    margin-top: 4px;
-    height: 32px;
-    width: 32px;
+    height: 38px;
+    width: 38px;
         animation-name: spin;
         animation-duration: 5000ms;
         animation-iteration-count: infinite;
         animation-timing-function: linear; 
-        /* transform: rotate(3deg); */
-         /* transform: rotate(0.3rad);/ */
-         /* transform: rotate(3grad); */ 
-         /* transform: rotate(.03turn);  */
       }
       
       @keyframes spin {
@@ -56,23 +53,38 @@
 
 .options{
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content:flex-end;
+    flex-direction: column;
+    direction: rtl;
+    justify-content:center;
     width: 100%; 
-    margin-right: 10px;
-    gap: 5px;
-    
+    margin-right: 10px;    
 }
 
 .iconContainer{
 display: flex;
 align-items: center;
+height: 30px;
+width:fit-content;
 }
 
 .icon{
     color: var(--text-Fourth-color);
-    height: 25px;
-    width: 25px;
+    height: 32px;
+    width: 32px;
     cursor: pointer;
+}
+
+.input{
+    background-color: transparent;
+    border: none;
+    color: #CCCCCC;
+    font-size: 16px;
+    width: 100%;
+    padding: 6px;
+    margin: 8px;
+}
+
+.input::placeholder{
+    color: #CCCCCC;
+    font-size: 16px;
 }

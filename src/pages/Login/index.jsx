@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import headerContext from '../../context/headerContext';
 import styles from "./style.module.css";
 import Input from '../../components/Input'
@@ -25,18 +25,21 @@ function Login() {
     navigate("/registeretion");
   };
 
+  const navToForgetPassword = () => {
+    navigate('/forgetPassword');
+  };
+
   const navToHome = () => {
     navigate("/");
   };
 
   const loginAouth = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5000/api/user/login", {
+    axios.post("http://localhost:5556/api/user/login", {
       fullName: userInfo.fullName,
-      password: userInfo.password
+      password: userInfo.password,
     })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           navToHome();
         } else {
@@ -50,8 +53,20 @@ function Login() {
 
 
   const handleChange = (e) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-  }
+    const { name, value } = e.target;
+    if (checked) {
+      // If the toggle switch is on, save the value in local storage
+      localStorage.setItem(name, value);
+    } else {
+      // If the toggle switch is off, retrieve the value from local storage
+      const storedValue = localStorage.getItem(name);
+      if (storedValue) {
+        setUserInfo({ ...userInfo, [name]: storedValue });
+        return;
+      }
+    }
+    setUserInfo({ ...userInfo, [name]: value });
+  };
 
   const handleToggleSwitch = (e) => {
     setChecked(e.target.checked);
@@ -79,11 +94,9 @@ function Login() {
     <div className={styles.main}>
       <div className={styles.container}>
       <h2>התחברות</h2>
-      <form className={styles.form} onSubmit={loginAouth}>
+      <form className={styles.form} onSubmit={loginAouth} autoComplete='off'>
         {inputs.map((input) => {
-          if (input.type !== "select")
             return (
-
               <Input
                 key={input.id}
                 {...input}
@@ -93,13 +106,13 @@ function Login() {
               />
             )
         })}
-
+        <span style={{fontSize:"small"} } onClick={navToForgetPassword}>שכחת סיסמא?</span>
+            
         <ToggleSwitch
           text={'זכור אותי'}
           checked={checked}
           onChange={handleToggleSwitch}
         />
-
         <div className={styles.firstButton}>
           <ClassicButton
             width={'70%'}

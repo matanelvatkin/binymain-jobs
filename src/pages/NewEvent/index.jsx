@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
+import SelectIcon from "../../components/SelectIcon";
 import styles from "./style.module.css";
 import headerContext from "../../context/headerContext";
 import axios from "axios";
@@ -55,6 +56,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "בהתאמה אישית",
   ];
 
+  const [categories, setCategories] = useState([]);
+  const [audiences, setAudiences] = useState([]);
+  const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
   const [values, setValues] = useState({
@@ -87,6 +91,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     gallery: [],
   });
   const [constancy, setConstancy] = useState();
+  const [chooseRadio, setChooseRadio] = useState("date");
   const [chooseRadio, setChooseRadio] = useState("date");
   const inputs = [
     {
@@ -359,6 +364,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setConstancy(values.repeatType);
   }, [values.repeatType]);
 
+  useEffect(() => {
+    setAudiences(settingContext.audiences);
+    setCategories(settingContext.categories);
+  }, []);
+
   const onChange = (e) => {
     if (e.target.type === "file") {
       setFilesValues({ ...filesValues, [e.target.name]: e.target.value });
@@ -498,3 +508,98 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     </div>
   );
 }
+
+// {inputs.map((input) => {
+//   if (
+//     input.type !== "select" &&
+//     input.type !== "dateInput" &&
+//     input.type !== "selection"
+//   )
+//     return (
+//       <Input
+//         key={input.id}
+//         {...input}
+//         width={"300px"}
+//         value={values[input.name]}
+//         onChange={onChange}
+//         className={styles.inputs}
+//       />
+//     );
+//   else if (input.type === "select")
+//     return (
+//       <Select
+//         {...input}
+//         key={input.id}
+//         placeholder={input.placeholder}
+//         value={values[input.name]}
+//         name={input.name}
+//         values={values}
+//         setValues={setValues}
+//         choossArray={
+//           input.name === "repeatType" ? typeData : paymentData
+//         }
+//       />
+//     );
+//   else if (input.type === "dateInput") return <DateInput />;
+//   else
+//     <SelectIcon
+//       array={input.name === "category" ? categories : audiences}
+//     />;
+// })}
+// {constancy &&
+//   constancy !== "בהתאמה אישית" &&
+//   getEventArrayInputs().map((input) => {
+//     if (
+//       input.type !== "select" &&
+//       input.type !== "dateInput" &&
+//       input.type !== "selection"
+//     )
+//       return (
+//         <Input
+//           key={input.id}
+//           {...input}
+//           value={values[input.name]}
+//           onChange={onChange}
+//           className={styles.inputs}
+//         />
+//       );
+//     else if (input.type === "select")
+//       return (
+//         <Select
+//           {...input}
+//           placeholder={input.placeholder}
+//           value={values[input.name]}
+//           values={values}
+//           setValues={setValues}
+//           key={input.id}
+//           name={input.name}
+//           choossArray={
+//             input.name === "place"
+//               ? placeData
+//               : input.name === "category"
+//               ? categoryData
+//               : targetAudienceData
+//           }
+//         />
+//       );
+//     else if (input.type === "dateInput") return <DateInput />;
+//     else
+//       return (
+//         <SelectIcon
+//           array={input.name === "category" ? categories : audiences}
+//           setValues={setValues}
+//           name={input.name}
+//           values={values}
+//         />
+//       );
+//   })}
+// {constancy === "בהתאמה אישית" && (
+//   <PersonalEvent
+//     values={values}
+//     setValues={setValues}
+//     onChange={onChange}
+//     choossArray={{ categoryData, targetAudienceData, placeData }}
+//     chooseRadio={chooseRadio}
+//     setChooseRadio={setChooseRadio}
+//   />
+// )}
