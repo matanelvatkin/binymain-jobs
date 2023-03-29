@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import RoundButton from '../RoundButton';
-import styles from './style.module.css'
+import React, { useState, useEffect } from "react";
+import RoundButton from "../RoundButton";
+import styles from "./style.module.css";
 
 // creator: Yisrael Olonoff
 // this function takes an array of strings and returns RoundButtons
 // for each string with the name of that string.
-// also it alows you to choose multiple choices. 
+// also it alows you to choose multiple choices.
 
-const SelectIcon = ({array=[] , text, icon, ...props}) => {
+const SelectIcon = ({ array = [], text, icon, inText, ...props }) => {
   const [activeArray, setActiveArray] = useState([]);
 
   const handleCategoryClick = (category) => {
@@ -22,9 +22,9 @@ const SelectIcon = ({array=[] , text, icon, ...props}) => {
 
   return (
     <div className={styles.main}>
-        
       {array.map((category, index) => (
         <RoundButton
+          inText={inText}
           key={index}
           text={category}
           icon={icon}
@@ -37,6 +37,6 @@ const SelectIcon = ({array=[] , text, icon, ...props}) => {
       ))}
     </div>
   );
-}
+};
 
 export default SelectIcon;

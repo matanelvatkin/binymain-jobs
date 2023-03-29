@@ -1,10 +1,12 @@
 .main {
-  height: 100vh;
+  min-height: 86vh;
   width: 100vw;
+  margin-top: 15.2vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 5px;
 }
 
 .form {

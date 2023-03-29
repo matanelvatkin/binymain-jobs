@@ -9,6 +9,8 @@ import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
 import PersonalEvent from "../../components/PersonalEvent";
 import DateInput from "../../components/DateInput";
+import SelectIcon from "../../components/SelectIcon";
+import Loader from "../../components/Loader";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const nav = useNavigate();
@@ -42,8 +44,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "שילה",
     "טלמון",
   ];
+  const [loading, setLoading] = useState(true);
   const categoryData = ["הרצאות", "אוכל", "יצירה מקומית", "מוסיקה", "כיף"];
-  const targetAudienceData = ["גברים", "נשים", "נוער", "משפחה"];
+  const audiencesData = ["גברים", "נשים", "נוער", "משפחה"];
   const paymentData = ["בתשלום", "בחינם"];
   const typeData = [
     "אירוע ללא חזרה",
@@ -71,7 +74,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     finishTime: "",
     place: "kobi",
     registrationPageURL: "",
-    // type: "",
+    categoryData: "",
+    audiencesData: "",
     payment: "",
     days: [],
   });
@@ -80,10 +84,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       "https://cdn.pixabay.com/photo/2023/03/03/17/35/gray-cat-7828134_1280.jpg",
     coverImageURL:
       "https://cdn.pixabay.com/photo/2023/02/12/12/06/ocean-7784940_1280.jpg",
-    gallery: "",
+    gallery: [],
   });
   const [constancy, setConstancy] = useState();
-  const [chooseRadio, setChooseRadio] = useState('date');
+  const [chooseRadio, setChooseRadio] = useState("date");
   const inputs = [
     {
       id: 1,
@@ -174,14 +178,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 10,
       name: "category",
-      type: "select",
+      type: "selectIcon",
       label: "קטגוריה",
       placeholder: "קטגוריה",
     },
     {
       id: 11,
-      name: "targetAudience",
-      type: "select",
+      name: "audiences",
+      type: "selectIcon",
       label: "קהל יעד",
       placeholder: "קהל יעד",
     },
@@ -243,7 +247,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "endTypeString",
       type: chooseRadio,
       label: "חזרה עד",
-      placeholder: chooseRadio==="dateInput"?"תאריך":"מספר חזרות",
+      placeholder: chooseRadio === "dateInput" ? "תאריך" : "מספר חזרות",
     },
     {
       id: 7,
@@ -270,14 +274,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 10,
       name: "category",
-      type: "select",
+      type: "selectIcon",
       label: "קטגוריה",
       placeholder: "קטגוריה",
     },
     {
       id: 11,
-      name: "targetAudience",
-      type: "select",
+      name: "audiences",
+      type: "selectIcon",
       label: "קהל יעד",
       placeholder: "קהל יעד",
     },
@@ -316,52 +320,47 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     else if (values.repeatType !== "בהתאמה אישית") return dayliEvent;
     else return [];
   };
+  const [eventData, setEventData] = useState({
+    eventName: values.eventName,
+    summary: values.summary,
+    advertiser: {
+      name: values.advertiserName,
+      tel: values.advertiserTel,
+      email: values.advertiserEmail,
+    },
+    date: values.date,
+    beginningTime: values.beginningTime,
+    finishTime: values.finishTime,
+    place: values.place,
+    category: values.category,
+    audiences: values.audiences,
+    registrationPageURL: values.registrationPageURL,
+    cardImageURL: filesValues.cardImageURL,
+    coverImageURL: filesValues.coverImageURL,
+    gallery: filesValues.gallery,
+    repeatType: values.repeatType,
+    payment: values.payment,
+  });
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const formData = new FormData();
-    // for (const key in values) {
-    //   if (Array.isArray(values[key])) {
-    //     for (const file of values[key]) {
-    //       formData.append(key, file);
-    //     }
-    //   } else {
-    //     formData.append(key, values[key]);
-    //   }
-    // }
-    // console.log(formData);
-    // axios
-    //   .post("http://localhost:5000/api/event/createvent", formData)
-    //   .then(() => {
-    //     window.location.reload(false);
-    //   });
+    const formData = new FormData();
+    for (const key in filesValues) {
+      if (Array.isArray(filesValues[key])) {
+        for (const file of filesValues[key]) {
+          formData.append(key, file);
+        }
+      } else {
+        formData.append(key, values[key]);
+      }
+      formData.append(values.eventName);
+      console.log(values[key]);
+      console.log("formData: ", formData.values());
+    }
 
-    const eventData = {
-      eventName: values.eventName,
-      summary: values.summary,
-      advertiser: {
-        name: values.advertiserName,
-        tel: values.advertiserTel,
-        email: values.advertiserEmail,
-      },
-      date: values.date,
-      beginningTime: values.beginningTime,
-      finishTime: values.finishTime,
-      place: values.place,
-      category: values.category,
-      targetAudience: values.targetAudience,
-      registrationPageURL: values.registrationPageURL,
-      cardImageURL: filesValues.cardImageURL,
-      coverImageURL: filesValues.coverImageURL,
-      gallery: filesValues.gallery,
-      repeatType: values.repeatType,
-      payment: values.payment,
-    };
-    console.log(values);
-    console.log(filesValues);
-    console.log(eventData);
-    apiCalls("post", "event/createvent", eventData).then((res) => {
+    apiCalls("post", "event/createvent", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then((res) => {
       if (res.status === 200) {
-        console.log(res);
         nav("/newEvent");
       }
     });
@@ -380,14 +379,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       if (e.target.placeholder === "endDate") setChooseRadio("dateInput");
       else setChooseRadio("text");
     }
+    setEventData();
   };
-
-  //   const createEvent = () => {
-  //     axios.post('http://localhost:3001/event', formData)
-  //     .then(()=>{
-  //         window.location.reload(false);
-  //     })
-  // }
 
   return (
     <div
@@ -396,13 +389,18 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       style={style}
       {...props}
     >
+      {" "}
       <form
         onSubmit={handleSubmit}
         className={styles.form}
         encType="multipart/form-data"
       >
         {inputs.map((input) => {
-          if (input.type !== "select" && input.type !== "dateInput")
+          if (
+            input.type !== "select" &&
+            input.type !== "dateInput" &&
+            input.type !== "selectIcon"
+          )
             return (
               <Input
                 key={input.id}
@@ -428,12 +426,29 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 }
               />
             );
+          else if (input.type === "selectIcon")
+            return (
+              <SelectIcon
+                {...input}
+                inText={false}
+                key={input.id}
+                value={values[input.name]}
+                name={input.name}
+                values={values}
+                setValues={setValues}
+                array={input.name === "category" ? categoryData : audiencesData}
+              />
+            );
           else return <DateInput />;
         })}
         {constancy &&
           constancy !== "בהתאמה אישית" &&
           getEventArrayInputs().map((input) => {
-            if (input.type !== "select" && input.type !== "dateInput")
+            if (
+              input.type !== "select" &&
+              input.type !== "dateInput" &&
+              input.type !== "selectIcon"
+            )
               return (
                 <Input
                   key={input.id}
@@ -458,7 +473,21 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                       ? placeData
                       : input.name === "category"
                       ? categoryData
-                      : targetAudienceData
+                      : audiencesData
+                  }
+                />
+              );
+            else if (input.type === "selectIcon")
+              return (
+                <SelectIcon
+                  {...input}
+                  key={input.id}
+                  value={values[input.name]}
+                  name={input.name}
+                  values={values}
+                  setValues={setValues}
+                  array={
+                    input.name === "category" ? categoryData : audiencesData
                   }
                 />
               );
@@ -469,7 +498,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             values={values}
             setValues={setValues}
             onChange={onChange}
-            choossArray={{ categoryData, targetAudienceData, placeData }}
+            choossArray={{ categoryData, audiencesData, placeData }}
           />
         )}
         <div className={styles.button}>

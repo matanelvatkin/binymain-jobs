@@ -1,8 +1,8 @@
-.main{
-display: flex;
-flex-direction: column;
-align-items: center;
-font-family: 'Open Sans', sans-serif;
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Open Sans", sans-serif;
 }
 
 .button {
@@ -18,8 +18,8 @@ font-family: 'Open Sans', sans-serif;
   border: none;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
-  box-shadow: 0 3px 8px rgba(21, 57, 42, 0.25), 3px 3px 8px rgba(21, 57, 42, 0.25)
-  , 0 3px 8px rgba(21, 57, 42, 0.25), 0 0 ;
+  box-shadow: 0 3px 8px rgba(21, 57, 42, 0.25),
+    3px 3px 8px rgba(21, 57, 42, 0.25), 0 3px 8px rgba(21, 57, 42, 0.25), 0 0;
   transition: 0.2s;
 }
 
@@ -33,11 +33,13 @@ font-family: 'Open Sans', sans-serif;
   height: 53px;
   width: 53px;
   box-shadow: inset -4px -4px 12px rgba(0, 0, 0, 0.1),
-  inset 4px 4px 12px rgba(0, 0, 0, 0.1); 
-  
+    inset 4px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .icon {
   width: 35px;
   height: 37px;
+}
+.inText {
+  font-size: medium;
 }

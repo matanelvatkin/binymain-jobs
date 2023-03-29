@@ -1,30 +1,41 @@
-import { useEffect, useState } from "react"
-import DateInput from "../DateInput"
-import Input from "../Input"
-import Select from "../Select"
-import styles from "./style.module.css"
+import { useEffect, useState } from "react";
+import DateInput from "../DateInput";
+import Input from "../Input";
+import Select from "../Select";
+import SelectIcon from "../SelectIcon";
+import styles from "./style.module.css";
 
 // creator: matanel vatkin
 // color: _______________
 // icon: ________________
 
-const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
-   const days = [,"א" ,"ב" ,"ג" ,"ד" ,"ה" ,'ו' ,"ש"]
-   const repeat = ['חודשי','דו חודשי','שבועי','ללא']
-   const [repeatDay,setRepeatDay] = useState("")
-   const [choossDay,setChoossDay] = useState([])
-   const onClickDay = (e)=>{
-      if(choossDay.includes(e.target.value)) setChoossDay(choossDay.filter(day=>day!==e.target.value))
-      else setChoossDay([...choossDay,e.target.value])
-   }
-   useEffect(()=>{
-      setValues({...values,days:choossDay})
-   },[choossDay])
-   useEffect(()=>{
-      setValues({...values,repeat:repeatDay.repeat})
-      console.log(repeatDay);
-   },[repeatDay])
-   const event = [{
+const PersonalEvent = ({
+  values,
+  setValues,
+  onChange,
+  choossArray,
+  array,
+  ...props
+}) => {
+  const isInText = true;
+  const days = [, "א", "ב", "ג", "ד", "ה", "ו", "ש"];
+  const repeat = ["חודשי", "דו חודשי", "שבועי", "ללא"];
+  const [repeatDay, setRepeatDay] = useState("");
+  const [choossDay, setChoossDay] = useState([]);
+  const onClickDay = (e) => {
+    if (choossDay.includes(e.target.value))
+      setChoossDay(choossDay.filter((day) => day !== e.target.value));
+    else setChoossDay([...choossDay, e.target.value]);
+  };
+  useEffect(() => {
+    setValues({ ...values, days: choossDay });
+  }, [choossDay]);
+  useEffect(() => {
+    setValues({ ...values, repeat: repeatDay.repeat });
+    console.log(repeatDay);
+  }, [repeatDay]);
+  const event = [
+    {
       id: 6,
       name: "date",
       type: "dateInput",
@@ -57,7 +68,7 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
     {
       id: 10,
       name: "category",
-      type: "select",
+      type: "selectIcon",
       label: "קטגוריה",
       placeholder: "קטגוריה",
     },
@@ -94,14 +105,30 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
       name: "gallery",
       type: "text",
       label: "העלה תמונות לגלריה",
-    },]
-   return (<>
-   <div className={styles.days_div}>
-      {days.map((day)=><input type="button" className={styles.day} style={{background:choossDay.includes(day)?"#537FE7":"white"}} value={day} onClick={onClickDay}/>)}
-   </div>
-      <Select placeholder="חזרה" choossArray={repeat} name="repeat" setValues={setRepeatDay}/>
-      {event.map((input)=>{
-          if(input.type !== "select"&& input.type !== "dateInput")
+    },
+  ];
+  return (
+    <>
+      <div className={styles.days_div}>
+        <SelectIcon
+          array={days}
+          inText={isInText}
+          //  icon={days}
+        />
+        {/* {days.map((day)=><input type="button" className={styles.day} style={{background:choossDay.includes(day)?"#537FE7":"white"}} value={day} onClick={onClickDay}/>)} */}
+      </div>
+      <Select
+        placeholder="חזרה"
+        choossArray={repeat}
+        name="repeat"
+        setValues={setRepeatDay}
+      />
+      {event.map((input) => {
+        if (
+          input.type !== "select" &&
+          input.type !== "dateInput" &&
+          input.type !== "selectIcon"
+        )
           return (
             <Input
               key={input.id}
@@ -113,27 +140,33 @@ const PersonalEvent = ({values,setValues, onChange,choossArray,...props }) => {
           );
         else if (input.type === "select")
           return (
-              <Select
-                {...input}
-                placeholder={input.placeholder}
-                value={values[input.name]}
-                values={values}
-                setValues={setValues}
-                key={input.id}
-                name={input.name}
-                choossArray={
-                  input.name === "place"
-                    ? choossArray['placeData']
-                    : input.name === "category"
-                    ? choossArray['categoryData']
-                    : choossArray['targetAudienceData']
-                }
-              />
-            );
-            else return <DateInput />})}
-      </>
-   )
-}
+            <Select
+              {...input}
+              placeholder={input.placeholder}
+              value={values[input.name]}
+              values={values}
+              setValues={setValues}
+              key={input.id}
+              name={input.name}
+              choossArray={input.name}
+            />
+          );
+        else if (input.type === "selectIcon")
+          return (
+            <SelectIcon
+              {...input}
+              key={input.id}
+              value={values[input.name]}
+              name={input.name}
+              values={values}
+              setValues={setValues}
+              array={choossArray}
+            />
+          );
+        else return <DateInput />;
+      })}
+    </>
+  );
+};
 
-
-export default PersonalEvent
+export default PersonalEvent;
