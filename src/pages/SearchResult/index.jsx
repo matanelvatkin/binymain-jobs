@@ -16,13 +16,10 @@ export default function SearchResult() {
   let { query } = useParams()
   let filter = JSON.parse(decodeURIComponent(query))
 
-  filter.date.$gte = new Date(filter.date.$gte).toISOString()
-  filter.date.$lte = new Date(filter.date.$lte).toISOString()
-
   console.log(filter);
   
   async function fetchEvents() {
-    let apiEvents = await apiCalls('post', 'event', filter)
+    let apiEvents = await apiCalls('post', '/event', filter)
     setEvents(() => apiEvents)
   }
 
