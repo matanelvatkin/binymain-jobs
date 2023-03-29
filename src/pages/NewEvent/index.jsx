@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { settingsContext } from "../../layout/Layout";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
@@ -9,9 +10,10 @@ import axios from "axios";
 import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
 import PersonalEvent from "../../components/PersonalEvent";
-import DateInput from "../../components/DateInput";
-import SelectIcon from "../../components/SelectIcon";
 import Loader from "../../components/Loader";
+import WeeklyEvent from "../../components/WeeklyEvent";
+import DailyEvent from "../../components/DailyEvent";
+import NoRepeatEvent from "../../components/NoRepeatEvent";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const nav = useNavigate();
@@ -91,8 +93,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     gallery: [],
   });
   const [constancy, setConstancy] = useState();
-  const [chooseRadio, setChooseRadio] = useState("date");
-  const [chooseRadio, setChooseRadio] = useState("date");
+
   const inputs = [
     {
       id: 1,
@@ -375,11 +376,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     } else if (e.target.type !== "radio") {
       //check if need to delete
       setValues({ ...values, [e.target.name]: e.target.value });
-    } else {
-      setValues({ ...values, [e.target.name]: e.target.value });
-      if (e.target.placeholder === "endDate") setChooseRadio("dateInput");
-      else setChooseRadio("text");
     }
+    // else {
+    //   setValues({ ...values, [e.target.name]: e.target.value });
+    //   if (e.target.placeholder === "endDate") setChooseRadio("dateInput");
+    //   else setChooseRadio("text");
+    // }
     setEventData();
   };
 
@@ -397,22 +399,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         encType="multipart/form-data"
       >
         {inputs.map((input) => {
-          if (
-            input.type !== "select" &&
-            input.type !== "dateInput" &&
-            input.type !== "selectIcon"
-          )
-            return (
-              <Input
-                key={input.id}
-                {...input}
-                width={"300px"}
-                value={values[input.name]}
-                onChange={onChange}
-                className={styles.inputs}
-              />
-            );
-          else if (input.type === "select")
+          if (input.type === "select")
             return (
               <Select
                 {...input}
@@ -440,9 +427,37 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 array={input.name === "category" ? categoryData : audiencesData}
               />
             );
-          else return <DateInput />;
+          else if (input.type === "select")
+            return (
+              <Select
+                {...input}
+                key={input.id}
+                placeholder={input.placeholder}
+                value={values[input.name]}
+                name={input.name}
+                values={values}
+                setValues={setValues}
+                choossArray={
+                  input.name === "repeatType" ? typeData : paymentData
+                }
+              />
+            );
+          else if (constancy === "ללא חזרה") return <NoRepeatEvent />;
+          else if (constancy === "אירוע יומי") return <DailyEvent />;
+          else if (constancy === "אירוע שבועי") return <WeeklyEvent />;
+          else if (constancy === "בהתאמה אישית") return <PersonalEvent />;
+          else
+            return (
+              <Input
+                key={input.id}
+                {...input}
+                value={values[input.name]}
+                onChange={onChange}
+                className={styles.inputs}
+              />
+            );
         })}
-        {constancy &&
+        {/*       
           constancy !== "בהתאמה אישית" &&
           getEventArrayInputs().map((input) => {
             if (
@@ -450,15 +465,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               input.type !== "dateInput" &&
               input.type !== "selectIcon"
             )
-              return (
-                <Input
-                  key={input.id}
-                  {...input}
-                  value={values[input.name]}
-                  onChange={onChange}
-                  className={styles.inputs}
-                />
-              );
+          
             else if (input.type === "select")
               return (
                 <Select
@@ -494,13 +501,23 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               );
             else if (input.type === "dateInput") return <DateInput />;
           })}
-        {constancy === "בהתאמה אישית" && (
+        {constancy === "בהתאמה אישית"  (
           <PersonalEvent
             values={values}
             setValues={setValues}
             onChange={onChange}
           />
         )}
+        return (
+              <Input
+                key={input.id}
+                {...input}
+                width={"300px"}
+                value={values[input.name]}
+                onChange={onChange}
+                className={styles.inputs}
+              />
+            ); */}
         <div className={styles.button}>
           <ClassicButton width={"200px"} text={"Save"} type={"submit"} />
         </div>
