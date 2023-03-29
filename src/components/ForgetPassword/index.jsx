@@ -11,7 +11,6 @@ import styles from "./style.module.css";
 
 function ForgetPassword() {
     const [codeToReset, setCodeToReset] = useState();
-    const [resetPassword, setResetPassword] = useState(false)
     const[userEmail,setUserEmail] = useState()
     const navigate = useNavigate();
 
@@ -27,7 +26,6 @@ function ForgetPassword() {
     const verifyCode = (e) => {
         e.preventDefault();
         if (codeToReset == e.target.code.value) {
-
             navigate("/resetPassword", {state: { email: userEmail  }})
             console.log("good");
         }

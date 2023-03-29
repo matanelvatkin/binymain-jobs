@@ -27,7 +27,7 @@ function Main() {
         <Route path="/searchEvent" element={<SearchEvent/>}/>
         <Route path="/searchEvent/result/:query" element={<SearchResult/>}/>
         <Route path="/viewEvent/:event" element={<ViewEvent/>}/>
-        <Route path="/ForgetPassword" element={<ForgetPassword/>}/>
+        <Route path="/forgetPassword" element={<ForgetPassword/>}/>
         <Route path="/resetPassword" element={<ResetPassword/>}/>
 
         <Route path="*" element={<Navigate to="/"/>} />
