@@ -7,6 +7,7 @@ import Input from '../../components/Input'
 import ClassicButton from '../../components/ClassicButton copy'
 import {IoIosCreate} from 'react-icons/io'
 import axios from 'axios'
+import { error } from 'jquery'
 
 function Registeretion() {
     const {setHeader} = useContext(headerContext)
@@ -51,12 +52,19 @@ function Registeretion() {
         e.preventDefault();
         if(userData.password===userData.confirmPassword){
         const { confirmPassword, ...data } = userData;
-          // console.log(data);
+          console.log(data);
           axios
-      .post("http://localhost:5556/api/user/creatUser", data)
-      .then(() => {
-       console.log('user saved succesfuly!');
-       navigate('/login')      
+      .post("http://localhost:5000/api/user/creatUser", data)
+      .then((res) => {
+       if (res.status===200) {
+        console.log('user saved succesfuly!');
+       navigate('/login') 
+       }else{
+        console.log('error');
+       }     
+      }).catch((err) => {
+        console.log(err);
+        alert('אימייל בשימוש')
       });
     }else alert('ססמאות לא תואמות')
   }
