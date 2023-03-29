@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import PersonalEvent from "../../components/PersonalEvent";
 import DateInput from "../../components/DateInput";
 import { settingsContext } from "../../layout/Layout";
-import NoRepeatEvent from "../../components/NoRepeatEvent";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const nav = useNavigate();
@@ -78,8 +77,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     place: "kobi",
     registrationPageURL: "",
     // type: "",
-    category: [],
-    targetAudience: [],
+    category:[],
+    targetAudience:[],
     payment: "",
     days: [],
   });
@@ -396,7 +395,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   };
   useEffect(() => {
     console.log(values);
-  }, [values]);
+  },[values])
   return (
     <div
       dir="RTL"
@@ -409,55 +408,100 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         className={styles.form}
         encType="multipart/form-data"
       >
-        <Input
-          id={1}
-          name="eventName"
-          type="text"
-          label="שם האירוע"
-          placeholder="שם האירוע"
-          required={true}
-        />
-        <Input
-          id={2}
-          name="summary"
-          type="text"
-          label="תקציר"
-          placeholder="תקציר"
-          required={true}
-        />
-        <Input
-          id={3}
-          name="advertiserName"
-          type="text"
-          label="שם המפרסם"
-          placeholder="שם המפרסם"
-          required={true}
-        />
-        <Input
-          id={4}
-          name="advertiserTel"
-          type="text"
-          label="טלפון"
-          placeholder="טלפון"
-          required={true}
-        />
-        <Input
-          id={5}
-          name="advertiserEmail"
-          type="email"
-          label="מייל"
-          placeholder="מייל"
-          required={true}
-        />
-        <Select id={6} name="payment" label="עלות" placeholder="עלות" />
-        <Select id={7} name="repeatType" label="תדירות" placeholder="תדירות" />
-        {
-        constancy==='בהתאמה אישית'?<PersonalEvent/>:
-        constancy==='אירוע שבועי'?null/*<WeeklyEvent/>*/:
-        constancy==='אירוע יומי'?null/*<DaylyEvent/>*/:
-        <NoRepeatEvent/>
-        }
-
+        {inputs.map((input) => {
+          if (
+            input.type !== "select" &&
+            input.type !== "dateInput" &&
+            input.type !== "selection"
+          )
+            return (
+              <Input
+                key={input.id}
+                {...input}
+                width={"300px"}
+                value={values[input.name]}
+                onChange={onChange}
+                className={styles.inputs}
+              />
+            );
+          else if (input.type === "select")
+            return (
+              <Select
+                {...input}
+                key={input.id}
+                placeholder={input.placeholder}
+                value={values[input.name]}
+                name={input.name}
+                values={values}
+                setValues={setValues}
+                choossArray={
+                  input.name === "repeatType" ? typeData : paymentData
+                }
+              />
+            );
+          else if (input.type === "dateInput") return <DateInput />;
+          else
+            <SelectIcon
+              array={input.name === "category" ? categories : audiences}
+            />;
+        })}
+        {constancy &&
+          constancy !== "בהתאמה אישית" &&
+          getEventArrayInputs().map((input) => {
+            if (
+              input.type !== "select" &&
+              input.type !== "dateInput" &&
+              input.type !== "selection"
+            )
+              return (
+                <Input
+                  key={input.id}
+                  {...input}
+                  value={values[input.name]}
+                  onChange={onChange}
+                  className={styles.inputs}
+                />
+              );
+            else if (input.type === "select")
+              return (
+                <Select
+                  {...input}
+                  placeholder={input.placeholder}
+                  value={values[input.name]}
+                  values={values}
+                  setValues={setValues}
+                  key={input.id}
+                  name={input.name}
+                  choossArray={
+                    input.name === "place"
+                      ? placeData
+                      : input.name === "category"
+                      ? categoryData
+                      : targetAudienceData
+                  }
+                />
+              );
+            else if (input.type === "dateInput") return <DateInput />;
+            else
+              return (
+                <SelectIcon
+                  array={input.name === "category" ? categories : audiences}
+                  setValues={setValues}
+                  name={input.name}
+                  values={values}
+                />
+              );
+          })}
+        {constancy === "בהתאמה אישית" && (
+          <PersonalEvent
+            values={values}
+            setValues={setValues}
+            onChange={onChange}
+            choossArray={{ categoryData, targetAudienceData, placeData }}
+            chooseRadio={chooseRadio}
+            setChooseRadio={setChooseRadio}
+          />
+        )}
         <div className={styles.button}>
           <ClassicButton width={"200px"} text={"Save"} type={"submit"} />
         </div>
@@ -465,98 +509,3 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     </div>
   );
 }
-
-// {inputs.map((input) => {
-//   if (
-//     input.type !== "select" &&
-//     input.type !== "dateInput" &&
-//     input.type !== "selection"
-//   )
-//     return (
-//       <Input
-//         key={input.id}
-//         {...input}
-//         width={"300px"}
-//         value={values[input.name]}
-//         onChange={onChange}
-//         className={styles.inputs}
-//       />
-//     );
-//   else if (input.type === "select")
-//     return (
-//       <Select
-//         {...input}
-//         key={input.id}
-//         placeholder={input.placeholder}
-//         value={values[input.name]}
-//         name={input.name}
-//         values={values}
-//         setValues={setValues}
-//         choossArray={
-//           input.name === "repeatType" ? typeData : paymentData
-//         }
-//       />
-//     );
-//   else if (input.type === "dateInput") return <DateInput />;
-//   else
-//     <SelectIcon
-//       array={input.name === "category" ? categories : audiences}
-//     />;
-// })}
-// {constancy &&
-//   constancy !== "בהתאמה אישית" &&
-//   getEventArrayInputs().map((input) => {
-//     if (
-//       input.type !== "select" &&
-//       input.type !== "dateInput" &&
-//       input.type !== "selection"
-//     )
-//       return (
-//         <Input
-//           key={input.id}
-//           {...input}
-//           value={values[input.name]}
-//           onChange={onChange}
-//           className={styles.inputs}
-//         />
-//       );
-//     else if (input.type === "select")
-//       return (
-//         <Select
-//           {...input}
-//           placeholder={input.placeholder}
-//           value={values[input.name]}
-//           values={values}
-//           setValues={setValues}
-//           key={input.id}
-//           name={input.name}
-//           choossArray={
-//             input.name === "place"
-//               ? placeData
-//               : input.name === "category"
-//               ? categoryData
-//               : targetAudienceData
-//           }
-//         />
-//       );
-//     else if (input.type === "dateInput") return <DateInput />;
-//     else
-//       return (
-//         <SelectIcon
-//           array={input.name === "category" ? categories : audiences}
-//           setValues={setValues}
-//           name={input.name}
-//           values={values}
-//         />
-//       );
-//   })}
-// {constancy === "בהתאמה אישית" && (
-//   <PersonalEvent
-//     values={values}
-//     setValues={setValues}
-//     onChange={onChange}
-//     choossArray={{ categoryData, targetAudienceData, placeData }}
-//     chooseRadio={chooseRadio}
-//     setChooseRadio={setChooseRadio}
-//   />
-// )}
