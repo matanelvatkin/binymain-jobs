@@ -35,7 +35,7 @@ function Login() {
 
   const loginAouth = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5000/api/user/login", {
+    axios.post("http://localhost:5556/api/user/login", {
       fullName: userInfo.fullName,
       password: userInfo.password,
     })
