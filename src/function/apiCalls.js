@@ -9,10 +9,9 @@ const apiCalls = async (
     param = null,
     header = null
 ) => {
-    const baseUrl = process.env.SERREACT_APP_SERVER || `http://localhost:${PORT}`
+    const baseUrl = process.env.REACT_APP_SERVER || `http://localhost:${PORT}`
     // const baseUrl = "https://server-production-7ef9.up.railway.app/"
     const fullUrl = `${baseUrl}/api/${url}`;
-    console.log(baseUrl);
     try {
         const data = await axios({
             method: method,
