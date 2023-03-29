@@ -130,45 +130,40 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       required: true,
     },
     {
-      id: 17,
+      id: 6,
       name: "payment",
       type: "select",
       label: "עלות",
       placeholder: "עלות",
     },
     {
-      id: 16,
+      id: 7,
       name: "repeatType",
       type: "select",
       label: "תדירות",
-      placeholder: "תדירות",
-    },
-  ];
-  const oneTimeEventArray = [
-    {
-      id: 6,
-      name: "date",
-      type: "dateInput",
-      label: "תאריך האירוע",
-      placeholder: "בחר תאריך ביומן",
-      required: true,
+      placeholder: "ללא חזרה",
     },
     {
-      id: 7,
+      id: 8,
+      name: "constancy",
+      type: constancy,
+    },
+    {
+      id: 9,
       name: "beginningTime",
       type: "time",
       label: "זמן התחלה",
       placeholder: "זמן התחלה",
     },
     {
-      id: 8,
+      id: 10,
       name: "finishTime",
       type: "time",
       label: "זמן סיום",
       placeholder: "זמן סיום",
     },
     {
-      id: 9,
+      id: 11,
       name: "place",
       type: "select",
       label: "מקום",
@@ -176,150 +171,145 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       required: true,
     },
     {
-      id: 10,
+      id: 12,
       name: "category",
       type: "selectIcon",
       label: "קטגוריה",
       placeholder: "קטגוריה",
     },
     {
-      id: 11,
+      id: 13,
       name: "audiences",
       type: "selectIcon",
       label: "קהל יעד",
       placeholder: "קהל יעד",
     },
     {
-      id: 12,
+      id: 14,
       name: "registrationPageURL",
       type: "text",
       label: "דף הרשמה לאירוע",
       placeholder: "דף הרשמה לאירוע",
     },
     {
-      id: 13,
+      id: 15,
       name: "cardImageURL",
       type: "file",
       label: "תמונת אירוע",
       // required: true,
     },
     {
-      id: 14,
+      id: 16,
       name: "coverImageURL",
       type: "file",
       label: "תמונת כיסוי",
       multiple: true,
     },
     {
-      id: 15,
-      name: "gallery",
-      type: "text",
-      label: "העלה תמונות לגלריה",
-    },
-  ];
-  const dayliEvent = [
-    {
-      id: 6,
-      name: "date",
-      type: "dateInput",
-      label: "החל מתאריך",
-      placeholder: "בחר תאריך ביומן",
-      required: true,
-    },
-    {
-      id: 20,
-      name: "endType",
-      type: "radio",
-      values: "endDate",
-      label: "סיים בתאריך",
-      placeholder: "endDate",
-    },
-    {
-      id: 21,
-      name: "endType",
-      type: "radio",
-      values: "endRepeat",
-      label: "מספר החזרות של באירוע",
-      placeholder: "endRepeat",
-    },
-    {
-      id: 22,
-      name: "endTypeString",
-      type: chooseRadio,
-      label: "חזרה עד",
-      placeholder: chooseRadio === "dateInput" ? "תאריך" : "מספר חזרות",
-    },
-    {
-      id: 7,
-      name: "beginningTime",
-      type: "time",
-      label: "זמן התחלה",
-      placeholder: "זמן התחלה",
-    },
-    {
-      id: 8,
-      name: "finishTime",
-      type: "time",
-      label: "זמן סיום",
-      placeholder: "זמן סיום",
-    },
-    {
-      id: 9,
-      name: "place",
-      type: "select",
-      label: "מקום",
-      placeholder: "בחר מיקום",
-      required: true,
-    },
-    {
-      id: 10,
-      name: "category",
-      type: "selectIcon",
-      label: "קטגוריה",
-      placeholder: "קטגוריה",
-    },
-    {
-      id: 11,
-      name: "audiences",
-      type: "selectIcon",
-      label: "קהל יעד",
-      placeholder: "קהל יעד",
-    },
-    {
-      id: 12,
-      name: "registrationPageURL",
-      type: "text",
-      label: "דף הרשמה לאירוע",
-      placeholder: "דף הרשמה לאירוע",
-    },
-    {
-      id: 13,
-      name: "cardImageURL",
-      type: "file",
-      label: "תמונת אירוע",
-      // required: true,
-    },
-    {
-      id: 14,
-      name: "coverImageURL",
-      type: "file",
-      label: "תמונת כיסוי",
-      multiple: true,
-    },
-    {
-      id: 15,
+      id: 17,
       name: "gallery",
       type: "text",
       label: "העלה תמונות לגלריה",
     },
   ];
 
-  const getEventArrayInputs = () => {
-    if (values.repeatType === "תדירות") return [];
-    else if (values.repeatType === "אירוע ללא חזרה") return oneTimeEventArray;
-    else if (values.repeatType !== "בהתאמה אישית") return dayliEvent;
-    else return [];
-  };
+  // const dayliEvent = [
+  //   {
+  //     id: 6,
+  //     name: "date",
+  //     type: "dateInput",
+  //     label: "החל מתאריך",
+  //     placeholder: "בחר תאריך ביומן",
+  //     required: true,
+  //   },
+  //   {
+  //     id: 20,
+  //     name: "endType",
+  //     type: "radio",
+  //     values: "endDate",
+  //     label: "סיים בתאריך",
+  //     placeholder: "endDate",
+  //   },
+  //   {
+  //     id: 21,
+  //     name: "endType",
+  //     type: "radio",
+  //     values: "endRepeat",
+  //     label: "מספר החזרות של באירוע",
+  //     placeholder: "endRepeat",
+  //   },
+  //   {
+  //     id: 22,
+  //     name: "endTypeString",
+  //     type: chooseRadio,
+  //     label: "חזרה עד",
+  //     placeholder: chooseRadio === "dateInput" ? "תאריך" : "מספר חזרות",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "beginningTime",
+  //     type: "time",
+  //     label: "זמן התחלה",
+  //     placeholder: "זמן התחלה",
+  //   },
+  //   {
+  //     id: 8,
+  //     name: "finishTime",
+  //     type: "time",
+  //     label: "זמן סיום",
+  //     placeholder: "זמן סיום",
+  //   },
+  //   {
+  //     id: 9,
+  //     name: "place",
+  //     type: "select",
+  //     label: "מקום",
+  //     placeholder: "בחר מיקום",
+  //     required: true,
+  //   },
+  //   {
+  //     id: 10,
+  //     name: "category",
+  //     type: "selectIcon",
+  //     label: "קטגוריה",
+  //     placeholder: "קטגוריה",
+  //   },
+  //   {
+  //     id: 11,
+  //     name: "audiences",
+  //     type: "selectIcon",
+  //     label: "קהל יעד",
+  //     placeholder: "קהל יעד",
+  //   },
+  //   {
+  //     id: 12,
+  //     name: "registrationPageURL",
+  //     type: "text",
+  //     label: "דף הרשמה לאירוע",
+  //     placeholder: "דף הרשמה לאירוע",
+  //   },
+  //   {
+  //     id: 13,
+  //     name: "cardImageURL",
+  //     type: "file",
+  //     label: "תמונת אירוע",
+  //     // required: true,
+  //   },
+  //   {
+  //     id: 14,
+  //     name: "coverImageURL",
+  //     type: "file",
+  //     label: "תמונת כיסוי",
+  //     multiple: true,
+  //   },
+  //   {
+  //     id: 15,
+  //     name: "gallery",
+  //     type: "text",
+  //     label: "העלה תמונות לגלריה",
+  //   },
+  // ];
+
   const [eventData, setEventData] = useState({
     eventName: values.eventName,
     summary: values.summary,
@@ -373,6 +363,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     if (e.target.type === "file") {
       setFilesValues({ ...filesValues, [e.target.name]: e.target.value });
     } else if (e.target.type !== "radio") {
+      //check if need to delete
       setValues({ ...values, [e.target.name]: e.target.value });
     } else {
       setValues({ ...values, [e.target.name]: e.target.value });
@@ -498,7 +489,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             values={values}
             setValues={setValues}
             onChange={onChange}
-            choossArray={{ categoryData, audiencesData, placeData }}
           />
         )}
         <div className={styles.button}>
