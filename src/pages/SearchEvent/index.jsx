@@ -8,28 +8,20 @@ import DateInput from '../../components/DateInput'
 import { useNavigate } from 'react-router-dom'
 import apiCalls from '../../function/apiCalls'
 import Loader from '../../components/Loader'
+import { settingsContext } from '../../layout/Layout'
 
 export default function SearchEvent() {
     const navigate = useNavigate()
-
+    const settingContext = useContext(settingsContext)
     const [loading, setLoading] = useState(true)
     const [categories, setCategories] = useState([])
     const [audiences, setAudiences] = useState([])
      
-    async function fetchData(){
-        let apiCategories, apiAudiences
-        try {
-            apiCategories = await apiCalls('get', '/setting/categories')
-            apiAudiences = await apiCalls('get', '/setting/audiences')
-        } catch(e) {
-            console.log();
-        }
-        
-        setCategories(()=> apiCategories[0].settingData.map(v => ({...v, isActive: false})))
-        setAudiences(()=> apiAudiences[0].settingData.map(v => ({...v, isActive: false})))
-    }
 
-    useEffect(()=>{fetchData()},[])
+    useEffect(()=>{
+        setAudiences(settingContext.audiences)
+        setCategories(settingContext.categories)
+    },[])
 
     useEffect(()=>{
         if(audiences && categories)
