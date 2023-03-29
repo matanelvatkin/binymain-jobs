@@ -311,7 +311,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 values={values}
                 setValues={setValues}
                 choossArray={
-                  input.name === "repeatType" ? typeData : paymentData
+                  input.name === "repeatType"
+                    ? typeData
+                    : input.name === "place"
+                    ? placeData
+                    : paymentData
                 }
               />
             );
