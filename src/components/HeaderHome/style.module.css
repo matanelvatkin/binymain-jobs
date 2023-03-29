@@ -53,24 +53,24 @@
 
 .options{
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content:flex-end;
+    flex-direction: column;
+    direction: rtl;
+    justify-content:center;
     width: 100%; 
-    margin-right: 10px;
-    gap: 5px;
-    
+    margin-right: 10px;    
 }
 
 .iconContainer{
 display: flex;
 align-items: center;
+height: 30px;
+width:fit-content;
 }
 
 .icon{
     color: var(--text-Fourth-color);
-    height: 25px;
-    width: 25px;
+    height: 32px;
+    width: 32px;
     cursor: pointer;
 }
 

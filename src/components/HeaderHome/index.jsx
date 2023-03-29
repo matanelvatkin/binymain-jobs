@@ -36,10 +36,12 @@ function HeaderHome() {
       </div>
       <div className={styles.options}>
         <span className={styles.iconContainer}>
+        <FiSearch className={styles.icon}/>
           <input dir='rtl' placeholder='חפש...' className={styles.input} type="search" defaultValue={search} onChange={(e)=>setSearch(e.target.value)}/>
-          <FiSearch className={styles.icon}/>
         </span>
-        <span className={styles.iconContainer} onClick={() =>{navigate("/searchEvent")}}> <TbListSearch className={styles.icon}/></span>   
+        <span 
+        className={styles.iconContainer} onClick={() =>{navigate("/searchEvent")}}> <TbListSearch className={styles.icon}/>
+        </span>   
       </div >
     </div>
   )

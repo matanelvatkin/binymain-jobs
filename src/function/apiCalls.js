@@ -9,10 +9,8 @@ const apiCalls = async (
     param = null,
     header = null
 ) => {
-    const baseUrl = `http://localhost:${PORT}`
-    // const baseUrl = "https://server-production-7ef9.up.railway.app/"
+    const baseUrl = process.env.REACT_APP_BASE_URL || `http://localhost:${PORT}`
     const fullUrl = `${baseUrl}/api/${url}`;
-
     try {
         const data = await axios({
             method: method,
