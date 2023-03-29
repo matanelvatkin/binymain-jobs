@@ -9,7 +9,7 @@ const apiCalls = async (
     param = null,
     header = null
 ) => {
-    const baseUrl = `http://localhost:${PORT}`
+    const baseUrl = process.env.SERVER
     // const baseUrl = "https://server-production-7ef9.up.railway.app/"
     const fullUrl = `${baseUrl}/api/${url}`;
 
