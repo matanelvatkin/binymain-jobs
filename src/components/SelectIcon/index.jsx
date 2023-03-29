@@ -9,21 +9,19 @@ import styles from './style.module.css'
 // it alows you to choose multiple choices and save them in activeArray state.
 // example: <SelectIcon array={array} header={'My header'} /> 
 
-const SelectIcon = ({array=[] , header, text, icon, ...props}) => {
+const SelectIcon = ({array=[] , setValues,values,name, header, text, icon, ...props}) => {
   const [activeArray, setActiveArray] = useState([]);
-
   const handleCategoryClick = (category) => {
     if (activeArray.includes(category)) {
       setActiveArray(activeArray.filter((item) => item !== category));
-      console.log(activeArray);
     } else {
       setActiveArray([...activeArray, category]);
-      console.log(activeArray);
     }
   };
-
-  
-
+  useEffect(()=>{
+  console.log(values,name);
+  setValues(...values,{name:activeArray});
+},[activeArray])
   return (
     <div className={styles.main}>
       <div className={styles.container}>

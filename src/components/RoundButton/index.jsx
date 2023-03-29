@@ -16,6 +16,7 @@ function RoundButton({ icon, func, text, ...props }) {
         className={props.isActive ? styles.button+' '+styles.active : styles.button}
         onClick={func}
         {...props}
+        type="button"
       >
         <img className={styles.icon} src={icon} id={props.id} />
       </button>

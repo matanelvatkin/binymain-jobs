@@ -25,13 +25,17 @@ function Login() {
     navigate("/registeretion");
   };
 
+  const navToForgetPassword = () => {
+    navigate('/forgetPassword');
+  };
+
   const navToHome = () => {
     navigate("/");
   };
 
   const loginAouth = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5000/api/user/login", {
+    axios.post("http://localhost:5556/api/user/login", {
       fullName: userInfo.fullName,
       password: userInfo.password,
     })
@@ -102,13 +106,13 @@ function Login() {
               />
             )
         })}
-
+        <span style={{fontSize:"small"} } onClick={navToForgetPassword}>שכחת סיסמא?</span>
+            
         <ToggleSwitch
           text={'זכור אותי'}
           checked={checked}
           onChange={handleToggleSwitch}
         />
-
         <div className={styles.firstButton}>
           <ClassicButton
             width={'70%'}
