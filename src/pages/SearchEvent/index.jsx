@@ -116,26 +116,22 @@ export default function SearchEvent() {
             dbQuery.targetAudience = {$in: [activeAudiences[0]._id]}
         }
     
-        let hoursDiffrence = 23 - date.getHours()
-        let minutesDiffrence = 59 - date.getMinutes()
-        let secondsDiffrence = 59 - date.getSeconds()
+        const queryDate = new Date(date.toDateString())
 
         if(btnDates.thisWeek) {
             let today = new Date().getDay()
             if(today === 7) {
-                let endDayOfWeek = new Date(date.getTime() + (6 * 24 * 60**2 * 1000) + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + (secondsDiffrence * 1000))
-                dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endDayOfWeek.toISOString()}}
+                let endDayOfWeek = new Date(new Date(date.getTime() + (6 * 24 * 60**2 * 1000)).toDateString())
+                dbQuery.date = {$gte: queryDate, $lte: endDayOfWeek}
             }else if(today === 6) {
-                let endOfDay = new Date(date.getTime() + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + secondsDiffrence * 1000 ) 
-                dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endOfDay.toISOString()}}
+                dbQuery.date = queryDate
             } else {
-                let endDayOfWeek = new Date(date.getTime() + ((6 - today) * 24 * 60**2 * 1000) + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + (secondsDiffrence * 1000))
-                dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endDayOfWeek.toISOString()}}
+                let today = new Date().getDay()
+                let endDayOfWeek = new Date(new Date(date.getTime() + ((6 - today) * 24 * 60**2 * 1000)).toDateString())
+                dbQuery.date = {$gte: date, $lte: endDayOfWeek}
             }
-
-        } else {
-            let endOfDay = new Date(date.getTime() + (hoursDiffrence * 60**2 * 1000) + (minutesDiffrence * 60 * 1000) + secondsDiffrence * 1000 ) 
-            dbQuery.date = {$in: {$gte: date.toISOString(), $lte: endOfDay.toISOString()}}
+        } else { 
+            dbQuery.date = queryDate
         }
         
     
