@@ -12,14 +12,12 @@ export default function DateInput({ values, setValues = () => {}, ...props }) {
     props.val ? props.val : new Date()
   );
   useEffect(() => {
-    console.log(values);
     setValues({ ...values, date: selectDate });
   }, [selectDate]);
 
   function dateSelectHandle(date) {
     setSelectDate(() => date);
     setdatepicker(!datepicker);
-    console.log(date);
     if (typeof props.func === "function") props.func(date);
   }
 
@@ -40,6 +38,7 @@ export default function DateInput({ values, setValues = () => {}, ...props }) {
       <button
         className={style.button}
         onClick={() => setdatepicker(!datepicker)}
+        type="button"
       >
         <span className={style.arrIcon}>
           <IoIosArrowBack />

@@ -59,6 +59,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
+  const [constancy, setConstancy] = useState("אירוע ללא חזרה");
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
@@ -70,11 +71,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     advertiserEmail: "",
     isRepeated: false,
     repeatType: "",
-    endType: "",
-    endValue: "",
-    date: "",
-    repeatSettingsType: "",
-    repeatSettingsRepeatEnd: "",
+    personalRepeatType: "",
+    date: new Date(),
+    repeatSettingsType: "endDate",
+    repeatSettingsRepeatEnd: undefined,
     beginningTime: "",
     finishTime: "",
     place: "",
@@ -91,7 +91,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       "https://cdn.pixabay.com/photo/2023/02/12/12/06/ocean-7784940_1280.jpg",
     gallery: [],
   });
-  const [constancy, setConstancy] = useState("ללא חזרה");
 
   const inputs = [
     {
@@ -146,12 +145,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "repeatType",
       type: "select",
       label: "תדירות",
-      placeholder: "ללא חזרה",
+      placeholder: "אירוע ללא חזרה",
     },
     {
       id: 8,
       name: "constancy",
-      type: constancy,
+      type: constancy || "אירוע ללא חזרה",
     },
     {
       id: 9,
@@ -217,72 +216,89 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
   ];
 
-  const [eventData, setEventData] = useState({
-    eventName: values.eventName,
-    summary: values.summary,
-    advertiser: {
-      name: values.advertiserName,
-      tel: values.advertiserTel,
-      email: values.advertiserEmail,
-    },
-    date: values.date,
-    beginningTime: values.beginningTime,
-    finishTime: values.finishTime,
-    place: values.place,
-    category: values.category,
-    audiences: values.audiences,
-    registrationPageURL: values.registrationPageURL,
-    cardImageURL: filesValues.cardImageURL,
-    coverImageURL: filesValues.coverImageURL,
-    gallery: filesValues.gallery,
-    repeatType: values.repeatType,
-    payment: values.payment,
-  });
+  const [eventData, setEventData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    for (const key in values) {
-      if (Array.isArray(values[key])) {
-        for (const file of values[key]) {
-          formData.append(key, file);
-        }
-      } else {
-        formData.append(key, values[key]);
-      }
-      console.log("values", values);
-      // console.log("eventData", eventData);
-      // console.log("formData: ", formData.values());
-    }
-
-    apiCalls("post", "event/createvent", values, {
-      headers: { "Content-Type": "multipart/form-data" },
-    }).then((res) => {
-      if (res.status === 200) {
-        nav("/newEvent");
-      }
+    // const formData = new FormData();
+    // for (const key in values) {
+    //   if (Array.isArray(values[key])) {
+    //     for (const file of values[key]) {
+    //       formData.append(key, file);
+    //     }
+    //   } else {
+    //     formData.append(key, values[key]);
+    //   }
+    //   console.log("values", values);
+    // }
+    // apiCalls("post", "event/createvent", values, {
+    //   headers: { "Content-Type": "multipart/form-data" },
+    // }).then((res) => {
+    //   if (res.status === 200) {
+    //     nav("/newEvent");
+    //   }
+    // });
+    setEventData({
+      eventName: values.eventName,
+      summary: values.summary,
+      advertiser: {
+        name: values.advertiserName,
+        tel: values.advertiserTel,
+        email: values.advertiserEmail,
+      },
+      date: values.date,
+      day: values.days,
+      beginningTime: values.beginningTime,
+      finishTime: values.finishTime,
+      place: values.place,
+      category: values.category,
+      targetAudience: values.audiences,
+      registrationPageURL: values.registrationPageURL,
+      cardImageURL: filesValues.cardImageURL,
+      coverImageURL: filesValues.coverImageURL,
+      gallery: filesValues.gallery,
+      repeatType: values.repeatType,
+      personalRepeat: values.personalRepeatType,
+      isReapeated: values.repeatType !== "אירוע ללא חזרה",
+      payment: values.payment,
+      repeatSettings: {
+        type: values.repeatSettingsType,
+        repeatEnd: values.repeatSettingsRepeatEnd || values.date,
+      },
     });
   };
   useEffect(() => {
+    if (eventData)
+      apiCalls("post", "event/createvent", eventData).then((res) => {
+        if (res.status === 200) nav("/newEvent");
+      });
+  }, [eventData]);
+
+  useEffect(() => {
     setConstancy(values.repeatType);
+    setValues({
+      ...values,
+      repeatSettingsType: "endDate",
+      repeatSettingsRepeatEnd: undefined,
+      days: [],
+      personalRepeatType: undefined,
+      date:new Date(),
+    });
   }, [values.repeatType]);
 
   useEffect(() => {
     setAudiences(settingContext.audiences);
     setCategories(settingContext.categories);
   }, []);
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
 
   const onChange = (e) => {
     if (e.target.type === "file") {
       setFilesValues({ ...filesValues, [e.target.name]: e.target.value });
     } else if (e.target.type !== "radio") {
-      //check if need to delete
       setValues({ ...values, [e.target.name]: e.target.value });
     }
-    // else {
-    //   setValues({ ...values, [e.target.name]: e.target.value });
-    //   if (e.target.placeholder === "endDate") setChooseRadio("dateInput");
-    //   else setChooseRadio("text");
-    // }
     setEventData();
   };
 

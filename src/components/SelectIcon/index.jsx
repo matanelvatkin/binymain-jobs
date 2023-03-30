@@ -11,7 +11,7 @@ import styles from "./style.module.css";
 
 const SelectIcon = ({
   array = [],
-  setValues,
+  setValues=()=>{},
   values,
   name,
   header,
@@ -28,7 +28,9 @@ const SelectIcon = ({
       setActiveArray([...activeArray, category]);
     }
   };
-
+  useEffect(()=>{
+    setValues({...values,[name]:activeArray})
+  },[activeArray])
   return (
     <div className={styles.main}>
       <div className={styles.container}>
