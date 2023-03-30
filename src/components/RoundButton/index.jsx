@@ -11,7 +11,6 @@ import styles from "./style.module.css";
 function RoundButton({ icon, func, text, inText, ...props }) {
   return !inText ? (
     <div className={styles.main}>
-      {console.log(text)}
       <button
         className={
           props.isActive ? styles.button + " " + styles.active : styles.button
@@ -30,6 +29,7 @@ function RoundButton({ icon, func, text, inText, ...props }) {
         className={
           props.isActive ? styles.button + " " + styles.active : styles.button
         }
+        type="button"
         onClick={func}
         {...props}
       >

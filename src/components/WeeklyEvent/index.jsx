@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DateInput from "../DateInput";
 import Input from "../Input";
 import styles from "./style.module.css";
 
-export default function WeeklyEvent() {
+export default function WeeklyEvent({ values, setValues = () => {}, ...props }) {
   const [chooseRadio, setChooseRadio] = useState("");
+  const [endRepeat, setEndRepeat] = useState({});
   const chooseRadioClick = (e) => {
     setChooseRadio(e.target.value);
   };
+  const onChange=(e)=>{
+    setValues({ ...values, repeatSettingsRepeatEnd: e.target.value });
+  }
+  useEffect(() => {
+    if(endRepeat) setValues({ ...values, repeatSettingsRepeatEnd: endRepeat.date});
+  },[endRepeat])
+  useEffect(() => {
+    setEndRepeat()
+    setValues({ ...values, repeatSettingsType: chooseRadio });
+  }, [chooseRadio]);
   return (
     <>
       החל מתאריך:
-      <DateInput />
+      <DateInput values={values} setValues={setValues} />
       <Input
         onChange={chooseRadioClick}
         label="בתאריך"
@@ -27,9 +38,9 @@ export default function WeeklyEvent() {
         value="endNumber"
       />
       {chooseRadio === "endDate" ? (
-        <DateInput />
+        <DateInput values={endRepeat} setValues={setEndRepeat} />
       ) : (
-        <Input placeholder="בעוד מספר פעמים" type="text" name="repeatNumber" />
+        <Input onChange={onChange} placeholder="בעוד מספר פעמים" type="number" name="repeatNumber" />
       )}
     </>
   );
