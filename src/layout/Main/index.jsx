@@ -11,26 +11,40 @@ import Registeretion from "../../pages/Registeretion"
 import Test from "../../pages/Test"
 import ResetPassword from "../../components/ResetPassword"
 import ForgetPassword from "../../components/ForgetPassword"
+import { useContext } from "react"
+import userContext from "../../context/userContext"
 
 
 function Main() {
   // const x = useContext(ContextFakeData)
+  const { user } = useContext(userContext);
+
   return (
     <main>
       {/* {x} */}
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/test" element={<Test/>}/>
-        <Route path="/registeretion" element={<Registeretion/>}/>
-        <Route path="/newEvent" element={<NewEvent/>}/>
-        <Route path="/searchEvent" element={<SearchEvent/>}/>
-        <Route path="/searchEvent/result/:query" element={<SearchResult/>}/>
-        <Route path="/viewEvent/:event" element={<ViewEvent/>}/>
-        <Route path="/forgetPassword" element={<ForgetPassword/>}/>
-        <Route path="/resetPassword" element={<ResetPassword/>}/>
 
-        <Route path="*" element={<Navigate to="/"/>} />
+      <Routes>
+        {!user && (
+          <>
+            <Route path="/" element={<Login />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="/registeretion" element={<Registeretion />} />
+            <Route path="/forgetPassword" element={<ForgetPassword />} />
+            <Route path="/resetPassword" element={<ResetPassword />} />
+          </>
+        )
+        }
+        {user && (
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/newEvent" element={<NewEvent />} />
+            <Route path="/searchEvent" element={<SearchEvent />} />
+            <Route path="/searchEvent/result/:query" element={<SearchResult />} />
+            <Route path="/viewEvent/:event" element={<ViewEvent />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </>
+        )
+        }
       </Routes>
     </main>
   )

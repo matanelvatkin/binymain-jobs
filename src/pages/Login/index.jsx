@@ -8,12 +8,14 @@ import { FaSignInAlt } from 'react-icons/fa'
 import { FiUserPlus } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import userContext from '../../context/userContext';
 
 // creator: Yisrael Olonoff
 // login page
 
 function Login() {
-  const { setHeader } = useContext(headerContext)
+  const { setHeader } = useContext(headerContext);
+  const {setUser} = useContext(userContext);
   setHeader('home')
   
   const [checked, setChecked] = useState(true);
@@ -41,7 +43,8 @@ function Login() {
     })
       .then((res) => {
         if (res.status === 200) {
-          navToHome();
+          setUser(res.data)
+          // navToHome();
         } else {
           console.log('error');
         }
