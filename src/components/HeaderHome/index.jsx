@@ -12,7 +12,8 @@ import headerContext from '../../context/headerContext';
 function HeaderHome() {
   const navigate = useNavigate()
   const [headerHeight, setHeaderHeight] = useState(18)
-  const{ search , setSearch } = useContext(headerContext)
+  const{ search , setSearch } = useContext(headerContext);
+  const [showInput, setShowInput] = useState(false);
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -33,8 +34,19 @@ function HeaderHome() {
   <div className={styles.main} style={{ height: `${headerHeight}vh` }}> 
      <div className={styles.headerHome_container} >
       <div className={styles.titleContainer}>
+        <div className={styles.titleBox}>
          <h1 className={styles.title}> HereEvent </h1>
          <BiAnalyse className={styles.logo}/>
+         </div >
+         <span className={styles.searchContainer}>
+          <input 
+          dir='rtl' 
+          placeholder='חפש...' 
+          className={showInput? styles.visibleInput : styles.hiddenInput} 
+          type="search" 
+          defaultValue={search} 
+          onChange={(e)=>setSearch(e.target.value)}/>
+        </span>
       </div>
       <div className={styles.options}>
         <span>
@@ -43,12 +55,11 @@ function HeaderHome() {
         <span 
         className={styles.advanceContainer} onClick={() =>{navigate("/searchEvent")}}> <TbListSearch className={styles.icon}/>
         </span> 
+        <span>
+        <FiSearch className={styles.icon} onClick={()=> setShowInput(!showInput)}/>
+        </span>
         </div >  
         </div>
-        <span className={styles.searchContainer}>
-        <FiSearch className={styles.icon}/>
-          <input dir='rtl' placeholder='חפש...' className={styles.input} type="search" defaultValue={search} onChange={(e)=>setSearch(e.target.value)}/>
-        </span>
         </div>
 
   )

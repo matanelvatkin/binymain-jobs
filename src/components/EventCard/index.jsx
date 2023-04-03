@@ -39,7 +39,7 @@ function EventCard({ events }) {
 
     useEffect(() => {
         if(!events) {
-            apiCalls("post","/event")
+            apiCalls("get","/event")
             .then((event) => {
             setCard(event);
             })
@@ -57,8 +57,8 @@ function EventCard({ events }) {
 
     return (
         <>
-            {card?.filter((v=>v.eventName.includes(search)||v.place.includes(search)))
-            .map((v) => {
+            {/* {card?.filter((v=>v.eventName.includes(search)||v.place.includes(search))) */}
+            {card.map((v) => {
                 return (
                     <div
                         className={styles.main}
