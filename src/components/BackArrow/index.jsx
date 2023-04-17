@@ -16,7 +16,7 @@ export default function BackArrow({ color }) {
         }
     }
     return (
-        <div className={styles.arrowBack} onClick={handleNavigate} style={{ color: color }}><HiArrowNarrowLeft className={styles.icon}/></div>
+        <div className={styles.arrowBack} onClick={handleNavigate} style={{ color: color, position:'absolute', top: '40px', right: '230px' }}><HiArrowNarrowLeft className={styles.icon}/></div>
     )
 }
 
