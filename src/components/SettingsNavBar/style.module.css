@@ -2,9 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    justify-content: space-around;
     position: fixed;
     width: 180px;
-    height: 210px;
+    height: 250px;
     top: 0px;
     right: 0px;
     background-color: var(--bg-color);
@@ -18,8 +19,9 @@
     display: flex;
     background-color: transparent;
     border-radius: 25px 0 0 25px ;
-    width: 160px;
+    width: 155px;
     height: 35px;
+    font-size: large;
     cursor: pointer;
     justify-content: start;
     align-items: center;
@@ -30,7 +32,7 @@
 }
 
 .category:hover {
-    font-size: large;
+    font-size: larger;
     background: linear-gradient(108.1deg, #F5F5F5 11.2%, #537FE7 88.9%);
 }
 
@@ -42,14 +44,14 @@
     justify-content: start;
     width: 180px;
     height: 20px;
+    margin-top: -3px;
 }
 
 .icon {
-    font-size: medium;
+    font-size: x-large;
     transition: .1s;
 }
 
 .icon:hover {
-    font-size: large;
     color: var(--bg-secondary-color);
 }
