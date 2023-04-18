@@ -8,12 +8,14 @@ import {BiAnalyse} from 'react-icons/bi'
 import {BsThreeDotsVertical} from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom';
 import headerContext from '../../context/headerContext';
+import SettingsNavBar from '../SettingsNavBar';
 
 function HeaderHome() {
   const navigate = useNavigate()
   const [headerHeight, setHeaderHeight] = useState(18)
   const{ search , setSearch } = useContext(headerContext);
   const [showInput, setShowInput] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -51,7 +53,7 @@ function HeaderHome() {
       </div>
       <div className={styles.options}>
         <span>
-         <BsThreeDotsVertical className={styles.icon}/>
+         <BsThreeDotsVertical className={styles.icon} onClick={() => setShowSettings(!showSettings)}/>
         </span>
         <span 
         className={styles.advanceContainer} onClick={() =>{navigate("/searchEvent")}}> <TbListSearch className={styles.icon}/>
@@ -61,6 +63,7 @@ function HeaderHome() {
         </span>
         </div >  
         </div>
+        {showSettings && <SettingsNavBar visibility={true} setVisibility={setShowSettings}/>}
         </div>
 
   )
