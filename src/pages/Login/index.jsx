@@ -108,13 +108,20 @@ function Login() {
               />
             )
         })}
-        <span style={{fontSize:"small"} } onClick={navToForgetPassword}>שכחת סיסמא?</span>
-            
+           <div className={styles.switchAndForgot}> 
+           <span 
+           className={styles.forgotPassword} 
+           onClick={navToForgetPassword}
+           >
+            שכחתי סיסמא
+          </span>
         <ToggleSwitch
           text={'זכור אותי'}
           checked={checked}
           onChange={handleToggleSwitch}
         />
+          </div>
+
         <div className={styles.firstButton}>
           <ClassicButton
             width={'70%'}
