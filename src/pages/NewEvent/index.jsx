@@ -219,24 +219,24 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [eventData, setEventData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const formData = new FormData();
-    // for (const key in values) {
-    //   if (Array.isArray(values[key])) {
-    //     for (const file of values[key]) {
-    //       formData.append(key, file);
-    //     }
-    //   } else {
-    //     formData.append(key, values[key]);
-    //   }
-    //   console.log("values", values);
-    // }
-    // apiCalls("post", "event/createvent", values, {
-    //   headers: { "Content-Type": "multipart/form-data" },
-    // }).then((res) => {
-    //   if (res.status === 200) {
-    //     nav("/newEvent");
-    //   }
-    // });
+    const formData = new FormData();
+    for (const key in values) {
+      if (Array.isArray(values[key])) {
+        for (const file of values[key]) {
+          formData.append(key, file);
+        }
+      } else {
+        formData.append(key, values[key]);
+      }
+      console.dir("formData", formData);
+    }
+    apiCalls("post", "/event/createvent", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then((res) => {
+      if (res.status === 200) {
+        nav("/newEvent");
+      }
+    });
     setEventData({
       eventName: values.eventName,
       summary: values.summary,
@@ -266,12 +266,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       },
     });
   };
-  useEffect(() => {
-    if (eventData)
-      apiCalls("post", "event/createvent", eventData).then((res) => {
-        if (res.status === 200) nav("/newEvent");
-      });
-  }, [eventData]);
+  // useEffect(() => {
+  //   if (eventData)
+  //     apiCalls("post", "event/createvent", eventData).then((res) => {
+  //       if (res.status === 200) nav("/newEvent");
+  //     });
+  // }, [eventData]);
 
   useEffect(() => {
     setConstancy(values.repeatType);
@@ -281,7 +281,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       repeatSettingsRepeatEnd: undefined,
       days: [],
       personalRepeatType: undefined,
-      date:new Date(),
+      date: new Date(),
     });
   }, [values.repeatType]);
 
@@ -289,9 +289,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setAudiences(settingContext.audiences);
     setCategories(settingContext.categories);
   }, []);
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
+  useEffect(() => {}, [values]);
 
   const onChange = (e) => {
     if (e.target.type === "file") {

@@ -10,14 +10,14 @@ const apiCalls = async (
   header = null
 ) => {
   const baseUrl = process.env.REACT_APP_BASE_URL || `http://localhost:${PORT}`;
-  const fullUrl = `${baseUrl}/api/${url}`;
+  const fullUrl = `${baseUrl}/api${url}`;
   try {
     const data = await axios({
       method: method,
       url: fullUrl,
       data: information,
       params: { q: param },
-      Headers: { header },
+      headers: { header },
     });
     console.log(data.data);
     return data.data;
