@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './style.module.css'
 import SelectIcon from '../../components/SelectIcon'
+import {useState} from 'react'
 import { GiLightBackpack } from 'react-icons/gi'
 import RoundButton from '../../components/RoundButton'
 import SettingsNavBar from '../../components/SettingsNavBar'
@@ -31,7 +32,6 @@ function Test() {
   return (
     <div className={styles.main}>
       <SelectIcon array={categories} header={'קטגוריה'} />
-      <SettingsNavBar />
     </div>
   )
 }
