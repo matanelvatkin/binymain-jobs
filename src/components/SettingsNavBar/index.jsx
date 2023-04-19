@@ -15,9 +15,15 @@ function SettingsNavBar() {
   const navigate = useNavigate();
 
   const logOut = () => {
-    navigate('/login')
-    setVisibility(false)
-  }
+    const confirmed = window.confirm('האם אתה בטוח שברצונך להתנתק ?');
+    if (confirmed) {
+      localStorage.removeItem('Token');
+      navigate('/login');
+      setVisibility(false);
+    } else {
+      navigate('/');
+    }
+  };
 
 
   return (

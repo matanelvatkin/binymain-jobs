@@ -15,21 +15,25 @@ import ForgetPassword from "../../components/ForgetPassword"
 
 function Main() {
   // const x = useContext(ContextFakeData)
+  
+    // const token = localStorage.getItem('Token')
+    // console.log(token);
+
   return (
     <main>
       {/* {x} */}
+      
       <Routes>
-        <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/test" element={<Test/>}/>
+        <Route path="/forgetPassword" element={<ForgetPassword/>}/>
+        <Route path="/resetPassword" element={<ResetPassword/>}/>
         <Route path="/registeretion" element={<Registeretion/>}/>
+        <Route path="/" element={<Home/>}/>
         <Route path="/newEvent" element={<NewEvent/>}/>
         <Route path="/searchEvent" element={<SearchEvent/>}/>
         <Route path="/searchEvent/result/:query" element={<SearchResult/>}/>
         <Route path="/viewEvent/:event" element={<ViewEvent/>}/>
-        <Route path="/forgetPassword" element={<ForgetPassword/>}/>
-        <Route path="/resetPassword" element={<ResetPassword/>}/>
-
+        <Route path="/test" element={<Test/>}/>
         <Route path="*" element={<Navigate to="/"/>} />
       </Routes>
     </main>
