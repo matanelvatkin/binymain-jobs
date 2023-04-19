@@ -6,7 +6,8 @@ import ToggleSwitch from '../../components/ToggleSwitch';
 import ClassicButton from '../../components/ClassicButton copy';
 import { FaSignInAlt } from 'react-icons/fa'
 import { FiUserPlus } from 'react-icons/fi'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+import {setToken} from '../../function/token'
 import axios from 'axios';
 
 // creator: Yisrael Olonoff
@@ -41,6 +42,14 @@ function Login() {
     })
       .then((res) => {
         if (res.status === 200) {
+          if(checked===true){
+          setToken(res.data.token)
+          localStorage.setItem('Token', res.data.token)
+          console.log(res.data.token);
+          console.log('token set');
+          }else{
+            console.log('no token');
+          }
           navToHome();
         } else {
           console.log('error');
@@ -55,22 +64,12 @@ function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (checked) {
-      // If the toggle switch is on, save the value in local storage
-      localStorage.setItem(name, value);
-    } else {
-      // If the toggle switch is off, retrieve the value from local storage
-      const storedValue = localStorage.getItem(name);
-      if (storedValue) {
-        setUserInfo({ ...userInfo, [name]: storedValue });
-        return;
-      }
-    }
     setUserInfo({ ...userInfo, [name]: value });
   };
 
   const handleToggleSwitch = (e) => {
-    setChecked(e.target.checked);
+    setChecked(!checked);
+    console.log(checked);
   }
 
   const inputs = [
