@@ -9,11 +9,13 @@ import { FiUserPlus } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import {setToken} from '../../function/token'
 import axios from 'axios';
+import userContext from '../../context/userContext';
 
 // creator: Yisrael Olonoff
 // login page
 
-function Login({setIsValid, isValid}) {
+  function Login({setIsValid, isValid}) {
+  const {setUser} = useContext(userContext);
   const { setHeader } = useContext(headerContext)
   setHeader('home')
   
@@ -45,6 +47,8 @@ function Login({setIsValid, isValid}) {
     })
       .then((res) => {
         if (res.status === 200) {
+          setUser(res.data)
+          if(checked===true){
           setToken(res.data.token)
           localStorage.setItem('Token', res.data.token)
           console.log(res.data.token);
@@ -54,7 +58,7 @@ function Login({setIsValid, isValid}) {
         } else {
           console.log('error');
         }
-      })
+      }})
       .catch((err) => {
         console.log(err);
         alert('אימייל/סיסמא לא נכונים')
@@ -145,5 +149,4 @@ function Login({setIsValid, isValid}) {
     </div>
   )
 }
-
 export default Login

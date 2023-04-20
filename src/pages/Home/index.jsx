@@ -4,6 +4,9 @@ import ClassicButton from "../../components/ClassicButton copy";
 import EventCard from "../../components/EventCard";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import headerContext from "../../context/headerContext";
+import userContext from "../../context/userContext";
+import GuestPopup from "../../components/GuestPopup";
+import popUpContext from "../../context/popUpContext";
 import apiCalls from "../../function/apiCalls";
 import {BiLogOutCircle} from 'react-icons/bi'
 
@@ -16,11 +19,22 @@ import {BiLogOutCircle} from 'react-icons/bi'
 
 function Home({isValid, setIsValid}) {
   const { setHeader } = useContext(headerContext);
+  const {user} = useContext(userContext);
+  const {setPopUp,setGuestMode,setPopUpText} = useContext(popUpContext)
+
   const navigate = useNavigate();
   const navToNewEvent = () => {
-    navigate("/newEvent");
-  };
+    if(!user){
+        setPopUp(true)
+        setGuestMode(false)
+        setPopUpText('כדי שתוכל לפרסם אירוע, נהיה חייבים להכיר😊')
 
+    }
+    else{
+      navigate("/newEvent");
+    }
+  };
+  
   setHeader("home");
 
   const navToLogin = () => {
