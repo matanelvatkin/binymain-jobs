@@ -11,33 +11,47 @@ import Registeretion from "../../pages/Registeretion"
 import Test from "../../pages/Test"
 import ResetPassword from "../../components/ResetPassword"
 import ForgetPassword from "../../components/ForgetPassword"
+import { useState, useEffect } from "react"
+import HeaderHome from "../../components/HeaderHome"
 
 
 function Main() {
-  // const x = useContext(ContextFakeData)
-  
-    // const token = localStorage.getItem('Token')
-    // console.log(token);
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("Token");
+    if (token) {
+      setIsValid(true);
+    }
+  }, []);
 
   return (
     <main>
-      {/* {x} */}
-      
-      <Routes>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/forgetPassword" element={<ForgetPassword/>}/>
-        <Route path="/resetPassword" element={<ResetPassword/>}/>
-        <Route path="/registeretion" element={<Registeretion/>}/>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/newEvent" element={<NewEvent/>}/>
-        <Route path="/searchEvent" element={<SearchEvent/>}/>
-        <Route path="/searchEvent/result/:query" element={<SearchResult/>}/>
-        <Route path="/viewEvent/:event" element={<ViewEvent/>}/>
-        <Route path="/test" element={<Test/>}/>
-        <Route path="*" element={<Navigate to="/"/>} />
-      </Routes>
+      {isValid ? (
+        <Routes>
+          <Route path="/resetPassword" element={<ResetPassword />} />
+          <Route path="/registeretion" element={<Registeretion />} />
+          <Route path="/" element={<Home setIsValid={setIsValid} isValid={isValid} />} />
+          <Route path="/newEvent" element={<NewEvent />} />
+          <Route path="/searchEvent" element={<SearchEvent />} />
+          <Route path="/searchEvent/result/:query" element={<SearchResult />} />
+          <Route path="/viewEvent/:event" element={<ViewEvent />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login setIsValid={setIsValid} isValid={isValid} />} />
+          <Route path="/forgetPassword" element={<ForgetPassword />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
+          <Route path="/registeretion" element={<Registeretion />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      )}
     </main>
-  )
+  );
 }
 
-export default Main
+export default Main;
