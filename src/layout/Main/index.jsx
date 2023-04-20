@@ -13,38 +13,49 @@ import ResetPassword from "../../components/ResetPassword"
 import ForgetPassword from "../../components/ForgetPassword"
 import { useContext } from "react"
 import userContext from "../../context/userContext"
+import { useState, useEffect } from "react"
+import HeaderHome from "../../components/HeaderHome"
 
 
 function Main() {
   // const x = useContext(ContextFakeData)
   const { user } = useContext(userContext);
 
-  // const token = localStorage.getItem('Token')
-  // console.log(token);
+
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("Token");
+    if (token) {
+      setIsValid(true);
+    }
+  }, []);
+
+
   return (
     <main>
-
-      <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="/registeretion" element={<Registeretion />} />
-            <Route path="/forgetPassword" element={<ForgetPassword />} />
-            <Route path="/resetPassword" element={<ResetPassword />} />
-            <Route path="/searchEvent" element={<SearchEvent />} />
-            <Route path="/searchEvent/result/:query" element={<SearchResult />} />
-            <Route path="/viewEvent/:event" element={<ViewEvent />} />
-            <Route path="*" element={<Navigate to="/" />} />
-            
-            {user && 
-            <Route path="/newEvent" element={<NewEvent />} />
-            }
-  
-
-
-      </Routes>
-    </main>
-  )
+        <Routes>
+          <Route path="/" element={<Home setIsValid={setIsValid} isValid={isValid} />} />
+          <Route path="/login" element={<Login setIsValid={setIsValid} isValid={isValid} />} />
+          <Route path="/registeretion" element={<Registeretion />} />
+         
+          <Route path="/forgetPassword" element={<ForgetPassword />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
+          
+          <Route path="/searchEvent" element={<SearchEvent />} />
+          <Route path="/searchEvent/result/:query" element={<SearchResult />} />
+          <Route path="/viewEvent/:event" element={<ViewEvent />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="*" element={<Navigate to="/" />} />
+          <>{(user || isValid)?
+            <Route path="/newEvent" element={<NewEvent />} />:
+            null
 }
+          </>
 
-export default Main
+        </Routes>
+       
+    </main>
+  );
+}
+export default Main;

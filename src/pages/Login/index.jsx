@@ -14,9 +14,9 @@ import userContext from '../../context/userContext';
 // creator: Yisrael Olonoff
 // login page
 
-function Login() {
-  const { setHeader } = useContext(headerContext);
+  function Login({setIsValid, isValid}) {
   const {setUser} = useContext(userContext);
+  const { setHeader } = useContext(headerContext)
   setHeader('home')
   
   const [checked, setChecked] = useState(true);
@@ -33,8 +33,11 @@ function Login() {
   };
 
   const navToHome = () => {
-    navigate("/");
+    if(isValid) {
+      navigate("/");
+    }
   };
+  
 
   const loginAouth = (e) => {
     e.preventDefault();
@@ -45,20 +48,17 @@ function Login() {
       .then((res) => {
         if (res.status === 200) {
           setUser(res.data)
-          // navToHome();
           if(checked===true){
           setToken(res.data.token)
           localStorage.setItem('Token', res.data.token)
           console.log(res.data.token);
+          setIsValid(true)
           console.log('token set');
-          }else{
-            console.log('no token');
-          }
           navToHome();
         } else {
           console.log('error');
         }
-      })
+      }})
       .catch((err) => {
         console.log(err);
         alert('אימייל/סיסמא לא נכונים')
@@ -149,5 +149,4 @@ function Login() {
     </div>
   )
 }
-
 export default Login

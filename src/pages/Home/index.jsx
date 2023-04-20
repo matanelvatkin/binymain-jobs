@@ -8,6 +8,8 @@ import userContext from "../../context/userContext";
 import GuestPopup from "../../components/GuestPopup";
 import popUpContext from "../../context/popUpContext";
 import apiCalls from "../../function/apiCalls";
+import {BiLogOutCircle} from 'react-icons/bi'
+
 
 // Creator: Yisrael_Olonoff
 // i created the home page using the "Header", "EventCard",
@@ -15,7 +17,7 @@ import apiCalls from "../../function/apiCalls";
 // the button position is fixed to the same excect position
 // on the page.
 
-function Home() {
+function Home({isValid, setIsValid}) {
   const { setHeader } = useContext(headerContext);
   const {user} = useContext(userContext);
   const {setPopUp,setGuestMode,setPopUpText} = useContext(popUpContext)
@@ -35,8 +37,25 @@ function Home() {
   
   setHeader("home");
 
+  const navToLogin = () => {
+    if (isValid===false) {
+      navigate("/test");
+    }
+  }
+
+  const logOut = () => {
+    const confirmed = window.confirm('האם אתה בטוח שברצונך להתנתק ?');
+    if (confirmed) {
+      localStorage.removeItem('Token');
+      setIsValid(false);
+      console.log(isValid);
+      navToLogin();
+    }
+  };
+
   return (
       <div className={styles.main}>
+          <BiLogOutCircle className={styles.logOut} onClick={logOut}/>
         <div className={styles.eventsContainer}>
           <EventCard />
         </div>
