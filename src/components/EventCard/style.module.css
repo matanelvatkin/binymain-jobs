@@ -1,5 +1,6 @@
 .main{
     max-width: 96vw;
+    min-width: 96vw;
     height: 16vh;
     border-radius: 7px;
     display: flex;
@@ -8,6 +9,7 @@
     box-shadow:  0 3px 4px rgba(0, 0, 0, 0.09), 3px 3px 4px rgba(0, 0, 0, 0.09)
     , 0 3px 4px rgba(0, 0, 0, 0.09), 0 0 ;
     cursor: pointer;
+    gap: 5px;
 }
 
 .imgFrame{
@@ -19,8 +21,10 @@
 }
 
 .img{
-    width: 88%;
-    min-height: 86%;
+    max-width: 93%;
+    min-width:93%;
+    min-height: 93%;
+    max-height: 93%;
     border-radius: 5px;
 }
 

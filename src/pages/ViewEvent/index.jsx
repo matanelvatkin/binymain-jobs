@@ -74,13 +74,14 @@ export default function ViewEvent() {
 
       <div className={style.section}>
         {!loading ? (
-          <div className={style.dataSection}>
+          <div className={style.dataSection}>                             
             <div className={style.reactIcon}>
-              <FaRegCalendarAlt />
+              <FaRegCalendarAlt/>
             </div>
             <div className={style.dateOfEvent}>
               {" "}
-              {eventData.date.slice(0, 10)}
+              {eventData.date[0].slice(0, 10)}
+              
             </div>
             <br />
             <div style={{ marginRight: "15px" }} className={style.hourOfEvent}>
@@ -108,7 +109,7 @@ export default function ViewEvent() {
       <div className={style.section}>
         {!loading ? (
           <div className={style.dataSection}>
-            <div className={style.reactIcon}>
+            <div className={style.reactIcon} >
               <BiMoney />
             </div>
             <div className={style.placeOfEvent}> כניסה חופשית</div>
@@ -121,14 +122,14 @@ export default function ViewEvent() {
       <div className={style.section}>
         {!loading ? (
           <div>
-            <p>{translation.details}</p>
-            <p> {eventData.summary}</p>{" "}
+            <p className={style.detailsTitle}>{translation.details}</p>
+            <p className={style.detailsContent} > {eventData.summary}</p>{" "}
           </div>
         ) : (
           <p>loading...</p>
         )}
       </div>
-      <ClassicButton width={100} text={translation.cards} />
+      <ClassicButton width={200} text={translation.cards} />
     </div>
   );
 }

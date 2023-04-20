@@ -1,7 +1,7 @@
-.main{
-display: flex;
-flex-direction: column;
-align-items: center;
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .button {
@@ -15,8 +15,8 @@ align-items: center;
   color: var(--text-third-color);
   border-radius: 50%;
   border: none;
-  box-shadow: 0 3px 8px rgba(21, 57, 42, 0.25), 3px 3px 8px rgba(21, 57, 42, 0.25)
-  , 0 3px 8px rgba(21, 57, 42, 0.25), 0 0 ;
+  box-shadow: 0 3px 8px rgba(21, 57, 42, 0.25),
+    3px 3px 8px rgba(21, 57, 42, 0.25), 0 3px 8px rgba(21, 57, 42, 0.25), 0 0;
   transition: 0.25s;
 }
 
@@ -26,48 +26,47 @@ align-items: center;
   height: 58px;
   width: 58px;
   box-shadow: inset -4px -4px 12px rgba(0, 0, 0, 0.1),
-  inset 4px 4px 12px rgba(0, 0, 0, 0.1); 
-  
+    inset 4px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.active>.icon{
+.active > .icon {
   animation-name: spin;
   animation-duration: 250ms;
-  animation-timing-function: linear; 
+  animation-timing-function: linear;
 }
 
 @keyframes spin {
   from {
-    transform:rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
-    transform:rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
-:not(.active)>.icon{
+:not(.active) > .icon {
   animation-name: spin-reverse;
   animation-duration: 250ms;
-  animation-timing-function: linear; 
+  animation-timing-function: linear;
 }
 
 @keyframes spin-reverse {
   from {
-    transform:rotate(360deg);
+    transform: rotate(360deg);
   }
   to {
-    transform:rotate(0deg);
+    transform: rotate(0deg);
   }
 }
 
 .icon {
   width: 37px;
   height: 37px;
-  transition: .15s;
-  filter:contrast(30%);
+  transition: 0.15s;
+  filter: contrast(30%);
 }
 
-.text{
+.text {
   line-height: 28px;
   font-family: "cambo";
   font-size: large;

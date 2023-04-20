@@ -18,7 +18,7 @@ function  GuestPopup({text,guestMode}) {
     };
 
   return (
-    <div className={styles.guestPopup_container}>
+    <div onClick={()=>setPopUp(false)} className={styles.guestPopup_container}>
      <div className={styles.popup}>
         <p dir='rtl'>{text}</p>
         <div className={styles.buttons}>
@@ -30,7 +30,7 @@ function  GuestPopup({text,guestMode}) {
         {guestMode&&
         <ClassicButton
           width={'45%'}
-          onClick={navToRegistretionPage}
+          onClick={()=>setPopUp(false)}
           text={"המשך כאורח"}
         />
         }

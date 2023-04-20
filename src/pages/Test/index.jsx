@@ -1,8 +1,10 @@
 import React from 'react'
 import styles from './style.module.css'
 import SelectIcon from '../../components/SelectIcon'
+import {useState} from 'react'
 import { GiLightBackpack } from 'react-icons/gi'
 import RoundButton from '../../components/RoundButton'
+import SettingsNavBar from '../../components/SettingsNavBar'
 
 const categories=[
   {icon: 'https://cdn-icons-png.flaticon.com/512/3058/3058890.png',
@@ -22,6 +24,9 @@ const categories=[
   {icon: 'https://cdn-icons-png.flaticon.com/512/4893/4893592.png',
   name: 'ספורט'},
 ] 
+
+const secondArray = ['a','b','c','d','e']
+
 function Test() {
 
   return (

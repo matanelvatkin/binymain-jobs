@@ -1,6 +1,6 @@
 .content {
     direction: rtl;
-    margin-right: 1%;
+    margin-right: 2%;
 }
 
 .section {
@@ -19,12 +19,27 @@
 .dataSection {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    margin: 20px 0px;
 }
 
-.reactIcon {
+ .reactIcon {
     margin-left: 20px;
     color:var(  --text-secondary-color);
+    padding: 7px;
+    background-color: #ADD8E6;
+    border-radius: 15%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
  }
-.rightArrow{
-    
-}
+
+ .detailsContent {
+    margin-bottom: 20px; 
+ }
+
+ .detailsTitle {
+    padding: 10px 0px;
+    font-weight: bolder;
+    font-size: 20px;
+ }

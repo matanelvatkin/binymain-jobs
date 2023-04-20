@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import styles from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
 import EventCard from "../../components/EventCard";
@@ -7,6 +7,7 @@ import headerContext from "../../context/headerContext";
 import userContext from "../../context/userContext";
 import GuestPopup from "../../components/GuestPopup";
 import popUpContext from "../../context/popUpContext";
+import apiCalls from "../../function/apiCalls";
 
 // Creator: Yisrael_Olonoff
 // i created the home page using the "Header", "EventCard",
@@ -17,13 +18,15 @@ import popUpContext from "../../context/popUpContext";
 function Home() {
   const { setHeader } = useContext(headerContext);
   const {user} = useContext(userContext);
-  const {setPopUp} = useContext(popUpContext)
+  const {setPopUp,setGuestMode,setPopUpText} = useContext(popUpContext)
 
   const navigate = useNavigate();
-
   const navToNewEvent = () => {
     if(!user){
         setPopUp(true)
+        setGuestMode(false)
+        setPopUpText('כדי שתוכל לפרסם אירוע, נהיה חייבים להכיר😊')
+
     }
     else{
       navigate("/newEvent");
@@ -33,20 +36,20 @@ function Home() {
   setHeader("home");
 
   return (
-    <div className={styles.main}>
-      <div className={styles.eventsContainer}>
-      <EventCard />
+      <div className={styles.main}>
+        <div className={styles.eventsContainer}>
+          <EventCard />
+        </div>
+        <div className={styles.button}>
+          <ClassicButton
+            width={"120px"}
+            text={"פרסם אירוע"}
+            onClick={() => {
+              navToNewEvent();
+            }}
+          />
+        </div>
       </div>
-      <div className={styles.button}>
-        <ClassicButton
-          width={"120px"}
-          text={"פרסם אירוע"}
-          onClick={() => {
-            navToNewEvent();
-          }}
-        />
-      </div>
-    </div>
   );
 }
 

@@ -12,7 +12,7 @@ const Select = ({
   style = {},
   className = "",
   values,
-  setValues,
+  setValues=()=>{},
   ...props
 }) => {
   // const [value, setValue] = useState();

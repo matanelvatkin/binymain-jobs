@@ -19,6 +19,8 @@ function Main() {
   // const x = useContext(ContextFakeData)
   const { user } = useContext(userContext);
 
+  // const token = localStorage.getItem('Token')
+  // console.log(token);
   return (
     <main>
 
@@ -37,6 +39,9 @@ function Main() {
             {user && 
             <Route path="/newEvent" element={<NewEvent />} />
             }
+  
+
+
       </Routes>
     </main>
   )

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import styles from './style.module.css'
 import { BiShekel } from 'react-icons/bi'
 import { ImLocation2 } from 'react-icons/im'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import headerContext from '../../context/headerContext'
 import apiCalls from '../../function/apiCalls'
@@ -40,7 +39,7 @@ function EventCard({ events }) {
 
     useEffect(() => {
         if(!events) {
-            apiCalls("post","/event")
+            apiCalls("get","/event")
             .then((event) => {
             setCard(event);
             })
@@ -58,8 +57,8 @@ function EventCard({ events }) {
 
     return (
         <>
-            {card?.filter((v=>v.eventName.includes(search)||v.place.includes(search)))
-            .map((v) => {
+            {/* {card?.filter((v=>v.eventName.includes(search)||v.place.includes(search))) */}
+            {card.map((v) => {
                 return (
                     <div
                         className={styles.main}

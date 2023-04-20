@@ -6,7 +6,8 @@ import ToggleSwitch from '../../components/ToggleSwitch';
 import ClassicButton from '../../components/ClassicButton copy';
 import { FaSignInAlt } from 'react-icons/fa'
 import { FiUserPlus } from 'react-icons/fi'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+import {setToken} from '../../function/token'
 import axios from 'axios';
 import userContext from '../../context/userContext';
 
@@ -38,49 +39,49 @@ function Login() {
   const loginAouth = (e) => {
     e.preventDefault();
     axios.post("http://localhost:5000/api/user/login", {
-      fullName: userInfo.fullName,
+      email: userInfo.email,
       password: userInfo.password,
     })
       .then((res) => {
         if (res.status === 200) {
           setUser(res.data)
           // navToHome();
+          if(checked===true){
+          setToken(res.data.token)
+          localStorage.setItem('Token', res.data.token)
+          console.log(res.data.token);
+          console.log('token set');
+          }else{
+            console.log('no token');
+          }
+          navToHome();
         } else {
           console.log('error');
         }
       })
       .catch((err) => {
         console.log(err);
+        alert('אימייל/סיסמא לא נכונים')
       });
   };
 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (checked) {
-      // If the toggle switch is on, save the value in local storage
-      localStorage.setItem(name, value);
-    } else {
-      // If the toggle switch is off, retrieve the value from local storage
-      const storedValue = localStorage.getItem(name);
-      if (storedValue) {
-        setUserInfo({ ...userInfo, [name]: storedValue });
-        return;
-      }
-    }
     setUserInfo({ ...userInfo, [name]: value });
   };
 
   const handleToggleSwitch = (e) => {
-    setChecked(e.target.checked);
+    setChecked(!checked);
+    console.log(checked);
   }
 
   const inputs = [
     {
       id: 1,
-      name: "fullName",
-      type: "text",
-      placeholder: `🙍🏽‍♂️ שם מלא`,
+      name: "email",
+      type: "email",
+      placeholder: '📧 אימייל',
       required: true,
     },
     {
@@ -97,10 +98,11 @@ function Login() {
     <div className={styles.main}>
       <div className={styles.container}>
       <h2>התחברות</h2>
-      <form className={styles.form} onSubmit={loginAouth} autoComplete='off'>
+      <form className={styles.form} onSubmit={loginAouth} >
         {inputs.map((input) => {
             return (
               <Input
+              autoComplete='off'
                 key={input.id}
                 {...input}
                 width={'300px'}
@@ -109,13 +111,20 @@ function Login() {
               />
             )
         })}
-        <span style={{fontSize:"small"} } onClick={navToForgetPassword}>שכחת סיסמא?</span>
-            
+           <div className={styles.switchAndForgot}> 
+           <span 
+           className={styles.forgotPassword} 
+           onClick={navToForgetPassword}
+           >
+            שכחתי סיסמא
+          </span>
         <ToggleSwitch
           text={'זכור אותי'}
           checked={checked}
           onChange={handleToggleSwitch}
         />
+          </div>
+
         <div className={styles.firstButton}>
           <ClassicButton
             width={'70%'}
