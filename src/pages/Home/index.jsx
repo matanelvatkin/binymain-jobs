@@ -4,6 +4,9 @@ import ClassicButton from "../../components/ClassicButton copy";
 import EventCard from "../../components/EventCard";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import headerContext from "../../context/headerContext";
+import userContext from "../../context/userContext";
+import GuestPopup from "../../components/GuestPopup";
+import popUpContext from "../../context/popUpContext";
 
 // Creator: Yisrael_Olonoff
 // i created the home page using the "Header", "EventCard",
@@ -13,12 +16,20 @@ import headerContext from "../../context/headerContext";
 
 function Home() {
   const { setHeader } = useContext(headerContext);
+  const {user} = useContext(userContext);
+  const {setPopUp} = useContext(popUpContext)
+
   const navigate = useNavigate();
 
   const navToNewEvent = () => {
-    navigate("/newEvent");
+    if(!user){
+        setPopUp(true)
+    }
+    else{
+      navigate("/newEvent");
+    }
   };
-
+  
   setHeader("home");
 
   return (
