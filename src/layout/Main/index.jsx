@@ -47,11 +47,9 @@ function Main() {
           <Route path="/viewEvent/:event" element={<ViewEvent />} />
           <Route path="/test" element={<Test />} />
           <Route path="*" element={<Navigate to="/" />} />
-          <>{(user || isValid)?
-            <Route path="/newEvent" element={<NewEvent />} />:
-            null
-}
-          </>
+          {user && 
+            <Route path="/newEvent" element={<NewEvent />} />
+          }
 
         </Routes>
        
