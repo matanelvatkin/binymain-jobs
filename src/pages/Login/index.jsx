@@ -13,7 +13,7 @@ import axios from 'axios';
 // creator: Yisrael Olonoff
 // login page
 
-function Login() {
+function Login({setIsValid, isValid}) {
   const { setHeader } = useContext(headerContext)
   setHeader('home')
   
@@ -31,8 +31,11 @@ function Login() {
   };
 
   const navToHome = () => {
-    navigate("/");
+    if(isValid) {
+      navigate("/");
+    }
   };
+  
 
   const loginAouth = (e) => {
     e.preventDefault();
@@ -42,14 +45,11 @@ function Login() {
     })
       .then((res) => {
         if (res.status === 200) {
-          if(checked===true){
           setToken(res.data.token)
           localStorage.setItem('Token', res.data.token)
           console.log(res.data.token);
+          setIsValid(true)
           console.log('token set');
-          }else{
-            console.log('no token');
-          }
           navToHome();
         } else {
           console.log('error');
