@@ -129,6 +129,7 @@ import userContext from '../../context/userContext';
           <ClassicButton
             width={'70%'}
             type={'submit'}
+            onClick={loginAouth}
           >
             <FaSignInAlt className={styles.icon} /> התחברות
           </ClassicButton>

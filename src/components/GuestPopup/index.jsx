@@ -36,7 +36,7 @@ function  GuestPopup({text,guestMode}) {
         }
 
         </div>
-          <p dir='rtl'>יש לך מנוי?<u onClick={navToLoginPage}>לחץ כאן</u></p>
+          <p dir='rtl'>יש לך מנוי? <u onClick={navToLoginPage} className={styles.link}>לחץ כאן</u></p>
         
     </div>   
         
