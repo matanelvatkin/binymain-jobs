@@ -23,6 +23,7 @@ function Home({isValid, setIsValid}) {
   const {setPopUp,setGuestMode,setPopUpText} = useContext(popUpContext)
 
   const navigate = useNavigate();
+  
   const navToNewEvent = () => {
     if(!user){
         setPopUp(true)
@@ -39,7 +40,7 @@ function Home({isValid, setIsValid}) {
 
   const navToLogin = () => {
     if (isValid===false) {
-      navigate("/test");
+      navigate("/login");
     }
   }
 
