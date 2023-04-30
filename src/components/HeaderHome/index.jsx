@@ -5,6 +5,7 @@ import {CgPlayListSearch} from 'react-icons/cg'
 import Logo from '../../images/logo.png';
 import {TbListSearch} from 'react-icons/tb'
 import {BiAnalyse} from 'react-icons/bi'
+import {GoSettings} from 'react-icons/go'
 import {BsThreeDotsVertical} from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom';
 import headerContext from '../../context/headerContext';
@@ -31,36 +32,73 @@ function HeaderHome() {
   // }, [headerHeight])
 
   return ( 
-  <div className={styles.main} style={{ height: `${headerHeight}vh` }}> 
-     <div className={styles.headerHome_container} >
-      <div className={styles.titleContainer}>
-        <div className={styles.titleBox}>
-         <h1 className={styles.title}> HereEvent </h1>
-         <BiAnalyse className={styles.logo}/>
-         </div >
-         <span className={styles.searchContainer}>
-          <input 
-          dir='rtl' 
-          placeholder='חפש...' 
-          className={showInput? styles.visibleInput : styles.hiddenInput} 
-          type="search" 
-          defaultValue={search} 
-          onChange={(e)=>setSearch(e.target.value)}/>
-        </span>
-      </div>
-      <div className={styles.options}>
-        <span>
-         <BsThreeDotsVertical className={styles.icon}/>
-        </span>
-        <span 
-        className={styles.advanceContainer} onClick={() =>{navigate("/searchEvent")}}> <TbListSearch className={styles.icon}/>
-        </span> 
-        <span>
-        <FiSearch className={styles.icon} onClick={()=> setShowInput(!showInput)}/>
-        </span>
-        </div >  
+    <div className={styles.main}> 
+       <div className={styles.headerHome_container} >
+        <div className={styles.titleContainer}>
+          <div className={styles.titleBox}>
+           <h1 className={styles.title}> HereEvent </h1>
+           <BiAnalyse className={styles.logo}/>
+           
+           </div >
         </div>
-        </div>
+        <div className={styles.options}>
+          <div>
+          <span 
+          className={styles.advanceContainer}> 
+          <FiSearch className={styles.icon}/> <span >
+            <input 
+            dir='rtl' 
+            placeholder='אירועים בסביבה שלך...' 
+            className={showInput? styles.visibleInput : styles.hiddenInput} 
+            type="search" 
+            defaultValue={search} 
+            onChange={(e)=>setSearch(e.target.value)}/>
+          </span>
+          </span> 
+          </div>
+          <div className={styles.searchContainer}>
+          <span onClick={() =>{navigate("/searchEvent")}}>
+          <GoSettings className={styles.icon} onClick={()=> setShowInput(!showInput)}/>
+           </span>
+          
+          </div>
+          </div>  
+          </div>
+          </div>
+  
+//the header before the design.
+  // <div className={styles.main} style={{ height: `${headerHeight}vh` }}> 
+  //    <div className={styles.headerHome_container} >
+  //     <div className={styles.titleContainer}>
+  //       <div className={styles.titleBox}>
+  //        <h1 className={styles.title}> HereEvent </h1>
+  //        <BiAnalyse className={styles.logo}/>
+  //        </div >
+  //        <span className={styles.searchContainer}>
+  //         <input 
+  //         dir='rtl' 
+  //         placeholder='חפש...' 
+  //         // className={showInput? styles.visibleInput : styles.hiddenInput} 
+  //         className={styles.visibleInput}
+  //         type="search" 
+  //         defaultValue={search} 
+  //         onChange={(e)=>setSearch(e.target.value)}/>
+  //       </span>
+  //     </div>
+  //     <div className={styles.options}>
+  //       <span>
+  //        <BsThreeDotsVertical className={styles.icon}/>
+  //       </span>
+  //       <span 
+  //       className={styles.advanceContainer} onClick={() =>{navigate("/searchEvent")}}> 
+  //       <TbListSearch className={styles.icon}/>
+  //       </span> 
+  //       <span>
+  //       <FiSearch className={styles.icon} onClick={()=> setShowInput(!showInput)}/>
+  //       </span>
+  //       </div>  
+  //       </div>
+  //       </div>
 
   )
 }
