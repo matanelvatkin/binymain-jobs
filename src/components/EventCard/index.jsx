@@ -37,7 +37,8 @@ function EventCard({ events }) {
 
   useEffect(() => {
     if (!events) {
-      apiCalls("post", "event").then((event) => {
+      apiCalls("get", "event")
+      .then((event) => {
         setCard(event);
       });
     }

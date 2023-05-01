@@ -4,21 +4,21 @@ import styles from "./style.module.css";
 import Input from '../../components/Input'
 import ToggleSwitch from '../../components/ToggleSwitch';
 import ClassicButton from '../../components/ClassicButton copy';
+import apiCalls from '../../function/apiCalls';
 import { FaSignInAlt } from 'react-icons/fa'
 import { FiUserPlus } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
-import {setToken} from '../../function/token'
-import axios from 'axios';
+import { setToken } from '../../function/token'
 import userContext from '../../context/userContext';
 
 // creator: Yisrael Olonoff
 // login page
 
-  function Login({setIsValid, isValid}) {
-  const {setUser} = useContext(userContext);
+function Login({ setIsValid, isValid }) {
+  const { setUser } = useContext(userContext);
   const { setHeader } = useContext(headerContext)
   setHeader('home')
-  
+
   const [checked, setChecked] = useState(true);
   const [userInfo, setUserInfo] = useState({})
 
@@ -34,20 +34,21 @@ import userContext from '../../context/userContext';
 
   const loginAouth = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5000/api/user/login", {
-      email: userInfo.email,
-      password: userInfo.password,
+    apiCalls(
+      "post",
+      "user/login",
+      { email: userInfo.email, password: userInfo.password, }
+    ).then((res) => {
+      if (res.status === 200) {
+        setUser(res.data.user)
+        setToken(res.data.token)
+        localStorage.setItem('Token', res.data.token)
+        setIsValid(true)
+        console.log('token set');
+        console.log(`isValid state is set to: ${isValid}`);
+        navigate("/");
+      }
     })
-      .then((res) => {
-        if (res.status === 200) {
-          setUser(res.data.user)
-          setToken(res.data.token)
-          localStorage.setItem('Token', res.data.token)
-          setIsValid(true)
-          console.log('token set');
-          console.log(`isValid state is set to: ${isValid}`);
-          navigate("/");
-      }})
       .catch((err) => {
         console.log(err);
         alert('אימייל/סיסמא לא נכונים')
@@ -86,12 +87,12 @@ import userContext from '../../context/userContext';
   return (
     <div className={styles.main}>
       <div className={styles.container}>
-      <h2>התחברות</h2>
-      <form className={styles.form} onSubmit={loginAouth} >
-        {inputs.map((input) => {
+        <h2>התחברות</h2>
+        <form className={styles.form} onSubmit={loginAouth} >
+          {inputs.map((input) => {
             return (
               <Input
-              autoComplete='off'
+                autoComplete='off'
                 key={input.id}
                 {...input}
                 width={'300px'}
@@ -99,42 +100,42 @@ import userContext from '../../context/userContext';
                 onChange={handleChange}
               />
             )
-        })}
-           <div className={styles.switchAndForgot}> 
-           <span 
-           className={styles.forgotPassword} 
-           onClick={navToForgetPassword}
-           >
-            שכחתי סיסמא
-          </span>
-        <ToggleSwitch
-          text={'זכור אותי'}
-          checked={checked}
-          onChange={handleToggleSwitch}
-        />
+          })}
+          <div className={styles.switchAndForgot}>
+            <span
+              className={styles.forgotPassword}
+              onClick={navToForgetPassword}
+            >
+              שכחתי סיסמא
+            </span>
+            <ToggleSwitch
+              text={'זכור אותי'}
+              checked={checked}
+              onChange={handleToggleSwitch}
+            />
           </div>
 
-        <div className={styles.firstButton}>
-          <ClassicButton
-            width={'70%'}
-            type={'submit'}
-            onClick={loginAouth}
-          >
-            <FaSignInAlt className={styles.icon} /> התחברות
-          </ClassicButton>
-        </div>
-      </form>
+          <div className={styles.firstButton}>
+            <ClassicButton
+              width={'70%'}
+              type={'submit'}
+              onClick={loginAouth}
+            >
+              <FaSignInAlt className={styles.icon} /> התחברות
+            </ClassicButton>
+          </div>
+        </form>
 
-      <div className={styles.secondButtonContainer}>
-        <div className={styles.secondButton}>
-        <ClassicButton
-          width={'70%'}
-          onClick={navToRegistretionPage}
-        >
-          <FiUserPlus className={styles.icon} /> הרשמה
-        </ClassicButton>
+        <div className={styles.secondButtonContainer}>
+          <div className={styles.secondButton}>
+            <ClassicButton
+              width={'70%'}
+              onClick={navToRegistretionPage}
+            >
+              <FiUserPlus className={styles.icon} /> הרשמה
+            </ClassicButton>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   )
