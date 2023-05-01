@@ -32,13 +32,6 @@ import userContext from '../../context/userContext';
     navigate('/forgetPassword');
   };
 
-  const navToHome = () => {
-    if(isValid) {
-      navigate("/");
-    }
-  };
-  
-
   const loginAouth = (e) => {
     e.preventDefault();
     axios.post("http://localhost:5000/api/user/login", {
@@ -47,17 +40,13 @@ import userContext from '../../context/userContext';
     })
       .then((res) => {
         if (res.status === 200) {
-          setUser(res.data)
-          if(checked===true){
+          setUser(res.data.user)
           setToken(res.data.token)
           localStorage.setItem('Token', res.data.token)
-          console.log(res.data.token);
           setIsValid(true)
           console.log('token set');
-          navToHome();
-        } else {
-          console.log('error');
-        }
+          console.log(`isValid state is set to: ${isValid}`);
+          navigate("/");
       }})
       .catch((err) => {
         console.log(err);
