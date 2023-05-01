@@ -19,7 +19,7 @@ import {BiLogOutCircle} from 'react-icons/bi'
 
 function Home({isValid, setIsValid}) {
   const { setHeader } = useContext(headerContext);
-  const {user} = useContext(userContext);
+  const {user, setUser} = useContext(userContext);
   const {setPopUp,setGuestMode,setPopUpText} = useContext(popUpContext)
 
   const navigate = useNavigate();
@@ -38,19 +38,14 @@ function Home({isValid, setIsValid}) {
   
   setHeader("home");
 
-  const navToLogin = () => {
-    if (isValid===false) {
-      navigate("/login");
-    }
-  }
-
   const logOut = () => {
     const confirmed = window.confirm('האם אתה בטוח שברצונך להתנתק ?');
     if (confirmed) {
       localStorage.removeItem('Token');
       setIsValid(false);
-      console.log(isValid);
-      navToLogin();
+      setUser(false)
+      console.log(`isValid state is set to: ${isValid}`);
+      navigate('/login')
     }
   };
 
