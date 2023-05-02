@@ -4,18 +4,21 @@ import styles from "./style.module.css";
 import Input from '../../components/Input'
 import ToggleSwitch from '../../components/ToggleSwitch';
 import ClassicButton from '../../components/ClassicButton copy';
+import apiCalls from '../../function/apiCalls';
 import { FaSignInAlt } from 'react-icons/fa'
 import { FiUserPlus } from 'react-icons/fi'
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
+import { setToken } from '../../function/token'
+import userContext from '../../context/userContext';
 
 // creator: Yisrael Olonoff
 // login page
 
-function Login() {
+function Login({ setIsValid, isValid }) {
+  const { setUser } = useContext(userContext);
   const { setHeader } = useContext(headerContext)
   setHeader('home')
-  
+
   const [checked, setChecked] = useState(true);
   const [userInfo, setUserInfo] = useState({})
 
@@ -29,23 +32,23 @@ function Login() {
     navigate('/forgetPassword');
   };
 
-  const navToHome = () => {
-    navigate("/");
-  };
-
   const loginAouth = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5000/api/user/login", {
-      email: userInfo.email,
-      password: userInfo.password,
+    apiCalls(
+      "post",
+      "user/login",
+      { email: userInfo.email, password: userInfo.password, }
+    ).then((res) => {
+      if (res.status === 200) {
+        setUser(res.data.user)
+        setToken(res.data.token)
+        localStorage.setItem('Token', res.data.token)
+        setIsValid(true)
+        console.log('token set');
+        console.log(`isValid state is set to: ${isValid}`);
+        navigate("/");
+      }
     })
-      .then((res) => {
-        if (res.status === 200) {
-          navToHome();
-        } else {
-          console.log('error');
-        }
-      })
       .catch((err) => {
         console.log(err);
         alert('אימייל/סיסמא לא נכונים')
@@ -55,22 +58,12 @@ function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (checked) {
-      // If the toggle switch is on, save the value in local storage
-      localStorage.setItem(name, value);
-    } else {
-      // If the toggle switch is off, retrieve the value from local storage
-      const storedValue = localStorage.getItem(name);
-      if (storedValue) {
-        setUserInfo({ ...userInfo, [name]: storedValue });
-        return;
-      }
-    }
     setUserInfo({ ...userInfo, [name]: value });
   };
 
   const handleToggleSwitch = (e) => {
-    setChecked(e.target.checked);
+    setChecked(!checked);
+    console.log(checked);
   }
 
   const inputs = [
@@ -94,12 +87,12 @@ function Login() {
   return (
     <div className={styles.main}>
       <div className={styles.container}>
-      <h2>התחברות</h2>
-      <form className={styles.form} onSubmit={loginAouth} >
-        {inputs.map((input) => {
+        <h2>התחברות</h2>
+        <form className={styles.form} onSubmit={loginAouth} >
+          {inputs.map((input) => {
             return (
               <Input
-              autoComplete='off'
+                autoComplete='off'
                 key={input.id}
                 {...input}
                 width={'300px'}
@@ -107,37 +100,44 @@ function Login() {
                 onChange={handleChange}
               />
             )
-        })}
-        <span style={{fontSize:"small"} } onClick={navToForgetPassword}>שכחת סיסמא?</span>
-            
-        <ToggleSwitch
-          text={'זכור אותי'}
-          checked={checked}
-          onChange={handleToggleSwitch}
-        />
-        <div className={styles.firstButton}>
-          <ClassicButton
-            width={'70%'}
-            type={'submit'}
-          >
-            <FaSignInAlt className={styles.icon} /> התחברות
-          </ClassicButton>
-        </div>
-      </form>
+          })}
+          <div className={styles.switchAndForgot}>
+            <span
+              className={styles.forgotPassword}
+              onClick={navToForgetPassword}
+            >
+              שכחתי סיסמא
+            </span>
+            <ToggleSwitch
+              text={'זכור אותי'}
+              checked={checked}
+              onChange={handleToggleSwitch}
+            />
+          </div>
 
-      <div className={styles.secondButtonContainer}>
-        <div className={styles.secondButton}>
-        <ClassicButton
-          width={'70%'}
-          onClick={navToRegistretionPage}
-        >
-          <FiUserPlus className={styles.icon} /> הרשמה
-        </ClassicButton>
+          <div className={styles.firstButton}>
+            <ClassicButton
+              width={'70%'}
+              type={'submit'}
+              onClick={loginAouth}
+            >
+              <FaSignInAlt className={styles.icon} /> התחברות
+            </ClassicButton>
+          </div>
+        </form>
+
+        <div className={styles.secondButtonContainer}>
+          <div className={styles.secondButton}>
+            <ClassicButton
+              width={'70%'}
+              onClick={navToRegistretionPage}
+            >
+              <FiUserPlus className={styles.icon} /> הרשמה
+            </ClassicButton>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   )
 }
-
 export default Login

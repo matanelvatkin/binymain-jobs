@@ -1,20 +1,23 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import styles from "./style.module.css";
-import {FiSearch} from 'react-icons/fi'
-import {CgPlayListSearch} from 'react-icons/cg'
+import { FiSearch } from 'react-icons/fi'
+import { CgPlayListSearch } from 'react-icons/cg'
 import Logo from '../../images/logo.png';
 import {TbListSearch} from 'react-icons/tb'
 import {BiAnalyse} from 'react-icons/bi'
 import {GoSettings} from 'react-icons/go'
 import {BsThreeDotsVertical} from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useParams} from 'react-router-dom';
 import headerContext from '../../context/headerContext';
+import SettingsNavBar from '../SettingsNavBar';
 
-function HeaderHome() {
+function HeaderHome({ isValid, setIsValid }) {
   const navigate = useNavigate()
   const [headerHeight, setHeaderHeight] = useState(18)
-  const{ search , setSearch } = useContext(headerContext);
+  const { search, setSearch } = useContext(headerContext);
   const [showInput, setShowInput] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+
 
   // useEffect(() => {
   //   const handleScroll = () => {

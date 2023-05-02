@@ -9,6 +9,16 @@
     gap: 5px;
 }
 
+.logOut{
+    position: fixed;
+    top: 75px;
+    left: 12px;
+    color: aliceblue;
+    width: 33px;
+    height: 33px;
+    cursor: pointer;
+}
+
 .eventsContainer{
     display: flex;
     align-items: center;
