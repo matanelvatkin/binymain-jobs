@@ -1,116 +1,109 @@
-import React, { useState, useEffect, useContext } from 'react'
-import styles from './style.module.css'
-import { BiShekel } from 'react-icons/bi'
-import { ImLocation2 } from 'react-icons/im'
-import { useNavigate } from 'react-router-dom'
-import headerContext from '../../context/headerContext'
-import apiCalls from '../../function/apiCalls'
+import React, { useState, useEffect, useContext } from "react";
+import styles from "./style.module.css";
+import { BiShekel } from "react-icons/bi";
+import { ImLocation2 } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
+import headerContext from "../../context/headerContext";
+import apiCalls from "../../function/apiCalls";
 
 // creator: Yisrael Olonoff
 // i created a card that will contain only necessary
-// information of an event and show it according to the 
-// Figma design. 
+// information of an event and show it according to the
+// Figma design.
 // i inculded fake data in the form of an array of objects
-// where every object is a card, this will change once we 
+// where every object is a card, this will change once we
 // have real data to work with.
 
-
 function EventCard({ events }) {
+  // eventName: "",
+  // summary: "",
+  // advertiser: "",
+  // tel: "",
+  // email: "",
+  // date: "",
+  // beginningTime: "",
+  // finishTime: "",
+  // place: "",
+  // category: "",
+  // targetAudience: "",
+  // registrationPageUrl: "",
+  // cardImageUrl: "",
+  // coverImageUrl: "",
+  // gallery: "",
+  // type: "",
+  // payment: "",
 
-    // eventName: "",
-    // summary: "",
-    // advertiser: "",
-    // tel: "",
-    // email: "",
-    // date: "",
-    // beginningTime: "",
-    // finishTime: "",
-    // place: "",
-    // category: "",
-    // targetAudience: "",
-    // registrationPageUrl: "",
-    // cardImageUrl: "",
-    // coverImageUrl: "",
-    // gallery: "",
-    // type: "",
-    // payment: "",
+  const [card, setCard] = useState(events ? events : []);
 
-    const [card, setCard] = useState(events ? events : []);
+  useEffect(() => {
+    if (!events) {
+      apiCalls("get", "event/now")
+      .then((event) => {
+        setCard(event);
+      });
+    }
+  }, []);
 
-    useEffect(() => {
-        if(!events) {
-            apiCalls("get","/event")
-            .then((event) => {
-            setCard(event);
-            })
-        }
-    }, [])
+  const { search } = useContext(headerContext);
 
-    const { search } = useContext(headerContext);
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const navToViewEvent = (eventID) => {
+    navigate("/viewEvent/" + eventID);
+  };
 
-    const navToViewEvent = (eventID) => {
-        navigate('/viewEvent/' + eventID);
-    };
+  return (
+    <>
+      {/* {card?.filter((v=>v.eventName.includes(search)||v.place.includes(search))) */}
+      {card?.filter((v)=>{
+                if(!v.eventName){return false}
+                return v.eventName.includes(search)||v.place.includes(search)})
+            .map((v) => {
+        return (
+          <div
+            className={styles.main}
+            key={v._id}
+            onClick={() => {
+              navToViewEvent(v._id);
+            }}
+          >
+            <div className={styles.imgFrame}>
+              <img
+                className={styles.img}
+                src={v.cardImageURL || v.coverImageURL}
+                alt="Event pic"
+              />
+            </div>
 
+            <div className={styles.infoBar}>
+              <div className={styles.first}>
+                <div className={styles.timeAndDate}>
+                  <span>{v.date}</span>
+                  <span>
+                    {v.beginningTime}-{v.finishTime}
+                  </span>
+                </div>
 
-    return (
-        <>
-            {/* {card?.filter((v=>v.eventName.includes(search)||v.place.includes(search))) */}
-            {card.map((v) => {
-                return (
-                    <div
-                        className={styles.main}
-                        key={v._id}
-                        onClick={() => {
-                            navToViewEvent(v._id);
-                        }}
-                    >
-                        <div className={styles.imgFrame}>
-                            <img
-                                className={styles.img}
-                                src={v.cardImageURL||v.coverImageURL}
-                                alt='Event pic'
-                            />
-                        </div>
+                <h4 className={styles.eventName}>{v.eventName}</h4>
+              </div>
 
-                        <div className={styles.infoBar}>
-                            <div className={styles.first}>
-                                <div className={styles.timeAndDate}>
-                                    <span>
-                                        {v.date}
-                                    </span>
-                                    <span>
-                                        {v.beginningTime}-
-                                        {v.finishTime}
-                                    </span>
-                                </div>
+              <div className={styles.second}>
+                <div className={styles.paragraphs}>
+                  <BiShekel />
+                  <p>{v.payment}</p>
+                </div>
 
-                                <h4
-                                    className={styles.eventName}
-                                >
-                                    {v.eventName}
-                                </h4>
-                            </div>
-
-                            <div className={styles.second}>
-                                <div className={styles.paragraphs}>
-                                    <BiShekel />
-                                    <p>{v.payment}</p>
-                                </div>
-
-                                <div className={styles.paragraphs}>
-                                    <ImLocation2 />
-                                    <p>{v.place}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )
-            })}
-        </>
-    )
+                <div className={styles.paragraphs}>
+                  <ImLocation2 />
+                  <p>{v.place}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
 }
 
-export default EventCard
+export default EventCard;
