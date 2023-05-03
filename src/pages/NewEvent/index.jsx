@@ -14,8 +14,15 @@ import Loader from "../../components/Loader";
 import WeeklyEvent from "../../components/WeeklyEvent";
 import DailyEvent from "../../components/DailyEvent";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
+import { parseJSON } from "jquery";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
+  const [fileData, setFileData] = useState([]);
+
+  const fileChangeHandler = (e) => {
+    setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
+    console.log(fileData);
+  };
   const nav = useNavigate();
   const placeData = [
     "עלמון",
@@ -64,13 +71,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
   const [values, setValues] = useState({
-    eventName: "",
-    summary: "",
-    advertiserName: "",
-    advertiserTel: "",
-    advertiserEmail: "",
+    eventName: "a",
+    summary: "b",
+    advertiserName: "c",
+    advertiserTel: "d",
+    advertiserEmail: "e@3",
     isRepeated: false,
-    repeatType: "",
+    repeatType: "אירוע ללא חזרה",
     personalRepeatType: "",
     date: new Date(),
     repeatSettingsType: "endDate",
@@ -83,12 +90,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     audiences: [],
     payment: "",
     days: [],
-  });
-  const [filesValues, setFilesValues] = useState({
-    cardImageURL:
-      "https://cdn.pixabay.com/photo/2023/03/03/17/35/gray-cat-7828134_1280.jpg",
-    coverImageURL:
-      "https://cdn.pixabay.com/photo/2023/02/12/12/06/ocean-7784940_1280.jpg",
+    // });
+    // const [filesValues, setFilesValues] = useState({
+    cardImageURL: "",
+    // "https://cdn.pixabay.com/photo/2023/03/03/17/35/gray-cat-7828134_1280.jpg",
+    coverImageURL: "",
+    // "https://cdn.pixabay.com/photo/2023/02/12/12/06/ocean-7784940_1280.jpg",
     gallery: [],
   });
 
@@ -206,30 +213,45 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "coverImageURL",
       type: "file",
       label: "תמונת כיסוי",
-      multiple: true,
     },
     {
       id: 17,
       name: "gallery",
       type: "file",
       label: "העלה תמונות לגלריה",
+      multiple: true,
     },
   ];
 
   const [eventData, setEventData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const formData = new FormData();
-    for (const key in values) {
-      if (Array.isArray(values[key])) {
-        for (const file of values[key]) {
+    for (const key in fileData) {
+      if (Array.isArray(fileData[key])) {
+        for (const file of fileData[key]) {
           formData.append(key, file);
         }
       } else {
-        formData.append(key, values[key]);
+        formData.append(key, fileData[key]);
       }
-      console.dir("formData", formData);
+      console.log("fileData", fileData);
     }
+    // for (const key in values) {
+    //   if (Array.isArray(values[key])) {
+    //     for (const value of values[key]) {
+    //       formData.append(key, value);
+    //     }
+    //   } else {
+    //     formData.append(key, values[key]);
+    //   }
+    // }
+    formData.append("values", JSON.stringify(values));
+    console.log("values", values);
+
+    console.log("formData", [...formData.entries()]);
+
     apiCalls("post", "/event/createvent", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
@@ -253,9 +275,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       category: values.category,
       targetAudience: values.audiences,
       registrationPageURL: values.registrationPageURL,
-      cardImageURL: filesValues.cardImageURL,
-      coverImageURL: filesValues.coverImageURL,
-      gallery: filesValues.gallery,
+      cardImageURL: values.cardImageURL,
+      coverImageURL: values.coverImageURL,
+      gallery: values.gallery,
       repeatType: values.repeatType,
       personalRepeat: values.personalRepeatType,
       isReapeated: values.repeatType !== "אירוע ללא חזרה",
@@ -266,12 +288,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       },
     });
   };
-  // useEffect(() => {
-  //   if (eventData)
-  //     apiCalls("post", "event/createvent", eventData).then((res) => {
-  //       if (res.status === 200) nav("/newEvent");
-  //     });
-  // }, [eventData]);
 
   useEffect(() => {
     setConstancy(values.repeatType);
@@ -289,15 +305,21 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setAudiences(settingContext.audiences);
     setCategories(settingContext.categories);
   }, []);
-  useEffect(() => {}, [values]);
+  useEffect(() => {
+    console.log({ values });
+  }, [values]);
 
   const onChange = (e) => {
     if (e.target.type === "file") {
-      setFilesValues({ ...filesValues, [e.target.name]: e.target.value });
-    } else if (e.target.type !== "radio") {
+      // setEventData({ ...eventData, [e.target.name]: e.target.files[0] });
       setValues({ ...values, [e.target.name]: e.target.value });
+      setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
+      console.log("file", fileData);
+      // fileChangeHandler(e);
     }
-    setEventData();
+    // else if (e.target.type !== "radio") {
+    // }
+    // setEventData();
   };
 
   return (
@@ -369,6 +391,19 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             return <WeeklyEvent values={values} setValues={setValues} />;
           else if (input.type === "בהתאמה אישית")
             return <PersonalEvent values={values} setValues={setValues} />;
+          // else if (input.type === "file")
+          //   return (
+          //     <Input
+          //       key={input.id}
+          //       {...input}
+          //       value={values[input.name]}
+          //       onChange={onChange}
+          //       className={styles.inputs}
+          //       type={input.type}
+          //       filesValues={filesValues}
+          //       setFilesValues={setFilesValues}
+          //     />
+          // );
           else
             return (
               <Input
@@ -377,6 +412,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 value={values[input.name]}
                 onChange={onChange}
                 className={styles.inputs}
+                type={input.type}
               />
             );
         })}

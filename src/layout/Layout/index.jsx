@@ -12,8 +12,8 @@ function Layout() {
   const [header, setHeader] = useState("home");
   const [search, setSearch] = useState("");
 
-  const [categories, setCategories] = useState([])
-  const [audiences, setAudiences] = useState([])
+  const [categories, setCategories] = useState([]);
+  const [audiences, setAudiences] = useState([]);
 
   async function fetchData() {
     let apiCategories, apiAudiences;
@@ -24,18 +24,22 @@ function Layout() {
       console.log();
     }
 
-    setAudiences(apiAudiences[0].settingData.map((v) => ({
-      ...v,
-      isActive: false,
-    })))
-    setCategories(apiCategories[0].settingData.map((v) => ({
-      ...v,
-      isActive: false,
-    })))
+    setAudiences(
+      apiAudiences[0].settingData.map((v) => ({
+        ...v,
+        isActive: false,
+      }))
+    );
+    setCategories(
+      apiCategories[0].settingData.map((v) => ({
+        ...v,
+        isActive: false,
+      }))
+    );
   }
-  useEffect(()=>{
-    fetchData()
-  },[])
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
