@@ -6,15 +6,12 @@ import Select from "../../components/Select";
 import SelectIcon from "../../components/SelectIcon";
 import styles from "./style.module.css";
 import headerContext from "../../context/headerContext";
-import axios from "axios";
 import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
 import PersonalEvent from "../../components/PersonalEvent";
-import Loader from "../../components/Loader";
 import WeeklyEvent from "../../components/WeeklyEvent";
 import DailyEvent from "../../components/DailyEvent";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
-import { parseJSON } from "jquery";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -238,15 +235,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       }
       console.log("fileData", fileData);
     }
-    // for (const key in values) {
-    //   if (Array.isArray(values[key])) {
-    //     for (const value of values[key]) {
-    //       formData.append(key, value);
-    //     }
-    //   } else {
-    //     formData.append(key, values[key]);
-    //   }
-    // }
     formData.append(
       "values",
       JSON.stringify({
@@ -312,15 +300,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   }, [values]);
   const onChange = (e) => {
     if (e.target.type === "file") {
-      // setEventData({ ...eventData, [e.target.name]: e.target.files[0] });
       setValues({ ...values, [e.target.name]: e.target.value });
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
       console.log("file", fileData);
-      // fileChangeHandler(e);
     }
-    // else if (e.target.type !== "radio") {
-    // }
-    // setEventData();
   };
 
   return (
