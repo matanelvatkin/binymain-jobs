@@ -49,7 +49,7 @@ function Home({isValid, setIsValid}) {
 
   return (
       <div className={styles.main}>
-          <BiLogOutCircle className={styles.logOut} onClick={logOut}/>
+          {/* <BiLogOutCircle className={styles.logOut} onClick={logOut}/> */}
         <div className={styles.eventsContainer}>
           <EventCard />
         </div>
