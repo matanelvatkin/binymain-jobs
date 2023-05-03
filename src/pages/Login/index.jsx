@@ -14,8 +14,8 @@ import userContext from '../../context/userContext';
 // creator: Yisrael Olonoff
 // login page
 
-  function Login({setIsValid, isValid}) {
-  const {setUser} = useContext(userContext);
+  function Login() {
+  const {user,setUser} = useContext(userContext);
   const { setHeader } = useContext(headerContext)
   setHeader('home')
   
@@ -32,13 +32,6 @@ import userContext from '../../context/userContext';
     navigate('/forgetPassword');
   };
 
-  const navToHome = () => {
-    if(isValid) {
-      navigate("/");
-    }
-  };
-  
-
   const loginAouth = (e) => {
     e.preventDefault();
     axios.post("http://localhost:5000/api/user/login", {
@@ -47,17 +40,13 @@ import userContext from '../../context/userContext';
     })
       .then((res) => {
         if (res.status === 200) {
-          setUser(res.data)
-          if(checked===true){
+          setUser(true)
           setToken(res.data.token)
           localStorage.setItem('Token', res.data.token)
-          console.log(res.data.token);
-          setIsValid(true)
+          // setIsValid(true)
           console.log('token set');
-          navToHome();
-        } else {
-          console.log('error');
-        }
+          console.log(user);
+          navigate("/");
       }})
       .catch((err) => {
         console.log(err);

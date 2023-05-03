@@ -75,9 +75,9 @@ function Layout() {
           <Header />
           <fakeDataContext.Provider value={{ fakeData }}>
             <Main />
-          {popUp &&
+          {/* {popUp &&
             <GuestPopup text={popUpText} guestMode={guestMode}/> 
-          }
+          } */}
           
           </fakeDataContext.Provider>
           </settingsContext.Provider>
