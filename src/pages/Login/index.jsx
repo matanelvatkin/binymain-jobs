@@ -6,13 +6,16 @@ import ToggleSwitch from '../../components/ToggleSwitch';
 import ClassicButton from '../../components/ClassicButton copy';
 import { FaSignInAlt } from 'react-icons/fa'
 import { FiUserPlus } from 'react-icons/fi'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+import {setToken} from '../../function/token'
 import axios from 'axios';
+import userContext from '../../context/userContext';
 
 // creator: Yisrael Olonoff
 // login page
 
-function Login() {
+  function Login() {
+  const {user,setUser} = useContext(userContext);
   const { setHeader } = useContext(headerContext)
   setHeader('home')
   
@@ -29,10 +32,6 @@ function Login() {
     navigate('/forgetPassword');
   };
 
-  const navToHome = () => {
-    navigate("/");
-  };
-
   const loginAouth = (e) => {
     e.preventDefault();
     axios.post("http://localhost:5000/api/user/login", {
@@ -41,11 +40,14 @@ function Login() {
     })
       .then((res) => {
         if (res.status === 200) {
-          navToHome();
-        } else {
-          console.log('error');
-        }
-      })
+          setUser(true)
+          setToken(res.data.token)
+          localStorage.setItem('Token', res.data.token)
+          // setIsValid(true)
+          console.log('token set');
+          console.log(user);
+          navigate("/");
+      }})
       .catch((err) => {
         console.log(err);
         alert('אימייל/סיסמא לא נכונים')
@@ -55,22 +57,12 @@ function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (checked) {
-      // If the toggle switch is on, save the value in local storage
-      localStorage.setItem(name, value);
-    } else {
-      // If the toggle switch is off, retrieve the value from local storage
-      const storedValue = localStorage.getItem(name);
-      if (storedValue) {
-        setUserInfo({ ...userInfo, [name]: storedValue });
-        return;
-      }
-    }
     setUserInfo({ ...userInfo, [name]: value });
   };
 
   const handleToggleSwitch = (e) => {
-    setChecked(e.target.checked);
+    setChecked(!checked);
+    console.log(checked);
   }
 
   const inputs = [
@@ -126,6 +118,7 @@ function Login() {
           <ClassicButton
             width={'70%'}
             type={'submit'}
+            onClick={loginAouth}
           >
             <FaSignInAlt className={styles.icon} /> התחברות
           </ClassicButton>
@@ -146,5 +139,4 @@ function Login() {
     </div>
   )
 }
-
 export default Login

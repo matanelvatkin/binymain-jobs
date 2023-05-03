@@ -13,6 +13,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiMoney } from "react-icons/bi";
 import BackArrow from "../../components/BackArrow";
+import FavouriteMark from "../../components/FavouriteMark";
 
 // Creator: Naama Orlan
 //This page view the details of a specific event.
@@ -43,11 +44,13 @@ export default function ViewEvent() {
   useEffect(() => {
     if (eventData) {
       setLoading(() => false);
-      console.log(eventData);
+      console.log( eventData);
+
     }
   }, [eventData]);
 
   return (
+   
     <div className={style.content}>
       <div>
         {!loading ? (
@@ -59,8 +62,10 @@ export default function ViewEvent() {
         ) : (
           <p>loading...</p>
         )}
+        <div className={style.favourite}><FavouriteMark/></div>
         <div className={style.backArrow}>
           {" "}
+          
           <BackArrow color={"black"} />
         </div>
       </div>
@@ -74,13 +79,14 @@ export default function ViewEvent() {
 
       <div className={style.section}>
         {!loading ? (
-          <div className={style.dataSection}>
+          <div className={style.dataSection}>                             
             <div className={style.reactIcon}>
-              <FaRegCalendarAlt />
+              <FaRegCalendarAlt/>
             </div>
             <div className={style.dateOfEvent}>
               {" "}
-              {eventData.date.slice(0, 10)}
+              {eventData.date[0].slice(0, 10)}
+              
             </div>
             <br />
             <div style={{ marginRight: "15px" }} className={style.hourOfEvent}>
@@ -108,7 +114,7 @@ export default function ViewEvent() {
       <div className={style.section}>
         {!loading ? (
           <div className={style.dataSection}>
-            <div className={style.reactIcon}>
+            <div className={style.reactIcon} >
               <BiMoney />
             </div>
             <div className={style.placeOfEvent}> כניסה חופשית</div>
@@ -121,14 +127,14 @@ export default function ViewEvent() {
       <div className={style.section}>
         {!loading ? (
           <div>
-            <p>{translation.details}</p>
-            <p> {eventData.summary}</p>{" "}
+            <p className={style.detailsTitle}>{translation.details}</p>
+            <p className={style.detailsContent} > {eventData.summary}</p>{" "}
           </div>
         ) : (
           <p>loading...</p>
         )}
       </div>
-      <ClassicButton width={100} text={translation.cards} />
+      <ClassicButton width={200} text={translation.cards} />
     </div>
   );
 }
