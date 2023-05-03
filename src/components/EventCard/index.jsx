@@ -54,8 +54,10 @@ function EventCard({ events }) {
 
   return (
     <>
-      {/* {card?.filter((v=>v.eventName.includes(search)||v.place.includes(search))) */}
-      {card.map((v) => {
+      {card?.filter((v)=>{
+                if(!v.eventName){return false}
+                return v.eventName.includes(search)||v.place.includes(search)})
+            .map((v) => {
         return (
           <div
             className={styles.main}
