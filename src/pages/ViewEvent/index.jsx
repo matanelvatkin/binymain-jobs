@@ -48,7 +48,7 @@ export default function ViewEvent() {
   }, [eventData]);
 
   return (
-    <div className={style.content}>
+    <div className={style.container}>
       <div>
         {!loading ? (
           <img
@@ -64,6 +64,7 @@ export default function ViewEvent() {
           <BackArrow color={"black"} />
         </div>
       </div>
+      <div className={style.content}>
       <div className={style.section}>
         {!loading ? (
           <h1 className={style.heading}>{eventData.eventName}</h1>
@@ -130,6 +131,7 @@ export default function ViewEvent() {
         )}
       </div>
       <ClassicButton width={200} text={translation.cards} />
+    </div>
     </div>
   );
 }

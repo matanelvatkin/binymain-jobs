@@ -48,7 +48,7 @@ function HeaderHome({ isValid, setIsValid }) {
               className={showInput ? styles.visibleInput : styles.hiddenInput}
               type="search"
               defaultValue={search}
-              onChange={(e) => { setSearch(e.target.value); console.log(e); }}
+              onChange={(e) => { setSearch(e.target.value); }}
               onClick={() => setShowInput(true)} />
           </span>
         </div>
