@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Boogaloo:&display=swap');
-
 .main{
     direction: ltr;
     background-color: var(--bg-secondary-color);
@@ -7,13 +5,6 @@
     border-radius: 0px 0px 25px 25px;    
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
     transition: .3s;
-}
-
-.headerHome_container{
-}
-
-.titleContainer{   
-   
 }
 
 .titleBox{
@@ -30,8 +21,9 @@
     font-size: xxx-large;
     color: var(--text-Fourth-color);
     font-weight: normal;
-    font-size: 34pt;
+    font-size: 40pt;
     letter-spacing: -1pt;
+    margin-right: 6pt;
 }
 
 .logo{
@@ -60,7 +52,6 @@
     flex-direction: column;
     padding-right: 5%;
     padding-bottom: 12pt;
-
 }
 
 .searchContainer{
@@ -86,13 +77,14 @@ margin-left: 18%;
 }
 
 .visibleInput{
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
-    width: 100%;
-    padding: 6px;
-    background-color: var( --input-color);
-    transition: .6s;
+     border: none;
+    background-color:transparent;
+    color: #cccccc;
+    font-size: 16pt;
+    font-family: 'Noto Sans Hebrew', sans-serif;
+}
+::placeholder {
+    color:#cccccc;
 }
 
 .hiddenInput{
@@ -105,11 +97,14 @@ margin-left: 18%;
     transition: .6s;
 }
 
-.hiddenInput::placeholder{
-    color: var(--bg-secondary-color);
-}
-
 .input::placeholder{
-    color: var(--bg-third-color);
-    font-size: 16px;
+    color: var(#cccccc);
+    font-size: 16pt;
+    font-family: 'Noto Sans Hebrew', sans-serif;
+
+}
+.optionsText {
+    color: #cccccc;
+    font-size: 16pt;
+    font-family: 'Noto Sans Hebrew', sans-serif;
 }
