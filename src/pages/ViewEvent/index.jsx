@@ -44,13 +44,11 @@ export default function ViewEvent() {
   useEffect(() => {
     if (eventData) {
       setLoading(() => false);
-      console.log( eventData);
-
+      console.log(eventData);
     }
   }, [eventData]);
 
   return (
-   
     <div className={style.content}>
       <div>
         {!loading ? (
@@ -62,10 +60,11 @@ export default function ViewEvent() {
         ) : (
           <p>loading...</p>
         )}
-        <div className={style.favourite}><FavouriteMark/></div>
+        <div className={style.favourite}>
+          <FavouriteMark />
+        </div>
         <div className={style.backArrow}>
           {" "}
-          
           <BackArrow color={"black"} />
         </div>
       </div>
@@ -79,14 +78,13 @@ export default function ViewEvent() {
 
       <div className={style.section}>
         {!loading ? (
-          <div className={style.dataSection}>                             
+          <div className={style.dataSection}>
             <div className={style.reactIcon}>
-              <FaRegCalendarAlt/>
+              <FaRegCalendarAlt />
             </div>
             <div className={style.dateOfEvent}>
               {" "}
               {eventData.date[0].slice(0, 10)}
-              
             </div>
             <br />
             <div style={{ marginRight: "15px" }} className={style.hourOfEvent}>
@@ -114,7 +112,7 @@ export default function ViewEvent() {
       <div className={style.section}>
         {!loading ? (
           <div className={style.dataSection}>
-            <div className={style.reactIcon} >
+            <div className={style.reactIcon}>
               <BiMoney />
             </div>
             <div className={style.placeOfEvent}> כניסה חופשית</div>
@@ -128,7 +126,7 @@ export default function ViewEvent() {
         {!loading ? (
           <div>
             <p className={style.detailsTitle}>{translation.details}</p>
-            <p className={style.detailsContent} > {eventData.summary}</p>{" "}
+            <p className={style.detailsContent}> {eventData.summary}</p>{" "}
           </div>
         ) : (
           <p>loading...</p>

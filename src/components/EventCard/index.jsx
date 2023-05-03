@@ -37,9 +37,12 @@ function EventCard({ events }) {
 
   useEffect(() => {
     if (!events) {
-      apiCalls("post", "event")
-      .then((event) => {
+      apiCalls("post", "event").then((event) => {
         setCard(event);
+        // setCard(
+        //   (event.cardImageUrl =
+        //     "http:\\localhost:5000/upload/Kobi_pic-03052023170005.jpeg")
+        // );
       });
     }
   }, []);

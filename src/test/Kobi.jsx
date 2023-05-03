@@ -2,43 +2,23 @@ import { useEffect, useState } from "react";
 import Input from "../components/Input";
 import NewEvent from "../pages/NewEvent";
 import $ from "jquery";
+import apiCalls from "../function/apiCalls";
 
 export default function Kobi() {
-  const [fileData, setFileData] = useState();
-
-  const fileChangeHandler = (e) => {
-    setFileData(e.target.files[0]);
-  };
-
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-
-    // Handle File Data from the state Before Sending
-    const data = new FormData();
-
-    data.append("file", fileData);
-
-    fetch("http://localhost:5000/api/event/createvent", {
-      method: "POST",
-      body: data,
-    })
-      .then((result) => {
-        console.log("File Sent Successful");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-
+  const [myImage, setMyImage] = useState("");
+  apiCalls("post", "event").then((event) => {
+    setMyImage(event[159].cardImageURL);
+    console.log({ myImage });
+  });
+  const testImage = "http://localhost:5000/upload/Kobi_pic-03052023170005.jpeg";
+  console.log(testImage.toString());
+  useEffect(() => {
+    setMyImage(testImage);
+    console.log("22", testImage.toString());
+  }, []);
   return (
-    <div className="App">
-      <h1>React App File Uploading</h1>
-      <form onSubmit={onSubmitHandler}>
-        <input type="file" onChange={fileChangeHandler} />
-        <br />
-        <br />
-        <button type="submit">Submit File to Backend</button>
-      </form>
+    <div>
+      <img src={testImage} alt="Event pic" />
     </div>
   );
 }

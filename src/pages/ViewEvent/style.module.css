@@ -1,14 +1,18 @@
 .content {
-    direction: rtl;
-    margin-right: 2%;
+  direction: rtl;
+  margin-right: 2%;
 }
 
 .section {
-    margin-top: 1.5%;
+  margin-top: 1.5%;
 }
 .coverImage {
-    border-radius: 5px;
-    max-height: 200px;
+  border-radius: 5px;
+  max-height: 200px;
+}
+.cardImage {
+  border-radius: 5px;
+  max-height: 200px;
 }
 
 /* .cardsButton {
@@ -17,29 +21,29 @@
 } */
 
 .dataSection {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 20px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px 0px;
 }
 
- .reactIcon {
-    margin-left: 20px;
-    color:var(  --text-secondary-color);
-    padding: 7px;
-    background-color: #ADD8E6;
-    border-radius: 15%;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
- }
+.reactIcon {
+  margin-left: 20px;
+  color: var(--text-secondary-color);
+  padding: 7px;
+  background-color: #add8e6;
+  border-radius: 15%;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
 
- .detailsContent {
-    margin-bottom: 20px; 
- }
+.detailsContent {
+  margin-bottom: 20px;
+}
 
- .detailsTitle {
-    padding: 10px 0px;
-    font-weight: bolder;
-    font-size: 20px;
- }
+.detailsTitle {
+  padding: 10px 0px;
+  font-weight: bolder;
+  font-size: 20px;
+}
