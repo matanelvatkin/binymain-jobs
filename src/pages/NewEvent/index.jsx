@@ -247,7 +247,37 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     //     formData.append(key, values[key]);
     //   }
     // }
-    formData.append("values", JSON.stringify(values));
+    formData.append(
+      "values",
+      JSON.stringify({
+        eventName: values.eventName,
+        summary: values.summary,
+        advertiser: {
+          name: values.advertiserName,
+          tel: values.advertiserTel,
+          email: values.advertiserEmail,
+        },
+        date: values.date,
+        day: values.days,
+        beginningTime: values.beginningTime,
+        finishTime: values.finishTime,
+        place: values.place,
+        category: values.category,
+        targetAudience: values.audiences,
+        registrationPageURL: values.registrationPageURL,
+        cardImageURL: values.cardImageURL,
+        coverImageURL: values.coverImageURL,
+        gallery: values.gallery,
+        repeatType: values.repeatType,
+        personalRepeat: values.personalRepeatType,
+        isReapeated: values.repeatType !== "אירוע ללא חזרה",
+        payment: values.payment,
+        repeatSettings: {
+          type: values.repeatSettingsType,
+          repeatEnd: values.repeatSettingsRepeatEnd || values.date,
+        },
+      })
+    );
     console.log("values", values);
 
     console.log("formData", [...formData.entries()]);
@@ -258,34 +288,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       if (res.status === 200) {
         nav("/newEvent");
       }
-    });
-    setEventData({
-      eventName: values.eventName,
-      summary: values.summary,
-      advertiser: {
-        name: values.advertiserName,
-        tel: values.advertiserTel,
-        email: values.advertiserEmail,
-      },
-      date: values.date,
-      day: values.days,
-      beginningTime: values.beginningTime,
-      finishTime: values.finishTime,
-      place: values.place,
-      category: values.category,
-      targetAudience: values.audiences,
-      registrationPageURL: values.registrationPageURL,
-      cardImageURL: values.cardImageURL,
-      coverImageURL: values.coverImageURL,
-      gallery: values.gallery,
-      repeatType: values.repeatType,
-      personalRepeat: values.personalRepeatType,
-      isReapeated: values.repeatType !== "אירוע ללא חזרה",
-      payment: values.payment,
-      repeatSettings: {
-        type: values.repeatSettingsType,
-        repeatEnd: values.repeatSettingsRepeatEnd || values.date,
-      },
     });
   };
 
@@ -308,7 +310,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   useEffect(() => {
     console.log({ values });
   }, [values]);
-
   const onChange = (e) => {
     if (e.target.type === "file") {
       // setEventData({ ...eventData, [e.target.name]: e.target.files[0] });
