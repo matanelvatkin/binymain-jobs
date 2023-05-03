@@ -38,10 +38,9 @@ function EventCard({ events }) {
 
   useEffect(() => {
     if (!events) {
-      apiCalls("post", "event")
-        .then((event) => {
-          setCard(event);
-        });
+      apiCalls("post", "event").then((event) => {
+        setCard(event);
+      });
     }
   }, []);
 
@@ -59,16 +58,17 @@ function EventCard({ events }) {
   return (
     <>
       {card
-        .filter((v) =>
-          v.eventName?.toLowerCase().includes(search.toLowerCase()) ||
-          v.place?.toLowerCase().includes(search.toLowerCase())
+        .filter(
+          (v) =>
+            v.eventName?.toLowerCase().includes(search.toLowerCase()) ||
+            v.place?.toLowerCase().includes(search.toLowerCase())
         )
         .map((v) => {
           const date = new Date(v.date[0]);
-          const formattedDate = date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
+          const formattedDate = date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
           });
 
           return (
@@ -89,7 +89,7 @@ function EventCard({ events }) {
 
               <div className={styles.infoBar}>
                 <div className={styles.first}>
-                <h3 className={styles.eventName}>{v.eventName}</h3>
+                  <h3 className={styles.eventName}>{v.eventName}</h3>
                   <div className={styles.paragraphs}>
                     <ImLocation2 />
                     <p>{v.place}</p>
@@ -99,19 +99,15 @@ function EventCard({ events }) {
                     <span>
                       {v.beginningTime}-{v.finishTime}
                     </span>
-                    
                   </div>
                 </div>
 
-               
-                  {/* <div className={styles.paragraphs}>
+                {/* <div className={styles.paragraphs}>
                     <BiShekel />
                     <p>{v.payment}</p>
                   </div> */}
-
-                  
-                </div>
               </div>
+            </div>
           );
         })}
     </>
