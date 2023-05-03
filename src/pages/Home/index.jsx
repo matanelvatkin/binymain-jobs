@@ -25,15 +25,15 @@ function Home({isValid, setIsValid}) {
   const navigate = useNavigate();
   
   const navToNewEvent = () => {
-    if(!user){
+    // if(!user){
         setPopUp(true)
         setGuestMode(false)
         setPopUpText('כדי שתוכל לפרסם אירוע, נהיה חייבים להכיר😊')
 
-    }
-    else{
+    // }
+    // else{
       navigate("/newEvent");
-    }
+    // }
   };
   
   setHeader("home");
@@ -42,9 +42,7 @@ function Home({isValid, setIsValid}) {
     const confirmed = window.confirm('האם אתה בטוח שברצונך להתנתק ?');
     if (confirmed) {
       localStorage.removeItem('Token');
-      setIsValid(false);
       setUser(false)
-      console.log(`isValid state is set to: ${isValid}`);
       navigate('/login')
     }
   };
