@@ -26,36 +26,36 @@ function Main() {
   const token = localStorage.getItem("Token");
   console.log(user);
 
-  const VerifyToken = (e) => {
-    // e.preventDefault();
-    axios
-      .post("http://localhost:5000/api/user/verify", { aoutherizetion: token })
-      .then((res) => {
-        console.log("sss");
-        if (res.status === 200) {
-          setUser(true);
-          // localStorage.setItem('Token', token)
-          console.log("is valid");
-        } else if (res.status === 401) {
-          console.log("not valid");
-          setUser(false);
-          setGuestMode(true);
-          setPopUp(true);
-          setPopUpText(
-            "🏄🏽😎 הנך נמצא כרגע על מצב אורח, אנו ממליצים להתחבר לאפליקצייה כדי שתוכל להנות מחוויית גלישה מקסימלית"
-          );
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err);
-      });
-  };
-
-  useEffect(() => {
-    VerifyToken();
-    console.log(user);
-  }, []);
+  //   const VerifyToken = (e) => {
+  //     // e.preventDefault();
+  //     axios
+  //       .post("http://localhost:5000/api/user/verify", { aoutherizetion: token })
+  //       .then((res) => {
+  //         console.log("sss");
+  //         if (res.status === 200) {
+  //           setUser(true);
+  //           // localStorage.setItem('Token', token)
+  //           console.log("is valid");
+  //         } else if (res.status === 401) {
+  //           console.log("not valid");
+  //           setUser(false);
+  //           setGuestMode(true);
+  //           setPopUp(true);
+  //           setPopUpText(
+  //             "🏄🏽😎 הנך נמצא כרגע על מצב אורח, אנו ממליצים להתחבר לאפליקצייה כדי שתוכל להנות מחוויית גלישה מקסימלית"
+  //           );
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         alert(err);
+  //       });
+  //   };
+  //
+  //   useEffect(() => {
+  //     VerifyToken();
+  //     console.log(user);
+  //   }, []);
 
   return (
     <main>
