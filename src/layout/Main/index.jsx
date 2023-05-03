@@ -39,11 +39,10 @@ function Main() {
     .then((res) => {
       console.log(res.status);
       if (res.status === 200) {
-        setIsValid(true)
         setUser(true)
         localStorage.setItem('Token', token)
         console.log("is valid");
-      }else{
+      }else if(res.status === 401){
         console.log("not valid");
         setUser(false)
         setGuestMode(true)
