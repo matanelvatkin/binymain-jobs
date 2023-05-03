@@ -13,6 +13,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiMoney } from "react-icons/bi";
 import BackArrow from "../../components/BackArrow";
+import FavouriteMark from "../../components/FavouriteMark";
 
 // Creator: Naama Orlan
 //This page view the details of a specific event.
@@ -43,7 +44,8 @@ export default function ViewEvent() {
   useEffect(() => {
     if (eventData) {
       setLoading(() => false);
-      console.log(eventData);
+      console.log( eventData);
+
     }
   }, [eventData]);
 
@@ -59,8 +61,10 @@ export default function ViewEvent() {
         ) : (
           <p>loading...</p>
         )}
+        <div className={style.favourite}><FavouriteMark/></div>
         <div className={style.backArrow}>
           {" "}
+          
           <BackArrow color={"black"} />
         </div>
       </div>

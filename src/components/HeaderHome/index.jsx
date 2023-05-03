@@ -3,10 +3,11 @@ import styles from "./style.module.css";
 import { FiSearch } from 'react-icons/fi'
 import { CgPlayListSearch } from 'react-icons/cg'
 import Logo from '../../images/logo.png';
-import { TbListSearch } from 'react-icons/tb'
-import { BiAnalyse } from 'react-icons/bi'
-import { BsThreeDotsVertical } from 'react-icons/bs'
-import { useNavigate, useParams } from 'react-router-dom';
+import {TbListSearch} from 'react-icons/tb'
+import {BiAnalyse} from 'react-icons/bi'
+import {GoSettings} from 'react-icons/go'
+import {BsThreeDotsVertical} from 'react-icons/bs'
+import { useNavigate , useParams} from 'react-router-dom';
 import headerContext from '../../context/headerContext';
 import SettingsNavBar from '../SettingsNavBar';
 
@@ -14,7 +15,7 @@ function HeaderHome({ isValid, setIsValid }) {
   const navigate = useNavigate()
   const [headerHeight, setHeaderHeight] = useState(18)
   const { search, setSearch } = useContext(headerContext);
-  const [showInput, setShowInput] = useState(false);
+  const [showInput, setShowInput] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
 
 
@@ -33,39 +34,73 @@ function HeaderHome({ isValid, setIsValid }) {
   //   }
   // }, [headerHeight])
 
-  return (
-    <div className={styles.main} style={{ height: `${headerHeight}vh` }}>
-      <div className={styles.headerHome_container} >
-        <div className={styles.titleContainer}>
+  return ( 
+    <div className={styles.main}> 
+       <div className={styles.headerHome_container} >
+        <div >
           <div className={styles.titleBox}>
-            <h1 className={styles.title}> HereEvent </h1>
-            <BiAnalyse className={styles.logo} />
-          </div >
-          <span className={styles.searchContainer}>
-            <input
-              dir='rtl'
-              placeholder='חפש...'
-              className={showInput ? styles.visibleInput : styles.hiddenInput}
-              type="search"
-              defaultValue={search}
-              onChange={(e) => { setSearch(e.target.value); }}
-              onClick={() => setShowInput(true)} />
-          </span>
+           <h1 className={styles.title}> HereEvent </h1>
+           <BiAnalyse className={styles.logo}/>
+           
+           </div >
         </div>
         <div className={styles.options}>
+          <div className={styles.searchContainer}>
+          <span 
+          className={styles.advanceContainer}> 
+          <FiSearch className={styles.icon}/> </span >
+           <input 
+            dir='rtl' 
+            placeholder='אירועים בסביבה שלך...' 
+            className={showInput? styles.visibleInput : styles.hiddenInput} 
+            type="search" 
+            defaultValue={search} 
+            onChange={(e)=>setSearch(e.target.value)}/>
+          </div>
+          <div className={styles.searchContainer} onClick={() =>{navigate("/searchEvent")}}>
           <span>
-            <BsThreeDotsVertical className={styles.icon} onClick={() => setShowSettings(!showSettings)} />
-          </span>
-          <span
-            className={styles.advanceContainer} onClick={() => { navigate("/searchEvent") }}> <TbListSearch className={styles.icon} />
-          </span>
-          <span>
-            <FiSearch className={styles.icon} onClick={() => setShowInput(!showInput)} />
-          </span>
-        </div >
-      </div>
-      {showSettings && <SettingsNavBar showSettings={showSettings} setShowSettings={setShowSettings} isValid={isValid} setIsValid={setIsValid}/>}
-    </div>
+          <GoSettings className={styles.icon} />
+          {/* onClick={()=> setShowInput(!showInput)} */}
+           </span>
+          <span className={styles.optionsText} >חיפוש מתקדם</span>
+          </div>
+          </div>  
+          </div>
+          </div>
+  
+//the header before the design.
+  // <div className={styles.main} style={{ height: `${headerHeight}vh` }}> 
+  //    <div className={styles.headerHome_container} >
+  //     <div className={styles.titleContainer}>
+  //       <div className={styles.titleBox}>
+  //        <h1 className={styles.title}> HereEvent </h1>
+  //        <BiAnalyse className={styles.logo}/>
+  //        </div >
+  //        <span className={styles.searchContainer}>
+  //         <input 
+  //         dir='rtl' 
+  //         placeholder='חפש...' 
+  //         // className={showInput? styles.visibleInput : styles.hiddenInput} 
+  //         className={styles.visibleInput}
+  //         type="search" 
+  //         defaultValue={search} 
+  //         onChange={(e)=>setSearch(e.target.value)}/>
+  //       </span>
+  //     </div>
+  //     <div className={styles.options}>
+  //       <span>
+  //        <BsThreeDotsVertical className={styles.icon}/>
+  //       </span>
+  //       <span 
+  //       className={styles.advanceContainer} onClick={() =>{navigate("/searchEvent")}}> 
+  //       <TbListSearch className={styles.icon}/>
+  //       </span> 
+  //       <span>
+  //       <FiSearch className={styles.icon} onClick={()=> setShowInput(!showInput)}/>
+  //       </span>
+  //       </div>  
+  //       </div>
+  //       </div>
 
   )
 }
