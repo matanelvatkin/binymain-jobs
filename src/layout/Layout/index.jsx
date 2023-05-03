@@ -1,30 +1,30 @@
-import ForgetPassword from "../../components/ForgetPassword"
-import GuestPopup from "../../components/GuestPopup"
-import fakeDataContext from "../../context/fakeDataContext"
-import headerContext from "../../context/headerContext"
-import userContext from "../../context/userContext"
-import popUpContext from "../../context/popUpContext"
+import ForgetPassword from "../../components/ForgetPassword";
+import GuestPopup from "../../components/GuestPopup";
+import fakeDataContext from "../../context/fakeDataContext";
+import headerContext from "../../context/headerContext";
+import userContext from "../../context/userContext";
+import popUpContext from "../../context/popUpContext";
 
-import Header from "../Header"
-import Main from "../Main"
+import Header from "../Header";
+import Main from "../Main";
 import { createContext, useEffect, useState } from "react";
 import apiCalls from "../../function/apiCalls";
-import { useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom";
 
 export const settingsContext = createContext();
 
 function Layout() {
   const [user, setUser] = useState(false);
-  const [popUp,setPopUp] = useState(false);
-  const [guestMode,setGuestMode] = useState(false)
-  const [popUpText,setPopUpText] = useState("")
+  const [popUp, setPopUp] = useState(false);
+  const [guestMode, setGuestMode] = useState(false);
+  const [popUpText, setPopUpText] = useState("");
   const location = useLocation();
 
   const [fakeData, setFakeData] = useState("bla bla");
   const [header, setHeader] = useState("home");
-  const [search, setSearch] = useState("")
-  const [categories, setCategories] = useState([])
-  const [audiences, setAudiences] = useState([])
+  const [search, setSearch] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [audiences, setAudiences] = useState([]);
 
   async function fetchData() {
     let apiCategories, apiAudiences;
@@ -35,60 +35,58 @@ function Layout() {
       console.log();
     }
 
-    setAudiences(apiAudiences[0].settingData.map((v) => ({
-      ...v,
-      isActive: false,
-    })))
-    setCategories(apiCategories[0].settingData.map((v) => ({
-      ...v,
-      isActive: false,
-    })))
+    setAudiences(
+      apiAudiences[0].settingData.map((v) => ({
+        ...v,
+        isActive: false,
+      }))
+    );
+    setCategories(
+      apiCategories[0].settingData.map((v) => ({
+        ...v,
+        isActive: false,
+      }))
+    );
   }
-  useEffect(()=>{
-    fetchData()
-  },[])
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  useEffect(()=>{
-    const intervalId  = setInterval(() => {
-      if(!user  && (location.pathname=="/searchEvent" || location.pathname.startsWith('/viewEvent'))){
-        setGuestMode(true)
-        setPopUpText('עדיין לא יצא לנו להכיר😊')
-        setPopUp(true)
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (
+        !user &&
+        (location.pathname == "/searchEvent" ||
+          location.pathname.startsWith("/viewEvent"))
+      ) {
+        setGuestMode(true);
+        setPopUpText("עדיין לא יצא לנו להכיר😊");
+        setPopUp(true);
       }
-    }, 20000 );
+    }, 20000);
 
-    return () => clearInterval(intervalId );
-
-  },[user,location.pathname])
-
-
-
- 
-  
+    return () => clearInterval(intervalId);
+  }, [user, location.pathname]);
 
   return (
     <>
-      <userContext.Provider value={{user, setUser}}>
-        <popUpContext.Provider value={{setPopUp,setGuestMode,setPopUpText}}>
-        <headerContext.Provider value={{ header, setHeader, search, setSearch }}>
-        <settingsContext.Provider value={{ categories, audiences }}>
-          <Header />
-          <fakeDataContext.Provider value={{ fakeData }}>
-            <Main />
-          {/* {popUp &&
+      <userContext.Provider value={{ user, setUser }}>
+        <popUpContext.Provider value={{ setPopUp, setGuestMode, setPopUpText }}>
+          <headerContext.Provider
+            value={{ header, setHeader, search, setSearch }}
+          >
+            <settingsContext.Provider value={{ categories, audiences }}>
+              <Header />
+              <fakeDataContext.Provider value={{ fakeData }}>
+                <Main />
+                {/* {popUp &&
             <GuestPopup text={popUpText} guestMode={guestMode}/> 
           } */}
-          
-          </fakeDataContext.Provider>
-          </settingsContext.Provider>
-
-        </headerContext.Provider>
+              </fakeDataContext.Provider>
+            </settingsContext.Provider>
+          </headerContext.Provider>
         </popUpContext.Provider>
       </userContext.Provider>
-
- 
-
-      
     </>
   );
 }
