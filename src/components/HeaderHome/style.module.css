@@ -1,50 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Boogaloo:&display=swap');
 
 .main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
     direction: ltr;
     background-color: var(--bg-secondary-color);
     width: 100vw;
-    height: 18vh;
-    top: 0px;
-    border-radius: 0px 0px 0px 40px;
-    position: fixed;
-    top: 0;
+    border-radius: 0px 0px 25px 25px;    
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
     transition: .3s;
 }
 
 .headerHome_container{
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    top: 0px;
 }
 
-.titleContainer{
-    width: 90%;
-    height: 100%;
-    flex-direction: column;
-    display: flex;
-    justify-content: space-around;
-    gap: 2px;
+.titleContainer{   
+   
 }
 
 .titleBox{
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items:center;
+    padding: 20pt 0pt 14pt 0pt;
+        
 }
 .title{
     font-family: 'Boogaloo', cursive;
     font-style: normal;
     font-size: xxx-large;
     color: var(--text-Fourth-color);
+    font-weight: normal;
+    font-size: 34pt;
+    letter-spacing: -1pt;
 }
 
 .logo{
@@ -68,14 +55,12 @@
 
 
 .options{
-    margin-right: 3px;
-    height: 100%;
-    width: 10%;
+    direction: rtl;
     display: flex;
     flex-direction: column;
-    direction: rtl;
-    align-items: center;
-    justify-content:space-around; 
+    padding-right: 5%;
+    padding-bottom: 12pt;
+
 }
 
 .searchContainer{
@@ -94,6 +79,10 @@ margin-left: 18%;
     height: 32px;
     width: 32px;
     cursor: pointer;
+    border-left : 1pt solid white;
+    padding-left: 5pt;
+    margin-right: 10pt;
+    margin-top: 6pt;
 }
 
 .visibleInput{
