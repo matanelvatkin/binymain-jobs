@@ -14,8 +14,8 @@ import userContext from '../../context/userContext';
 // creator: Yisrael Olonoff
 // login page
 
-  function Login({setIsValid, isValid}) {
-  const {setUser} = useContext(userContext);
+  function Login() {
+  const {user,setUser} = useContext(userContext);
   const { setHeader } = useContext(headerContext)
   setHeader('home')
   
@@ -40,12 +40,12 @@ import userContext from '../../context/userContext';
     })
       .then((res) => {
         if (res.status === 200) {
-          setUser(res.data.user)
+          setUser(true)
           setToken(res.data.token)
           localStorage.setItem('Token', res.data.token)
           // setIsValid(true)
           console.log('token set');
-          console.log(`isValid state is set to: ${isValid}`);
+          console.log(user);
           navigate("/");
       }})
       .catch((err) => {
