@@ -37,7 +37,7 @@ function EventCard({ events }) {
 
   useEffect(() => {
     if (!events) {
-      apiCalls("get", "event/now")
+      apiCalls("get", "event")
       .then((event) => {
         setCard(event);
       });
@@ -54,7 +54,6 @@ function EventCard({ events }) {
 
   return (
     <>
-      {/* {card?.filter((v=>v.eventName.includes(search)||v.place.includes(search))) */}
       {card?.filter((v)=>{
                 if(!v.eventName){return false}
                 return v.eventName.includes(search)||v.place.includes(search)})
