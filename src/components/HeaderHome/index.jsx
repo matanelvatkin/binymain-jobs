@@ -15,7 +15,7 @@ function HeaderHome({ isValid, setIsValid }) {
   const navigate = useNavigate()
   const [headerHeight, setHeaderHeight] = useState(18)
   const { search, setSearch } = useContext(headerContext);
-  const [showInput, setShowInput] = useState(false);
+  const [showInput, setShowInput] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
 
 
@@ -37,7 +37,7 @@ function HeaderHome({ isValid, setIsValid }) {
   return ( 
     <div className={styles.main}> 
        <div className={styles.headerHome_container} >
-        <div className={styles.titleContainer}>
+        <div >
           <div className={styles.titleBox}>
            <h1 className={styles.title}> HereEvent </h1>
            <BiAnalyse className={styles.logo}/>
@@ -45,25 +45,24 @@ function HeaderHome({ isValid, setIsValid }) {
            </div >
         </div>
         <div className={styles.options}>
-          <div>
+          <div className={styles.searchContainer}>
           <span 
           className={styles.advanceContainer}> 
-          <FiSearch className={styles.icon}/> <span >
-            <input 
+          <FiSearch className={styles.icon}/> </span >
+           <input 
             dir='rtl' 
             placeholder='אירועים בסביבה שלך...' 
             className={showInput? styles.visibleInput : styles.hiddenInput} 
             type="search" 
             defaultValue={search} 
             onChange={(e)=>setSearch(e.target.value)}/>
-          </span>
-          </span> 
           </div>
-          <div className={styles.searchContainer}>
-          <span onClick={() =>{navigate("/searchEvent")}}>
-          <GoSettings className={styles.icon} onClick={()=> setShowInput(!showInput)}/>
+          <div className={styles.searchContainer} onClick={() =>{navigate("/searchEvent")}}>
+          <span>
+          <GoSettings className={styles.icon} />
+          {/* onClick={()=> setShowInput(!showInput)} */}
            </span>
-          
+          <span className={styles.optionsText} >חיפוש מתקדם</span>
           </div>
           </div>  
           </div>

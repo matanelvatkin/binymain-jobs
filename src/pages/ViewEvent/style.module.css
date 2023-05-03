@@ -1,5 +1,9 @@
-.content {
+.container {
   direction: rtl;
+  width: 100vw;
+}
+
+.content {
   margin-right: 2%;
 }
 
@@ -7,8 +11,10 @@
   margin-top: 1.5%;
 }
 .coverImage {
-  border-radius: 5px;
-  max-height: 200px;
+  border-radius: 3px;
+  max-height: 250px;
+  min-height: 250px;
+  min-width: 100%;
 }
 .cardImage {
   border-radius: 5px;
@@ -46,4 +52,10 @@
   padding: 10px 0px;
   font-weight: bolder;
   font-size: 20px;
+}
+
+.backArrow {
+  position: fixed;
+  top: 220px;
+  right: 95px;
 }
