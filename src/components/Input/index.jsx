@@ -6,8 +6,12 @@ import { useState } from "react";
 // icon: ________________
 
 const Input = (props) => {
-  const { label, className = "", type, onChange, width,...inputProps } = props;
-
+  const { label, className = "", type, onChange, width, ...inputProps } = props;
+  // const onChange = (e) => {
+  //   if (e.target.type === "file") {
+  //     console.log("file", e.target.files);
+  //   }
+  // };
   return (
     <div>
       <label className={styles.label}>

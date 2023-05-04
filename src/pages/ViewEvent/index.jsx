@@ -44,14 +44,12 @@ export default function ViewEvent() {
   useEffect(() => {
     if (eventData) {
       setLoading(() => false);
-      console.log( eventData);
-
+      console.log(eventData);
     }
   }, [eventData]);
 
   return (
-   
-    <div className={style.content}>
+    <div className={style.container}>
       <div>
         {!loading ? (
           <img
@@ -62,79 +60,84 @@ export default function ViewEvent() {
         ) : (
           <p>loading...</p>
         )}
-        <div className={style.favourite}><FavouriteMark/></div>
+        <div className={style.favourite}>
+          <FavouriteMark />
+        </div>
         <div className={style.backArrow}>
           {" "}
-          
           <BackArrow color={"black"} />
         </div>
       </div>
-      <div className={style.section}>
-        {!loading ? (
-          <h1 className={style.heading}>{eventData.eventName}</h1>
-        ) : (
-          <p>loading...</p>
-        )}
-      </div>
+      <div className={style.content}>
+        <div className={style.section}>
+          {!loading ? (
+            <h1 className={style.heading}>{eventData.eventName}</h1>
+          ) : (
+            <p>loading...</p>
+          )}
+        </div>
 
-      <div className={style.section}>
-        {!loading ? (
-          <div className={style.dataSection}>                             
-            <div className={style.reactIcon}>
-              <FaRegCalendarAlt/>
+        <div className={style.section}>
+          {!loading ? (
+            <div className={style.dataSection}>
+              <div className={style.reactIcon}>
+                <FaRegCalendarAlt />
+              </div>
+              <div className={style.dateOfEvent}>
+                {" "}
+                {eventData.date[0].slice(0, 10)}
+              </div>
+              <br />
+              <div
+                style={{ marginRight: "15px" }}
+                className={style.hourOfEvent}
+              >
+                {eventData.beginningTime} - {eventData.finishTime}
+              </div>
             </div>
-            <div className={style.dateOfEvent}>
-              {" "}
-              {eventData.date[0].slice(0, 10)}
-              
-            </div>
-            <br />
-            <div style={{ marginRight: "15px" }} className={style.hourOfEvent}>
-              {eventData.beginningTime} - {eventData.finishTime}
-            </div>
-          </div>
-        ) : (
-          <p>loading...</p>
-        )}
-      </div>
+          ) : (
+            <p>loading...</p>
+          )}
+        </div>
 
-      <div className={style.section}>
-        {!loading ? (
-          <div className={style.dataSection}>
-            <div className={style.reactIcon}>
-              <MdOutlinePlace />
+        <div className={style.section}>
+          {!loading ? (
+            <div className={style.dataSection}>
+              <div className={style.reactIcon}>
+                <MdOutlinePlace />
+              </div>
+              <div className={style.placeOfEvent}> {eventData.place}</div>
             </div>
-            <div className={style.placeOfEvent}> {eventData.place}</div>
-          </div>
-        ) : (
-          <p>loading...</p>
-        )}
-      </div>
+          ) : (
+            <p>loading...</p>
+          )}
+        </div>
 
-      <div className={style.section}>
-        {!loading ? (
-          <div className={style.dataSection}>
-            <div className={style.reactIcon} >
-              <BiMoney />
+        <div className={style.section}>
+          {!loading ? (
+            <div className={style.dataSection}>
+              <div className={style.reactIcon}>
+                <BiMoney />
+              </div>
+              <div className={style.placeOfEvent}> כניסה חופשית</div>
             </div>
-            <div className={style.placeOfEvent}> כניסה חופשית</div>
-          </div>
-        ) : (
-          <p>loading...</p>
-        )}
-      </div>
+          ) : (
+            <p>loading...</p>
+          )}
+        </div>
 
-      <div className={style.section}>
-        {!loading ? (
-          <div>
-            <p className={style.detailsTitle}>{translation.details}</p>
-            <p className={style.detailsContent} > {eventData.summary}</p>{" "}
-          </div>
-        ) : (
-          <p>loading...</p>
-        )}
+        <div className={style.section}>
+          {!loading ? (
+            <div>
+              <p className={style.detailsTitle}>{translation.details}</p>
+              <p className={style.detailsContent}> {eventData.summary}</p>{" "}
+            </div>
+          ) : (
+            <p>loading...</p>
+          )}
+        </div>
+        <ClassicButton width={200} text={translation.cards} />
       </div>
-      <ClassicButton width={200} text={translation.cards} />
     </div>
   );
 }

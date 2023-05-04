@@ -5,6 +5,7 @@ import { ImLocation2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import headerContext from "../../context/headerContext";
 import apiCalls from "../../function/apiCalls";
+import { event } from "jquery";
 
 // creator: Yisrael Olonoff
 // i created a card that will contain only necessary
@@ -37,12 +38,14 @@ function EventCard({ events }) {
 
   useEffect(() => {
     if (!events) {
-      apiCalls("post", "event")
-      .then((event) => {
+      apiCalls("post", "event").then((event) => {
         setCard(event);
       });
     }
   }, []);
+
+  // const eventDate = event.date.slice(0, -10);
+  // console.log(eventDate);
 
   const { search } = useContext(headerContext);
 
@@ -54,51 +57,59 @@ function EventCard({ events }) {
 
   return (
     <>
-      {/* {card?.filter((v=>v.eventName.includes(search)||v.place.includes(search))) */}
-      {card.map((v) => {
-        return (
-          <div
-            className={styles.main}
-            key={v._id}
-            onClick={() => {
-              navToViewEvent(v._id);
-            }}
-          >
-            <div className={styles.imgFrame}>
-              <img
-                className={styles.img}
-                src={v.cardImageURL || v.coverImageURL}
-                alt="Event pic"
-              />
-            </div>
+      {card
+        .filter(
+          (v) =>
+            v.eventName?.toLowerCase().includes(search.toLowerCase()) ||
+            v.place?.toLowerCase().includes(search.toLowerCase())
+        )
+        .map((v) => {
+          const date = new Date(v.date[0]);
+          const formattedDate = date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
 
-            <div className={styles.infoBar}>
-              <div className={styles.first}>
-                <div className={styles.timeAndDate}>
-                  <span>{v.date}</span>
-                  <span>
-                    {v.beginningTime}-{v.finishTime}
-                  </span>
-                </div>
-
-                <h4 className={styles.eventName}>{v.eventName}</h4>
+          return (
+            <div
+              className={styles.main}
+              key={v._id}
+              onClick={() => {
+                navToViewEvent(v._id);
+              }}
+            >
+              <div className={styles.imgFrame}>
+                <img
+                  className={styles.img}
+                  src={v.cardImageURL || v.coverImageURL}
+                  alt="Event pic"
+                />
               </div>
 
-              <div className={styles.second}>
-                <div className={styles.paragraphs}>
-                  <BiShekel />
-                  <p>{v.payment}</p>
+              <div className={styles.infoBar}>
+                <div className={styles.first}>
+                  <h3 className={styles.eventName}>{v.eventName}</h3>
+                  <div className={styles.paragraphs}>
+                    <ImLocation2 />
+                    <p>{v.place}</p>
+                  </div>
+                  <div className={styles.timeAndDate}>
+                    <span>{formattedDate}</span>
+                    <span>
+                      {v.beginningTime}-{v.finishTime}
+                    </span>
+                  </div>
                 </div>
 
-                <div className={styles.paragraphs}>
-                  <ImLocation2 />
-                  <p>{v.place}</p>
-                </div>
+                {/* <div className={styles.paragraphs}>
+                    <BiShekel />
+                    <p>{v.payment}</p>
+                  </div> */}
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </>
   );
 }
