@@ -144,7 +144,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "select",
       label: "עלות",
       placeholder: "עלות",
-      icon: "https://thenounproject.com/api/private/icons/3451486/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0&token=gAAAAABkUj-YYdKwO7iDblf3fNbOLwQXwBx37dobc7Oi5Ez67P5iKZ5iusvJfNDtEzktis8kPfXj09rpxlbBX-4Sc1KBbFZm9Q%3D%3D"
+      icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png"
     
     },
     {
@@ -179,7 +179,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "select",
       label: "מקום",
       placeholder: "בחר מיקום",
-      icon:"https://thenounproject.com/api/private/icons/197119/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0&token=gAAAAABkUj-YYdKwO7iDblf3fNbOLwQXwBx37dobc7Oi5Ez67P5iKZ5iusvJfNDtEzktis8kPfXj09rpxlbBX-4Sc1KBbFZm9Q%3D%3D",
+      icon:"https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
     {
