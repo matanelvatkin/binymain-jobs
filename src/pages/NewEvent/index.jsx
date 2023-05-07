@@ -12,6 +12,7 @@ import PersonalEvent from "../../components/PersonalEvent";
 import WeeklyEvent from "../../components/WeeklyEvent";
 import DailyEvent from "../../components/DailyEvent";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
+import {FaShekelSign} from 'react-icons/fa'
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -143,6 +144,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "select",
       label: "עלות",
       placeholder: "עלות",
+      icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png"
+    
     },
     {
       id: 7,
@@ -176,6 +179,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "select",
       label: "מקום",
       placeholder: "בחר מיקום",
+      icon:"https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
     {
