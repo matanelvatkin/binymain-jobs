@@ -3,6 +3,7 @@ import styles from "./style.module.css";
 import { BiShekel } from "react-icons/bi";
 import { ImLocation2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import ClassicButton from '../ClassicButton copy'
 import headerContext from "../../context/headerContext";
 import apiCalls from "../../function/apiCalls";
 import { event } from "jquery";
@@ -16,36 +17,29 @@ import { event } from "jquery";
 // have real data to work with.
 
 function EventCard({ events }) {
-  // eventName: "",
-  // summary: "",
-  // advertiser: "",
-  // tel: "",
-  // email: "",
-  // date: "",
-  // beginningTime: "",
-  // finishTime: "",
-  // place: "",
-  // category: "",
-  // targetAudience: "",
-  // registrationPageUrl: "",
-  // cardImageUrl: "",
-  // coverImageUrl: "",
-  // gallery: "",
-  // type: "",
-  // payment: "",
 
   const [card, setCard] = useState(events ? events : []);
+  const [pageSize, setPageSize] = useState(8)
 
   useEffect(() => {
     if (!events) {
-      apiCalls("post", "event").then((event) => {
-        setCard(event);
-      });
+      fetchEvents();
     }
   }, []);
 
-  // const eventDate = event.date.slice(0, -10);
-  // console.log(eventDate);
+  const loadMore = () => {
+    console.log("click");
+    setPageSize(pageSize + 8)
+    fetchEvents();
+  }
+
+  const fetchEvents = () => {
+    apiCalls("post", "event", {pageSize: pageSize}).then((event) => {
+      setCard(event);
+      console.log(pageSize);
+    });
+  }
+
 
   const { search } = useContext(headerContext);
 
@@ -61,7 +55,7 @@ function EventCard({ events }) {
         .filter(
           (v) =>
             v.eventName?.toLowerCase().includes(search.toLowerCase()) ||
-            v.place?.toLowerCase().includes(search.toLowerCase())
+            v.place?.toLowerCase().includes(search.toLowerCase()) 
         )
         .map((v) => {
           const date = new Date(v.date[0]);
@@ -110,6 +104,10 @@ function EventCard({ events }) {
             </div>
           );
         })}
+        <ClassicButton 
+        onClick={loadMore} 
+        text={"Load..."}
+        width={"100px"}/>
     </>
   );
 }
