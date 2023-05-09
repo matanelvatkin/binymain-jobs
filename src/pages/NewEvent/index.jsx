@@ -69,7 +69,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
   const [values, setValues] = useState({
-    eventName: "a",
+    eventName: "כנס ישראלי",
     summary: "b",
     advertiserName: "c",
     advertiserTel: "d",
@@ -80,8 +80,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     date: new Date(),
     repeatSettingsType: "endDate",
     repeatSettingsRepeatEnd: undefined,
-    beginningTime: "",
-    finishTime: "",
+    beginningTime: "18:00",
+    finishTime: "20:00",
     place: "",
     registrationPageURL: "",
     categories: [],
