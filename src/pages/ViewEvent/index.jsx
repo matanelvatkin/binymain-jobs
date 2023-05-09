@@ -20,7 +20,7 @@ import FavouriteMark from "../../components/FavouriteMark";
 
 export default function ViewEvent() {
   const { setHeader } = useContext(headerContext);
-  setHeader("");
+  setHeader("פרטי האירוע");
 
   // In the routing there is a param called event which contains the event id.
   // I collect the eventID from the event param and then I call the server to give me the whole event's data.

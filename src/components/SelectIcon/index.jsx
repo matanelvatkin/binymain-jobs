@@ -43,10 +43,10 @@ const SelectIcon = ({
               key={index}
               text={category.name}
               icon={category.icon}
-              isActive={activeArray.includes(category)}
-              activeArray={activeArray}
+              isActive={activeArray.includes(category.name)}
+              activeArray={activeArray.name}
               setActiveArray={setActiveArray}
-              func={() => handleCategoryClick(category)}
+              func={() => handleCategoryClick(category.name)}
               {...props}
             />
           ))}

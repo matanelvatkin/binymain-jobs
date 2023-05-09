@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import styles from "./style.module.css";
 import { BsArrowRightShort, BsArrowUpShort } from "react-icons/bs";
 
+
+
 // creator:matanel vatkin
 // need to get array of options (str), placeholder (str), icon (src)
 
 const Select = ({
   choossArray = [],
   placeholder = "location",
-  icon = "https://www.clipartmax.com/png/small/151-1517427_icon-contact-flat-web-business-symbol-location-icon-for-resume.png",
+  icon,
   style = {},
   className = "",
   values,
