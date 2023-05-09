@@ -88,12 +88,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     audiences: [],
     payment: "",
     days: [],
-    // });
-    // const [filesValues, setFilesValues] = useState({
     cardImageURL: "",
-    // "https://cdn.pixabay.com/photo/2023/03/03/17/35/gray-cat-7828134_1280.jpg",
     coverImageURL: "",
-    // "https://cdn.pixabay.com/photo/2023/02/12/12/06/ocean-7784940_1280.jpg",
     gallery: [],
   });
 
@@ -184,7 +180,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
     {
       id: 12,
-      name: "category",
+      name: "categories",
       type: "selectIcon",
       label: "קטגוריה",
       placeholder: "קטגוריה",
@@ -254,8 +250,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         beginningTime: values.beginningTime,
         finishTime: values.finishTime,
         place: values.place,
-        category: values.category,
-        targetAudience: values.audiences,
+        categories: values.categories,
+        audiences: values.audiences,
         registrationPageURL: values.registrationPageURL,
         cardImageURL: values.cardImageURL,
         coverImageURL: values.coverImageURL,
@@ -270,15 +266,18 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         },
       })
     );
-    console.log("values", values);
 
-    console.log("formData", [...formData.entries()]);
+    console.log(" Simple console.log formData", formData);
+    console.log(" Console.log + extract value from formData", [
+      ...formData.entries(),
+    ]);
 
     apiCalls("post", "/event/createvent", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
-      if (res.status === 200) {
-        nav("/newEvent");
+      if (res._id != "") {
+        const newEventId = res._id;
+        nav(`/viewEvent/${newEventId}`);
       }
     });
   };
@@ -353,7 +352,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                array={input.name === "category" ? categories : audiences}
+                array={input.name === "categories" ? categories : audiences}
               />
             );
           else if (input.type === "select")
