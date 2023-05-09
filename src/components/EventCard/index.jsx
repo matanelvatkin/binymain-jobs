@@ -3,8 +3,10 @@ import styles from "./style.module.css";
 import { BiShekel } from "react-icons/bi";
 import { ImLocation2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import ClassicButton from '../ClassicButton copy'
 import headerContext from "../../context/headerContext";
 import apiCalls from "../../function/apiCalls";
+import { event } from "jquery";
 
 // creator: Yisrael Olonoff
 // i created a card that will contain only necessary
@@ -15,34 +17,29 @@ import apiCalls from "../../function/apiCalls";
 // have real data to work with.
 
 function EventCard({ events }) {
-  // eventName: "",
-  // summary: "",
-  // advertiser: "",
-  // tel: "",
-  // email: "",
-  // date: "",
-  // beginningTime: "",
-  // finishTime: "",
-  // place: "",
-  // category: "",
-  // targetAudience: "",
-  // registrationPageUrl: "",
-  // cardImageUrl: "",
-  // coverImageUrl: "",
-  // gallery: "",
-  // type: "",
-  // payment: "",
 
   const [card, setCard] = useState(events ? events : []);
+  const [pageSize, setPageSize] = useState(8)
 
   useEffect(() => {
     if (!events) {
-      apiCalls("post", "event")
-      .then((event) => {
-        setCard(event);
-      });
+      fetchEvents();
     }
   }, []);
+
+  const loadMore = () => {
+    console.log("click");
+    setPageSize(pageSize + 8)
+    fetchEvents();
+  }
+
+  const fetchEvents = () => {
+    apiCalls("post", "event", {pageSize: pageSize}).then((event) => {
+      setCard(event);
+      console.log(pageSize);
+    });
+  }
+
 
   const { search } = useContext(headerContext);
 
@@ -54,53 +51,63 @@ function EventCard({ events }) {
 
   return (
     <>
-      {card?.filter((v)=>{
-                if(!v.eventName){return false}
-                return v.eventName.includes(search)||v.place.includes(search)})
-            .map((v) => {
-        return (
-          <div
-            className={styles.main}
-            key={v._id}
-            onClick={() => {
-              navToViewEvent(v._id);
-            }}
-          >
-            <div className={styles.imgFrame}>
-              <img
-                className={styles.img}
-                src={v.cardImageURL || v.coverImageURL}
-                alt="Event pic"
-              />
-            </div>
+      {card
+        .filter(
+          (v) =>
+            v.eventName?.toLowerCase().includes(search.toLowerCase()) ||
+            v.place?.toLowerCase().includes(search.toLowerCase()) 
+        )
+        .map((v) => {
+          const date = new Date(v.date[0]);
+          const formattedDate = date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
 
-            <div className={styles.infoBar}>
-              <div className={styles.first}>
-                <div className={styles.timeAndDate}>
-                  <span>{v.date}</span>
-                  <span>
-                    {v.beginningTime}-{v.finishTime}
-                  </span>
-                </div>
-
-                <h4 className={styles.eventName}>{v.eventName}</h4>
+          return (
+            <div
+              className={styles.main}
+              key={v._id}
+              onClick={() => {
+                navToViewEvent(v._id);
+              }}
+            >
+              <div className={styles.imgFrame}>
+                <img
+                  className={styles.img}
+                  src={v.cardImageURL || v.coverImageURL}
+                  alt="Event pic"
+                />
               </div>
 
-              <div className={styles.second}>
-                <div className={styles.paragraphs}>
-                  <BiShekel />
-                  <p>{v.payment}</p>
+              <div className={styles.infoBar}>
+                <div className={styles.first}>
+                  <h3 className={styles.eventName}>{v.eventName}</h3>
+                  <div className={styles.paragraphs}>
+                    <ImLocation2 />
+                    <p>{v.place}</p>
+                  </div>
+                  <div className={styles.timeAndDate}>
+                    <span>{formattedDate}</span>
+                    <span>
+                      {v.beginningTime}-{v.finishTime}
+                    </span>
+                  </div>
                 </div>
 
-                <div className={styles.paragraphs}>
-                  <ImLocation2 />
-                  <p>{v.place}</p>
-                </div>
+                {/* <div className={styles.paragraphs}>
+                    <BiShekel />
+                    <p>{v.payment}</p>
+                  </div> */}
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+        <ClassicButton 
+        onClick={loadMore} 
+        text={"Load..."}
+        width={"100px"}/>
     </>
   );
 }

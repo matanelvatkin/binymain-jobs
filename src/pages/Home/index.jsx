@@ -1,14 +1,11 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {  useContext } from "react";
 import styles from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
 import EventCard from "../../components/EventCard";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import headerContext from "../../context/headerContext";
 import userContext from "../../context/userContext";
-import GuestPopup from "../../components/GuestPopup";
 import popUpContext from "../../context/popUpContext";
-import apiCalls from "../../function/apiCalls";
-import { BiLogOutCircle } from "react-icons/bi";
 
 // Creator: Yisrael_Olonoff
 // i created the home page using the "Header", "EventCard",
@@ -16,7 +13,8 @@ import { BiLogOutCircle } from "react-icons/bi";
 // the button position is fixed to the same exsect position
 // on the page.
 
-function Home({ isValid, setIsValid }) {
+function Home() {
+
   const { setHeader } = useContext(headerContext);
   const { user, setUser } = useContext(userContext);
   const { setPopUp, setGuestMode, setPopUpText } = useContext(popUpContext);
