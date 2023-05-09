@@ -20,7 +20,6 @@ const SelectIcon = ({
   inText,
   ...props
 }) => {
-  const [dataEvent, setDataEvent] = useState([]);
   const [activeArray, setActiveArray] = useState([]);
   const handleCategoryClick = (category) => {
     if (activeArray.includes(category)) {
@@ -31,9 +30,7 @@ const SelectIcon = ({
     }
   };
   useEffect(() => {
-    setDataEvent(activeArray.map((obj) => obj.name));
     setValues({ ...values, [name]: activeArray.map((obj) => obj.name) });
-    console.log({ values }, { activeArray });
   }, [activeArray]);
   return (
     <div className={styles.main}>
