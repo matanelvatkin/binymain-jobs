@@ -30,7 +30,13 @@ const SelectIcon = ({
     }
   };
   useEffect(() => {
-    setValues({ ...values, [name]: activeArray.map((obj) => obj.name) });
+    setValues({
+      ...values,
+      [name]: activeArray.map((obj) => {
+        console.log(obj);
+        return obj;
+      }),
+    });
   }, [activeArray]);
   return (
     <div className={styles.main}>
