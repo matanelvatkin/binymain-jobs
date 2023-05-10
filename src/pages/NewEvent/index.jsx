@@ -297,7 +297,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   useEffect(() => {
     setAudiences(settingContext.audiences);
     setCategories(settingContext.categories);
-  }, []);
+  }, [settingContext.audiences, settingContext.categories]);
   useEffect(() => {
     console.log({ values });
   }, [values]);

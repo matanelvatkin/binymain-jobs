@@ -17,13 +17,12 @@ export default function SearchEvent() {
   const [audiences, setAudiences] = useState([]);
 
   useEffect(() => {
-    setAudiences(settingContext.audiences);
-    setCategories(settingContext.categories);
-  }, []);
-
-  useEffect(() => {
-    if (audiences && categories) setLoading(() => false);
-  }, [audiences, categories]);
+    if (settingContext.categories && settingContext.audiences) {
+      setAudiences(settingContext.audiences);
+      setCategories(settingContext.categories);
+      setLoading(() => false);
+    }
+  }, [settingContext.audiences, settingContext.categories]);
 
   const [location, setLocation] = useState();
 
