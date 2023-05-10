@@ -80,8 +80,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     date: new Date(),
     repeatSettingsType: "endDate",
     repeatSettingsRepeatEnd: undefined,
-    beginningTime: "",
-    finishTime: "",
+    beginningTime: "18:00",
+    finishTime: "20:00",
     place: "",
     registrationPageURL: "",
     categories: [],
@@ -296,7 +296,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   useEffect(() => {
     setAudiences(settingContext.audiences);
     setCategories(settingContext.categories);
-  }, []);
+  }, [settingContext.audiences, settingContext.categories]);
   useEffect(() => {
     console.log({ values });
   }, [values]);
