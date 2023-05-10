@@ -9,7 +9,9 @@ const apiCalls = async (
   param = null,
   header = null
 ) => {
-  const baseUrl = process.env.REACT_APP_BASE_URL || `http://localhost:5000`;
+  const baseUrl =
+  //  process.env.REACT_APP_BASE_URL || 
+   `http://localhost:5000`;
 
   const fullUrl = `${baseUrl}/api/${url}`;
   try {
