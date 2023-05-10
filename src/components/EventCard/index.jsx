@@ -18,7 +18,7 @@ import { event } from "jquery";
 
 function EventCard({ events }) {
 
-  const pageSize = 20
+  const pageSize = 10
 
   const [card, setCard] = useState(events ? events : []);
   const [nextPage, setNextPage] = useState(1)
@@ -123,7 +123,7 @@ function EventCard({ events }) {
         onClick={loadMore} 
         text={"Load..."}
         width={"100px"}
-        className={styles.more}/>:null}
+        />:null}
     </>
   );
 }
