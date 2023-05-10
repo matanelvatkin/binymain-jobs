@@ -13,6 +13,7 @@ import apiCalls from "../../function/apiCalls";
 // and the "ClassicButton" components.
 // the button position is fixed to the same exsect position
 // on the page.
+// pageSize= how many events in loading
 
 function Home() {
   
