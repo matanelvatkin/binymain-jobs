@@ -76,7 +76,7 @@ function Home() {
     <div className={styles.main}>
       {/* <BiLogOutCircle className={styles.logOut} onClick={logOut} /> */}
       <div className={styles.eventsContainer}>
-        <EventCard eventCards={events} nextPage={nextPage} loadMore={fetchEventsNext}/>
+        <EventCard events={events} nextPage={nextPage} loadMore={fetchEventsNext}/>
       </div>
       <div className={styles.button}>
         <ClassicButton

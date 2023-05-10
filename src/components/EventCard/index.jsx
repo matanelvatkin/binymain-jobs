@@ -12,7 +12,7 @@ import ClassicButton from '../ClassicButton copy'
 // where every object is a card, this will change once we
 // have real data to work with.
 
-function EventCard({ eventCards, nextPage , loadMore }) {
+function EventCard({ events, nextPage , loadMore }) {
 
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ function EventCard({ eventCards, nextPage , loadMore }) {
   
   return (
     <>
-      {eventCards?.map((v) => {
+      {events?.map((v) => {
           const date = new Date(v.date[0]);
           const formattedDate = date.toLocaleDateString("en-US", {
             year: "numeric",
