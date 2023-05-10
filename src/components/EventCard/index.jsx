@@ -25,12 +25,6 @@ function EventCard({ events }) {
 
   const { search } = useContext(headerContext);
 
-  // useEffect(() => {
-  //   if (!events) {
-  //     fetchEvents();
-  //   }
-  // }, []);
-  
   const loadMore = () => {
     console.log("click");
     fetchEvents();
