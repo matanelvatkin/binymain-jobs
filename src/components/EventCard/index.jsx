@@ -18,46 +18,60 @@ import { event } from "jquery";
 
 function EventCard({ events }) {
 
+  const pageSize = 20
+
   const [card, setCard] = useState(events ? events : []);
-  const [pageSize, setPageSize] = useState(8)
+  const [nextPage, setNextPage] = useState(1)
 
-  useEffect(() => {
-    if (!events) {
-      fetchEvents();
-    }
-  }, []);
+  const { search } = useContext(headerContext);
 
+  // useEffect(() => {
+  //   if (!events) {
+  //     fetchEvents();
+  //   }
+  // }, []);
+  
   const loadMore = () => {
     console.log("click");
-    setPageSize(pageSize + 8)
     fetchEvents();
   }
+  
+    useEffect(() => {
+      if (!events) {
+        fetchEventsSearch();
+      }
+    }, [search]);
 
   const fetchEvents = () => {
-    apiCalls("post", "event", {pageSize: pageSize}).then((event) => {
-      setCard(event);
-      console.log(pageSize);
+    apiCalls("post", "event", {page: nextPage, pageSize : pageSize , search : search}).then((data) => {
+       setCard((currentCard) => currentCard.concat(data.event))
+      setNextPage(data.nextPage)
     });
   }
 
+  const fetchEventsSearch = () => {
+    apiCalls("post", "event", {page: 1, pageSize : pageSize , search : search}).then((data) => {
+       setCard((data.event))
+      setNextPage(data.nextPage)
+    });
+  }
+  
 
-  const { search } = useContext(headerContext);
 
   const navigate = useNavigate();
 
   const navToViewEvent = (eventID) => {
     navigate("/viewEvent/" + eventID);
   };
-
+  
+  // .filter(
+  //   (v) =>
+  //   v.eventName?.toLowerCase().includes(search.toLowerCase()) ||
+  //     v.place?.toLowerCase().includes(search.toLowerCase()) 
+  // )
   return (
     <>
-      {card
-        .filter(
-          (v) =>
-            v.eventName?.toLowerCase().includes(search.toLowerCase()) ||
-            v.place?.toLowerCase().includes(search.toLowerCase()) 
-        )
-        .map((v) => {
+      {card.map((v) => {
           const date = new Date(v.date[0]);
           const formattedDate = date.toLocaleDateString("en-US", {
             year: "numeric",
@@ -67,7 +81,7 @@ function EventCard({ events }) {
 
           return (
             <div
-              className={styles.main}
+            className={styles.main}
               key={v._id}
               onClick={() => {
                 navToViewEvent(v._id);
@@ -104,10 +118,12 @@ function EventCard({ events }) {
             </div>
           );
         })}
-        <ClassicButton 
+        
+        {nextPage?<ClassicButton 
         onClick={loadMore} 
         text={"Load..."}
-        width={"100px"}/>
+        width={"100px"}
+        className={styles.more}/>:null}
     </>
   );
 }
