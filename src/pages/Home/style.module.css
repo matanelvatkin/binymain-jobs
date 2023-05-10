@@ -24,7 +24,7 @@
     align-items: center;
     margin-left: 15px;
     position: fixed;
-    width: 100%;
+    width: fit-content;
     height: 50px;
     bottom: 5px;
     left:0;
