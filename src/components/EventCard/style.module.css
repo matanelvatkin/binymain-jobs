@@ -73,3 +73,7 @@
     gap: 1%;
     color: var(--text-third-color);
 }
+
+.more{
+    z-index: 5
+}

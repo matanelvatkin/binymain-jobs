@@ -12,7 +12,7 @@ import PersonalEvent from "../../components/PersonalEvent";
 import WeeklyEvent from "../../components/WeeklyEvent";
 import DailyEvent from "../../components/DailyEvent";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
-import {FaShekelSign} from 'react-icons/fa'
+import { FaShekelSign } from "react-icons/fa";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -69,19 +69,19 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
   const [values, setValues] = useState({
-    eventName: "a",
-    summary: "b",
-    advertiserName: "c",
-    advertiserTel: "d",
-    advertiserEmail: "e@3",
+    eventName: "",
+    summary: "",
+    advertiserName: "",
+    advertiserTel: "",
+    advertiserEmail: "",
     isRepeated: false,
     repeatType: "אירוע ללא חזרה",
     personalRepeatType: "",
     date: new Date(),
     repeatSettingsType: "endDate",
     repeatSettingsRepeatEnd: undefined,
-    beginningTime: "",
-    finishTime: "",
+    beginningTime: "18:00",
+    finishTime: "20:00",
     place: "",
     registrationPageURL: "",
     categories: [],
@@ -140,8 +140,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "select",
       label: "עלות",
       placeholder: "עלות",
-      icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png"
-    
+      icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
     },
     {
       id: 7,
@@ -175,7 +174,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "select",
       label: "מקום",
       placeholder: "בחר מיקום",
-      icon:"https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
+      icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
     {
@@ -297,16 +296,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   useEffect(() => {
     setAudiences(settingContext.audiences);
     setCategories(settingContext.categories);
-  }, []);
+  }, [settingContext.audiences, settingContext.categories]);
   useEffect(() => {
     console.log({ values });
   }, [values]);
   const onChange = (e) => {
-    if (e.target.type === "file") {
-      setValues({ ...values, [e.target.name]: e.target.value });
-      setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-      console.log("file", fileData);
-    }
+    setValues({ ...values, [e.target.name]: e.target.value });
+    setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
+    console.log("file", fileData);
   };
 
   return (
