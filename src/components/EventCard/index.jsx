@@ -24,11 +24,14 @@ function EventCard({ events, nextPage , loadMore }) {
     <>
       {events?.map((v) => {
           const date = new Date(v.date[0]);
-          const formattedDate = date.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
+          const options = { 
+            weekday: 'long', 
+            day: 'numeric', 
+            month: 'long',
+            timeZone: 'UTC',
+            numberingSystem: 'latn'
+          };
+          const formattedDate = date.toLocaleDateString("he-IL", options);
 
           return (
             <div
@@ -50,15 +53,15 @@ function EventCard({ events, nextPage , loadMore }) {
               <div className={styles.infoBar}>
                 <div className={styles.first}>
                   <h3 className={styles.eventName}>{v.eventName}</h3>
+                  <div className={styles.timeAndDate}>
+                  <span>{formattedDate}</span>
+                  </div>
+                  <div className={styles.timeAndDate}>
+                  <span>{v.beginningTime}</span>
+                  </div>
                   <div className={styles.paragraphs}>
                     <ImLocation2 />
                     <p>{v.place}</p>
-                  </div>
-                  <div className={styles.timeAndDate}>
-                    <span>{formattedDate}</span>
-                    <span>
-                      {v.beginningTime}-{v.finishTime}
-                    </span>
                   </div>
                 </div>
               </div>
