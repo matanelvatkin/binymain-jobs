@@ -8,7 +8,6 @@ import {GoSettings, GoSearch} from 'react-icons/go'
 import {BsThreeDotsVertical} from 'react-icons/bs'
 import { useNavigate , useParams} from 'react-router-dom';
 import headerContext from '../../context/headerContext';
-import SettingsNavBar from '../SettingsNavBar';
 
 function HeaderHome({ isValid, setIsValid }) {
   const navigate = useNavigate()

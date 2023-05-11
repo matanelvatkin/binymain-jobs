@@ -21,12 +21,8 @@
 .button{
     display: flex;
     align-items: center;
-    margin-left: 15px;
     position: fixed;
     width: fit-content;
-    height: 50px;
-    bottom: 0;
-    font-family: 'Varela Round', sans-serif;
-
-    /* background-color: var(--bg-color); */
+    bottom: 10px;
+    left: 15px;
 } 
