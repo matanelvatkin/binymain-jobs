@@ -17,7 +17,7 @@ function HeaderHome({ isValid, setIsValid }) {
   const [showSettings, setShowSettings] = useState(false);
   // const [wordsearch, setWordsearch] = useState("")
 
-
+ 
   // useEffect(() => {
   //   const handleScroll = () => {
   //     const scrollTop = window.pageYOffset || document.documentElement.scrollTop

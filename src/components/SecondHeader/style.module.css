@@ -1,6 +1,6 @@
 .secondHeader {
   width: 100vw;
-  height: 14vh;
+  height: 12vh;
   background-color: var(--bg-secondary-color);
   display: flex;
   align-items: center;
@@ -10,9 +10,14 @@
 }
 .text {
   font-size: 25px;
-  font-weight: 400;
+  font-weight: 600;
+  position: absolute;
+  right: 70px;
+  top: 18px;
+  color:   var(--text-Fourth-color);
 }
-.arrowBack {
+.backArrow {
   height: 25px;
   width: 30px;
+  position: relative;
 }

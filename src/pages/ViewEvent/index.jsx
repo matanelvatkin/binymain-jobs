@@ -11,10 +11,8 @@ import apiCalls from "../../function/apiCalls";
 import translation from "./translation.js";
 import { useNavigatenpm } from "react-router-dom";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import { IoIosArrowBack } from "react-icons/io";
-import { BiMoney } from "react-icons/bi";
 import { AiOutlineClockCircle } from "react-icons/ai";
-import BackArrow from "../../components/BackArrow";
+import { BiMoney } from "react-icons/bi";
 import FavouriteMark from "../../components/FavouriteMark";
 
 // Creator: Naama Orlan
@@ -80,17 +78,19 @@ export default function ViewEvent() {
         ) : (
           <p>loading...</p>
         )}
-        <div className={style.favourite}>
-          <FavouriteMark />
-        </div>
+      
       </div>
       <div className={style.content}>
         <div className={style.section}>
+       
           {!loading ? (
             <h1 className={style.heading}>{eventData.eventName}</h1>
           ) : (
             <p>loading...</p>
           )}
+           <div className={style.favourite}>
+          <FavouriteMark />
+        </div>
         </div>
 <div className={style.main}>
         <div className={style.section}>
@@ -138,13 +138,14 @@ export default function ViewEvent() {
               <div
                 className={style.hourOfEvent}
               >
-                {eventData.beginningTime} - {eventData.finishTime}
-              </div>            
+                 {eventData.finishTime}- {eventData.beginningTime}
+              </div>
               </div>
           ) : (
             <p>loading...</p>
           )}
         </div>
+    
 
         <div className={style.section}>
           {!loading ? (
@@ -152,8 +153,10 @@ export default function ViewEvent() {
               <div className={style.reactIcon}>
                 <MdOutlinePlace />
               </div>
+              
               <div className={style.placeOfEvent}> {eventData.place}</div>
-            </div>
+              </div>
+            
           ) : (
             <p>loading...</p>
           )}
@@ -171,7 +174,8 @@ export default function ViewEvent() {
             <p>loading...</p>
           )}
         </div>
-</div>
+        </div>
+
         <div className={style.section}>
           {!loading ? (
             <div>

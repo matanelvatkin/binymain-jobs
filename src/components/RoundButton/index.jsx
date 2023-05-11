@@ -21,7 +21,7 @@ function RoundButton({ icon, func, text, inText, ...props }) {
       >
         <img className={styles.icon} src={icon} id={props.id} />
       </button>
-      <span>{text}</span>
+      <span className={styles.inText}>{text}</span>
     </div>
   ) : (
     <div className={styles.main}>
@@ -33,8 +33,9 @@ function RoundButton({ icon, func, text, inText, ...props }) {
         onClick={func}
         {...props}
       >
-        <span className={styles.inText}>{text}</span>
       </button>
+      <span className={styles.inText}>{text}</span>
+
     </div>
   );
 }

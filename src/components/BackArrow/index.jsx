@@ -1,4 +1,4 @@
-import { HiArrowNarrowLeft } from 'react-icons/hi';
+import { HiArrowNarrowRight } from 'react-icons/hi';
 import styles from "./style.module.css";
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ export default function BackArrow({ color }) {
         }
     }
     return (
-        <div className={styles.arrowBack} onClick={handleNavigate} style={{ color: color, position:'absolute', top: '40px', right: '230px' }}><HiArrowNarrowLeft className={styles.icon}/></div>
+        <div className={styles.arrowBack} onClick={handleNavigate} style={{ color: color }}><HiArrowNarrowRight className={styles.icon}/></div>
     )
 }
 

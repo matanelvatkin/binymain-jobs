@@ -10,7 +10,6 @@
     , 0 3px 4px rgba(0, 0, 0, 0.09), 0 0 ;
     cursor: pointer;
     gap: 5px;
-    color: var(--text-third-color);
 }
 
 .imgFrame{
@@ -25,13 +24,9 @@
     max-width: 93%;
     min-width:93%;
     min-height: 93%;
-    max-height: 93%;
+    max-height: 98%;
     border-radius: 5px;
-}
-
-.eventName{
-    font-weight: bold;
-    font-size: large;
+    margin-bottom: 5px;
 }
 
 .infoBar{
@@ -44,13 +39,6 @@
     font-size: smaller;
 }
 
-.timeAndDate{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-size: medium;
-    color: var(--bg-secondary-color);
-}
 
 .first{
     width: 100%;
@@ -74,12 +62,22 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: medium;
     width: 100%;
     gap: 1%;
     color: var(--text-third-color);
-    /* color: var(--bg-secondary-color); */
 }
+
+
+.timeAndDate{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 11px;
+}
+.date{
+    margin-bottom: 2px;
+}
+
 
 .more{
     z-index: 5
