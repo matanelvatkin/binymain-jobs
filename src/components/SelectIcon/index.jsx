@@ -11,7 +11,7 @@ import styles from "./style.module.css";
 
 const SelectIcon = ({
   array = [],
-  setValues=()=>{},
+  setValues = () => {},
   values,
   name,
   header,
@@ -24,13 +24,20 @@ const SelectIcon = ({
   const handleCategoryClick = (category) => {
     if (activeArray.includes(category)) {
       setActiveArray(activeArray.filter((item) => item !== category));
+      setActiveArray(activeArray.filter((item) => item !== category));
     } else {
       setActiveArray([...activeArray, category]);
     }
   };
-  useEffect(()=>{
-    setValues({...values,[name]:activeArray})
-  },[activeArray])
+  useEffect(() => {
+    setValues({
+      ...values,
+      [name]: activeArray.map((obj) => {
+        console.log(obj);
+        return obj;
+      }),
+    });
+  }, [activeArray]);
   return (
     <div className={styles.main}>
       <div className={styles.container}>

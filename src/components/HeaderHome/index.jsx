@@ -16,6 +16,7 @@ function HeaderHome({ isValid, setIsValid }) {
   const { search, setSearch } = useContext(headerContext);
   const [showInput, setShowInput] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
+  // const [wordsearch, setWordsearch] = useState("")
 
 
   // useEffect(() => {
@@ -54,8 +55,7 @@ function HeaderHome({ isValid, setIsValid }) {
             className={styles.visibleInput} 
             type="search" 
             defaultValue={search} 
-         
-            onChange={(e)=>setSearch(e.target.value)}/>
+            onChange={(e)=>{(e.target.value.length>=3)? setSearch(e.target.value):setSearch("")}}/>
           </div>
        
           </div>
