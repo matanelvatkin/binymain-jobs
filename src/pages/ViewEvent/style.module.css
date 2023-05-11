@@ -4,11 +4,11 @@
 }
 
 .content {
-  margin-right: 2%;
+  /* margin-right: 4%; */
 }
 
 .section {
-  margin-top: 1.5%;
+  margin: 2.5%;
 }
 .coverImage {
   border-radius: 3px;
@@ -26,12 +26,17 @@
     margin-right: 0px;
 } */
 
+.main{
+  display: flex;
+  flex-direction: column;
+  /* gap: 1rem; */
+}
+
 .dataSection {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: fit-content;
-  margin: 20px 0px;
   color: var(--text-third-color);
 }
 
@@ -44,15 +49,21 @@
   display: flex;
   flex-direction: row;
   width: fit-content;
-  padding: 4px 8px;
-  margin-right: 8px;
-  border-radius: 4px;
-  font-size: 14px;
   font-weight: bold;
 }
 
 .hourOfEvent{
   direction: ltr;
+  font-weight: bold;
+  margin: none;
+}
+
+.placeOfEvent{
+  display: flex;
+  font-weight: bold;
+}
+
+.payment{
   font-weight: bold;
 }
 
@@ -77,8 +88,6 @@
   font-size: 20px;
 }
 
-.backArrow {
-  position: fixed;
-  top: 220px;
-  right: 95px;
+.ticketIcon{
+  font-size: 20px;
 }

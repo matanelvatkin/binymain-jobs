@@ -6,6 +6,7 @@ import ClassicButton from "../../components/ClassicButton copy";
 import headerContext from "../../context/headerContext";
 import { AiFillCalendar } from "react-icons/ai";
 import { MdOutlinePlace } from "react-icons/md";
+import { TbTicket } from "react-icons/tb";
 import apiCalls from "../../function/apiCalls";
 import translation from "./translation.js";
 import { useNavigatenpm } from "react-router-dom";
@@ -91,7 +92,7 @@ export default function ViewEvent() {
             <p>loading...</p>
           )}
         </div>
-
+<div className={style.main}>
         <div className={style.section}>
           {!loading ? (
             <div className={style.dataSection}>
@@ -135,7 +136,6 @@ export default function ViewEvent() {
                 <AiOutlineClockCircle />
               </div>
               <div
-                style={{ marginRight: "15px" }}
                 className={style.hourOfEvent}
               >
                 {eventData.beginningTime} - {eventData.finishTime}
@@ -165,13 +165,13 @@ export default function ViewEvent() {
               <div className={style.reactIcon}>
                 <BiMoney />
               </div>
-              <div className={style.placeOfEvent}> כניסה חופשית</div>
+              <div className={style.payment}> כניסה חופשית</div>
             </div>
           ) : (
             <p>loading...</p>
           )}
         </div>
-
+</div>
         <div className={style.section}>
           {!loading ? (
             <div>
@@ -182,7 +182,11 @@ export default function ViewEvent() {
             <p>loading...</p>
           )}
         </div>
-        <ClassicButton width={200} text={translation.cards} />
+        <div className={style.section}>
+        <ClassicButton width={200} text={translation.cards}>
+          <TbTicket className={style.ticketIcon}/>
+        </ClassicButton>
+        </div>
       </div>
     </div>
   );
