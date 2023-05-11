@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 :root {
   --bg-color:#F5F5F5;
@@ -15,7 +15,7 @@
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Varela Round', sans-serif;
   
 }
 

@@ -1,12 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
 import styles from "./style.module.css";
-import { BiShekel } from "react-icons/bi";
 import { ImLocation2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import ClassicButton from '../ClassicButton copy'
-import headerContext from "../../context/headerContext";
-import apiCalls from "../../function/apiCalls";
-import { event } from "jquery";
+
 
 // creator: Yisrael Olonoff
 // i created a card that will contain only necessary
@@ -16,47 +12,7 @@ import { event } from "jquery";
 // where every object is a card, this will change once we
 // have real data to work with.
 
-function EventCard({ events }) {
-
-  const pageSize = 10
-
-  const [card, setCard] = useState(events ? events : []);
-  const [nextPage, setNextPage] = useState(1)
-
-  const { search } = useContext(headerContext);
-
-  // useEffect(() => {
-  //   if (!events) {
-  //     fetchEvents();
-  //   }
-  // }, []);
-  
-  const loadMore = () => {
-    console.log("click");
-    fetchEvents();
-  }
-  
-    useEffect(() => {
-      if (!events) {
-        fetchEventsSearch();
-      }
-    }, [search]);
-
-  const fetchEvents = () => {
-    apiCalls("post", "event", {page: nextPage, pageSize : pageSize , search : search}).then((data) => {
-       setCard((currentCard) => currentCard.concat(data.event))
-      setNextPage(data.nextPage)
-    });
-  }
-
-  const fetchEventsSearch = () => {
-    apiCalls("post", "event", {page: 1, pageSize : pageSize , search : search}).then((data) => {
-       setCard((data.event))
-      setNextPage(data.nextPage)
-    });
-  }
-  
-
+function EventCard({ events, nextPage , loadMore }) {
 
   const navigate = useNavigate();
 
@@ -64,14 +20,9 @@ function EventCard({ events }) {
     navigate("/viewEvent/" + eventID);
   };
   
-  // .filter(
-  //   (v) =>
-  //   v.eventName?.toLowerCase().includes(search.toLowerCase()) ||
-  //     v.place?.toLowerCase().includes(search.toLowerCase()) 
-  // )
   return (
     <>
-      {card.map((v) => {
+      {events?.map((v) => {
           const date = new Date(v.date[0]);
           const options = { 
             weekday: 'long', 
@@ -90,6 +41,7 @@ function EventCard({ events }) {
                 navToViewEvent(v._id);
               }}
             >
+              
               <div className={styles.imgFrame}>
                 <img
                   className={styles.img}
@@ -112,12 +64,8 @@ function EventCard({ events }) {
                     <p>{v.place}</p>
                   </div>
                 </div>
-
-                {/* <div className={styles.paragraphs}>
-                    <BiShekel />
-                    <p>{v.payment}</p>
-                  </div> */}
               </div>
+
             </div>
           );
         })}
