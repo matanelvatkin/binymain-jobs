@@ -1,7 +1,7 @@
+
 .main{
     min-height: 82vh;
     width: 100vw;
-    margin-top: 1vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,9 +14,7 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    gap: 1vh;
-    min-height: inherit;
-    min-width: 100%;
+    gap: 4vh;
 }
 
 .button{
@@ -26,7 +24,8 @@
     position: fixed;
     width: fit-content;
     height: 50px;
-    bottom: 5px;
-    left:0;
+    bottom: 0;
+    font-family: 'Varela Round', sans-serif;
+
     /* background-color: var(--bg-color); */
 } 
