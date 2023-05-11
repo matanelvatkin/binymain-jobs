@@ -12,7 +12,6 @@ import { useNavigatenpm } from "react-router-dom";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiMoney } from "react-icons/bi";
-import BackArrow from "../../components/BackArrow";
 import FavouriteMark from "../../components/FavouriteMark";
 
 // Creator: Naama Orlan
@@ -60,21 +59,19 @@ export default function ViewEvent() {
         ) : (
           <p>loading...</p>
         )}
-        <div className={style.favourite}>
-          <FavouriteMark />
-        </div>
-        <div className={style.backArrow}>
-          {" "}
-          <BackArrow color={"black"} />
-        </div>
+      
       </div>
       <div className={style.content}>
         <div className={style.section}>
+       
           {!loading ? (
             <h1 className={style.heading}>{eventData.eventName}</h1>
           ) : (
             <p>loading...</p>
           )}
+           <div className={style.favourite}>
+          <FavouriteMark />
+        </div>
         </div>
 
         <div className={style.section}>
@@ -92,7 +89,7 @@ export default function ViewEvent() {
                 style={{ marginRight: "15px" }}
                 className={style.hourOfEvent}
               >
-                {eventData.beginningTime} - {eventData.finishTime}
+                 {eventData.finishTime}- {eventData.beginningTime}
               </div>
             </div>
           ) : (

@@ -21,10 +21,21 @@ body {
 
 label {
   font-size: var(--font-size-label);
+  font-family: 'Varela Round', sans-serif;
+
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+button{
+  font-family: 'Varela Round', sans-serif;
+
+}
+
+input{
+  font-family: 'Varela Round', sans-serif;
+
 }

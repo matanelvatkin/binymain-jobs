@@ -5,6 +5,7 @@
     border-radius: 0px 0px 25px 25px;    
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
     transition: .3s;
+    margin-bottom: 20px;
 }
 
 .titleBox{
@@ -46,11 +47,16 @@
           }
       }
 
-.options{
+.options, .scroll{
     direction: rtl;
     display: flex;
     padding-right: 5%;
     padding-bottom: 12pt;
+}
+
+.scroll{
+background-color:  var(--bg-secondary-color);
+position: fixed;
 }
 
 .searchContainer{
@@ -59,7 +65,7 @@ align-items: center;
 direction: rtl;
 height: 35px;
 width:fit-content;
-border: 1px black solid;
+border: 1px  var(--text-Fourth-color) solid;
 border-radius: 20px;
 width: 80%;
 margin-left: 18%;

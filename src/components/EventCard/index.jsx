@@ -24,11 +24,13 @@ function EventCard({ events, nextPage , loadMore }) {
     <>
       {events?.map((v) => {
           const date = new Date(v.date[0]);
-          const formattedDate = date.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
+          console.log(date)
+          const formattedDate = date.toLocaleDateString("en-GB");
+          // , {
+          //   year: "numeric",
+          //   month: "long",
+          //   day: "numeric",
+          // });
 
           return (
             <div
@@ -55,10 +57,10 @@ function EventCard({ events, nextPage , loadMore }) {
                     <p>{v.place}</p>
                   </div>
                   <div className={styles.timeAndDate}>
-                    <span>{formattedDate}</span>
-                    <span>
-                      {v.beginningTime}-{v.finishTime}
-                    </span>
+                    <div className={styles.date}>{formattedDate}</div>
+                    <div>
+                      {v.beginningTime}
+                    </div>
                   </div>
                 </div>
               </div>
