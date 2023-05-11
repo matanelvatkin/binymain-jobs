@@ -6,12 +6,14 @@ import ClassicButton from "../../components/ClassicButton copy";
 import headerContext from "../../context/headerContext";
 import { AiFillCalendar } from "react-icons/ai";
 import { MdOutlinePlace } from "react-icons/md";
+import { TbTicket } from "react-icons/tb";
 import apiCalls from "../../function/apiCalls";
 import translation from "./translation.js";
 import { useNavigatenpm } from "react-router-dom";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiMoney } from "react-icons/bi";
+import { AiOutlineClockCircle } from "react-icons/ai";
 import FavouriteMark from "../../components/FavouriteMark";
 
 // Creator: Naama Orlan
@@ -30,14 +32,17 @@ export default function ViewEvent() {
 
   const [loading, setLoading] = useState(true);
   const [eventData, setEventData] = useState();
+  const [datesOfEvents, setDatesOfEvents] = useState([]);
 
   async function fetchEvent() {
     let apiData = await apiCalls("get", "/event/" + event);
     setEventData(apiData);
+    setDatesOfEvents(apiData.date)
   }
 
   useEffect(() => {
     fetchEvent();
+
   }, []);
 
   useEffect(() => {
@@ -46,6 +51,21 @@ export default function ViewEvent() {
       console.log(eventData);
     }
   }, [eventData]);
+
+  // function getDateStatus(date) {
+  //   const currentDate = new Date();
+  //   const eventDate = new Date(date);
+
+  //   if (eventDate < currentDate) {
+  //     return "past";
+  //   } else if (eventDate.getDate() === currentDate.getDate() &&
+  //     eventDate.getMonth() === currentDate.getMonth() &&
+  //     eventDate.getFullYear() === currentDate.getFullYear()) {
+  //     return "present";
+  //   } else {
+  //     return "future";
+  //   }
+  // }
 
   return (
     <div className={style.container}>
@@ -59,7 +79,13 @@ export default function ViewEvent() {
         ) : (
           <p>loading...</p>
         )}
-      
+        <div className={style.favourite}>
+          <FavouriteMark />
+        </div>
+        <div className={style.backArrow}>
+          {" "}
+          <BackArrow color={"black"} />
+        </div>
       </div>
       <div className={style.content}>
         <div className={style.section}>
@@ -73,23 +99,53 @@ export default function ViewEvent() {
           <FavouriteMark />
         </div>
         </div>
-
+<div className={style.main}>
         <div className={style.section}>
           {!loading ? (
             <div className={style.dataSection}>
               <div className={style.reactIcon}>
                 <FaRegCalendarAlt />
               </div>
-              <div className={style.dateOfEvent}>
-                {" "}
-                {eventData.date[0].slice(0, 10)}
+              <div className={style.dates}>
+                {eventData.date.map((date, index) => {
+                  const formattedDate = new Date(date).toLocaleDateString("he-IL", {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    timeZone: 'UTC',
+                    numberingSystem: 'latn'
+                  });
+                  const dateObj = {
+                    formattedDate,
+                    weekday: formattedDate.split(',')[0]
+                  };
+                  return (
+                    <div key={index} className={style.date}>
+                      { eventData.isReapeated ? (
+                      `${formattedDate} - ( כל  ${dateObj.weekday} )`
+                      ) : (
+                      formattedDate
+                )}
+                    </div>
+                  );
+                })}
               </div>
-              <br />
+            </div>
+          ) : (
+            <p>loading...</p>
+          )}
+        </div>
+
+        <div className={style.section}>
+          {!loading ? (
+            <div className={style.dataSection}>
+              <div className={style.reactIcon}>
+                <AiOutlineClockCircle />
+              </div>
               <div
-                style={{ marginRight: "15px" }}
                 className={style.hourOfEvent}
               >
-                 {eventData.finishTime}- {eventData.beginningTime}
+                {eventData.beginningTime} - {eventData.finishTime}
               </div>
             </div>
           ) : (
@@ -116,13 +172,13 @@ export default function ViewEvent() {
               <div className={style.reactIcon}>
                 <BiMoney />
               </div>
-              <div className={style.placeOfEvent}> כניסה חופשית</div>
+              <div className={style.payment}> כניסה חופשית</div>
             </div>
           ) : (
             <p>loading...</p>
           )}
         </div>
-
+</div>
         <div className={style.section}>
           {!loading ? (
             <div>
@@ -133,7 +189,11 @@ export default function ViewEvent() {
             <p>loading...</p>
           )}
         </div>
-        <ClassicButton width={200} text={translation.cards} />
+        <div className={style.section}>
+        <ClassicButton width={200} text={translation.cards}>
+          <TbTicket className={style.ticketIcon}/>
+        </ClassicButton>
+        </div>
       </div>
     </div>
   );

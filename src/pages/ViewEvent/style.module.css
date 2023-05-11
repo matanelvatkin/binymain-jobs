@@ -4,7 +4,7 @@
 }
 
 .content {
-  margin-right: 2%;
+  /* margin-right: 4%; */
 }
 
 .section {
@@ -32,11 +32,17 @@ margin-left: 30px;
     margin-right: 0px;
 } */
 
+.main{
+  display: flex;
+  flex-direction: column;
+  /* gap: 1rem; */
+}
+
 .dataSection {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 5px 0px;
+  margin: 20px 0px;
 }
 
 .reactIcon {

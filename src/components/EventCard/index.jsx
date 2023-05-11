@@ -52,6 +52,12 @@ function EventCard({ events, nextPage , loadMore }) {
               <div className={styles.infoBar}>
                 <div className={styles.first}>
                   <h3 className={styles.eventName}>{v.eventName}</h3>
+                  <div className={styles.timeAndDate}>
+                  <span>{formattedDate}</span>
+                  </div>
+                  <div className={styles.timeAndDate}>
+                  <span>{v.beginningTime}</span>
+                  </div>
                   <div className={styles.paragraphs}>
                     <ImLocation2 />
                     <p>{v.place}</p>
