@@ -8,7 +8,7 @@ import styles from "./style.module.css";
 // <RoundButton icon={<Icon/>} func={func} text={'text'} ></RoundButton>
 // to get nice results use fill icons, png type.
 
-function RoundButton({ icon, func, text, inText, ...props }) {
+function RoundButton({ icon, func, text, inText,Days, ...props }) {
   return !inText ? (
     <div className={styles.main}>
       <button
@@ -27,11 +27,10 @@ function RoundButton({ icon, func, text, inText, ...props }) {
     <div className={styles.main}>
       <button
         className={
-          props.isActive ? styles.button + " " + styles.active : styles.button
+          props.isActive ? styles.button + " " + styles.active + " " + styles.day : styles.button +" " + styles.day
         }
         type="button"
         onClick={func}
-        {...props}
       >
         <span className={styles.inText}>{text}</span>
       </button>

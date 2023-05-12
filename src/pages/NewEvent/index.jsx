@@ -13,9 +13,12 @@ import WeeklyEvent from "../../components/WeeklyEvent";
 import DailyEvent from "../../components/DailyEvent";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
 import {FaShekelSign} from 'react-icons/fa'
+import DateInput from "../../components/DateInput";
+import NewEventPopup from "../../components/NewEventPopup";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
+  const [newEventPopup,setNewEventPopup] = useState(false)
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -108,73 +111,19 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
     {
       id: 2,
-      name: "summary",
-      type: "text",
-      label: "תקציר",
-      placeholder: "תקציר",
-      required: true,
-    },
-    {
-      id: 3,
-      name: "advertiserName",
-      type: "text",
-      label: "שם המפרסם",
-      placeholder: "שם המפרסם",
-      required: true,
-    },
-    {
-      id: 4,
-      name: "advertiserTel",
-      type: "text",
-      label: "טלפון",
-      placeholder: "טלפון",
-      required: true,
-    },
-    {
-      id: 5,
-      name: "advertiserEmail",
-      type: "email",
-      label: "מייל",
-      placeholder: "מייל",
-      required: true,
-    },
-    {
-      id: 6,
-      name: "payment",
-      type: "select",
-      label: "עלות",
-      placeholder: "עלות",
-      icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png"
-    
-    },
-    {
-      id: 7,
-      name: "repeatType",
-      type: "select",
-      label: "תדירות",
-      placeholder: "אירוע ללא חזרה",
-    },
-    {
-      id: 8,
       name: "constancy",
       type: constancy || "אירוע ללא חזרה",
     },
     {
-      id: 9,
-      name: "beginningTime",
-      type: "time",
-      label: "זמן התחלה",
-      placeholder: "זמן התחלה",
+        id:3,
+        name: "advanced",
+        type: "button",
+        placeholder:"מתקדם",
+        label:"מתקדם"
     },
+
     {
-      id: 10,
-      name: "finishTime",
-      type: "time",
-      label: "זמן סיום",
-      placeholder: "זמן סיום",
-    },
-    {
-      id: 11,
+      id: 4,
       name: "place",
       type: "select",
       label: "מקום",
@@ -182,46 +131,111 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon:"https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
+ {
+      id: 5,
+      name: "beginningTime",
+      type: "time",
+      label: "זמן התחלה",
+      placeholder: "זמן התחלה",
+    },
     {
-      id: 12,
+      id: 6,
+      name: "finishTime",
+      type: "time",
+      label: "זמן סיום",
+      placeholder: "זמן סיום",
+    },
+    {
+      id: 7,
+      name: "payment",
+      type: "select",
+      label: "עלות",
+      placeholder: "עלות",
+      icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png"
+    
+    },
+    // {
+    //   id: 7,
+    //   name: "repeatType",
+    //   type: "select",
+    //   label: "תדירות",
+    //   placeholder: "אירוע ללא חזרה",
+    // },
+   
+  
+    {
+      id: 8,
       name: "category",
       type: "selectIcon",
       label: "קטגוריה",
       placeholder: "קטגוריה",
     },
     {
-      id: 13,
+      id: 9,
       name: "audiences",
       type: "selectIcon",
       label: "קהל יעד",
       placeholder: "קהל יעד",
     },
     {
-      id: 14,
+      id: 10,
+      name: "summary",
+      type: "text",
+      label: "תקציר",
+      placeholder: "תקציר",
+      required: true,
+    },
+    {
+      id: 11,
       name: "registrationPageURL",
       type: "text",
       label: "דף הרשמה לאירוע",
       placeholder: "דף הרשמה לאירוע",
     },
     {
-      id: 15,
+      id: 12,
       name: "cardImageURL",
       type: "file",
       label: "תמונת אירוע",
     },
     {
-      id: 16,
+      id: 13,
       name: "coverImageURL",
       type: "file",
       label: "תמונת כיסוי",
     },
     {
-      id: 17,
+      id: 14,
       name: "gallery",
       type: "file",
       label: "העלה תמונות לגלריה",
       multiple: true,
     },
+    {
+      id: 15,
+      name: "advertiserName",
+      type: "text",
+      label: "שם המפרסם",
+      placeholder: "שם המפרסם",
+      required: true,
+    },
+    {
+      id: 16,
+      name: "advertiserTel",
+      type: "text",
+      label: "טלפון",
+      placeholder: "טלפון",
+      required: true,
+    },
+    {
+      id: 17,
+      name: "advertiserEmail",
+      type: "email",
+      label: "מייל",
+      placeholder: "מייל",
+      required: true,
+    },
+   
   ];
 
   const [eventData, setEventData] = useState({});
@@ -373,25 +387,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
           else if (input.type === "אירוע ללא חזרה")
             return <NoRepeatEvent values={values} setValues={setValues} />;
-          else if (input.type === "אירוע יומי")
-            return <DailyEvent values={values} setValues={setValues} />;
-          else if (input.type === "אירוע שבועי")
-            return <WeeklyEvent values={values} setValues={setValues} />;
-          else if (input.type === "בהתאמה אישית")
-            return <PersonalEvent values={values} setValues={setValues} />;
-          // else if (input.type === "file")
-          //   return (
-          //     <Input
-          //       key={input.id}
-          //       {...input}
-          //       value={values[input.name]}
-          //       onChange={onChange}
-          //       className={styles.inputs}
-          //       type={input.type}
-          //       filesValues={filesValues}
-          //       setFilesValues={setFilesValues}
-          //     />
-          // );
+          else if (input.type === "button")
+            return <div onClick={()=>setNewEventPopup(true)}>מתקדם</div>
+         
+         
           else
             return (
               <Input
@@ -404,6 +403,15 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
         })}
+
+      {newEventPopup &&
+      <NewEventPopup 
+      setNewEventPopup={setNewEventPopup}
+      values={values}
+      setValues={setValues} 
+      constancy={constancy} 
+      setConstancy={setConstancy} />
+      }
 
         <div className={styles.button}>
           <ClassicButton width={"200px"} text={"Save"} type={"submit"} />
