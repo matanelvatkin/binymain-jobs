@@ -9,10 +9,11 @@ function SecondHeader({ text, ...props }) {
 
   return (
     <div className={styles.secondHeader}>
+       <div className={styles.backArrow}>
+          {" "}
+          <BackArrow color={"#FFFFFF"} />
+        </div>
       <div className={styles.text}>{text}</div>
-      <div>
-        <BackArrow />
-      </div>
     </div>
   );
 }

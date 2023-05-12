@@ -1,39 +1,31 @@
+
 .main{
     min-height: 82vh;
     width: 100vw;
-    margin-top: 18.8vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     gap: 5px;
-}
-
-.logOut{
-    position: fixed;
-    top: 75px;
-    left: 12px;
-    color: aliceblue;
-    width: 33px;
-    height: 33px;
-    cursor: pointer;
 }
 
 .eventsContainer{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
-    gap: 1vh;
+    margin-top: 8px;
+    gap: 4vh;
 }
 
 .button{
     display: flex;
     align-items: center;
-    margin-left: 15px;
     position: fixed;
-    width: 100%;
+    width: fit-content;
     height: 50px;
     bottom: 0;
+    left: 0;
+
     /* background-color: var(--bg-color); */
 } 
