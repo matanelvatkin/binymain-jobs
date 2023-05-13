@@ -13,10 +13,22 @@ const Input = (props) => {
   //   }
   // };
   return (
-    <div>
-      <label className={styles.label}>
-        {/* <div>{label} </div> */}
-      </label>
+    <>
+      {type !="radio"?
+      <div>
+        <label className={styles.label}>
+          <div>{label} </div>
+        </label>
+        <input
+          className={`${styles.input} ${className}`}
+          {...inputProps}
+          style={{ width: width }}
+          onChange={onChange}
+          type={type}
+        />
+      </div>
+      :
+      <div className={styles.radio}>
       <input
         className={`${styles.input} ${className}`}
         {...inputProps}
@@ -24,7 +36,12 @@ const Input = (props) => {
         onChange={onChange}
         type={type}
       />
+      <label className={styles.labelRadio}>
+        <div>{label} </div>
+      </label>
     </div>
+    }
+    </>
   );
 };
 

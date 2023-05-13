@@ -10,6 +10,7 @@ import Main from "../Main";
 import { createContext, useEffect, useState } from "react";
 import apiCalls from "../../function/apiCalls";
 import { useLocation } from "react-router-dom";
+import NewEventPopup from "../../components/NewEventPopup";
 
 export const settingsContext = createContext();
 
@@ -82,6 +83,8 @@ function Layout() {
                 {/* {popUp &&
             <GuestPopup text={popUpText} guestMode={guestMode}/> 
           } */}
+
+
               </fakeDataContext.Provider>
             </settingsContext.Provider>
           </headerContext.Provider>

@@ -30,6 +30,40 @@
   color: var(--text-Fourth-color);
 }
 
+.day{
+width: 40px;
+height: 40px;
+}
+
+.active > .icon {
+  animation-name: spin;
+  animation-duration: 250ms;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:not(.active) > .icon {
+  animation-name: spin-reverse;
+  animation-duration: 250ms;
+  animation-timing-function: linear;
+}
+
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
 .inText{
   margin-top: 7px;
   margin-bottom: 10px;

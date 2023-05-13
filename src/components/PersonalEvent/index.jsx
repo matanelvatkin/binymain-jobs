@@ -11,7 +11,7 @@ import styles from "./style.module.css";
 
 const PersonalEvent = ({
   values,
-  setValues = () => {},
+  setValues = () => { },
   ...props
 }) => {
   const days = [
@@ -26,12 +26,12 @@ const PersonalEvent = ({
   const repeat = ["דו חודשי", "שבועי", "ללא חזרה"];
   const [endRepeat, setEndRepeat] = useState({});
   const [chooseRadio, setChooseRadio] = useState("");
-  const onChange=(e)=>{
+  const onChange = (e) => {
     setValues({ ...values, repeatSettingsRepeatEnd: e.target.value });
   }
   useEffect(() => {
-    if(endRepeat) setValues({ ...values, repeatSettingsRepeatEnd: endRepeat.date});
-  },[endRepeat])
+    if (endRepeat) setValues({ ...values, repeatSettingsRepeatEnd: endRepeat.date });
+  }, [endRepeat])
   useEffect(() => {
     setEndRepeat()
     setValues({ ...values, repeatSettingsType: chooseRadio });
@@ -41,48 +41,63 @@ const PersonalEvent = ({
   };
   return (
     <>
-      <label>
-        החל מתאריך:
+      <div className={styles.numberOfDays}>
+        <Select
+          choossArray={repeat}
+          placeholder="ללא חזרה"
+          icon=""
+          name="personalRepeatType"
+          values={values}
+          setValues={setValues}
+        />
+      </div>
+        <label className={styles.titles}>החל מתאריך</label>
+
+      <div className={styles.startDate}>
         <DateInput values={values} setValues={setValues} />
-      </label>
+      </div>
       <div className={styles.days_div}>
         <SelectIcon
           array={days}
           text={days}
           inText={true}
-          header={"ימים"}
+          header={"חזרה בימים:"}
           name="days"
           values={values}
           setValues={setValues}
+          Days={true}
         />
       </div>
-      <Select
-        choossArray={repeat}
-        placeholder="ללא חזרה"
-        icon=""
-        name="personalRepeatType"
-        values={values}
-        setValues={setValues}
-      />
-      <Input
-        onChange={chooseRadioClick}
-        label="בתאריך"
-        type="radio"
-        name="repeatEnd"
-        value="endDate"
-      />
-      <Input
-        onChange={chooseRadioClick}
-        label="בעוד מספר פעמים"
-        type="radio"
-        name="repeatEnd"
-        value="endNumber"
-      />
-      {chooseRadio === "endDate" ? (
-        <DateInput values={endRepeat} setValues={setEndRepeat} />
-      ) : (
-        <Input onChange={onChange} placeholder="בעוד מספר פעמים" type="text" name="repeatNumber" />
-      )}
+
+      <label className={styles.titles}>סיום</label>
+      <div className={styles.endDate}>
+        <div className={styles.endDateInputs}>
+          <Input
+            onChange={chooseRadioClick}
+            label="בתאריך"
+            type="radio"
+            name="repeatEnd"
+            value="endDate"
+          />
+          <Input
+            onChange={chooseRadioClick}
+            label="בעוד מספר פעמים"
+            type="radio"
+            name="repeatEnd"
+            value="endNumber"
+          />
+        </div>
+        {chooseRadio === "endDate" ? (
+          <div className={styles.date}>
+
+            <DateInput values={endRepeat} setValues={setEndRepeat} />
+          </div>
+        ) : (
+          <div className={styles.numberOfDays}>
+            <Input onChange={onChange} placeholder="בעוד מספר פעמים" type="text" name="repeatNumber" />
+          </div>
+        )}
+      </div>
     </>
   );
 };
