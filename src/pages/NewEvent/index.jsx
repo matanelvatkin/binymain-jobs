@@ -397,12 +397,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 onChange={onChange}
                 className={styles.inputs}
                 type={input.type}
+                width={"260px"}
               />
             );
         })}
 
         <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"Save"} type={"submit"} />
+          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
         </div>
       </form>
     </div>

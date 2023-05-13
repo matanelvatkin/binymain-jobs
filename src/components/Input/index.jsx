@@ -15,7 +15,7 @@ const Input = (props) => {
   return (
     <div>
       <label className={styles.label}>
-        <div>{label} </div>
+        {/* <div>{label} </div> */}
       </label>
       <input
         className={`${styles.input} ${className}`}
