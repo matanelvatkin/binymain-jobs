@@ -10,7 +10,8 @@ const apiCalls = async (
   header = null
 ) => {
 
-  const baseUrl = "https://server-production-7ef9.up.railway.app"
+   const baseUrl = process.env.REACT_APP_BASE_URL || `http://localhost:5000`;
+//  const baseUrl = "https://server-production-7ef9.up.railway.app"
 
 
 
