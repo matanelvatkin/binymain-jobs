@@ -2,11 +2,10 @@
   width: 332px;
   height: 19px;
 
-  font-family: "Heebo";
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
-  line-height: 19px;
+  /* line-height: 19px; */
 
   text-align: right;
   letter-spacing: 0.01em;
@@ -23,9 +22,7 @@
 }
 
 .labelRadio{
- 
 
-  font-family: "Heebo";
   font-style: normal;
   font-weight: 800;
   font-size: 13px;
@@ -53,14 +50,16 @@
   align-items: center;
   padding: 12px 16px;
   gap: 10px;
-  height: 46px;
+  height: 42px;
 
   /* Gray / 1 */
 
-  background: #f8f8fa;
+  background: var( --text-Fourth-color);
   border-radius: 10px;
-  border-style: hidden;
-  border: 1.5px solid rgba(0,0,0,.15);
+  border:none;
+  box-shadow: 2px 3px 2px 2px #ccc9c9c3;
+  color: var(--text-third-color);
+
 
   /* Inside auto layout */
 
@@ -82,11 +81,17 @@
   height: 46px;
 
   /* Gray / 1 */
-
+/* 
   background: #f8f8fa;
   border-radius: 10px;
   border-style: hidden;
-  border: 1.5px solid rgba(0,0,0,.15);
+  border: 1.5px solid rgba(0,0,0,.15); */
+
+  background: var( --text-Fourth-color);
+  border-radius: 10px;
+  border:none;
+  box-shadow: 2px 3px 2px 2px #ccc9c9c3;
+  color: var(--text-third-color);
 
 
   /* Inside auto layout */
@@ -108,7 +113,7 @@
   gap: 10px;
 
   width: 335px;
-  height: 46px;
+  height: 42px;
 
   /* Gray / 1 */
 
@@ -134,16 +139,23 @@
   gap: 10px;
 
   width: 335px;
-  height: 46px;
+  height: 42px;
 
   /* Gray / 1 */
 
-  background: #f8f8fa;
+  /* background: #f8f8fa;
   border-radius: 10px;
   border-style: hidden;
-  border: 1.5px solid rgba(0,0,0,.15);
+  border: 1.5px solid rgba(0,0,0,.15); */
+
+  background: var( --text-Fourth-color);
+  border-radius: 10px;
+  border:none;
+  box-shadow: 2px 3px 2px 2px #ccc9c9c3;
+  color: var(--text-third-color);
 
   /* Inside auto layout */
+
 
   flex: none;
   order: 0;
@@ -161,14 +173,9 @@
   padding: 0px;
   gap: 20px;
 
-  width: 241px;
+  width: 240px;
   height: 42px;
 
-  background: #ffffff;
-  box-shadow: -1px 4px #9c9ca8;
-  opacity: 0.8;
-  border-radius: 10px;
-  border-style: hidden;
   /* Inside auto layout */
 
   flex: none;
@@ -187,14 +194,20 @@
   padding: 0px;
   gap: 20px;
 
-  width: 241px;
+  width: 240px;
   height: 42px;
 
-  background: #ffffff;
-  box-shadow: -1px 4px #9c9ca8;
-  opacity: 0.8;
+  /* background: #ffffff;
+  box-shadow: -1px 4px #9c9ca8; */
+  /* opacity: 0.8; */
+  /* border-radius: 10px;
+  border-style: hidden; */
+
+  background: var( --text-Fourth-color);
   border-radius: 10px;
-  border-style: hidden;
+  border:none;
+  box-shadow: 2px 3px 2px 2px #ccc9c9c3;
+  color: var(--text-third-color);
 
   /* Inside auto layout */
 
