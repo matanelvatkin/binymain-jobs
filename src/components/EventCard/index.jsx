@@ -22,15 +22,15 @@ function EventCard({ events, nextPage , loadMore }) {
   
   return (
     <>
-      {events?.map((v) => {
+      {events?.map((v) =>{ 
           const date = new Date(v.date[0]);
           console.log(date)
-          const formattedDate = date.toLocaleDateString("en-GB");
-          // , {
-          //   year: "numeric",
-          //   month: "long",
-          //   day: "numeric",
-          // });
+          const formattedDate = date.toLocaleDateString("he-IL",
+           {
+            weekday: 'long',
+            month: "long",
+            day: "numeric",
+          });
 
           return (
             <div
@@ -52,32 +52,28 @@ function EventCard({ events, nextPage , loadMore }) {
               <div className={styles.infoBar}>
                 <div className={styles.first}>
                   <h3 className={styles.eventName}>{v.eventName}</h3>
-                  <div className={styles.timeAndDate}>
-                  </div>
-                  <div className={styles.paragraphs}>
-                    <ImLocation2 />
-                    <p>{v.place}</p>
-                  </div>
-                  <div className={styles.timeAndDate}>
+                  <div className={styles.date}>
                     <div className={styles.date}>{formattedDate}</div>
-                    <div>
+                  </div>
+                  <div className={styles.time}>
                       {v.beginningTime}
                     </div>
+                  <div className={styles.location}>
+                    <ImLocation2 />
+                    <p>{v.place}</p>
                   </div>
                 </div>
               </div>
 
             </div>
           );
-        })}
-        
+            })}
         {nextPage?<ClassicButton 
         onClick={loadMore} 
         text={"Load..."}
         width={"100px"}
         />:null}
     </>
-  );
-}
+        )}
 
 export default EventCard;
