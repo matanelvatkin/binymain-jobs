@@ -15,7 +15,7 @@ import NoRepeatEvent from "../../components/NoRepeatEvent";
 import {FaShekelSign} from 'react-icons/fa'
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
-
+import ToggleSwitch from "../../components/ToggleSwitch";
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup,setNewEventPopup] = useState(false)
@@ -89,7 +89,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     registrationPageURL: "",
     categories: [],
     audiences: [],
-    payment: "",
+    isFree: true,
+    price: "",
     days: [],
     cardImageURL: "",
     coverImageURL: "",
@@ -144,12 +145,19 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 7,
       name: "payment",
-      type: "select",
+      type: "toogleSwitch",
       label: "עלות",
       placeholder: "עלות",
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png"
     
+    },{
+      id: 1,
+      name: "price",
+      type: "text",
+      placeholder: "מחיר",
+      className: styles.priceNone,
     },
+    
     // {
     //   id: 7,
     //   name: "repeatType",
@@ -348,9 +356,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 choossArray={
                   input.name === "repeatType"
                     ? typeData
-                    : input.name === "place"
-                    ? placeData
-                    : paymentData
+                    : placeData
                 }
               />
             );
@@ -386,16 +392,16 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             return <NoRepeatEvent values={values} setValues={setValues} />;
           else if (input.type === "button")
             return <div onClick={()=>setNewEventPopup(true)}>מתקדם</div>
-         
-         
-          else
+         else if (input.type === "toogleSwitch")
+         return <ToggleSwitch text="בתשלום"/>;
+          else 
             return (
               <Input
                 key={input.id}
                 {...input}
                 value={values[input.name]}
                 onChange={onChange}
-                className={styles.inputs}
+                className={input.className}
                 type={input.type}
                 width={"240px"}
               />

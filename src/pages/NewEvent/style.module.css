@@ -18,8 +18,10 @@
   width: 100%;
 }
 
-.inputs {
-  display: flex;
-  align-items: center;
-  margin: 5px;
+.priceNone {
+  display: none;
+}
+
+.priceInline {
+  display: inline;
 }
