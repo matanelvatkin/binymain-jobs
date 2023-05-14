@@ -266,10 +266,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       })
     );
 
-    console.log(" Simple console.log formData", formData);
-    console.log(" Console.log + extract value from formData", [
-      ...formData.entries(),
-    ]);
+    console.log([...formData.entries()]);
 
     apiCalls("post", "/event/createvent", formData, {
       headers: { "Content-Type": "multipart/form-data" },

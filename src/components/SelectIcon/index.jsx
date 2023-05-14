@@ -20,23 +20,24 @@ const SelectIcon = ({
   inText,
   ...props
 }) => {
-  const [activeArray, setActiveArray] = useState([]);
+  const [activeArray, setActiveArray] = useState([...array]);
+  console.log(activeArray);
   const handleCategoryClick = (category) => {
     if (activeArray.includes(category)) {
-      setActiveArray(activeArray.filter((item) => item !== category));
-      setActiveArray(activeArray.filter((item) => item !== category));
+      setActiveArray([
+        ...activeArray,
+        (activeArray.indexOf(category).isActive = false),
+      ]);
     } else {
-      setActiveArray([...activeArray, category]);
+      console.log(category);
+      setActiveArray([
+        ...activeArray,
+        (activeArray.indexOf(category).isActive = true),
+      ]);
     }
   };
   useEffect(() => {
-    setValues({
-      ...values,
-      [name]: activeArray.map((obj) => {
-        console.log(obj);
-        return obj;
-      }),
-    });
+    setValues({ ...values, [name]: activeArray });
   }, [activeArray]);
   return (
     <div className={styles.main}>
@@ -49,10 +50,10 @@ const SelectIcon = ({
               key={index}
               text={category.name}
               icon={category.icon}
-              isActive={activeArray.includes(category.name)}
-              activeArray={activeArray.name}
+              isActive={activeArray.includes(category)}
+              activeArray={activeArray}
               setActiveArray={setActiveArray}
-              func={() => handleCategoryClick(category.name)}
+              func={() => handleCategoryClick(category)}
               {...props}
             />
           ))}
