@@ -115,7 +115,7 @@ export default function ViewEvent() {
                   return (
                     <div key={index} className={style.date}>
                       { eventData.isReapeated ? (
-                      `${formattedDate} - ( כל  ${dateObj.weekday} )`
+                      `${formattedDate} (כל  ${dateObj.weekday})`
                       ) : (
                       formattedDate
                 )}

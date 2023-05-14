@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./style.module.css";
-import { BsArrowRightShort, BsArrowUpShort } from "react-icons/bs";
+import { BsArrowDownShort, BsArrowUpShort } from "react-icons/bs";
 
 
 
@@ -42,11 +42,11 @@ const Select = ({
           {valueText}
         </p>
         {openPopup ? (
-          <BsArrowUpShort
+          <BsArrowUpShort className={styles.arrow}
             style={{ width: "40px", marginRight: "10px", marginTop: "10px" }}
           />
         ) : (
-          <BsArrowRightShort
+          <BsArrowDownShort className={styles.arrow}
             style={{ width: "40px", marginRight: "10px", marginTop: "10px" }}
           />
         )}

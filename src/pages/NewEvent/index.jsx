@@ -102,7 +102,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 1,
       name: "eventName",
       type: "text",
-      label: "שם האירוע",
+      // label: "שם האירוע",
       placeholder: "שם האירוע",
       required: true,
     },
@@ -185,7 +185,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 10,
       name: "summary",
       type: "text",
-      label: "תקציר",
+      // label: "תקציר",
       placeholder: "תקציר",
       required: true,
     },
@@ -193,7 +193,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 11,
       name: "registrationPageURL",
       type: "text",
-      label: "דף הרשמה לאירוע",
+      // label: "דף הרשמה לאירוע",
       placeholder: "דף הרשמה לאירוע",
     },
     {
@@ -219,7 +219,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 15,
       name: "advertiserName",
       type: "text",
-      label: "שם המפרסם",
+      // label: "שם המפרסם",
       placeholder: "שם המפרסם",
       required: true,
     },
@@ -227,7 +227,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 16,
       name: "advertiserTel",
       type: "text",
-      label: "טלפון",
+      // label: "טלפון",
       placeholder: "טלפון",
       required: true,
     },
@@ -235,7 +235,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 17,
       name: "advertiserEmail",
       type: "email",
-      label: "מייל",
+      // label: "מייל",
       placeholder: "מייל",
       required: true,
     },
@@ -305,7 +305,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   };
 
   useEffect(() => {
-    setConstancy(values.repeatType);
+    setConstancy(values.repeatType); 
     setValues({
       ...values,
       repeatSettingsType: "endDate",
@@ -403,6 +403,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 onChange={onChange}
                 className={input.className}
                 type={input.type}
+                width={"240px"}
               />
             );
         })}
@@ -417,7 +418,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       }
 
         <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"Save"} type={"submit"} />
+          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
         </div>
       </form>
     </div>
