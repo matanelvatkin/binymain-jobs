@@ -63,7 +63,9 @@ export default function SearchEvent() {
   function clickCategory(e) {
     setCategories((prev) =>
       prev.map((v, i) =>
-        i == e.target.id ? { ...v, isActive: !v.isActive } : v
+        i == e.target.id
+          ? (console.log(e.target), { ...v, isActive: !v.isActive })
+          : v
       )
     );
   }
