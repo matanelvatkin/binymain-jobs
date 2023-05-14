@@ -24,8 +24,6 @@
     position: fixed;
     width: fit-content;
     height: 50px;
-    bottom: 0;
-    left: 0;
-
-    /* background-color: var(--bg-color); */
+    bottom: 5px;
+    left: 13px;
 } 
