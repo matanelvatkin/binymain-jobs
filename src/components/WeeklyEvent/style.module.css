@@ -1,10 +1,46 @@
-.days_div{
+.days_div {
     width: 60%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.day{
+.day {
     width: 15%;
+}
+
+.numberOfDays {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.titles {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.startDate {
+    display: flex;
+    justify-content: center;
+}
+
+.endDate {
+    display: flex;
+    width: 100%;
+
+}
+
+.endDateInputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+
+}
+
+.date {
+    width: 70%;
 }

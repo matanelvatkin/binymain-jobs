@@ -18,6 +18,7 @@ const SelectIcon = ({
   text,
   icon,
   inText,
+  Days,
   ...props
 }) => {
   const [activeArray, setActiveArray] = useState([...array]);
@@ -43,7 +44,7 @@ const SelectIcon = ({
     <div className={styles.main}>
       <div className={styles.container}>
         <p className={styles.header}>{header}</p>
-        <div className={styles.icons}>
+        <div className={Days ? styles.icons + " " + styles.days : styles.icons}>
           {array.map((category, index) => (
             <RoundButton
               inText={inText}
@@ -53,7 +54,8 @@ const SelectIcon = ({
               isActive={activeArray.includes(category)}
               activeArray={activeArray}
               setActiveArray={setActiveArray}
-              func={() => handleCategoryClick(category)}
+              func={() => handleCategoryClick(category.name)}
+              Days
               {...props}
             />
           ))}

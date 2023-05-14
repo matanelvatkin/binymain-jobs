@@ -77,8 +77,10 @@ function Registeretion() {
   return (
     <div className={styles.main}>
         <form className={styles.formArea} onSubmit={createUser} autoComplete="off">
+          <div>
         {inputs.map((input) => {
             return (
+              <div className={styles.feild}>
               <Input
                 key={input.id}
                 {...input}
@@ -86,14 +88,17 @@ function Registeretion() {
                 className={styles.inputs}
                 onChange={handleChange}
               />
+              </div>
             )
             })}
+            </div>
             <ClassicButton
             width={'70%'}
             type={'submit'}
             >
                <IoIosCreate className={styles.icon}/> צור משתמש
             </ClassicButton>
+    
             </form>
     </div>
   )

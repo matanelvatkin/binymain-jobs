@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 :root {
   --bg-color:#F5F5F5;
@@ -6,7 +6,7 @@
   --primary-color:#F8F8FA;
   --text-color: #120D26  ;
   --text-secondary-color:#5669FF;
-  --text-third-color:#747688;
+  --text-third-color:#6e6a6a;
   --text-Fourth-color :#FFFFFF;
   --input-color:#F8F8FA;
  
@@ -15,16 +15,27 @@
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Varela Round', sans-serif;
   
 }
 
 label {
   font-size: var(--font-size-label);
+  font-family: 'Varela Round', sans-serif;
+
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+button{
+  font-family: 'Varela Round', sans-serif;
+
+}
+
+input{
+  font-family: 'Varela Round', sans-serif;
+
 }

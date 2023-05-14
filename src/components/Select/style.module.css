@@ -5,9 +5,12 @@
   flex-direction: row;
   justify-content: center;
   position: relative;
-  border: 1px solid var(--text-third-color);
+  background-color: var( --text-Fourth-color);
+  border:none;
+  color: var(--text-third-color);
+
   border-radius: 10px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow:  2px 3px 2px 2px #ccc9c9c3;
 }
 .select{
   margin: 10px 0 0 50px;
@@ -39,6 +42,12 @@
 .icon{
   height: 25px;
   margin-top: 6px;
-
+  
 }
 
+.arrow{
+  color:var(  --text-secondary-color);
+  position: absolute;
+  left: 3px;
+  font-size: 20px;
+}

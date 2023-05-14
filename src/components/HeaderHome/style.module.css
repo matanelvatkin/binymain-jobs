@@ -5,14 +5,15 @@
     border-radius: 0px 0px 25px 25px;    
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
     transition: .3s;
+    margin-bottom: 20px;
 }
 
 .titleBox{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     align-items:center;
-    padding: 20pt 0pt 14pt 0pt;
+    padding: 10pt 0pt 1pt 20pt;
         
 }
 .title{
@@ -21,9 +22,10 @@
     font-size: xxx-large;
     color: var(--text-Fourth-color);
     font-weight: normal;
-    font-size: 40pt;
+    font-size: 30pt;
     letter-spacing: -1pt;
     margin-right: 6pt;
+    margin-bottom: 10pt;
 }
 
 .logo{
@@ -45,66 +47,61 @@
           }
       }
 
-
-.options{
+.options, .scroll{
     direction: rtl;
     display: flex;
-    flex-direction: column;
     padding-right: 5%;
     padding-bottom: 12pt;
+}
+
+.scroll{
+background-color:  var(--bg-secondary-color);
+position: fixed;
 }
 
 .searchContainer{
 display: flex;
 align-items: center;
 direction: rtl;
-height: fit-content;
+height: 35px;
 width:fit-content;
-gap: 8px;
+border: 1px  var(--text-Fourth-color) solid;
+border-radius: 20px;
 width: 80%;
 margin-left: 18%;
 }
 
-.icon{
+.icon, .iconSearch{
     color: var(--text-Fourth-color);
-    height: 32px;
     width: 32px;
     cursor: pointer;
-    border-left : 1pt solid white;
     padding-left: 5pt;
-    margin-right: 10pt;
     margin-top: 6pt;
 }
+.icon{
+    height:35px;
+    margin-top: 1pt;
+    margin-right: 5pt;
+    
+}
+.iconSearch{
+    height:20px;
+    margin-right: 10pt;
+    margin-top: 4pt;
+}
+
+
 
 .visibleInput{
      border: none;
     background-color:transparent;
-    color: #cccccc;
-    font-size: 16pt;
-    font-family: 'Noto Sans Hebrew', sans-serif;
+    color: var(--text-Fourth-color);
+    font-size: 15px;
+    font-family: 'Varela Round', sans-serif;
+    outline: none;
 }
 ::placeholder {
     color:#cccccc;
 }
 
-.hiddenInput{
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
-    width: 100%;
-    padding: 6px;
-    background-color: transparent;
-    transition: .6s;
-}
 
-.input::placeholder{
-    color: var(#cccccc);
-    font-size: 16pt;
-    font-family: 'Noto Sans Hebrew', sans-serif;
-
-}
-.optionsText {
-    color: #cccccc;
-    font-size: 16pt;
-    font-family: 'Noto Sans Hebrew', sans-serif;
-}

@@ -4,12 +4,14 @@
 }
 
 .title {
-    font-weight: 400;
+    font-weight: 600;
     font-size: 18px;
+    margin: 10px;
 }
 
 .footerBtn {
     display: flex;
+    margin-top: 20px;
 }
 
 #back {
@@ -22,12 +24,13 @@
 }
 
 .categories {
-    display: flex;
-}
+    display: flex;}
 
 .categories div {
     margin-top: 1.5%;
     margin-right: 2%;
+    margin-left: -5px;
+
 }
 
 .audiences {
@@ -37,8 +40,9 @@
 .audiences div {
     margin-top: 1.5%;
     margin-right: 2%;
+    margin-left: -5px;
 }
 
 .section {
-    margin-top: 1.5%;
+    margin-top: 4%;
 }

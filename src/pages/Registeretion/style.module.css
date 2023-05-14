@@ -16,6 +16,9 @@
     direction: rtl;
 }
 
+.feild{
+    margin-bottom: 15px;
+}
 .inputs{
     font-size: medium;
 }
