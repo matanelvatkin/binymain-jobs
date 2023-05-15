@@ -64,7 +64,7 @@ function Layout() {
         setPopUpText("עדיין לא יצא לנו להכיר😊");
         setPopUp(true);
       }
-    }, 50000);
+    }, 20000);
 
     return () => clearInterval(intervalId);
   }, [user, location.pathname]);
