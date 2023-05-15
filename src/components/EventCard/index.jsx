@@ -24,7 +24,6 @@ function EventCard({ events, nextPage , loadMore }) {
     <>
       {events?.map((v) =>{ 
           const date = new Date(v.date[0]);
-          console.log(date)
           const formattedDate = date.toLocaleDateString("he-IL",
            {
             weekday: 'long',

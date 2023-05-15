@@ -33,15 +33,15 @@ function Home() {
   useEffect(() => {fetchEventsSearch()}, [search]);
   
   const navToNewEvent = () => {
-    // if(!user){
+    if(!user){
       setPopUp(true);
       setGuestMode(false);
       setPopUpText("כדי שתוכל לפרסם אירוע, נהיה חייבים להכיר😊");
       
-      // }
-      // else{
+      }
+      else{
         navigate("/newEvent");
-        // }
+        }
       };
       
   setHeader("home");
@@ -87,7 +87,6 @@ function Home() {
           }}
         />
       </div>
-              <br/><br/><br/>
     </div>
   );
 }
