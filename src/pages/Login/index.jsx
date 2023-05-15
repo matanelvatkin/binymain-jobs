@@ -43,9 +43,7 @@ import userContext from '../../context/userContext';
           setUser(true)
           setToken(res.data.token)
           localStorage.setItem('Token', res.data.token)
-          // setIsValid(true)
           console.log('token set');
-          console.log(user);
           navigate("/");
       }})
       .catch((err) => {

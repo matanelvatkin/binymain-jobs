@@ -4,7 +4,7 @@ import fakeDataContext from "../../context/fakeDataContext";
 import headerContext from "../../context/headerContext";
 import userContext from "../../context/userContext";
 import popUpContext from "../../context/popUpContext";
-
+import axios from "axios";
 import Header from "../Header";
 import Main from "../Main";
 import { createContext, useEffect, useState } from "react";
@@ -64,7 +64,7 @@ function Layout() {
         setPopUpText("עדיין לא יצא לנו להכיר😊");
         setPopUp(true);
       }
-    }, 20000);
+    }, 50000);
 
     return () => clearInterval(intervalId);
   }, [user, location.pathname]);
@@ -80,9 +80,9 @@ function Layout() {
               <Header />
               <fakeDataContext.Provider value={{ fakeData }}>
                 <Main />
-                {/* {popUp &&
+                {popUp &&
             <GuestPopup text={popUpText} guestMode={guestMode}/> 
-          } */}
+          }
 
 
               </fakeDataContext.Provider>
