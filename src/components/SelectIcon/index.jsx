@@ -20,14 +20,18 @@ const SelectIcon = ({
   inText,
   ...props
 }) => {
-  const [activeArray, setActiveArray] = useState([]);
-  const handleCategoryClick = (category) => {
-    if (activeArray.includes(category)) {
-      setActiveArray(activeArray.filter((item) => item !== category));
-      setActiveArray(activeArray.filter((item) => item !== category));
-    } else {
-      setActiveArray([...activeArray, category]);
-    }
+  const [activeArray, setActiveArray] = useState([...array]);
+  console.log(activeArray);
+  // const handleCategoryClick = (category) => {
+  //   if (activeArray.includes(category)) {
+  //     setActiveArray(activeArray.filter((item) => item !== category));
+  //     setActiveArray(activeArray.filter((item) => item !== category));
+  //   } else {
+  //     setActiveArray([...activeArray, category]);
+  //   }
+  // };
+  const handeleClick = (e) => {
+    console.log(e.target);
   };
   useEffect(() => {
     setValues({
@@ -43,19 +47,21 @@ const SelectIcon = ({
       <div className={styles.container}>
         <p className={styles.header}>{header}</p>
         <div className={styles.icons}>
-          {array.map((category, index) => (
-            <RoundButton
-              inText={inText}
-              key={index}
-              text={category.name}
-              icon={category.icon}
-              isActive={activeArray.includes(category.name)}
-              activeArray={activeArray.name}
-              setActiveArray={setActiveArray}
-              func={() => handleCategoryClick(category.name)}
-              {...props}
-            />
-          ))}
+          {array.map((category, index) => {
+            return (
+              <RoundButton
+                id={index}
+                inText={inText}
+                text={category.name}
+                icon={category.icon}
+                isActive={activeArray.includes(category.name)}
+                activeArray={activeArray.name}
+                setActiveArray={setActiveArray}
+                func={handeleClick}
+                {...props}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ import styles from "./style.module.css";
 // to get nice results use fill icons, png type.
 
 function RoundButton({ icon, func, text, inText, ...props }) {
+  console.log(props.id);
   return !inText ? (
     <div className={styles.main}>
       <button

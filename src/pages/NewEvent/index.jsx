@@ -339,7 +339,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 }
               />
             );
-          else if (input.type === "selectIcon")
+          else if (input.type === "selectIcon") {
+            console.log(input);
             return (
               <SelectIcon
                 {...input}
@@ -352,7 +353,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 array={input.name === "categories" ? categories : audiences}
               />
             );
-          else if (input.type === "select")
+          } else if (input.type === "select")
             return (
               <Select
                 {...input}
