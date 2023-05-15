@@ -4,11 +4,17 @@
 }
 
 .content {
-  margin-right: 2%;
+  margin-right: 5%;
 }
 
 .section {
-  margin-top: 1.5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3%;
+}
+.favourite{
+margin-left: 30px;
 }
 .coverImage {
   border-radius: 3px;
@@ -26,18 +32,25 @@
     margin-right: 0px;
 } */
 
+.main{
+  display: flex;
+  flex-direction: column;
+  /* gap: 1rem; */
+  color: var(--text-third-color);
+}
+
 .dataSection {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 20px 0px;
+  margin: 5px 0px;
 }
 
 .reactIcon {
   margin-left: 20px;
-  color: var(--text-secondary-color);
+  color: var( --text-Fourth-color);
   padding: 7px;
-  background-color: #add8e6;
+  background-color: var(--bg-secondary-color);
   border-radius: 15%;
   font-size: 20px;
   display: flex;
@@ -54,8 +67,3 @@
   font-size: 20px;
 }
 
-.backArrow {
-  position: fixed;
-  top: 220px;
-  right: 95px;
-}

@@ -90,6 +90,7 @@ import userContext from '../../context/userContext';
       <form className={styles.form} onSubmit={loginAouth} >
         {inputs.map((input) => {
             return (
+              <div className={styles.connect}>
               <Input
               autoComplete='off'
                 key={input.id}
@@ -98,6 +99,7 @@ import userContext from '../../context/userContext';
                 className={styles.inputs}
                 onChange={handleChange}
               />
+              </div>
             )
         })}
            <div className={styles.switchAndForgot}> 

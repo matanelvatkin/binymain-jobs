@@ -1,7 +1,7 @@
 .main{
     width: 100vw;
     height: 86vh;
-    margin-top: 14vh;
+    /* margin-top: 14vh; */
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -26,9 +26,12 @@
     justify-content: space-around;
     direction: rtl;
 }
-
+.connect{
+    margin: -25px;
+}
 .inputs{
     font-size: medium;
+    margin: -20px;
 }
 
 .icon{
@@ -37,9 +40,10 @@
 }
 
 .forgotPassword{
-    font-size: medium;
+    font-size:15px;
     cursor: pointer;
-    color: var(--bg-secondary-color);
+    /* color: var(  --text-third-color); */
+    margin-top: -40px;
 }
 
 .switchAndForgot{
@@ -55,6 +59,7 @@
     align-items: center;
     flex-direction: column;
     direction: rtl;
+    margin: -25px;
 }
 
 .secondButtonContainer{
@@ -72,4 +77,5 @@
     align-items: center;
     flex-direction: column;
     direction: rtl;
+    margin: -15px;
 }

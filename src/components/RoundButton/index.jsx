@@ -6,36 +6,14 @@ import styles from "./style.module.css";
 // using my props: icon, func, text, ...props.
 // to add text in your button use the text prop, example:
 // <RoundButton icon={<Icon/>} func={func} text={'text'} ></RoundButton>
-// to get nice results use fill icons, png type.
 
-function RoundButton({ icon, func, text, inText, ...props }) {
-  console.log(props.id);
-  return !inText ? (
+function RoundButton({ icon, func, text, ...props }) {
+  return (
     <div className={styles.main}>
-      <button
-        className={
-          props.isActive ? styles.button + " " + styles.active : styles.button
-        }
-        onClick={func}
-        {...props}
-        type="button"
-      >
-        <img className={styles.icon} src={icon} id={props.id} />
+      <button className={styles.button} func={func} {...props}>
+        {icon}
       </button>
       <span>{text}</span>
-    </div>
-  ) : (
-    <div className={styles.main}>
-      <button
-        className={
-          props.isActive ? styles.button + " " + styles.active : styles.button
-        }
-        type="button"
-        onClick={func}
-        {...props}
-      >
-        <span className={styles.inText}>{text}</span>
-      </button>
     </div>
   );
 }

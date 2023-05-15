@@ -24,8 +24,9 @@
     max-width: 93%;
     min-width:93%;
     min-height: 93%;
-    max-height: 93%;
+    max-height: 98%;
     border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 .infoBar{
@@ -36,16 +37,10 @@
     align-items: center;
     justify-content: center;
     font-size: smaller;
+    color: var(--text-third-color);
+    font-weight: bold;
 }
 
-.timeAndDate{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-size: small;
-    color: var(--bg-secondary-color);
-    gap: 4px;    
-}
 
 .first{
     width: 100%;
@@ -65,15 +60,21 @@
     align-items: flex-start;
 }
 
-.paragraphs{
+.location{
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 100%;
     gap: 1%;
-    color: var(--text-third-color);
 }
 
-.more{
-    z-index: 5
+
+.time{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-secondary-color);
+}
+.date{
+    color: var(--text-secondary-color);
 }

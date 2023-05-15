@@ -2,31 +2,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 }
 
-.button {
+.button, .active {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 60px;
   width: 60px;
   cursor: pointer;
-  background-color: var(--bg-color);
-  color: var(--text-third-color);
   border-radius: 50%;
+  margin: 0 3px 0 3px;
   border: none;
   box-shadow: 0 3px 8px rgba(21, 57, 42, 0.25),
     3px 3px 8px rgba(21, 57, 42, 0.25), 0 3px 8px rgba(21, 57, 42, 0.25), 0 0;
   transition: 0.25s;
 }
 
+.button{
+  background-color: var(--bg-color);
+  /* color: var(--text-third-color); */
+}
+
 .active {
   background-color: var(--bg-secondary-color);
-  border: 1.5px solid var(--text-third-color);
-  height: 58px;
-  width: 58px;
-  box-shadow: inset -4px -4px 12px rgba(0, 0, 0, 0.1),
-    inset 4px 4px 12px rgba(0, 0, 0, 0.1);
+  color: var(--text-Fourth-color);
+}
+
+.day{
+width: 40px;
+height: 40px;
 }
 
 .active > .icon {
@@ -58,17 +64,56 @@
     transform: rotate(0deg);
   }
 }
+.inText{
+  margin-top: 7px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  text-align: center;
+}
 
 .icon {
   width: 37px;
   height: 37px;
-  transition: 0.15s;
+  /* transition: 0.15s; */
   filter: contrast(30%);
 }
 
-.text {
-  line-height: 28px;
-  font-family: "cambo";
-  font-size: large;
-  filter: opacity(99%);
+
+.active .icon{
+   color: var(--text-Fourth-color);
+   filter: contrast(100%);
 }
+
+
+/* .active > .icon {
+  animation-name: spin;
+  animation-duration: 250ms;
+  animation-timing-function: linear;
+} */
+
+/* @keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+/* 
+:not(.active) > .icon {
+  animation-name: spin-reverse;
+  animation-duration: 250ms;
+  animation-timing-function: linear;
+} */
+
+/* @keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+} */
+
+
+

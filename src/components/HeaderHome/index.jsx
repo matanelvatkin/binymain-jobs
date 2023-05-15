@@ -1,15 +1,13 @@
 import React, { useState, useContext } from 'react'
 import styles from "./style.module.css";
-import { FiSearch } from 'react-icons/fi'
 import { CgPlayListSearch } from 'react-icons/cg'
 import Logo from '../../images/logo.png';
 import {TbListSearch} from 'react-icons/tb'
 import {BiAnalyse} from 'react-icons/bi'
-import {GoSettings} from 'react-icons/go'
+import {GoSettings, GoSearch} from 'react-icons/go'
 import {BsThreeDotsVertical} from 'react-icons/bs'
 import { useNavigate , useParams} from 'react-router-dom';
 import headerContext from '../../context/headerContext';
-import SettingsNavBar from '../SettingsNavBar';
 
 function HeaderHome({ isValid, setIsValid }) {
   const navigate = useNavigate()
@@ -19,7 +17,7 @@ function HeaderHome({ isValid, setIsValid }) {
   const [showSettings, setShowSettings] = useState(false);
   // const [wordsearch, setWordsearch] = useState("")
 
-
+ 
   // useEffect(() => {
   //   const handleScroll = () => {
   //     const scrollTop = window.pageYOffset || document.documentElement.scrollTop
@@ -39,35 +37,30 @@ function HeaderHome({ isValid, setIsValid }) {
     <div className={styles.main}> 
        <div className={styles.headerHome_container} >
         <div >
-          <div className={styles.titleBox}>
+          <div className={styles.titleBox} onClick={() =>{setSearch("")}}>
            <h1 className={styles.title}> HereEvent </h1>
            <BiAnalyse className={styles.logo}/>
            
            </div >
         </div>
         <div className={styles.options}>
-          <div className={styles.searchContainer}>
-          <span 
-          className={styles.advanceContainer}> 
-          <FiSearch className={styles.icon}/> </span >
+        <span className={styles.advanceContainer} onClick={() =>{navigate("/searchEvent")}}> <GoSettings className={styles.icon} /></span>
+        <div className={styles.searchContainer}>
+          <span> 
+          <GoSearch className={styles.iconSearch}/> </span >
            <input 
             dir='rtl' 
-            placeholder='אירועים בסביבה שלך...' 
-            className={showInput? styles.visibleInput : styles.hiddenInput} 
+            placeholder=' אירועים בסביבה שלך...' 
+            className={styles.visibleInput} 
             type="search" 
             defaultValue={search} 
             onChange={(e)=>{(e.target.value.length>=3)? setSearch(e.target.value):setSearch("")}}/>
           </div>
-          <div className={styles.searchContainer} onClick={() =>{navigate("/searchEvent")}}>
-          <span>
-          <GoSettings className={styles.icon} />
-          {/* onClick={()=> setShowInput(!showInput)} */}
-           </span>
-          <span className={styles.optionsText} >חיפוש מתקדם</span>
+       
           </div>
           </div>  
           </div>
-          </div>
+
   
 //the header before the design.
   // <div className={styles.main} style={{ height: `${headerHeight}vh` }}> 
