@@ -67,3 +67,31 @@ margin-left: 30px;
   font-size: 20px;
 }
 
+
+.adminContainer{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100px;
+}
+
+.adminPublish{
+  width: 65px;
+  height: 65px;
+  background-color: rgb(31, 180, 31);
+  color: aliceblue;
+  font-size: medium;
+  border-radius: 50%;
+  border: none;
+}
+
+
+.adminDelete{
+  width: 65px;
+  height: 65px;
+  background-color: red;
+  color: aliceblue;
+  font-size: medium;
+  border-radius: 50%;
+  border: none;
+}
