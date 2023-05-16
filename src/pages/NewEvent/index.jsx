@@ -16,9 +16,13 @@ import {FaShekelSign} from 'react-icons/fa'
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
+import popUpContext from "../../context/popUpContext";
+
+
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup,setNewEventPopup] = useState(false)
+  const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -297,7 +301,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     apiCalls("post", "/event/createvent", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
-      if (res._id != "") {
+      if (res._id != "") { 
+        setSaveEventMode(true)
+        setPopUpText("האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו");
+        setPopUp(true)
         const newEventId = res._id;
         nav(`/viewEvent/${newEventId}`);
       }
