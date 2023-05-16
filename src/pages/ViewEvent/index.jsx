@@ -191,6 +191,10 @@ export default function ViewEvent() {
           <TbTicket className={style.ticketIcon}/>
         </ClassicButton>
         </div>
+        {/* <div className={style.adminContainer}>
+        <button className={style.adminPublish} >Publish</button>
+        <button className={style.adminDelete}>Delete</button>
+        </div> */}
       </div>
     </div>
   );
