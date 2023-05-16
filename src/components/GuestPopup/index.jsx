@@ -27,7 +27,7 @@ function  GuestPopup({text,guestMode,saveEventMode}) {
           onClick={navToRegistretionPage}
           text={"הירשם עכשיו"}
         />}
-        {guestMode&&
+        {(guestMode||saveEventMode)&&
         <ClassicButton
           width={'45%'}
           onClick={()=>{setPopUp(false) ; setSaveEventMode(false)}}
