@@ -27,9 +27,10 @@ function Main() {
     if(token){
     apiCalls("post", "/user/verify",  { aoutherizetion: token })
       .then((res) => {
-        const verifiedUser = JSON.stringify(res)
-        if (verifiedUser) {
-          setUser(true);
+        // const verifiedUser = JSON.stringify(res)
+        if (res) {
+          setUser(res);
+          console.log(res);
         } else if (res.status === 401) {
           setUser(false);
           setGuestMode(true);
@@ -53,7 +54,7 @@ function Main() {
 
   useEffect(() => {
     VerifyToken(); 
-  });
+  },[]);
 
   return (
     <main>

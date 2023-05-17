@@ -78,20 +78,13 @@ margin-left: 30px;
 .adminPublish{
   width: 65px;
   height: 65px;
-  background-color: rgb(31, 180, 31);
+  background-color: var(--bg-secondary-color);
   color: aliceblue;
   font-size: medium;
   border-radius: 50%;
   border: none;
-}
+} 
 
-
-.adminDelete{
-  width: 65px;
-  height: 65px;
-  background-color: red;
-  color: aliceblue;
-  font-size: medium;
-  border-radius: 50%;
-  border: none;
+.adminPublish:active{
+  background-color: rgb(94, 94, 94);
 }

@@ -42,7 +42,7 @@ function Login() {
       })
       console.log(res);
     if (res.token) {
-      setUser(true)
+      setUser(res.user)
       setToken(res.token)
       localStorage.setItem('Token', res.token)
       console.log('token set');
