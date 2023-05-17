@@ -25,3 +25,12 @@
 .priceInline {
   display: inline;
 }
+span {
+  padding: 3;
+  color: red;
+  display: none;
+}
+
+input:invalid ~ span {
+  display: block;
+}
