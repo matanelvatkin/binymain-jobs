@@ -70,28 +70,28 @@ margin-left: 30px;
 
 .adminContainer{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  margin-left: 5%;
   height: 100px;
 }
 
 .adminPublish{
-  width: 65px;
-  height: 65px;
-  background-color: rgb(31, 180, 31);
-  color: aliceblue;
-  font-size: medium;
-  border-radius: 50%;
+  width: 200px;
+  height: 55px;
+  background-color: var(--bg-secondary-color);
+  color: var(--text-Fourth-color);
+  font-size: large;
+  border-radius: 12px;
   border: none;
-}
+} 
 
-
-.adminDelete{
-  width: 65px;
-  height: 65px;
-  background-color: red;
-  color: aliceblue;
-  font-size: medium;
-  border-radius: 50%;
+.active{
+  width: 200px;
+  height: 55px;
+  background-color: var(--text-third-color);
+  color: var(--text-Fourth-color);
+  font-size: large;
+  border-radius: 12px;
   border: none;
 }

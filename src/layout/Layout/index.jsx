@@ -16,6 +16,7 @@ export const settingsContext = createContext();
 
 function Layout() {
   const [user, setUser] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [popUp, setPopUp] = useState(false);
   const [guestMode, setGuestMode] = useState(false);
   const [saveEventMode, setSaveEventMode] = useState(false);
@@ -73,7 +74,7 @@ function Layout() {
 
   return (
     <>
-      <userContext.Provider value={{ user, setUser }}>
+      <userContext.Provider value={{ user, setUser, isAdmin, setIsAdmin }}>
         <popUpContext.Provider value={{ setPopUp, setGuestMode, setPopUpText,setSaveEventMode }}>
           <headerContext.Provider
             value={{ header, setHeader, search, setSearch }}
