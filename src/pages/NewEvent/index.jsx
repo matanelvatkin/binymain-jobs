@@ -134,6 +134,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "time",
       label: "זמן התחלה",
       placeholder: "זמן התחלה",
+      required: true,
     },
     {
       id: 6,
@@ -141,6 +142,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "time",
       label: "זמן סיום",
       placeholder: "זמן סיום",
+      required: true,
     },
     {
       id: 7,
@@ -149,6 +151,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       label: "עלות",
       placeholder: "עלות",
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
+      required: true,
     },
     {
       id: 1,
@@ -172,6 +175,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "selectIcon",
       label: "קטגוריה",
       placeholder: "קטגוריה",
+      required: true,
     },
     {
       id: 9,
@@ -179,6 +183,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "selectIcon",
       label: "קהל יעד",
       placeholder: "קהל יעד",
+      required: true,
     },
     {
       id: 10,
@@ -193,27 +198,30 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "registrationPageURL",
       type: "text",
       // label: "דף הרשמה לאירוע",
-      placeholder: "דף הרשמה לאירוע",
+      placeholder: " לינק להרשמה/כרטיסים לאירוע",
+      required: true,
     },
     {
       id: 12,
       name: "cardImageURL",
       type: "file",
       label: "תמונת אירוע",
+      required: true,
     },
     {
       id: 13,
       name: "coverImageURL",
       type: "file",
       label: "תמונת כיסוי",
+      required: true,
     },
-    {
-      id: 14,
-      name: "gallery",
-      type: "file",
-      label: "העלה תמונות לגלריה",
-      multiple: true,
-    },
+    // {
+    //   id: 14,
+    //   name: "gallery",
+    //   type: "file",
+    //   label: "העלה תמונות לגלריה",
+    //   multiple: true,
+    // },
     {
       id: 15,
       name: "advertiserName",
@@ -287,17 +295,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       })
     );
 
-    console.log(" Simple console.log formData", formData);
-    console.log(" Console.log + extract value from formData", [
-      ...formData.entries(),
-    ]);
+    console.log([...formData.entries()]);
 
     apiCalls("post", "/event/createvent", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
       if (res._id != "") {
         const newEventId = res._id;
-        nav(`/viewEvent/${newEventId}`);
+        nav(`/`);
       }
     });
   };
