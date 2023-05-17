@@ -302,7 +302,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     }).then((res) => {
       if (res._id != "") {
         const newEventId = res._id;
-        nav(`/viewEvent/${newEventId}`);
+        nav(`/`);
       }
     });
   };
