@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import headerContext from "../../context/headerContext";
-import translation from "./translation";
+import { locations, translation } from "./translation";
 import style from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
 import RoundButton from "../../components/RoundButton";
@@ -8,6 +8,8 @@ import DateInput from "../../components/DateInput";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { settingsContext } from "../../layout/Layout";
+import Select from "../../components/Select";
+import { ImLocation } from "react-icons/im";
 
 export default function SearchEvent() {
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ export default function SearchEvent() {
     }
   }, [settingContext.audiences, settingContext.categories]);
 
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState("");
 
   const [date, setDate] = useState(new Date());
 
@@ -63,7 +65,9 @@ export default function SearchEvent() {
   function clickCategory(e) {
     setCategories((prev) =>
       prev.map((v, i) =>
-        i == e.target.id ? { ...v, isActive: !v.isActive } : v
+        i == e.target.id
+          ? (console.log(e.target), { ...v, isActive: !v.isActive })
+          : v
       )
     );
   }
@@ -94,11 +98,11 @@ export default function SearchEvent() {
     setDate(() => new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
   }
 
-  function handleSelectDate(date) {
-    setDate(() => date);
-    if (btnDates.thisWeek)
-      setBtnDates((prev) => ({ ...prev, thisWeek: false }));
-  }
+  // function handleSelectDate(date) {
+  //   setDate(() => date);
+  //   if (btnDates.thisWeek)
+  //     setBtnDates((prev) => ({ ...prev, thisWeek: false }));
+  // }
 
   function handleSubmit() {
     let dateArr = date.toLocaleDateString().split(" ");
@@ -219,6 +223,16 @@ export default function SearchEvent() {
 
         <div className={style.section}>
           <span className={style.title}>{translation.location}</span>
+          <div className={style.location}>
+            {
+              <Select
+                placeholder={location}
+                choossArray={locations}
+                func={setLocation}
+                icon="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
+              />
+            }
+          </div>
         </div>
 
         <div className={style.section}>
@@ -248,7 +262,7 @@ export default function SearchEvent() {
               oppositeColor
             />
           </div>
-          <DateInput func={handleSelectDate} val={date} />
+          {/* <DateInput func={handleSelectDate} val={date} /> */}
         </div>
 
         <div className={style.footerBtn}>

@@ -14,11 +14,15 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { BiMoney } from "react-icons/bi";
 import FavouriteMark from "../../components/FavouriteMark";
+import userContext from "../../context/userContext";
 
 // Creator: Naama Orlan
 //This page view the details of a specific event.
 
 export default function ViewEvent() {
+
+  const {user} = useContext(userContext);
+  const {isAdmin, setIsAdmin} = useContext(userContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרטי האירוע");
 
@@ -32,16 +36,23 @@ export default function ViewEvent() {
   const [loading, setLoading] = useState(true);
   const [eventData, setEventData] = useState();
   const [datesOfEvents, setDatesOfEvents] = useState([]);
+  const [isActive, setIsActive] = useState(false);
+  const [isPublished, setIsPublished] = useState(false);
+
 
   async function fetchEvent() {
     let apiData = await apiCalls("get", "/event/" + event);
+    if (user.userType === "admin") {
+      setIsAdmin(true)
+    }
     setEventData(apiData);
     setDatesOfEvents(apiData.date)
+    
   }
+
 
   useEffect(() => {
     fetchEvent();
-
   }, []);
 
   useEffect(() => {
@@ -65,6 +76,27 @@ export default function ViewEvent() {
   //     return "future";
   //   }
   // }
+
+
+  const handleButtonToggle = () => {
+    if (!isPublished) {
+      setIsActive(!isActive);
+      if (!isActive) {
+        handlePublish();
+      }
+    }
+  };
+
+  
+  const handlePublish = async () => {
+    try {
+      const updatedData = await apiCalls("put", `/event/${event}`, { status: "published" });
+      console.log(updatedData);
+      setIsPublished(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className={style.container}>
@@ -193,10 +225,16 @@ export default function ViewEvent() {
           <TbTicket className={style.ticketIcon}/>
         </ClassicButton>
         </div>
-        {/* <div className={style.adminContainer}>
-        <button className={style.adminPublish} >Publish</button>
-        <button className={style.adminDelete}>Delete</button>
-        </div> */}
+        {isAdmin &&
+        <div className={style.adminContainer}>
+        <button 
+        className={`${style.adminPublish ? (isActive ? style.active : style.adminPublish): style.active}`}
+        onClick={handleButtonToggle}
+        disabled={isPublished || isActive}
+        >
+          {isActive ? 'פורסם בהצלחה 👍🏽' : 'פרסם'}
+        </button>
+        </div>}
       </div>
     </div>
   );
