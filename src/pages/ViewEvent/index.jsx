@@ -168,7 +168,9 @@ export default function ViewEvent() {
               <div className={style.reactIcon}>
                 <BiMoney />
               </div>
-              <div className={style.payment}> כניסה חופשית</div>
+              <div className={style.payment}>
+          {eventData.payment.isFree === true? "כניסה חופשית" : "בתשלום" }
+                </div>
             </div>
           ) : (
             <p>loading...</p>

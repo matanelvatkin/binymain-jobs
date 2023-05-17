@@ -18,6 +18,7 @@ function Layout() {
   const [user, setUser] = useState(false);
   const [popUp, setPopUp] = useState(false);
   const [guestMode, setGuestMode] = useState(false);
+  const [saveEventMode, setSaveEventMode] = useState(false);
   const [popUpText, setPopUpText] = useState("");
   const location = useLocation();
 
@@ -59,7 +60,8 @@ function Layout() {
         !user &&
         (location.pathname == "/searchEvent" ||
           location.pathname.startsWith("/viewEvent"))
-      ) {
+      ) 
+      {
         setGuestMode(true);
         setPopUpText("עדיין לא יצא לנו להכיר😊");
         setPopUp(true);
@@ -72,7 +74,7 @@ function Layout() {
   return (
     <>
       <userContext.Provider value={{ user, setUser }}>
-        <popUpContext.Provider value={{ setPopUp, setGuestMode, setPopUpText }}>
+        <popUpContext.Provider value={{ setPopUp, setGuestMode, setPopUpText,setSaveEventMode }}>
           <headerContext.Provider
             value={{ header, setHeader, search, setSearch }}
           >
@@ -81,7 +83,7 @@ function Layout() {
               <fakeDataContext.Provider value={{ fakeData }}>
                 <Main />
                 {popUp &&
-            <GuestPopup text={popUpText} guestMode={guestMode}/> 
+            <GuestPopup text={popUpText} guestMode={guestMode} saveEventMode={saveEventMode}/> 
           }
 
 
