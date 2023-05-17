@@ -315,8 +315,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   }, [values.repeatType]);
 
   useEffect(() => {
-    setAudiences(settingContext.audiences);
-    setCategories(settingContext.categories);
+    setAudiences(() => [...settingContext.audiences]);
+    setCategories(() => [...settingContext.categories]);
   }, [settingContext.audiences, settingContext.categories]);
   useEffect(() => {
     console.log({ values });
@@ -366,6 +366,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 values={values}
                 setValues={setValues}
                 array={input.name === "category" ? categories : audiences}
+                setArray={
+                  input.name === "category" ? setCategories : setAudiences
+                }
               />
             );
           } else if (input.type === "select")

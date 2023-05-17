@@ -12,6 +12,7 @@ import { hebTranslation } from "./translition";
 
 const SelectIcon = ({
   array = [],
+  setArray,
   setValues = () => {},
   values,
   name,
@@ -21,34 +22,25 @@ const SelectIcon = ({
   inText,
   ...props
 }) => {
-  const [activeArray, setActiveArray] = useState([...array]);
-
-  useEffect(() => {
-    setActiveArray(() => [...array]);
-  }, []);
-
-  console.log(array);
-  console.log(activeArray);
   const handleCategoryClick = (e) => {
-    // if (activeArray.includes(category)) {
-    //   setActiveArray(activeArray.filter((item) => item !== category));
-    //   setActiveArray(activeArray.filter((item) => item !== category));
-    // } else {
-    //   setActiveArray([...activeArray, category]);
-    // }
-    // setActiveArray((prev) => {
-    //   console.log(prev);
-    // });
+    if (typeof setArray === "function") {
+      setArray((prev) =>
+        prev.map((v, i) =>
+          i == e.target.getAttribute("data-index")
+            ? { ...v, isActive: !v.isActive }
+            : v
+        )
+      );
+    }
   };
+
   useEffect(() => {
     setValues((prev) => ({
       ...prev,
-      [name]: activeArray.map((obj) => {
-        console.log(obj);
-        return obj;
-      }),
+      [name]: array.filter((obj) => obj.isActive),
     }));
-  }, [activeArray]);
+  }, [array]);
+
   return (
     <div className={styles.main}>
       <div className={styles.container}>
@@ -62,8 +54,6 @@ const SelectIcon = ({
               text={hebTranslation[category.name]}
               icon={category.icon}
               isActive={category.isActive}
-              activeArray={activeArray}
-              setActiveArray={setActiveArray}
               func={handleCategoryClick}
               {...props}
             />

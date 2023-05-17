@@ -19,7 +19,12 @@ function RoundButton({ icon, func, text, inText, Days, ...props }) {
         {...props}
         type="button"
       >
-        <img className={styles.icon} src={icon} id={props.id} />
+        <img
+          className={styles.icon}
+          src={icon}
+          id={props.id}
+          data-index={props["data-index"]}
+        />
       </button>
       <span>{text}</span>
     </div>
