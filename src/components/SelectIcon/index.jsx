@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RoundButton from "../RoundButton";
 import styles from "./style.module.css";
+import { hebTranslation } from "./translition";
 
 // creator: Yisrael Olonoff
 // this function takes an array of objects containing icon and name keys,
@@ -11,6 +12,7 @@ import styles from "./style.module.css";
 
 const SelectIcon = ({
   array = [],
+  setArray,
   setValues = () => {},
   values,
   name,
@@ -18,44 +20,41 @@ const SelectIcon = ({
   text,
   icon,
   inText,
-  Days,
   ...props
 }) => {
-  const [activeArray, setActiveArray] = useState([...array]);
-  console.log(activeArray);
-  const handleCategoryClick = (category) => {
-    if (activeArray.includes(category)) {
-      setActiveArray([
-        ...activeArray,
-        (activeArray.indexOf(category).isActive = false),
-      ]);
-    } else {
-      console.log(category);
-      setActiveArray([
-        ...activeArray,
-        (activeArray.indexOf(category).isActive = true),
-      ]);
+  const handleCategoryClick = (e) => {
+    if (typeof setArray === "function") {
+      setArray((prev) =>
+        prev.map((v, i) =>
+          i == e.target.getAttribute("data-index")
+            ? { ...v, isActive: !v.isActive }
+            : v
+        )
+      );
     }
   };
+
   useEffect(() => {
-    setValues({ ...values, [name]: activeArray });
-  }, [activeArray]);
+    setValues((prev) => ({
+      ...prev,
+      [name]: array.filter((obj) => obj.isActive),
+    }));
+  }, [array]);
+
   return (
     <div className={styles.main}>
       <div className={styles.container}>
         <p className={styles.header}>{header}</p>
-        <div className={Days ? styles.icons + " " + styles.days : styles.icons}>
+        <div className={styles.icons}>
           {array.map((category, index) => (
             <RoundButton
               inText={inText}
+              data-index={index}
               key={index}
-              text={category.name}
+              text={hebTranslation[category.name]}
               icon={category.icon}
-              isActive={activeArray.includes(category)}
-              activeArray={activeArray}
-              setActiveArray={setActiveArray}
-              func={() => handleCategoryClick(category.name)}
-              Days
+              isActive={category.isActive}
+              func={handleCategoryClick}
               {...props}
             />
           ))}

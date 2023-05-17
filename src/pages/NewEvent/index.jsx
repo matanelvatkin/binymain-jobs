@@ -16,12 +16,9 @@ import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
-import popUpContext from "../../context/popUpContext";
-
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup, setNewEventPopup] = useState(false);
-  const { setPopUpText, setPopUp, setSaveEventMode } = useContext(popUpContext);
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -131,6 +128,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
+    {
     {
       id: 5,
       name: "beginningTime",
@@ -304,11 +302,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
       if (res._id != "") {
-        setSaveEventMode(true);
-        setPopUpText(
-          "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
-        );
-        setPopUp(true);
         const newEventId = res._id;
         nav(`/viewEvent/${newEventId}`);
       }
@@ -328,8 +321,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   }, [values.repeatType]);
 
   useEffect(() => {
-    setAudiences(settingContext.audiences);
-    setCategories(settingContext.categories);
+    setAudiences(() => [...settingContext.audiences]);
+    setCategories(() => [...settingContext.categories]);
   }, [settingContext.audiences, settingContext.categories]);
   useEffect(() => {
     console.log({ values });
@@ -367,7 +360,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 choossArray={input.name === "repeatType" ? typeData : placeData}
               />
             );
-          else if (input.type === "selectIcon")
+          else if (input.type === "selectIcon") {
+            console.log(input);
             return (
               <SelectIcon
                 {...input}
@@ -377,10 +371,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                array={input.name === "categories" ? categories : audiences}
+                array={input.name === "category" ? categories : audiences}
+                setArray={
+                  input.name === "category" ? setCategories : setAudiences
+                }
               />
             );
-          else if (input.type === "select")
+          } else if (input.type === "select")
             return (
               <Select
                 {...input}
