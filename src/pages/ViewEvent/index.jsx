@@ -168,7 +168,9 @@ export default function ViewEvent() {
               <div className={style.reactIcon}>
                 <BiMoney />
               </div>
-              <div className={style.payment}> כניסה חופשית</div>
+              <div className={style.payment}>
+          {eventData.payment.isFree === true? "כניסה חופשית" : "בתשלום" }
+                </div>
             </div>
           ) : (
             <p>loading...</p>
@@ -191,6 +193,10 @@ export default function ViewEvent() {
           <TbTicket className={style.ticketIcon}/>
         </ClassicButton>
         </div>
+        {/* <div className={style.adminContainer}>
+        <button className={style.adminPublish} >Publish</button>
+        <button className={style.adminDelete}>Delete</button>
+        </div> */}
       </div>
     </div>
   );
