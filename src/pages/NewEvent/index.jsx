@@ -129,7 +129,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       required: true,
     },
     {
-    {
       id: 5,
       name: "beginningTime",
       type: "time",
