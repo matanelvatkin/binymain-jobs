@@ -33,6 +33,12 @@
 
 }
 
+.location {
+    margin-top: 1.5%;
+    margin-right: 2%;
+    margin-left: -5px;
+}
+
 .audiences {
     display: flex;
 }
