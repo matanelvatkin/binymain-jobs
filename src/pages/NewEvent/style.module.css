@@ -26,7 +26,7 @@
   display: inline;
 }
 span {
-  padding: 3;
+  padding: 3px;
   color: red;
   display: none;
 }
