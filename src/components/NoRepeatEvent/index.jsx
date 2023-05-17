@@ -6,7 +6,8 @@ import styles from "./style.module.css";
 export default function NoRepeatEvent({
   values,
   setValues = () => {},
+  timeString,
   ...props
 }) {
-  return <DateInput values={values} setValues={setValues} />;
+  return <DateInput values={values} setValues={setValues} timeString={timeString} />;
 }

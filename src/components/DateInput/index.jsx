@@ -4,9 +4,10 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
+import beginDateUpdate from "../../function/beginDateUpdate";
 
 // creator: Hadar Naiman
-export default function DateInput({ values, setValues = () => {}, ...props }) {
+export default function DateInput({ values, setValues = () => {}, timeString ,  ...props }) {
   const [datepicker, setdatepicker] = useState(false);
   const [selectDate, setSelectDate] = useState(
     props.val ? props.val : new Date()
@@ -16,9 +17,10 @@ export default function DateInput({ values, setValues = () => {}, ...props }) {
   }, [selectDate]);
 
   function dateSelectHandle(date) {
-    setSelectDate(() => date);
+    const dateUpdate = beginDateUpdate(date,timeString)
+    setSelectDate(() => dateUpdate);
     setdatepicker(!datepicker);
-    if (typeof props.func === "function") props.func(date);
+    if (typeof props.func === "function") props.func(dateUpdate);
   }
 
   function dateFormat(dateString) {

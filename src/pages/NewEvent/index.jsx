@@ -17,6 +17,7 @@ import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
 import popUpContext from "../../context/popUpContext";
+import beginDateUpdate from "../../function/beginDateUpdate";
 
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
@@ -331,7 +332,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log({ values });
   }, [values]);
   const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    if(e.target.name==="beginningTime"){
+      setValues((prev) => ({...prev, date: beginDateUpdate(prev.date , e.target.value) , [e.target.name]: e.target.value,}));
+    } 
+    else{
+      setValues((prev) => ({...prev,[e.target.name]: e.target.value,}));
+    }
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
     console.log("file", fileData);
   };
@@ -396,7 +402,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
           else if (input.type === "אירוע ללא חזרה")
-            return <NoRepeatEvent values={values} setValues={setValues} />;
+            return <NoRepeatEvent values={values} setValues={setValues} timeString={values.beginningTime} />;
           else if (input.type === "button")
             return <div onClick={()=>setNewEventPopup(true)}>מתקדם</div>
          else if (input.type === "toogleSwitch")
