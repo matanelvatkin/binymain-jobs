@@ -15,9 +15,9 @@
   grid-gap: 4px;
 }
 
-.days{
+.days {
   display: flex;
-  margin-top: 6px ;
+  margin-top: 6px;
   margin-bottom: 10px;
   width: 100%;
 }
@@ -29,4 +29,13 @@
   line-height: 34px;
   letter-spacing: 0.01em;
   filter: opacity(99%);
+}
+span {
+  padding: 3;
+  color: red;
+  /* display: none; */
+}
+
+input:invalid ~ span {
+  display: block;
 }
