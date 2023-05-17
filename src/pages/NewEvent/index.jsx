@@ -12,13 +12,13 @@ import PersonalEvent from "../../components/PersonalEvent";
 import WeeklyEvent from "../../components/WeeklyEvent";
 import DailyEvent from "../../components/DailyEvent";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
-import {FaShekelSign} from 'react-icons/fa'
+import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
-  const [newEventPopup,setNewEventPopup] = useState(false)
+  const [newEventPopup, setNewEventPopup] = useState(false);
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -112,11 +112,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: constancy || "אירוע ללא חזרה",
     },
     {
-        id:3,
-        name: "advanced",
-        type: "button",
-        placeholder:"מתקדם",
-        label:"מתקדם"
+      id: 3,
+      name: "advanced",
+      type: "button",
+      placeholder: "מתקדם",
+      label: "מתקדם",
     },
 
     {
@@ -128,7 +128,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
- {
+    {
       id: 5,
       name: "beginningTime",
       type: "time",
@@ -148,16 +148,16 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "toogleSwitch",
       label: "עלות",
       placeholder: "עלות",
-      icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png"
-    
-    },{
+      icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
+    },
+    {
       id: 1,
       name: "price",
       type: "text",
       placeholder: "מחיר",
       className: styles.priceNone,
     },
-    
+
     // {
     //   id: 7,
     //   name: "repeatType",
@@ -165,8 +165,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     //   label: "תדירות",
     //   placeholder: "אירוע ללא חזרה",
     // },
-   
-  
+
     {
       id: 8,
       name: "category",
@@ -239,7 +238,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       placeholder: "מייל",
       required: true,
     },
-   
   ];
 
   const [eventData, setEventData] = useState({});
@@ -305,7 +303,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   };
 
   useEffect(() => {
-    setConstancy(values.repeatType); 
+    setConstancy(values.repeatType);
     setValues({
       ...values,
       repeatSettingsType: "endDate",
@@ -353,11 +351,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                choossArray={
-                  input.name === "repeatType"
-                    ? typeData
-                    : placeData
-                }
+                choossArray={input.name === "repeatType" ? typeData : placeData}
               />
             );
           else if (input.type === "selectIcon") {
@@ -371,7 +365,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                array={input.name === "categories" ? categories : audiences}
+                array={input.name === "category" ? categories : audiences}
               />
             );
           } else if (input.type === "select")
@@ -392,10 +386,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           else if (input.type === "אירוע ללא חזרה")
             return <NoRepeatEvent values={values} setValues={setValues} />;
           else if (input.type === "button")
-            return <div onClick={()=>setNewEventPopup(true)}>מתקדם</div>
-         else if (input.type === "toogleSwitch")
-         return <ToggleSwitch text="בתשלום"/>;
-          else 
+            return <div onClick={() => setNewEventPopup(true)}>מתקדם</div>;
+          else if (input.type === "toogleSwitch")
+            return <ToggleSwitch text="בתשלום" />;
+          else
             return (
               <Input
                 key={input.id}
@@ -409,14 +403,15 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
         })}
 
-      {newEventPopup &&
-      <NewEventPopup 
-      setNewEventPopup={setNewEventPopup}
-      values={values}
-      setValues={setValues} 
-      constancy={constancy} 
-      setConstancy={setConstancy} />
-      }
+        {newEventPopup && (
+          <NewEventPopup
+            setNewEventPopup={setNewEventPopup}
+            values={values}
+            setValues={setValues}
+            constancy={constancy}
+            setConstancy={setConstancy}
+          />
+        )}
 
         <div className={styles.button}>
           <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RoundButton from "../RoundButton";
 import styles from "./style.module.css";
+import { hebTranslation } from "./translition";
 
 // creator: Yisrael Olonoff
 // this function takes an array of objects containing icon and name keys,
@@ -20,23 +21,33 @@ const SelectIcon = ({
   inText,
   ...props
 }) => {
-  const [activeArray, setActiveArray] = useState([]);
-  const handleCategoryClick = (category) => {
-    if (activeArray.includes(category)) {
-      setActiveArray(activeArray.filter((item) => item !== category));
-      setActiveArray(activeArray.filter((item) => item !== category));
-    } else {
-      setActiveArray([...activeArray, category]);
-    }
+  const [activeArray, setActiveArray] = useState([...array]);
+
+  useEffect(() => {
+    setActiveArray(() => [...array]);
+  }, []);
+
+  console.log(array);
+  console.log(activeArray);
+  const handleCategoryClick = (e) => {
+    // if (activeArray.includes(category)) {
+    //   setActiveArray(activeArray.filter((item) => item !== category));
+    //   setActiveArray(activeArray.filter((item) => item !== category));
+    // } else {
+    //   setActiveArray([...activeArray, category]);
+    // }
+    // setActiveArray((prev) => {
+    //   console.log(prev);
+    // });
   };
   useEffect(() => {
-    setValues({
-      ...values,
+    setValues((prev) => ({
+      ...prev,
       [name]: activeArray.map((obj) => {
         console.log(obj);
         return obj;
       }),
-    });
+    }));
   }, [activeArray]);
   return (
     <div className={styles.main}>
@@ -46,13 +57,14 @@ const SelectIcon = ({
           {array.map((category, index) => (
             <RoundButton
               inText={inText}
+              data-index={index}
               key={index}
-              text={category.name}
+              text={hebTranslation[category.name]}
               icon={category.icon}
-              isActive={activeArray.includes(category.name)}
-              activeArray={activeArray.name}
+              isActive={category.isActive}
+              activeArray={activeArray}
               setActiveArray={setActiveArray}
-              func={() => handleCategoryClick(category.name)}
+              func={handleCategoryClick}
               {...props}
             />
           ))}
