@@ -12,14 +12,17 @@ import PersonalEvent from "../../components/PersonalEvent";
 import WeeklyEvent from "../../components/WeeklyEvent";
 import DailyEvent from "../../components/DailyEvent";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
-import {FaShekelSign} from 'react-icons/fa'
+import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
+
+
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup,setNewEventPopup] = useState(false)
   const ref= useRef();
+
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -113,11 +116,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: constancy || "אירוע ללא חזרה",
     },
     {
-        id:3,
-        name: "advanced",
-        type: "button",
-        placeholder:"מתקדם",
-        label:"מתקדם"
+      id: 3,
+      name: "advanced",
+      type: "button",
+      placeholder: "מתקדם",
+      label: "מתקדם",
     },
 
     {
@@ -129,7 +132,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
- {
+    {
       id: 5,
       name: "beginningTime",
       type: "time",
@@ -149,16 +152,16 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "toogleSwitch",
       label: "עלות",
       placeholder: "עלות",
-      icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png"
-    
-    },{
+      icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
+    },
+    {
       id: 1,
       name: "price",
       type: "text",
       placeholder: "מחיר",
       className: styles.priceNone,
     },
-    
+
     // {
     //   id: 7,
     //   name: "repeatType",
@@ -166,8 +169,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     //   label: "תדירות",
     //   placeholder: "אירוע ללא חזרה",
     // },
-   
-  
+
     {
       id: 8,
       name: "category",
@@ -240,7 +242,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       placeholder: "מייל",
       required: true,
     },
-   
   ];
 
   const [eventData, setEventData] = useState({});
@@ -306,7 +307,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   };
 
   useEffect(() => {
-    setConstancy(values.repeatType); 
+    setConstancy(values.repeatType);
     setValues({
       ...values,
       repeatSettingsType: "endDate",
@@ -318,8 +319,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   }, [values.repeatType]);
 
   useEffect(() => {
-    setAudiences(settingContext.audiences);
-    setCategories(settingContext.categories);
+    setAudiences(() => [...settingContext.audiences]);
+    setCategories(() => [...settingContext.categories]);
   }, [settingContext.audiences, settingContext.categories]);
   useEffect(() => {
     console.log({ values });
@@ -354,14 +355,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                choossArray={
-                  input.name === "repeatType"
-                    ? typeData
-                    : placeData
-                }
+                choossArray={input.name === "repeatType" ? typeData : placeData}
               />
             );
-          else if (input.type === "selectIcon")
+          else if (input.type === "selectIcon") {
+            console.log(input);
             return (
               <div className={styles.selectIcon}>
               <div className={styles.iconLabel}>{input.label}</div>
@@ -373,10 +371,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                array={input.name === "categories" ? categories : audiences}
-              /></div>
+                array={input.name === "category" ? categories : audiences}
+                setArray={
+                  input.name === "category" ? setCategories : setAudiences
+                }
+              />
+        </div>
             );
-          else if (input.type === "select")
+          } else if (input.type === "select")
             return (
               <Select
                 {...input}
@@ -394,10 +396,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           else if (input.type === "אירוע ללא חזרה")
             return<div className={styles.date}> <NoRepeatEvent values={values} setValues={setValues} /></div>;
           else if (input.type === "button")
-            return <div className={styles.advanced} onClick={()=>setNewEventPopup(true)}>מתקדם</div>
-         else if (input.type === "toogleSwitch")
-         return <ToggleSwitch text="בתשלום"/>;
-          else 
+            return <div className={styles.advanced} onClick={() => setNewEventPopup(true)}>מתקדם</div>;
+          else if (input.type == "toogleSwitch")
+            return <ToggleSwitch text="בתשלום" />;
+          else
             return (
               <Input
                 key={input.id}
@@ -411,14 +413,15 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
         })}
 
-      {newEventPopup &&
-      <NewEventPopup 
-      setNewEventPopup={setNewEventPopup}
-      values={values}
-      setValues={setValues} 
-      constancy={constancy} 
-      setConstancy={setConstancy} />
-      }
+        {newEventPopup && (
+          <NewEventPopup
+            setNewEventPopup={setNewEventPopup}
+            values={values}
+            setValues={setValues}
+            constancy={constancy}
+            setConstancy={setConstancy}
+          />
+        )}
 
         <div className={styles.button}>
           <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />

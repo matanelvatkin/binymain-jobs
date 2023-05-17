@@ -1,4 +1,4 @@
-import React, {  useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
 import EventCard from "../../components/EventCard";
@@ -16,34 +16,31 @@ import apiCalls from "../../function/apiCalls";
 // pageSize= how many events in loading
 
 function Home() {
-  
-  
-  const pageSize = 10
+  const pageSize = 10;
 
   const [events, setEvents] = useState([]);
-  const [nextPage, setNextPage] = useState(1)
+  const [nextPage, setNextPage] = useState(1);
 
-  
-  const { search , setHeader } = useContext(headerContext);
+  const { search, setHeader } = useContext(headerContext);
   const { user, setUser } = useContext(userContext);
   const { setPopUp, setGuestMode, setPopUpText } = useContext(popUpContext);
-  
+
   const navigate = useNavigate();
 
-  useEffect(() => {fetchEventsSearch()}, [search]);
-  
+  useEffect(() => {
+    fetchEventsSearch();
+  }, [search]);
+
   const navToNewEvent = () => {
-    // if(!user){
+    if (!user) {
       setPopUp(true);
       setGuestMode(false);
       setPopUpText("כדי שתוכל לפרסם אירוע, נהיה חייבים להכיר😊");
-      
-      // }
-      // else{
-        navigate("/newEvent");
-        // }
-      };
-      
+    } else {
+      navigate("/newEvent");
+    }
+  };
+
   setHeader("home");
 
   const logOut = () => {
@@ -56,27 +53,36 @@ function Home() {
   };
 
   const fetchEventsNext = () => {
-    apiCalls("post", "event", {page: nextPage, pageSize : pageSize , search : search}).then((data) => {
-      setEvents((currentEvent) => currentEvent.concat(data.event))
-      setNextPage(data.nextPage)
+    apiCalls("post", "event", {
+      page: nextPage,
+      pageSize: pageSize,
+      search: search,
+    }).then((data) => {
+      setEvents((currentEvent) => currentEvent.concat(data.event));
+      setNextPage(data.nextPage);
     });
-  }
+  };
 
   const fetchEventsSearch = () => {
-    apiCalls("post", "event", {page: 1, pageSize : pageSize , search : search}).then((data) => {
-      setEvents((data.event))
-      setNextPage(data.nextPage)
+    apiCalls("post", "event", {
+      page: 1,
+      pageSize: pageSize,
+      search: search,
+    }).then((data) => {
+      setEvents(data.event);
+      setNextPage(data.nextPage);
     });
-  }
-
-
-
+  };
 
   return (
     <div className={styles.main}>
       {/* <BiLogOutCircle className={styles.logOut} onClick={logOut} /> */}
       <div className={styles.eventsContainer}>
-        <EventCard events={events} nextPage={nextPage} loadMore={fetchEventsNext}/>
+        <EventCard
+          events={events}
+          nextPage={nextPage}
+          loadMore={fetchEventsNext}
+        />
       </div>
       <div className={styles.button}>
         <ClassicButton
@@ -87,7 +93,6 @@ function Home() {
           }}
         />
       </div>
-              <br/><br/><br/>
     </div>
   );
 }

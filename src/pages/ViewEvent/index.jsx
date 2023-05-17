@@ -14,11 +14,14 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { BiMoney } from "react-icons/bi";
 import FavouriteMark from "../../components/FavouriteMark";
+import userContext from "../../context/userContext";
 
 // Creator: Naama Orlan
 //This page view the details of a specific event.
 
 export default function ViewEvent() {
+
+  const {user} = useContext(userContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרטי האירוע");
 
@@ -32,16 +35,22 @@ export default function ViewEvent() {
   const [loading, setLoading] = useState(true);
   const [eventData, setEventData] = useState();
   const [datesOfEvents, setDatesOfEvents] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   async function fetchEvent() {
     let apiData = await apiCalls("get", "/event/" + event);
+    if (user.userType === "admin") {
+      setIsAdmin(true)
+    }
     setEventData(apiData);
     setDatesOfEvents(apiData.date)
+    
   }
+
 
   useEffect(() => {
     fetchEvent();
-
+    console.log(`im user:  ${user}`);
   }, []);
 
   useEffect(() => {
@@ -168,7 +177,9 @@ export default function ViewEvent() {
               <div className={style.reactIcon}>
                 <BiMoney />
               </div>
-              <div className={style.payment}> כניסה חופשית</div>
+              <div className={style.payment}>
+          {eventData.payment.isFree === true? "כניסה חופשית" : "בתשלום" }
+                </div>
             </div>
           ) : (
             <p>loading...</p>
@@ -191,6 +202,10 @@ export default function ViewEvent() {
           <TbTicket className={style.ticketIcon}/>
         </ClassicButton>
         </div>
+        {isAdmin &&
+        <div className={style.adminContainer}>
+        <button className={style.adminPublish}>Publish</button>
+        </div>}
       </div>
     </div>
   );

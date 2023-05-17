@@ -67,3 +67,24 @@ margin-left: 30px;
   font-size: 20px;
 }
 
+
+.adminContainer{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100px;
+}
+
+.adminPublish{
+  width: 65px;
+  height: 65px;
+  background-color: var(--bg-secondary-color);
+  color: aliceblue;
+  font-size: medium;
+  border-radius: 50%;
+  border: none;
+} 
+
+.adminPublish:active{
+  background-color: rgb(94, 94, 94);
+}

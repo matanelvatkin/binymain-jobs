@@ -7,18 +7,19 @@ import ClassicButton from '../../components/ClassicButton copy';
 import { FaSignInAlt } from 'react-icons/fa'
 import { FiUserPlus } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
-import {setToken} from '../../function/token'
+import { setToken } from '../../function/token'
 import axios from 'axios';
 import userContext from '../../context/userContext';
+import apiCalls from '../../function/apiCalls';
 
 // creator: Yisrael Olonoff
 // login page
 
-  function Login() {
-  const {user,setUser} = useContext(userContext);
+function Login() {
+  const { user, setUser } = useContext(userContext);
   const { setHeader } = useContext(headerContext)
   setHeader('home')
-  
+
   const [checked, setChecked] = useState(true);
   const [userInfo, setUserInfo] = useState({})
 
@@ -32,89 +33,88 @@ import userContext from '../../context/userContext';
     navigate('/forgetPassword');
   };
 
-  const loginAouth = (e) => {
+  const loginAouth = async (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5000/api/user/login", {
-      email: userInfo.email,
-      password: userInfo.password,
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          setUser(true)
-          setToken(res.data.token)
-          localStorage.setItem('Token', res.data.token)
-          // setIsValid(true)
-          console.log('token set');
-          console.log(user);
-          navigate("/");
-      }})
-      .catch((err) => {
-        console.log(err);
-        alert('אימייל/סיסמא לא נכונים')
-      });
-  };
-
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
-  };
-
-  const handleToggleSwitch = (e) => {
-    setChecked(!checked);
-    console.log(checked);
+    const res = await apiCalls("post", "user/login",
+      {
+        email: userInfo.email,
+        password: userInfo.password,
+      })
+      console.log(res);
+    if (res.token) {
+      setUser(res.user)
+      setToken(res.token)
+      localStorage.setItem('Token', res.token)
+      console.log('token set');
+      navigate("/");
+    }
+    else {
+      console.log(res);
+      alert('אימייל/סיסמא לא נכונים')
+    };
   }
 
-  const inputs = [
-    {
-      id: 1,
-      name: "email",
-      type: "email",
-      placeholder: '📧 אימייל',
-      required: true,
-    },
-    {
-      id: 2,
-      name: "password",
-      type: "password",
-      placeholder: "🗝️ סיסמא",
-      required: true,
-    },
-  ];
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setUserInfo({ ...userInfo, [name]: value });
+};
+
+const handleToggleSwitch = (e) => {
+  setChecked(!checked);
+  console.log(checked);
+}
+
+const inputs = [
+  {
+    id: 1,
+    name: "email",
+    type: "email",
+    placeholder: '📧 אימייל',
+    required: true,
+  },
+  {
+    id: 2,
+    name: "password",
+    type: "password",
+    placeholder: "🗝️ סיסמא",
+    required: true,
+  },
+];
 
 
-  return (
-    <div className={styles.main}>
-      <div className={styles.container}>
+return (
+  <div className={styles.main}>
+    <div className={styles.container}>
       <h2>התחברות</h2>
       <form className={styles.form} onSubmit={loginAouth} >
         {inputs.map((input) => {
-            return (
-              <div className={styles.connect}>
+          return (
+            <div className={styles.connect}>
               <Input
-              autoComplete='off'
+                autoComplete='off'
                 key={input.id}
                 {...input}
                 width={'300px'}
                 className={styles.inputs}
                 onChange={handleChange}
               />
-              </div>
-            )
+            </div>
+          )
         })}
-           <div className={styles.switchAndForgot}> 
-           <span 
-           className={styles.forgotPassword} 
-           onClick={navToForgetPassword}
-           >
+        <div className={styles.switchAndForgot}>
+          <span
+            className={styles.forgotPassword}
+            onClick={navToForgetPassword}
+          >
             שכחתי סיסמא
           </span>
-        <ToggleSwitch
-          text={'זכור אותי'}
-          checked={checked}
-          onChange={handleToggleSwitch}
-        />
-          </div>
+          <ToggleSwitch
+            text={'זכור אותי'}
+            checked={checked}
+            onChange={handleToggleSwitch}
+          />
+        </div>
 
         <div className={styles.firstButton}>
           <ClassicButton
@@ -129,16 +129,16 @@ import userContext from '../../context/userContext';
 
       <div className={styles.secondButtonContainer}>
         <div className={styles.secondButton}>
-        <ClassicButton
-          width={'70%'}
-          onClick={navToRegistretionPage}
-        >
-          <FiUserPlus className={styles.icon} /> הרשמה
-        </ClassicButton>
+          <ClassicButton
+            width={'70%'}
+            onClick={navToRegistretionPage}
+          >
+            <FiUserPlus className={styles.icon} /> הרשמה
+          </ClassicButton>
         </div>
       </div>
-      </div>
     </div>
-  )
+  </div>
+)
 }
 export default Login
