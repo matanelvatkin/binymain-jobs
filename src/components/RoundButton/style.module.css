@@ -35,7 +35,7 @@ width: 40px;
 height: 40px;
 }
 
-.active > .icon {
+/* .active > .icon {
   animation-name: spin;
   animation-duration: 250ms;
   animation-timing-function: linear;
@@ -48,8 +48,8 @@ height: 40px;
   to {
     transform: rotate(360deg);
   }
-}
-
+} */
+/* 
 :not(.active) > .icon {
   animation-name: spin-reverse;
   animation-duration: 250ms;
@@ -63,7 +63,7 @@ height: 40px;
   to {
     transform: rotate(0deg);
   }
-}
+} */
 .inText{
   margin-top: 7px;
   margin-bottom: 10px;

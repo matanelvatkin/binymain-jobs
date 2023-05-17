@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { settingsContext } from "../../layout/Layout";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
@@ -19,6 +19,7 @@ import ToggleSwitch from "../../components/ToggleSwitch";
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup,setNewEventPopup] = useState(false)
+  const ref= useRef();
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -186,7 +187,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "summary",
       type: "text",
       // label: "תקציר",
-      placeholder: "תקציר",
+      placeholder: "תיאור האירוע",
       required: true,
     },
     {
@@ -362,6 +363,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
           else if (input.type === "selectIcon")
             return (
+              <div className={styles.selectIcon}>
+              <div className={styles.iconLabel}>{input.label}</div>
               <SelectIcon
                 {...input}
                 inText={false}
@@ -371,7 +374,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 values={values}
                 setValues={setValues}
                 array={input.name === "categories" ? categories : audiences}
-              />
+              /></div>
             );
           else if (input.type === "select")
             return (
@@ -389,9 +392,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
           else if (input.type === "אירוע ללא חזרה")
-            return <NoRepeatEvent values={values} setValues={setValues} />;
+            return<div className={styles.date}> <NoRepeatEvent values={values} setValues={setValues} /></div>;
           else if (input.type === "button")
-            return <div onClick={()=>setNewEventPopup(true)}>מתקדם</div>
+            return <div className={styles.advanced} onClick={()=>setNewEventPopup(true)}>מתקדם</div>
          else if (input.type === "toogleSwitch")
          return <ToggleSwitch text="בתשלום"/>;
           else 

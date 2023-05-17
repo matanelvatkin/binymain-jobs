@@ -27,6 +27,7 @@
   font-weight: 800;
   font-size: 13px;
   line-height: 19px;
+  margin-right: 5px;
 
   text-align: right;
   letter-spacing: 0.01em;
@@ -41,7 +42,7 @@
 .radio{
   display: flex;
 }
-.input[type="text"] {
+.input[type="text"], .input[type="number"] {
   box-sizing: border-box;
 
   /* Auto layout */
@@ -51,6 +52,7 @@
   padding: 12px 16px;
   gap: 10px;
   height: 42px;
+  width: 241px;
 
   /* Gray / 1 */
 
@@ -110,6 +112,7 @@
   justify-content: flex-end;
   align-items: center;
   padding: 12px 16px;
+  margin-bottom: -2px;
   gap: 10px;
 
   width: 335px;
