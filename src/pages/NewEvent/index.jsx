@@ -247,7 +247,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 16,
       name: "advertiserTel",
-      type: "text",
+      type: "tel",
       // label: "טלפון",
       errorMessage: "שדה חובה! יש להזין מספר תקין",
       placeholder: "טלפון",
