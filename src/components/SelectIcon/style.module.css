@@ -33,7 +33,7 @@
 span {
   padding: 3;
   color: red;
-  /* display: none; */
+  display: none;
 }
 
 input:invalid ~ span {

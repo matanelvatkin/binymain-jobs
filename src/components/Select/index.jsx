@@ -9,6 +9,7 @@ const Select = ({
   choossArray = [],
   placeholder = "location",
   icon,
+  errorMessage,
   style = {},
   className = "",
   values,
