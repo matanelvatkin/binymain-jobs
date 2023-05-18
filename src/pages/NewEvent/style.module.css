@@ -25,12 +25,12 @@
 .priceInline {
   display: inline;
 }
-span {
+/* .errorMessage {
   padding: 5px;
   color: red;
   display: none;
 }
 
-input:invalid ~ span {
+input:invalid ~ .errorMessage {
   display: block;
-}
+} */

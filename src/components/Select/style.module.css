@@ -51,12 +51,12 @@
   font-size: 20px;
 }
 
-span {
-  padding: 3;
+.errorMessage {
+  padding: 3px;
   color: red;
-  display: block;
+  display: none;
 }
 
-input:invalid ~ span {
+input:invalid ~ .errorMessage {
   display: block;
 }

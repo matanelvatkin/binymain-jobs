@@ -87,8 +87,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     finishTime: "20:00",
     place: "",
     registrationPageURL: "",
-    categories: [],
-    audiences: [],
+    categories: [{}],
+    audiences: [{}],
     isFree: true,
     price: "",
     days: [],
@@ -178,7 +178,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
     {
       id: 8,
-      name: "category",
+      name: "categories",
       type: "selectIcon",
       label: "קטגוריה",
       errorMessage: "שדה חובה!",
@@ -346,7 +346,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    console.log("file", fileData);
+    console.log("values", values, `${e.target.name}${e.target.value}`);
   };
 
   return (
@@ -389,9 +389,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                array={input.name === "category" ? categories : audiences}
+                array={input.name === "categories" ? categories : audiences}
                 setArray={
-                  input.name === "category" ? setCategories : setAudiences
+                  input.name === "categories" ? setCategories : setAudiences
                 }
               />
             );
