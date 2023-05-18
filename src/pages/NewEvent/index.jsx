@@ -108,6 +108,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "eventName",
       type: "text",
       // label: "שם האירוע",
+      errorMessage: "שדה חובה!",
       placeholder: "שם האירוע",
       required: true,
     },
@@ -120,6 +121,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 3,
       name: "advanced",
       type: "button",
+      errorMessage: "שדה חובה!",
       placeholder: "מתקדם",
       label: "מתקדם",
     },
@@ -129,6 +131,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "place",
       type: "select",
       label: "מקום",
+      errorMessage: "שדה חובה!",
       placeholder: "בחר מיקום",
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
@@ -138,6 +141,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "beginningTime",
       type: "time",
       label: "זמן התחלה",
+      errorMessage: "שדה חובה!",
       placeholder: "זמן התחלה",
       required: true,
     },
@@ -146,6 +150,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "finishTime",
       type: "time",
       label: "זמן סיום",
+      errorMessage: "שדה חובה!",
       placeholder: "זמן סיום",
       required: true,
     },
@@ -154,6 +159,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "payment",
       type: "toogleSwitch",
       label: "עלות",
+      errorMessage: "שדה חובה!",
       placeholder: "עלות",
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
@@ -171,7 +177,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     //   name: "repeatType",
     //   type: "select",
     //   label: "תדירות",
-    //   placeholder: "אירוע ללא חזרה",
+    //  erroreMesagge:"",
+    //  placeholder: "אירוע ללא חזרה",
     // },
 
     {
@@ -179,6 +186,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "category",
       type: "selectIcon",
       label: "קטגוריה",
+      errorMessage: "שדה חובה!",
       placeholder: "קטגוריה",
       required: true,
     },
@@ -187,6 +195,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "audiences",
       type: "selectIcon",
       label: "קהל יעד",
+      errorMessage: "שדה חובה!",
       placeholder: "קהל יעד",
       required: true,
     },
@@ -195,6 +204,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "summary",
       type: "text",
       // label: "תקציר",
+      errorMessage: "שדה חובה!",
       placeholder: "תקציר",
       required: true,
     },
@@ -203,6 +213,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "registrationPageURL",
       type: "text",
       // label: "דף הרשמה לאירוע",
+      errorMessage: "שדה חובה!",
       placeholder: " לינק להרשמה/כרטיסים לאירוע",
       required: true,
     },
@@ -210,6 +221,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 12,
       name: "cardImageURL",
       type: "file",
+      errorMessage: "שדה חובה!",
       label: "תמונת אירוע",
       required: true,
     },
@@ -217,6 +229,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 13,
       name: "coverImageURL",
       type: "file",
+      errorMessage: "שדה חובה!",
       label: "תמונת כיסוי",
       required: true,
     },
@@ -232,22 +245,26 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "advertiserName",
       type: "text",
       // label: "שם המפרסם",
+      errorMessage: "שדה חובה!",
       placeholder: "שם המפרסם",
       required: true,
     },
     {
       id: 16,
       name: "advertiserTel",
-      type: "text",
+      type: "tel",
       // label: "טלפון",
+      errorMessage: "שדה חובה! יש להזין מספר תקין",
       placeholder: "טלפון",
       required: true,
+      pattern: "^[0-9]{8,15}$",
     },
     {
       id: 17,
       name: "advertiserEmail",
       type: "email",
       // label: "מייל",
+      errorMessage: "שדה חובה! יש להזין אימייל תקין",
       placeholder: "מייל",
       required: true,
     },
@@ -362,6 +379,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           if (input.type === "select")
             return (
               <Select
+                errorMessage={input.errorMessage}
                 {...input}
                 key={input.id}
                 placeholder={input.placeholder}
@@ -377,6 +395,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             return (
               <SelectIcon
                 {...input}
+                errorMessage={input.errorMessage}
                 inText={false}
                 key={input.id}
                 value={values[input.name]}
@@ -393,6 +412,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             return (
               <Select
                 {...input}
+                errorMessage={input.errorMessage}
                 key={input.id}
                 placeholder={input.placeholder}
                 value={values[input.name]}
@@ -415,6 +435,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               <Input
                 key={input.id}
                 {...input}
+                errorMessage={input.errorMessage}
                 value={values[input.name]}
                 onChange={onChange}
                 className={input.className}

@@ -21,8 +21,7 @@
   flex-grow: 0;
 }
 
-.labelRadio{
-
+.labelRadio {
   font-style: normal;
   font-weight: 800;
   font-size: 13px;
@@ -31,14 +30,10 @@
   text-align: right;
   letter-spacing: 0.01em;
 
-
   color: #9c9ca8;
-
-
-
 }
 
-.radio{
+.radio {
   display: flex;
 }
 .input[type="text"] {
@@ -54,12 +49,11 @@
 
   /* Gray / 1 */
 
-  background: var( --text-Fourth-color);
+  background: var(--text-Fourth-color);
   border-radius: 10px;
-  border:none;
+  border: none;
   box-shadow: 2px 3px 2px 2px #ccc9c9c3;
   color: var(--text-third-color);
-
 
   /* Inside auto layout */
 
@@ -81,18 +75,17 @@
   height: 46px;
 
   /* Gray / 1 */
-/* 
+  /* 
   background: #f8f8fa;
   border-radius: 10px;
   border-style: hidden;
   border: 1.5px solid rgba(0,0,0,.15); */
 
-  background: var( --text-Fourth-color);
+  background: var(--text-Fourth-color);
   border-radius: 10px;
-  border:none;
+  border: none;
   box-shadow: 2px 3px 2px 2px #ccc9c9c3;
   color: var(--text-third-color);
-
 
   /* Inside auto layout */
 
@@ -148,14 +141,81 @@
   border-style: hidden;
   border: 1.5px solid rgba(0,0,0,.15); */
 
-  background: var( --text-Fourth-color);
+  background: var(--text-Fourth-color);
   border-radius: 10px;
-  border:none;
+  border: none;
   box-shadow: 2px 3px 2px 2px #ccc9c9c3;
   color: var(--text-third-color);
 
   /* Inside auto layout */
 
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.input[type="email"] {
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 10px;
+
+  width: 335px;
+  height: 42px;
+
+  /* Gray / 1 */
+
+  /* background: #f8f8fa;
+  border-radius: 10px;
+  border-style: hidden;
+  border: 1.5px solid rgba(0,0,0,.15); */
+
+  background: var(--text-Fourth-color);
+  border-radius: 10px;
+  border: none;
+  box-shadow: 2px 3px 2px 2px #ccc9c9c3;
+  color: var(--text-third-color);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.input[type="tel"] {
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 10px;
+
+  width: 335px;
+  height: 42px;
+
+  /* Gray / 1 */
+
+  /* background: #f8f8fa;
+  border-radius: 10px;
+  border-style: hidden;
+  border: 1.5px solid rgba(0,0,0,.15); */
+
+  background: var(--text-Fourth-color);
+  border-radius: 10px;
+  border: none;
+  box-shadow: 2px 3px 2px 2px #ccc9c9c3;
+  color: var(--text-third-color);
+
+  /* Inside auto layout */
 
   flex: none;
   order: 0;
@@ -203,9 +263,9 @@
   /* border-radius: 10px;
   border-style: hidden; */
 
-  background: var( --text-Fourth-color);
+  background: var(--text-Fourth-color);
   border-radius: 10px;
-  border:none;
+  border: none;
   box-shadow: 2px 3px 2px 2px #ccc9c9c3;
   color: var(--text-third-color);
 
