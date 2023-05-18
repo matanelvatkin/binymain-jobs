@@ -275,3 +275,12 @@
   order: 0;
   flex-grow: 0;
 }
+.errorMessage {
+  padding: 3px;
+  color: red;
+  display: none;
+}
+
+input:invalid ~ .errorMessage {
+  display: block;
+}

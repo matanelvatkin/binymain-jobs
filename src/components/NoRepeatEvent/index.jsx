@@ -5,8 +5,9 @@ import styles from "./style.module.css";
 
 export default function NoRepeatEvent({
   values,
+  lable: label,
   setValues = () => {},
   ...props
 }) {
-  return <DateInput values={values} setValues={setValues} />;
+  return <DateInput values={values} setValues={setValues} label={label} />;
 }
