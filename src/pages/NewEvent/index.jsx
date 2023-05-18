@@ -85,7 +85,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     isRepeated: false,
     repeatType: "אירוע ללא חזרה",
     personalRepeatType: "",
-    date: new Date(),
+    date: beginDateUpdate(new Date(),"18:00"),
     repeatSettingsType: "endDate",
     repeatSettingsRepeatEnd: undefined,
     beginningTime: "18:00",
@@ -323,7 +323,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       repeatSettingsRepeatEnd: undefined,
       days: [],
       personalRepeatType: undefined,
-      date: new Date(),
+      date: beginDateUpdate(new Date(),"18:00"),
     });
   }, [values.repeatType]);
 

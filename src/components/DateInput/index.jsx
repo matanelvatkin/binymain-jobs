@@ -10,7 +10,7 @@ import beginDateUpdate from "../../function/beginDateUpdate";
 export default function DateInput({ values, setValues = () => {}, timeString ,  ...props }) {
   const [datepicker, setdatepicker] = useState(false);
   const [selectDate, setSelectDate] = useState(
-    props.val ? props.val : new Date()
+    props.val ? props.val : beginDateUpdate(new Date(),timeString)
   );
   useEffect(() => {
     setValues({ ...values, date: selectDate });
