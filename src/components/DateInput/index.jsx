@@ -17,6 +17,7 @@ export default function DateInput({ values, setValues = () => {}, timeString ,  
   }, [selectDate]);
 
   function dateSelectHandle(date) {
+    // console.log(timeString,"in DateInput");
     const dateUpdate = beginDateUpdate(date,timeString)
     setSelectDate(() => dateUpdate);
     setdatepicker(!datepicker);

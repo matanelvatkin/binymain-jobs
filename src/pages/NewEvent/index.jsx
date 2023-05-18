@@ -353,6 +353,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   }, [values]);
   const onChange = (e) => {
     if(e.target.name==="beginningTime"){
+      // console.log(e.target.value, "in onchange new event")
       setValues((prev) => ({...prev, date: beginDateUpdate(prev.date , e.target.value) , [e.target.name]: e.target.value,}));
     } 
     else{
