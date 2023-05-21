@@ -9,12 +9,12 @@ import styles from "./style.module.css";
 // <Button type={'submit'} width={'200px'} text={'Click'}></Button>
 
 
-function ClassicButton({ text, children, type, width, func, ...props }) {
+function ClassicButton({ text, children, type, width, height ,func, ...props }) {
     return (
         <>
             <button
                 type={type}
-                style={{ width: width }}
+                style={{ width: width, height: height}}
                 onClick={func} 
                 className={props.oppositeColor ? props.isActive ? styles.button : styles.oppositeColorBtn : styles.button} 
                 {...props}

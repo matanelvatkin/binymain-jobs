@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { settingsContext } from "../../layout/Layout";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
@@ -16,9 +16,13 @@ import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
+
+
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
-  const [newEventPopup, setNewEventPopup] = useState(false);
+  const [newEventPopup,setNewEventPopup] = useState(false)
+  const ref= useRef();
+
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -200,7 +204,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "text",
       // label: "תקציר",
       errorMessage: "שדה חובה!",
-      placeholder: "תקציר",
+      placeholder: "תיאור האירוע",
       required: true,
     },
     {
@@ -355,7 +359,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       className={`${styles.main} ${className}`}
       style={style}
       {...props}
-    >
+    ><div className={styles.header}>כאן מכניסים את כל פרטי האירוע שלך</div>
       {" "}
       <form
         onSubmit={handleSubmit}
@@ -380,6 +384,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           else if (input.type === "selectIcon") {
             console.log(input);
             return (
+              <div className={styles.selectIcon}>
+              <div className={styles.iconLabel}>{input.label}</div>
               <SelectIcon
                 {...input}
                 errorMessage={input.errorMessage}
@@ -394,6 +400,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   input.name === "categories" ? setCategories : setAudiences
                 }
               />
+        </div>
             );
           } else if (input.type === "select")
             return (
@@ -412,10 +419,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
           else if (input.type === "אירוע ללא חזרה")
-            return <NoRepeatEvent values={values} setValues={setValues} />;
+            return<div className={styles.date}> <NoRepeatEvent values={values} setValues={setValues} /></div>;
           else if (input.type === "button")
-            return <div onClick={() => setNewEventPopup(true)}>מתקדם</div>;
-          else if (input.type === "toogleSwitch")
+            return <div className={styles.advanced} onClick={() => setNewEventPopup(true)}>מתקדם</div>;
+          else if (input.type == "toogleSwitch")
             return <ToggleSwitch text="בתשלום" />;
           else
             return (
