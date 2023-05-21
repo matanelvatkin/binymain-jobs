@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { settingsContext } from "../../layout/Layout";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
@@ -22,7 +22,9 @@ import beginDateUpdate from "../../function/beginDateUpdate";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
-  const [newEventPopup, setNewEventPopup] = useState(false);
+  const [newEventPopup,setNewEventPopup] = useState(false)
+  const ref= useRef();
+
   const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
 
   const fileChangeHandler = (e) => {
@@ -92,8 +94,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     finishTime: "20:00",
     place: "",
     registrationPageURL: "",
-    categories: [],
-    audiences: [],
+    categories: [{}],
+    audiences: [{}],
     isFree: true,
     price: "",
     days: [],
@@ -183,7 +185,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
     {
       id: 8,
-      name: "category",
+      name: "categories",
       type: "selectIcon",
       label: "קטגוריה",
       errorMessage: "שדה חובה!",
@@ -205,7 +207,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "text",
       // label: "תקציר",
       errorMessage: "שדה חובה!",
-      placeholder: "תקציר",
+      placeholder: "תיאור האירוע",
       required: true,
     },
     {
@@ -360,7 +362,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       setValues((prev) => ({...prev,[e.target.name]: e.target.value,}));
     }
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    console.log("file", fileData);
+    console.log("values", values, `${e.target.name}${e.target.value}`);
   };
 
   return (
@@ -369,7 +371,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       className={`${styles.main} ${className}`}
       style={style}
       {...props}
-    >
+    ><div className={styles.header}>כאן מכניסים את כל פרטי האירוע שלך</div>
       {" "}
       <form
         onSubmit={handleSubmit}
@@ -394,6 +396,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           else if (input.type === "selectIcon") {
             console.log(input);
             return (
+              <div className={styles.selectIcon}>
+              <div className={styles.iconLabel}>{input.label}</div>
               <SelectIcon
                 {...input}
                 errorMessage={input.errorMessage}
@@ -403,11 +407,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                array={input.name === "category" ? categories : audiences}
+                array={input.name === "categories" ? categories : audiences}
                 setArray={
-                  input.name === "category" ? setCategories : setAudiences
+                  input.name === "categories" ? setCategories : setAudiences
                 }
               />
+        </div>
             );
           } else if (input.type === "select")
             return (
@@ -426,10 +431,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
           else if (input.type === "אירוע ללא חזרה")
-            return <NoRepeatEvent values={values} setValues={setValues} timeString={values.beginningTime} />;
+            return<div className={styles.date}> <NoRepeatEvent values={values} setValues={setValues} timeString={values.beginningTime} /></div>;
           else if (input.type === "button")
-            return <div onClick={() => setNewEventPopup(true)}>מתקדם</div>;
-          else if (input.type === "toogleSwitch")
+            return <div className={styles.advanced} onClick={() => setNewEventPopup(true)}>מתקדם</div>;
+          else if (input.type == "toogleSwitch")
             return <ToggleSwitch text="בתשלום" />;
           else
             return (

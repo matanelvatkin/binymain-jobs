@@ -10,8 +10,8 @@ const apiCalls = async (
   header = null
 ) => {
 
-   const baseUrl = process.env.REACT_APP_BASE_URL || `http://localhost:5000`;
-//  const baseUrl = "https://server-production-7ef9.up.railway.app"
+  //  const baseUrl = process.env.REACT_APP_BASE_URL || `http://localhost:5000`;
+ const baseUrl = "https://server-production-7ef9.up.railway.app"
 
 
 
@@ -24,7 +24,7 @@ const apiCalls = async (
       params: { q: param },
       headers: { header },
     });
-    console.log("******************", data.data);
+    // console.log("******************", data.data);
     return data.data;
   } catch (error) {
     console.log(error);

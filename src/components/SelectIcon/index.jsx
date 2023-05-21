@@ -61,7 +61,7 @@ const SelectIcon = ({
           ))}
         </div>
       </div>
-      <span>errorMessage</span>
+      <span className={styles.errorMessage}>{errorMessage}</span>
     </div>
   );
 };

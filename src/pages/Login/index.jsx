@@ -18,7 +18,7 @@ import apiCalls from '../../function/apiCalls';
 function Login() {
   const { user, setUser } = useContext(userContext);
   const { setHeader } = useContext(headerContext)
-  setHeader('home')
+  setHeader('login')
 
   const [checked, setChecked] = useState(true);
   const [userInfo, setUserInfo] = useState({})
@@ -86,7 +86,7 @@ const inputs = [
 return (
   <div className={styles.main}>
     <div className={styles.container}>
-      <h2>התחברות</h2>
+      <h2 className={styles.connection}>התחברות</h2>
       <form className={styles.form} onSubmit={loginAouth} >
         {inputs.map((input) => {
           return (
@@ -107,7 +107,7 @@ return (
             className={styles.forgotPassword}
             onClick={navToForgetPassword}
           >
-            שכחתי סיסמא
+            שכחתי סיסמא?
           </span>
           <ToggleSwitch
             text={'זכור אותי'}
@@ -118,7 +118,7 @@ return (
 
         <div className={styles.firstButton}>
           <ClassicButton
-            width={'70%'}
+            width={'80%'}
             type={'submit'}
             onClick={loginAouth}
           >
@@ -127,18 +127,12 @@ return (
         </div>
       </form>
 
-      <div className={styles.secondButtonContainer}>
-        <div className={styles.secondButton}>
-          <ClassicButton
-            width={'70%'}
-            onClick={navToRegistretionPage}
-          >
-            <FiUserPlus className={styles.icon} /> הרשמה
-          </ClassicButton>
+      
+        <div className={styles.register}>
+         <div> עדיין אין לך חשבון?<span onClick={navToRegistretionPage} className={styles.clickHere}>לחץ כאן</span></div>
+         </div>
+         </div>
         </div>
-      </div>
-    </div>
-  </div>
 )
 }
 export default Login

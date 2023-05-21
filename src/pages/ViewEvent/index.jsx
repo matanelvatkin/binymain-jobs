@@ -1,15 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import style from "./style.module.css";
-import RoundButton from "../../components/RoundButton";
 import ClassicButton from "../../components/ClassicButton copy";
 import headerContext from "../../context/headerContext";
-import { AiFillCalendar } from "react-icons/ai";
 import { MdOutlinePlace } from "react-icons/md";
 import { TbTicket } from "react-icons/tb";
 import apiCalls from "../../function/apiCalls";
 import translation from "./translation.js";
-import { useNavigatenpm } from "react-router-dom";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { BiMoney } from "react-icons/bi";
@@ -35,7 +32,6 @@ export default function ViewEvent() {
 
   const [loading, setLoading] = useState(true);
   const [eventData, setEventData] = useState();
-  const [datesOfEvents, setDatesOfEvents] = useState([]);
   const [isActive, setIsActive] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
 
@@ -45,15 +41,17 @@ export default function ViewEvent() {
     if (user.userType === "admin") {
       setIsAdmin(true)
     }
+    if (apiData.status === "published") {
+      setIsPublished(true)
+      setIsActive(true)
+    }
     setEventData(apiData);
-    setDatesOfEvents(apiData.date)
-    
   }
 
 
   useEffect(() => {
     fetchEvent();
-  }, []);
+  },[]);
 
   useEffect(() => {
     if (eventData) {
@@ -85,7 +83,7 @@ export default function ViewEvent() {
         handlePublish();
       }
     }
-  };
+  };  
 
   
   const handlePublish = async () => {

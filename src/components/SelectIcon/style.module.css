@@ -30,12 +30,12 @@
   letter-spacing: 0.01em;
   filter: opacity(99%);
 }
-span {
-  padding: 3;
+.errorMessage {
+  padding: 3px;
   color: red;
   display: none;
 }
 
-input:invalid ~ span {
+input:invalid ~ .errorMessage {
   display: block;
 }

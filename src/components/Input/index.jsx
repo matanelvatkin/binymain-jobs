@@ -30,11 +30,11 @@ const Input = (props) => {
           <input
             className={`${styles.input} ${className}`}
             {...inputProps}
-            style={{ width: width }}
+            // style={{ width: width }}
             onChange={onChange}
             type={type}
           />
-          <span>{errorMessage}</span>
+          <span className={styles.errorMessage}>{errorMessage}</span>
         </div>
       ) : (
         <div className={styles.radio}>
@@ -48,7 +48,7 @@ const Input = (props) => {
           <label className={styles.labelRadio}>
             <div>{label} </div>
           </label>
-          <span>{errorMessage}</span>
+          <span className={styles.errorMessage}>{errorMessage}</span>
         </div>
       )}
     </>
