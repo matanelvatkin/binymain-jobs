@@ -21,8 +21,7 @@
   flex-grow: 0;
 }
 
-.labelRadio{
-
+.labelRadio {
   font-style: normal;
   font-weight: 800;
   font-size: 13px;
@@ -30,10 +29,12 @@
   margin-right: 5px;
   text-align: right;
   letter-spacing: 0.01em;
+
+
   color: #9c9ca8;
 }
 
-.radio{
+.radio {
   display: flex;
 }
 .input[type="text"], .input[type="number"],.input[type="password"], .input[type="password"], .input[type="email"], .input[type="date"],
@@ -116,3 +117,13 @@
   font-size: large;
   color: var(--text-third-color);
 } */
+
+.errorMessage {
+  padding: 3px;
+  color: red;
+  display: none;
+}
+
+input:invalid ~ .errorMessage {
+  display: block;
+}

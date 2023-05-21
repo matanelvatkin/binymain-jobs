@@ -1,7 +1,7 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 
@@ -22,19 +22,19 @@
     cursor: pointer;
 }
 
-.calIcon, .arrIcon{
-    color:var(  --text-secondary-color);
-    
+.calIcon,
+.arrIcon {
+  color: var(--text-secondary-color);
 }
 
-.calIcon{
-font-size: 25px;
+.calIcon {
+  font-size: 25px;
 }
 
-.arrIcon{
-font-size: 15px;
+.arrIcon {
+  font-size: 15px;
 }
 
-.react-datepicker__aria-live{
-    border: none;
+.react-datepicker__aria-live {
+  border: none;
 }

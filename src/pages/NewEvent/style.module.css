@@ -54,3 +54,12 @@
 .button{
   margin-top: 20px;
 }
+/* .errorMessage {
+  padding: 5px;
+  color: red;
+  display: none;
+}
+
+input:invalid ~ .errorMessage {
+  display: block;
+} */
