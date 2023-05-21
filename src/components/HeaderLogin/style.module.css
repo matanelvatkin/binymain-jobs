@@ -1,0 +1,35 @@
+.main{
+    direction: ltr;
+    position: relative;
+    background-color: var(--bg-secondary-color);
+    width: 100vw;
+    height: 15vh;
+    border-radius: 0px 0px 35px 35px;    
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
+    transition: .3s;
+    margin-bottom: 20px;
+}
+
+.header{
+    display: flex;
+    position: absolute;
+    top: 10%;
+    left: 7%;
+}
+
+.title{
+    font-family: 'Boogaloo', cursive;
+    font-style: normal;
+    color: var(--text-Fourth-color);
+    font-weight: normal;
+    font-size: 450%;
+    letter-spacing: -1pt;
+    margin-right: 6pt;
+    margin-bottom: 10pt;
+}
+
+.logo{
+    color: var(--text-Fourth-color);
+ font-size: 300%;
+ margin-top: 5%;
+}

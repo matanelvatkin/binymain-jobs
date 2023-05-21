@@ -99,7 +99,7 @@ function Registeretion() {
           })}
         </div>
         <ClassicButton
-          width={'70%'}
+          width={'90%'}
           type={'submit'}
         >
           <IoIosCreate className={styles.icon} /> צור משתמש

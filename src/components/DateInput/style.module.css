@@ -15,7 +15,8 @@
     border-radius: 10px;
     background-color:var(--text-Fourth-color);
     border: none;
-    color: var(--text-third-color);
+    /* color: var(--text-third-color); */
+    color: black;
     font-size: 15px;
     box-shadow: 2px 3px 2px 2px #ccc9c9c3;
     cursor: pointer;

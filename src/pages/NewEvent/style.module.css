@@ -1,13 +1,18 @@
 .main {
   min-height: 86vh;
   width: 100vw;
-  margin-top: 10vh;
+  margin-top: 7vh;
   /* margin-top: 15.2vh; */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 5px;
+}
+
+.header{
+  font-size:x-large;
+  text-align: center;
 }
 
 .form {

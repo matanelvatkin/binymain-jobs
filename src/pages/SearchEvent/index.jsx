@@ -253,15 +253,9 @@ export default function SearchEvent() {
 
         <div className={style.footerBtn}>
           <ClassicButton
-            width={185}
+            width={300}
             text={translation.search}
             func={handleSubmit}
-          />
-          <ClassicButton
-            width={130}
-            text={translation.back}
-            id={style.back}
-            func={useBackBtn}
           />
         </div>
       </div>

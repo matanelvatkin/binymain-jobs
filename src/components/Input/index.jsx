@@ -22,7 +22,7 @@ const Input = (props) => {
         <input
           className={`${styles.input} ${className}`}
           {...inputProps}
-          style={{ width: width }}
+          // style={{ width: width }}
           onChange={onChange}
           type={type}
         />

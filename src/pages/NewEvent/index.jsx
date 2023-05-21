@@ -337,7 +337,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       className={`${styles.main} ${className}`}
       style={style}
       {...props}
-    >
+    ><div className={styles.header}>כאן מכניסים את כל פרטי האירוע שלך</div>
       {" "}
       <form
         onSubmit={handleSubmit}
