@@ -4,20 +4,22 @@
   justify-content: space-around;
 }
 
-.button {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 20px;
-  height: 42px;
-  width: 241px;
-  border-radius: 10px;
-  background-color: var(--text-Fourth-color);
-  border: none;
-  color: var(--text-third-color);
-  font-size: 15px;
-  box-shadow: 2px 3px 2px 2px #ccc9c9c3;
-  cursor: pointer;
+
+.button{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+    height: 42px;
+    width: 241px;
+    border-radius: 10px;
+    background-color:var(--text-Fourth-color);
+    border: none;
+    /* color: var(--text-third-color); */
+    color: black;
+    font-size: 15px;
+    box-shadow: 2px 3px 2px 2px #ccc9c9c3;
+    cursor: pointer;
 }
 
 .calIcon,

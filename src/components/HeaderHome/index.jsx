@@ -9,12 +9,12 @@ import {BsThreeDotsVertical} from 'react-icons/bs'
 import { useNavigate , useParams} from 'react-router-dom';
 import headerContext from '../../context/headerContext';
 
-function HeaderHome({ isValid, setIsValid }) {
+function HeaderHome({page, isValid, setIsValid }) {
   const navigate = useNavigate()
-  const [headerHeight, setHeaderHeight] = useState(18)
+  // const [headerHeight, setHeaderHeight] = useState(18)
   const { search, setSearch } = useContext(headerContext);
-  const [showInput, setShowInput] = useState(true);
-  const [showSettings, setShowSettings] = useState(false);
+  // const [showInput, setShowInput] = useState(true);
+  // const [showSettings, setShowSettings] = useState(false);
   // const [wordsearch, setWordsearch] = useState("")
 
  

@@ -8,6 +8,7 @@ import userContext from "../../context/userContext";
 import popUpContext from "../../context/popUpContext";
 import apiCalls from "../../function/apiCalls";
 
+
 // Creator: Yisrael_Olonoff
 // i created the home page using the "Header", "EventCard",
 // and the "ClassicButton" components.
@@ -86,8 +87,9 @@ function Home() {
       </div>
       <div className={styles.button}>
         <ClassicButton
-          width={"120px"}
-          text={"פרסם אירוע"}
+          width={"250px"}
+          height={"100%"}
+          text={"פרסם אירוע  ➕"}
           onClick={() => {
             navToNewEvent();
           }}
