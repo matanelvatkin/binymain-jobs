@@ -38,18 +38,19 @@ function ForgetPassword() {
     return (
         <div className={styles.main}>
             <div className={styles.container}>
-                <h2>forgot password</h2>
+                <h2>שכחתי סיסמא</h2>
                 {!codeToReset ?
                     <form className={styles.form} onSubmit={handleSendToEmail}>
                         <Input
                             placeholder={"הכנס את כתובת המייל שלך"}
-                            width={'300px'}
+                            // width={'300px'}
                             name={'email'}
+                            type={'email'}
                         />
                         <div className={styles.firstButton}>
                             <ClassicButton
                                 text={"שלח"}
-                                width={'70%'}
+                                width={'90%'}
                                 type={'submit'}
                             />
                         </div>
