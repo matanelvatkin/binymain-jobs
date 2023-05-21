@@ -276,7 +276,7 @@
   flex-grow: 0;
 }
 .errorMessage {
-  padding: 3px;
+  padding: 5px;
   color: red;
   display: none;
 }

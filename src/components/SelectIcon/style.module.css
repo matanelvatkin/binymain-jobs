@@ -31,7 +31,7 @@
   filter: opacity(99%);
 }
 .errorMessage {
-  padding: 3px;
+  padding: 5px;
   color: red;
   display: none;
 }
