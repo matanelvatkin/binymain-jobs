@@ -1,5 +1,6 @@
 import styles from "./style.module.css";
 import { ImLocation2 } from "react-icons/im";
+import { AiOutlineReload } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import ClassicButton from '../ClassicButton copy'
 
@@ -67,11 +68,16 @@ function EventCard({ events, nextPage , loadMore }) {
             </div>
           );
             })}
-        {nextPage?<ClassicButton 
+        {nextPage?
+      <div
+      className={styles.loadButton}>
+        <ClassicButton 
         onClick={loadMore} 
-        text={"Load..."}
+        text={'Load'}
         width={"100px"}
-        />:null}
+        ><AiOutlineReload/></ClassicButton>
+        </div>
+        :null}
     </>
         )}
 

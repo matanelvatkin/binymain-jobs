@@ -20,7 +20,15 @@ import ToggleSwitch from "../../components/ToggleSwitch";
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup, setNewEventPopup] = useState(false);
+  const [checked, setChecked] = useState(false);
+  // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
+  const [timeValidationOK, setTimeValidationOK] = useState(true);
   const ref = useRef();
+
+  const handleToggleSwitch = (e) => {
+    setChecked(!checked);
+    setValues({ ...values, isFree: checked });
+  };
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -141,6 +149,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       errorMessage: "שדה חובה!",
       placeholder: "זמן התחלה",
       required: true,
+    },
+    {
+      id: 51,
+      name: "timeValidationOK",
+      type: "pTimeValidationOK",
     },
     {
       id: 6,
@@ -310,7 +323,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         repeatType: values.repeatType,
         personalRepeat: values.personalRepeatType,
         isReapeated: values.repeatType !== "אירוע ללא חזרה",
-        payment: values.payment,
+        payment: {
+          isFree: values.isFree,
+        },
         repeatSettings: {
           type: values.repeatSettingsType,
           repeatEnd: values.repeatSettingsRepeatEnd || values.date,
@@ -350,12 +365,15 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log({ values });
   }, [values]);
   const onChange = (e) => {
-    if (e.target.type === "file") {
+    setValues({ ...values, [e.target.name]: e.target.value });
+    if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
+      if (values.finishTime <= values.beginningTime) {
+        setTimeValidationOK(false);
+      } else {
+        setTimeValidationOK(true);
+      }
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    } else {
-      setValues({ ...values, [e.target.name]: e.target.value });
     }
-    console.log("values", values, `${e.target.name}${e.target.value}`);
   };
 
   function SubmitButton() {
@@ -473,7 +491,23 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               </div>
             );
           else if (input.type == "toogleSwitch")
-            return <ToggleSwitch text="בתשלום" />;
+            return (
+              <ToggleSwitch
+                text="בתשלום"
+                checked={checked}
+                onChange={handleToggleSwitch}
+              />
+            );
+          else if (input.type == "pTimeValidationOK")
+            return (
+              <p
+                className={
+                  timeValidationOK ? styles.priceNone : styles.priceInline
+                }
+              >
+                משך האירוע - שעה לפחות
+              </p>
+            );
           else
             return (
               <Input
