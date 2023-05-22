@@ -55,3 +55,8 @@
 .button {
   margin-top: 20px;
 }
+.errorMessage {
+  display: block;
+  padding: 5px;
+  color: red;
+}

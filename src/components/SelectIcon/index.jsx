@@ -23,6 +23,7 @@ const SelectIcon = ({
   inText,
   ...props
 }) => {
+  const [isChosen, setIsChosen] = useState(true);
   const handleCategoryClick = (e) => {
     if (typeof setArray === "function") {
       setArray((prev) =>
@@ -41,6 +42,14 @@ const SelectIcon = ({
       [name]: array.filter((obj) => obj.isActive),
     }));
   }, [array]);
+
+  useEffect(() => {
+    if (!values[name][0]) {
+      setIsChosen(true);
+    } else {
+      setIsChosen(false);
+    }
+  });
 
   return (
     <div className={styles.main}>
@@ -61,7 +70,13 @@ const SelectIcon = ({
           ))}
         </div>
       </div>
-      <span className={styles.errorMessage}>{errorMessage}</span>
+      <div>
+        {isChosen ? (
+          <span className={styles.errorMessage}> {errorMessage}</span>
+        ) : (
+          <span className={styles.isChosen}> {errorMessage}</span>
+        )}
+      </div>
     </div>
   );
 };
