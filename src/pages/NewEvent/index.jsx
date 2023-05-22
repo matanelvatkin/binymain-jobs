@@ -221,7 +221,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 11,
       name: "registrationPageURL",
-      type: "text",
+      type: "url",
       // label: "דף הרשמה לאירוע",
       errorMessage: "שדה חובה!",
       placeholder: " לינק להרשמה/כרטיסים לאירוע",
