@@ -21,12 +21,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup,setNewEventPopup] = useState(false)
   const [checked, setChecked] = useState(false);  
+  // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour. 
+  const [timeValidationOK, setTimeValidationOK] = useState(true);
   const ref= useRef();
 
   const handleToggleSwitch = (e) => {
     setChecked(!checked);
     setValues({ ...values, isFree:checked});
-    console.log();
   }
 
   const fileChangeHandler = (e) => {
@@ -148,6 +149,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       errorMessage: "שדה חובה!",
       placeholder: "זמן התחלה",
       required: true,
+    },
+    {
+      id:51,
+      name: "timeValidationOK",
+      type: "pTimeValidationOK",
     },
     {
       id: 6,
@@ -356,8 +362,18 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   }, [values]);
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    if(e.target.name==="beginningTime" ||e.target.name==="finishTime") {
+      if(values.finishTime <= values.beginningTime) {
+        setTimeValidationOK(false);
+      }
+      else {
+        setTimeValidationOK(true);
+      }
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    console.log("values", values, `${e.target.name}${e.target.value}`);
+    
+    
+    };
+   
   };
 
   return (
@@ -431,6 +447,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             return <div className={styles.advanced} onClick={() => setNewEventPopup(true)}>מתקדם</div>;
           else if (input.type == "toogleSwitch")
             return <ToggleSwitch text="בתשלום" checked={checked} onChange={handleToggleSwitch}/>;
+            else if (input.type == "pTimeValidationOK")
+            return <p className={timeValidationOK?styles.priceNone:styles.priceInline}>משך האירוע - שעה לפחות</p>;
           else
             return (
               <Input

@@ -25,11 +25,13 @@
 }
 
 .priceNone {
-  display: none;
+  /* display: none; */
+  color:blue;
 }
 
 .priceInline {
   display: inline;
+  color: red;
 }
 
 .date {
