@@ -19,6 +19,7 @@ const SelectIcon = ({
   header,
   text,
   icon,
+  errorMessage,
   inText,
   ...props
 }) => {
@@ -60,6 +61,7 @@ const SelectIcon = ({
           ))}
         </div>
       </div>
+      <span className={styles.errorMessage}>{errorMessage}</span>
     </div>
   );
 };

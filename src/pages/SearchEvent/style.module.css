@@ -11,6 +11,7 @@
 
 .footerBtn {
     display: flex;
+    justify-content: center;
     margin-top: 20px;
 }
 
@@ -31,6 +32,12 @@
     margin-right: 2%;
     margin-left: -5px;
 
+}
+
+.location {
+    margin-top: 1.5%;
+    margin-right: 2%;
+    margin-left: -5px;
 }
 
 .audiences {

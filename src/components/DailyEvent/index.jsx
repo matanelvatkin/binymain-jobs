@@ -25,6 +25,8 @@ export default function DailyEvent({ values, setValues = () => { }, ...props }) 
       <div className={styles.startDate}>
         <DateInput values={values} setValues={setValues} />
       </div>
+    
+  
       <label className={styles.titles}>סיום</label>
       <div className={styles.endDate}>
         <div className={styles.endDateInputs}>
@@ -34,6 +36,7 @@ export default function DailyEvent({ values, setValues = () => { }, ...props }) 
             type="radio"
             name="repeatEnd"
             value="endDate"
+            // checked
           />
           <Input
             onChange={chooseRadioClick}
@@ -50,10 +53,11 @@ export default function DailyEvent({ values, setValues = () => { }, ...props }) 
           </div>
         ) : (
           <div className={styles.numberOfDays}>
-            <Input onChange={onChange} placeholder="בעוד מספר פעמים" type="text" name="repeatNumber" />
+            <Input onChange={onChange} placeholder=" מספר הפעמים" type="number" min="1" name="repeatNumber" />
           </div>
         )}
       </div>
+     
     </>
 
   );

@@ -22,15 +22,13 @@ function Main() {
   const { setPopUp, setGuestMode, setPopUpText } = useContext(popUpContext);
 
 
-  const VerifyToken = (e) => {
+  const VerifyToken = async (e) => {
     const token = localStorage.getItem("Token");
     if(token){
-    apiCalls("post", "/user/verify",  { aoutherizetion: token })
-      .then((res) => {
-        const verifiedUser = JSON.stringify(res)
-        if (verifiedUser) {
-          setUser(true);
-        } else if (res.status === 401) {
+    const verifiedUser = await apiCalls("post", "/user/verify",  { aoutherizetion: token })
+        if (verifiedUser.email) { 
+          setUser(verifiedUser);
+        } else if (verifiedUser.status === 401) {
           setUser(false);
           setGuestMode(true);
           setPopUp(true);
@@ -38,10 +36,9 @@ function Main() {
             "🏄🏽😎 הנך נמצא כרגע על מצב אורח, אנו ממליצים להתחבר לאפליקצייה כדי שתוכל להנות מחוויית גלישה מקסימלית"
           );
         }
-      })
-      .catch((err) => {
-        console.log(`somthing went wrong: ${err}`);
-      });
+      else {
+        console.log(`somthing went wrong: ${verifiedUser}`);
+      };
   }else{
     setGuestMode(true);
           setPopUp(true);
@@ -53,7 +50,7 @@ function Main() {
 
   useEffect(() => {
     VerifyToken(); 
-  });
+  },[]);
 
   return (
     <main>

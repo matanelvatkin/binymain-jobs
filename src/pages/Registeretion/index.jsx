@@ -53,9 +53,14 @@ function Registeretion() {
     e.preventDefault();
     if (userData.password === userData.confirmPassword) {
       const { confirmPassword, ...data } = userData;
-      console.log(data);
+      const updatedData = {
+        ...data,
+        userType: "regular"
+      };
+      console.log(updatedData);
+      
       try{
-      const res = await apiCalls("post", "user/creatUser", data)
+      const res = await apiCalls("post", "user/creatUser", updatedData)
       console.log(`im regular log: ${res.status}`);
       if (res.status === "success") {
         console.log('user saved succesfuly!');
@@ -94,7 +99,7 @@ function Registeretion() {
           })}
         </div>
         <ClassicButton
-          width={'70%'}
+          width={'90%'}
           type={'submit'}
         >
           <IoIosCreate className={styles.icon} /> צור משתמש

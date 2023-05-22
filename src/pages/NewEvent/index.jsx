@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { settingsContext } from "../../layout/Layout";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
@@ -16,9 +16,13 @@ import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
+
+
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
-  const [newEventPopup, setNewEventPopup] = useState(false);
+  const [newEventPopup,setNewEventPopup] = useState(false)
+  const ref= useRef();
+
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -87,8 +91,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     finishTime: "20:00",
     place: "",
     registrationPageURL: "",
-    categories: [],
-    audiences: [],
+    categories: [{}],
+    audiences: [{}],
     isFree: true,
     price: "",
     days: [],
@@ -103,6 +107,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "eventName",
       type: "text",
       // label: "שם האירוע",
+      errorMessage: "שדה חובה!",
       placeholder: "שם האירוע",
       required: true,
     },
@@ -115,6 +120,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 3,
       name: "advanced",
       type: "button",
+      errorMessage: "שדה חובה!",
       placeholder: "מתקדם",
       label: "מתקדם",
     },
@@ -124,6 +130,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "place",
       type: "select",
       label: "מקום",
+      errorMessage: "שדה חובה!",
       placeholder: "בחר מיקום",
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
@@ -133,22 +140,28 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "beginningTime",
       type: "time",
       label: "זמן התחלה",
+      errorMessage: "שדה חובה!",
       placeholder: "זמן התחלה",
+      required: true,
     },
     {
       id: 6,
       name: "finishTime",
       type: "time",
       label: "זמן סיום",
+      errorMessage: "שדה חובה!",
       placeholder: "זמן סיום",
+      required: true,
     },
     {
       id: 7,
       name: "payment",
       type: "toogleSwitch",
       label: "עלות",
+      errorMessage: "שדה חובה!",
       placeholder: "עלות",
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
+      required: true,
     },
     {
       id: 1,
@@ -163,29 +176,35 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     //   name: "repeatType",
     //   type: "select",
     //   label: "תדירות",
-    //   placeholder: "אירוע ללא חזרה",
+    //  erroreMesagge:"",
+    //  placeholder: "אירוע ללא חזרה",
     // },
 
     {
       id: 8,
-      name: "category",
+      name: "categories",
       type: "selectIcon",
       label: "קטגוריה",
+      errorMessage: "שדה חובה!",
       placeholder: "קטגוריה",
+      required: true,
     },
     {
       id: 9,
       name: "audiences",
       type: "selectIcon",
       label: "קהל יעד",
+      errorMessage: "שדה חובה!",
       placeholder: "קהל יעד",
+      required: true,
     },
     {
       id: 10,
       name: "summary",
       type: "text",
       // label: "תקציר",
-      placeholder: "תקציר",
+      errorMessage: "שדה חובה!",
+      placeholder: "תיאור האירוע",
       required: true,
     },
     {
@@ -193,48 +212,58 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "registrationPageURL",
       type: "text",
       // label: "דף הרשמה לאירוע",
-      placeholder: "דף הרשמה לאירוע",
+      errorMessage: "שדה חובה!",
+      placeholder: " לינק להרשמה/כרטיסים לאירוע",
+      required: true,
     },
     {
       id: 12,
       name: "cardImageURL",
       type: "file",
+      errorMessage: "שדה חובה!",
       label: "תמונת אירוע",
+      required: true,
     },
     {
       id: 13,
       name: "coverImageURL",
       type: "file",
+      errorMessage: "שדה חובה!",
       label: "תמונת כיסוי",
+      required: true,
     },
-    {
-      id: 14,
-      name: "gallery",
-      type: "file",
-      label: "העלה תמונות לגלריה",
-      multiple: true,
-    },
+    // {
+    //   id: 14,
+    //   name: "gallery",
+    //   type: "file",
+    //   label: "העלה תמונות לגלריה",
+    //   multiple: true,
+    // },
     {
       id: 15,
       name: "advertiserName",
       type: "text",
       // label: "שם המפרסם",
+      errorMessage: "שדה חובה!",
       placeholder: "שם המפרסם",
       required: true,
     },
     {
       id: 16,
       name: "advertiserTel",
-      type: "text",
+      type: "tel",
       // label: "טלפון",
+      errorMessage: "שדה חובה! יש להזין מספר תקין",
       placeholder: "טלפון",
       required: true,
+      pattern: "^[0-9]{8,15}$",
     },
     {
       id: 17,
       name: "advertiserEmail",
       type: "email",
       // label: "מייל",
+      errorMessage: "שדה חובה! יש להזין אימייל תקין",
       placeholder: "מייל",
       required: true,
     },
@@ -287,17 +316,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       })
     );
 
-    console.log(" Simple console.log formData", formData);
-    console.log(" Console.log + extract value from formData", [
-      ...formData.entries(),
-    ]);
+    console.log([...formData.entries()]);
 
     apiCalls("post", "/event/createvent", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
       if (res._id != "") {
         const newEventId = res._id;
-        nav(`/viewEvent/${newEventId}`);
+        nav(`/`);
       }
     });
   };
@@ -324,7 +350,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    console.log("file", fileData);
+    console.log("values", values, `${e.target.name}${e.target.value}`);
   };
 
   return (
@@ -333,7 +359,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       className={`${styles.main} ${className}`}
       style={style}
       {...props}
-    >
+    ><div className={styles.header}>כאן מכניסים את כל פרטי האירוע שלך</div>
       {" "}
       <form
         onSubmit={handleSubmit}
@@ -344,6 +370,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           if (input.type === "select")
             return (
               <Select
+                errorMessage={input.errorMessage}
                 {...input}
                 key={input.id}
                 placeholder={input.placeholder}
@@ -357,24 +384,29 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           else if (input.type === "selectIcon") {
             console.log(input);
             return (
+              <div className={styles.selectIcon}>
+              <div className={styles.iconLabel}>{input.label}</div>
               <SelectIcon
                 {...input}
+                errorMessage={input.errorMessage}
                 inText={false}
                 key={input.id}
                 value={values[input.name]}
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                array={input.name === "category" ? categories : audiences}
+                array={input.name === "categories" ? categories : audiences}
                 setArray={
-                  input.name === "category" ? setCategories : setAudiences
+                  input.name === "categories" ? setCategories : setAudiences
                 }
               />
+        </div>
             );
           } else if (input.type === "select")
             return (
               <Select
                 {...input}
+                errorMessage={input.errorMessage}
                 key={input.id}
                 placeholder={input.placeholder}
                 value={values[input.name]}
@@ -387,16 +419,17 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
           else if (input.type === "אירוע ללא חזרה")
-            return <NoRepeatEvent values={values} setValues={setValues} />;
+            return<div className={styles.date}> <NoRepeatEvent values={values} setValues={setValues} /></div>;
           else if (input.type === "button")
-            return <div onClick={() => setNewEventPopup(true)}>מתקדם</div>;
-          else if (input.type === "toogleSwitch")
+            return <div className={styles.advanced} onClick={() => setNewEventPopup(true)}>מתקדם</div>;
+          else if (input.type == "toogleSwitch")
             return <ToggleSwitch text="בתשלום" />;
           else
             return (
               <Input
                 key={input.id}
                 {...input}
+                errorMessage={input.errorMessage}
                 value={values[input.name]}
                 onChange={onChange}
                 className={input.className}

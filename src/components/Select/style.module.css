@@ -5,14 +5,14 @@
   flex-direction: row;
   justify-content: center;
   position: relative;
-  background-color: var( --text-Fourth-color);
-  border:none;
+  background-color: var(--text-Fourth-color);
+  border: none;
   color: var(--text-third-color);
 
   border-radius: 10px;
-  box-shadow:  2px 3px 2px 2px #ccc9c9c3;
+  box-shadow: 2px 3px 2px 2px #ccc9c9c3;
 }
-.select{
+.select {
   margin: 10px 0 0 50px;
   width: 100%;
 }
@@ -34,20 +34,28 @@
   background-color: var(--primary-color);
 }
 
-.option{
+.option {
   padding: 5px 0 5px 0;
   box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.25);
 }
 
-.icon{
+.icon {
   height: 25px;
   margin-top: 6px;
-  
 }
 
-.arrow{
-  color:var(  --text-secondary-color);
+.arrow {
+  color: var(--text-secondary-color);
   position: absolute;
   left: 3px;
   font-size: 20px;
+}
+
+.errorMessage {
+  display: block;
+  padding: 5px;
+  color: red;
+}
+.isPlaceChosen {
+  display: none;
 }

@@ -1,7 +1,7 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 
@@ -15,25 +15,26 @@
     border-radius: 10px;
     background-color:var(--text-Fourth-color);
     border: none;
-    color: var(--text-third-color);
+    /* color: var(--text-third-color); */
+    color: black;
     font-size: 15px;
     box-shadow: 2px 3px 2px 2px #ccc9c9c3;
     cursor: pointer;
 }
 
-.calIcon, .arrIcon{
-    color:var(  --text-secondary-color);
-    
+.calIcon,
+.arrIcon {
+  color: var(--text-secondary-color);
 }
 
-.calIcon{
-font-size: 25px;
+.calIcon {
+  font-size: 25px;
 }
 
-.arrIcon{
-font-size: 15px;
+.arrIcon {
+  font-size: 15px;
 }
 
-.react-datepicker__aria-live{
-    border: none;
+.react-datepicker__aria-live {
+  border: none;
 }
