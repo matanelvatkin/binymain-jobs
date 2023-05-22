@@ -17,12 +17,17 @@ import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
 
-
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup,setNewEventPopup] = useState(false)
+  const [checked, setChecked] = useState(false);  
   const ref= useRef();
 
+  const handleToggleSwitch = (e) => {
+    setChecked(!checked);
+    setValues({ ...values, isFree:checked});
+    console.log();
+  }
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -308,7 +313,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         repeatType: values.repeatType,
         personalRepeat: values.personalRepeatType,
         isReapeated: values.repeatType !== "אירוע ללא חזרה",
-        payment: values.payment,
+        payment: {
+          isFree:values.isFree,
+        },
         repeatSettings: {
           type: values.repeatSettingsType,
           repeatEnd: values.repeatSettingsRepeatEnd || values.date,
@@ -423,7 +430,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           else if (input.type === "button")
             return <div className={styles.advanced} onClick={() => setNewEventPopup(true)}>מתקדם</div>;
           else if (input.type == "toogleSwitch")
-            return <ToggleSwitch text="בתשלום" />;
+            return <ToggleSwitch text="בתשלום" checked={checked} onChange={handleToggleSwitch}/>;
           else
             return (
               <Input

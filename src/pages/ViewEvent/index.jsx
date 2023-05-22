@@ -66,6 +66,7 @@ export default function ViewEvent() {
       setIsActive(true)
     }
     setEventData(apiData);
+    console.log(apiData);
   }
 
 
