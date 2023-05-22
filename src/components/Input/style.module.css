@@ -38,6 +38,7 @@
 }
 .input[type="text"],
 .input[type="number"],
+.input[type="url"],
 .input[type="tel"],
 .input[type="password"],
 .input[type="email"],
@@ -75,6 +76,12 @@
   /* Gray / 1 */
 }
 .input[type="tel"] {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  /* Gray / 1 */
+}
+.input[type="url"] {
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -118,6 +125,7 @@
 .input[type="text"]:focus,
 .input[type="number"]:focus,
 .input[type="tel"]:focus,
+.input[type="url"]:focus,
 .input[type="password"]:focus,
 .input[type="password"]:focus,
 .input[type="email"]:focus,
