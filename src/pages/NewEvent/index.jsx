@@ -291,7 +291,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [eventData, setEventData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    values.date = beginDateUpdate(values.date,values.beginningTime)
     const formData = new FormData();
     for (const key in fileData) {
       if (Array.isArray(fileData[key])) {
@@ -313,7 +313,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           tel: values.advertiserTel,
           email: values.advertiserEmail,
         },
-        date: beginDateUpdate(values.date,values.beginningTime),
+        date: values.date,
         day: values.days,
         beginningTime: values.beginningTime,
         finishTime: values.finishTime,
