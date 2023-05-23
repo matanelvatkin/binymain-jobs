@@ -16,6 +16,9 @@ import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
+import popUpContext from "../../context/popUpContext";
+import beginDateUpdate from "../../function/beginDateUpdate";
+
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -25,6 +28,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [timeValidationOK, setTimeValidationOK] = useState(true);
   const ref = useRef();
 
+  const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
   const handleToggleSwitch = (e) => {
     setChecked(!checked);
     setValues({ ...values, isFree: checked });
@@ -309,7 +313,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           tel: values.advertiserTel,
           email: values.advertiserEmail,
         },
-        date: values.date,
+        date: beginDateUpdate(values.date,values.beginningTime),
         day: values.days,
         beginningTime: values.beginningTime,
         finishTime: values.finishTime,
@@ -339,6 +343,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
       if (res._id != "") {
+        setSaveEventMode(true)
+        setPopUpText("האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו");
+        setPopUp(true)
         const newEventId = res._id;
         nav(`/`);
       }
