@@ -16,6 +16,8 @@ import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
+import popUpContext from "../../context/popUpContext";
+import beginDateUpdate from "../../function/beginDateUpdate";
 
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
