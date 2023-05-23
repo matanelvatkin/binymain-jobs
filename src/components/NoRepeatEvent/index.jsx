@@ -10,5 +10,5 @@ export default function NoRepeatEvent({
   timeString,
   ...props
 }) {
-  return <DateInput values={values} setValues={setValues} label={label} timeString={timeString} />;
+  return <DateInput values={values} setValues={setValues} label={label} />;
 }

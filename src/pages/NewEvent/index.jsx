@@ -87,7 +87,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     isRepeated: false,
     repeatType: "אירוע ללא חזרה",
     personalRepeatType: "",
-    date: beginDateUpdate(new Date(),"18:00"),
+    date: new Date(),
     repeatSettingsType: "endDate",
     repeatSettingsRepeatEnd: undefined,
     beginningTime: "18:00",
@@ -297,7 +297,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           tel: values.advertiserTel,
           email: values.advertiserEmail,
         },
-        date: values.date,
+        date: beginDateUpdate(values.date,values.beginningTime),
         day: values.days,
         beginningTime: values.beginningTime,
         finishTime: values.finishTime,
@@ -342,7 +342,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       repeatSettingsRepeatEnd: undefined,
       days: [],
       personalRepeatType: undefined,
-      date: beginDateUpdate(new Date(),"18:00"),
+      date: new Date(),
     });
   }, [values.repeatType]);
 
@@ -354,13 +354,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log({ values });
   }, [values]);
   const onChange = (e) => {
-    if(e.target.name==="beginningTime"){
-      // console.log(e.target.value, "in onchange new event")
-      setValues((prev) => ({...prev, date: beginDateUpdate(prev.date , e.target.value) , [e.target.name]: e.target.value,}));
-    } 
-    else{
-      setValues((prev) => ({...prev,[e.target.name]: e.target.value,}));
-    }
+    setValues((prev) => ({...prev,[e.target.name]: e.target.value,}));
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
     console.log("values", values, `${e.target.name}${e.target.value}`);
   };
@@ -431,7 +425,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
           else if (input.type === "אירוע ללא חזרה")
-            return<div className={styles.date}> <NoRepeatEvent values={values} setValues={setValues} timeString={values.beginningTime} /></div>;
+            return<div className={styles.date}> <NoRepeatEvent values={values} setValues={setValues} /></div>;
           else if (input.type === "button")
             return <div className={styles.advanced} onClick={() => setNewEventPopup(true)}>מתקדם</div>;
           else if (input.type == "toogleSwitch")
