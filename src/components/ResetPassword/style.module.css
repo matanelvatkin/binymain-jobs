@@ -60,3 +60,52 @@
     flex-direction: column;
     direction: rtl;
 }
+
+
+
+
+
+.popupContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.popup {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    font-size: larger;
+    text-align-last: center;
+    padding: 10px;
+    border-radius: 5px;
+    width: 95%;
+    height: 20%;
+    position: relative;
+    /* overflow-x: scroll; */
+}
+
+
+ /* .p {
+  width: 100%; 
+  margin-top: 15%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  } */
+  
+
+
+
+
+ 

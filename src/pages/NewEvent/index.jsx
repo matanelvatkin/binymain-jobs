@@ -16,16 +16,21 @@ import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
-import popUpContext from "../../context/popUpContext";
-import beginDateUpdate from "../../function/beginDateUpdate";
 
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
-  const [newEventPopup,setNewEventPopup] = useState(false)
-  const ref= useRef();
+  const [newEventPopup, setNewEventPopup] = useState(false);
+  const [checked, setChecked] = useState(false);
+  // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
+  const [timeValidationOK, setTimeValidationOK] = useState(true);
+  const ref = useRef();
 
   const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
+  const handleToggleSwitch = (e) => {
+    setChecked(!checked);
+    setValues({ ...values, isFree: checked });
+  };
 
   const fileChangeHandler = (e) => {
     setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
@@ -148,6 +153,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       required: true,
     },
     {
+      id: 51,
+      name: "timeValidationOK",
+      type: "pTimeValidationOK",
+    },
+    {
       id: 6,
       name: "finishTime",
       type: "time",
@@ -188,7 +198,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "categories",
       type: "selectIcon",
       label: "קטגוריה",
-      errorMessage: "שדה חובה!",
+      errorMessage: "יש לבחור קטגוריה",
       placeholder: "קטגוריה",
       required: true,
     },
@@ -197,7 +207,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "audiences",
       type: "selectIcon",
       label: "קהל יעד",
-      errorMessage: "שדה חובה!",
+      errorMessage: "יש לבחור קהל יעד",
       placeholder: "קהל יעד",
       required: true,
     },
@@ -213,7 +223,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 11,
       name: "registrationPageURL",
-      type: "text",
+      type: "url",
       // label: "דף הרשמה לאירוע",
       errorMessage: "שדה חובה!",
       placeholder: " לינק להרשמה/כרטיסים לאירוע",
@@ -225,6 +235,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "file",
       errorMessage: "שדה חובה!",
       label: "תמונת אירוע",
+      accept: "image/*",
       required: true,
     },
     {
@@ -233,6 +244,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "file",
       errorMessage: "שדה חובה!",
       label: "תמונת כיסוי",
+      accept: "image/*",
       required: true,
     },
     // {
@@ -241,7 +253,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     //   type: "file",
     //   label: "העלה תמונות לגלריה",
     //   multiple: true,
+    // accept: "image/*",
     // },
+
     {
       id: 15,
       name: "advertiserName",
@@ -311,7 +325,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         repeatType: values.repeatType,
         personalRepeat: values.personalRepeatType,
         isReapeated: values.repeatType !== "אירוע ללא חזרה",
-        payment: values.payment,
+        payment: {
+          isFree: values.isFree,
+        },
         repeatSettings: {
           type: values.repeatSettingsType,
           repeatEnd: values.repeatSettingsRepeatEnd || values.date,
@@ -354,10 +370,49 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log({ values });
   }, [values]);
   const onChange = (e) => {
-    setValues((prev) => ({...prev,[e.target.name]: e.target.value,}));
-    setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    console.log("values", values, `${e.target.name}${e.target.value}`);
+    setValues({ ...values, [e.target.name]: e.target.value });
+    if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
+      if (values.finishTime <= values.beginningTime) {
+        setTimeValidationOK(false);
+      } else {
+        setTimeValidationOK(true);
+      }
+      setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
+    }
   };
+
+  function SubmitButton() {
+    if (
+      values.eventName &&
+      values.summary &&
+      values.advertiserName &&
+      values.advertiserTel &&
+      values.advertiserEmail &&
+      values.categories[0] &&
+      values.audiences[0] &&
+      values.registrationPageURL &&
+      values.cardImageURL &&
+      values.coverImageURL
+    ) {
+      return (
+        <div className={styles.button}>
+          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.button}>
+          <ClassicButton
+            width={"200px"}
+            text={"שמור"}
+            type={"submit"}
+            disabled={true}
+          />
+          <span className={styles.errorMessage}>נא למלא את כל השדות</span>
+        </div>
+      );
+    }
+  }
 
   return (
     <div
@@ -365,8 +420,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       className={`${styles.main} ${className}`}
       style={style}
       {...props}
-    ><div className={styles.header}>כאן מכניסים את כל פרטי האירוע שלך</div>
-      {" "}
+    >
+      <div className={styles.header}>כאן מכניסים את כל פרטי האירוע שלך</div>{" "}
       <form
         onSubmit={handleSubmit}
         className={styles.form}
@@ -391,22 +446,22 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             console.log(input);
             return (
               <div className={styles.selectIcon}>
-              <div className={styles.iconLabel}>{input.label}</div>
-              <SelectIcon
-                {...input}
-                errorMessage={input.errorMessage}
-                inText={false}
-                key={input.id}
-                value={values[input.name]}
-                name={input.name}
-                values={values}
-                setValues={setValues}
-                array={input.name === "categories" ? categories : audiences}
-                setArray={
-                  input.name === "categories" ? setCategories : setAudiences
-                }
-              />
-        </div>
+                <div className={styles.iconLabel}>{input.label}</div>
+                <SelectIcon
+                  {...input}
+                  errorMessage={input.errorMessage}
+                  inText={false}
+                  key={input.id}
+                  value={values[input.name]}
+                  name={input.name}
+                  values={values}
+                  setValues={setValues}
+                  array={input.name === "categories" ? categories : audiences}
+                  setArray={
+                    input.name === "categories" ? setCategories : setAudiences
+                  }
+                />
+              </div>
             );
           } else if (input.type === "select")
             return (
@@ -425,11 +480,39 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
           else if (input.type === "אירוע ללא חזרה")
-            return<div className={styles.date}> <NoRepeatEvent values={values} setValues={setValues} /></div>;
+            return (
+              <div className={styles.date}>
+                {" "}
+                <NoRepeatEvent values={values} setValues={setValues} />
+              </div>
+            );
           else if (input.type === "button")
-            return <div className={styles.advanced} onClick={() => setNewEventPopup(true)}>מתקדם</div>;
+            return (
+              <div
+                className={styles.advanced}
+                onClick={() => setNewEventPopup(true)}
+              >
+                מתקדם
+              </div>
+            );
           else if (input.type == "toogleSwitch")
-            return <ToggleSwitch text="בתשלום" />;
+            return (
+              <ToggleSwitch
+                text="בתשלום"
+                checked={checked}
+                onChange={handleToggleSwitch}
+              />
+            );
+          else if (input.type == "pTimeValidationOK")
+            return (
+              <p
+                className={
+                  timeValidationOK ? styles.priceNone : styles.priceInline
+                }
+              >
+                משך האירוע - שעה לפחות
+              </p>
+            );
           else
             return (
               <Input
@@ -455,9 +538,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           />
         )}
 
-        <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
-        </div>
+        <SubmitButton />
       </form>
     </div>
   );

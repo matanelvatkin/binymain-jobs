@@ -16,7 +16,7 @@ const Select = ({
   setValues = () => {},
   ...props
 }) => {
-  // const [value, setValue] = useState();
+  const [isPlaceChosen, setIsPlaceChosen] = useState(false);
   const [valueText, setValueText] = useState(placeholder);
   const [openPopup, setOpenPopup] = useState(false);
   useEffect(() => {
@@ -29,6 +29,7 @@ const Select = ({
   const changeTextValue = (e) => {
     setValueText(e.target.innerText);
     setOpenPopup(false);
+    setIsPlaceChosen(true);
     // setValue(valueText);
   };
   return (
@@ -66,6 +67,11 @@ const Select = ({
           ))}
         </div>
       ) : null}
+      {!isPlaceChosen ? (
+        <span className={styles.errorMessage}> {errorMessage}</span>
+      ) : (
+        <span className={styles.isPlaceChosen}> {errorMessage}</span>
+      )}
     </div>
   );
 };
