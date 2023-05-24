@@ -345,6 +345,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     apiCalls("post", "/event/createvent", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
+      console.log(res);
       if (res._id != "") {
         setSaveEventMode(true)
         setPopUpText("האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו");
@@ -382,8 +383,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       } else {
         setTimeValidationOK(true);
       }
-      setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
     }
+    if (e.target.type === "file") setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
 
   function SubmitButton() {
