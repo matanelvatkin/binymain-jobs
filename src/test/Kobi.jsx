@@ -7,7 +7,7 @@ import Crop from "../components/Crop/Crop";
 export default function Kobi() {
   return (
     <div>
-      <ImageUpload />
+      {/* <ImageUpload /> */}
     </div>
   );
 }

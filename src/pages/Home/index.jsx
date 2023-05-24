@@ -69,7 +69,7 @@ function Home() {
       pageSize: pageSize,
       search: search,
     }).then((data) => {
-      setEvents(data.event);
+      setEvents(data);
       setNextPage(data.nextPage);
     });
   };

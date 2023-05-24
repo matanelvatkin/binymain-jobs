@@ -19,7 +19,6 @@ function EventCard({ events, nextPage , loadMore }) {
   const navToViewEvent = (eventID) => {
     navigate("/viewEvent/" + eventID);
   };
-  
   return (
     <>
       {events?.map((v) =>{ 
