@@ -378,37 +378,38 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   };
 
   function SubmitButton() {
-    if (
-      values.eventName &&
-      values.summary &&
-      values.advertiserName &&
-      values.advertiserTel &&
-      values.advertiserEmail &&
-      values.categories[0] &&
-      values.audiences[0] &&
-      values.registrationPageURL &&
-      values.cardImageURL &&
-      values.coverImageURL
-    ) {
-      return (
-        <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
-        </div>
-      );
-    } else {
-      return (
-        <div className={styles.button}>
-          <ClassicButton
-            width={"200px"}
-            text={"שמור"}
-            type={"submit"}
-            disabled={true}
-          />
-          <span className={styles.errorMessage}>נא למלא את כל השדות</span>
-        </div>
-      );
-    }
+    // if (
+    //   values.eventName &&
+    //   values.summary &&
+    //   values.advertiserName &&
+    //   values.advertiserTel &&
+    //   values.advertiserEmail &&
+    //   values.categories[0] &&
+    //   values.audiences[0] &&
+    //   values.registrationPageURL &&
+    //   values.cardImageURL &&
+    //   values.coverImageURL
+    // ) {
+    return (
+      <div className={styles.button}>
+        <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+      </div>
+    );
   }
+  // else {
+  //   return (
+  //     <div className={styles.button}>
+  //       <ClassicButton
+  //         width={"200px"}
+  //         text={"שמור"}
+  //         type={"submit"}
+  //         disabled={true}
+  //       />
+  //       <span className={styles.errorMessage}>נא למלא את כל השדות</span>
+  //     </div>
+  //   );
+  // }
+  // }
 
   return (
     <div
