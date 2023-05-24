@@ -11,20 +11,20 @@
   border: none;
   /* font-family: "Poppins", sans-serif; */
   /* font-weight: bold; */
-  font-size:  medium;
+  font-size: medium;
+  font-weight: 600;
   transition: 0.1s;
 }
 
-.button:hover{
-  box-shadow: 0 3px 8px rgba(21, 57, 42, 0.25), 3px 3px 8px rgba(21, 57, 42, 0.25)
-  , 0 3px 8px rgba(21, 57, 42, 0.25), 0 0 ;
+.button:hover {
+  box-shadow: 0 3px 8px rgba(21, 57, 42, 0.25),
+    3px 3px 8px rgba(21, 57, 42, 0.25), 0 3px 8px rgba(21, 57, 42, 0.25), 0 0;
 }
 
 .button:focus {
   box-shadow: inset -4px -4px 12px rgba(21, 57, 42, 0.25),
     inset 4px 4px 12px rgba(21, 57, 42, 0.25);
-    cursor: default;
-    
+  cursor: default;
 }
 
 .oppositeColorBtn {
@@ -49,9 +49,8 @@
   color: var(--text-Fourth-color);
 }
 
-/* .button:disabled{
-    background-color: gray ;
-    color:rgb(180, 175, 175);
-    pointer-events: none;
-
-} */
+.button:disabled {
+  background-color: gray;
+  color: rgb(180, 175, 175);
+  pointer-events: none;
+}

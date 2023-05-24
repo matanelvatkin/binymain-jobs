@@ -1,19 +1,19 @@
 .secondHeader {
   width: 100vw;
-  height: 12vh;
+  height: 7vh;
   background-color: var(--bg-secondary-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 7%;
   direction: rtl;
 }
 .text {
   font-size: 25px;
   font-weight: 600;
   position: absolute;
-  right: 70px;
-  top: 18px;
+  right: 20%;
+  top:2% ;
   color:   var(--text-Fourth-color);
 }
 .backArrow {

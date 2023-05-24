@@ -39,6 +39,14 @@ margin-left: 30px;
   color: var(--text-third-color);
 }
 
+.date{
+  color: var(--text-secondary-color);
+}
+
+.hourOfEvent{
+  color: var(--text-secondary-color);
+}
+
 .dataSection {
   display: flex;
   flex-direction: row;
@@ -70,11 +78,30 @@ margin-left: 30px;
 
 .adminContainer{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
   margin-left: 5%;
-  height: 100px;
+  height: 200px;
+  font-size: large;
+  font-weight: bold;
 }
+
+
+.advertiserInfo{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.advertiserInfo >p{
+  color: var(--text-secondary-color);
+}
+.advertiserInfo >h3{
+  color: var(--text-third-color);
+}
+
 
 .adminPublish{
   width: 200px;
@@ -94,4 +121,12 @@ margin-left: 30px;
   font-size: large;
   border-radius: 12px;
   border: none;
+}
+.cards{
+  display: flex;
+  align-items: center;
+}
+
+.homeButton{
+  margin: 10% 15% 10% 10%;
 }
