@@ -59,6 +59,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "נחליאל",
     "נוה צוף",
     `ניל"י`,
+    "סנה-בני אדם",
     "עופרה",
     "פסגות",
     "רימונים",

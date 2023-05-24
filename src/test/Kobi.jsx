@@ -1,36 +1,51 @@
 import { useEffect, useState } from "react";
 
-import apiCalls from "../function/apiCalls";
-import ImageUpload from "../components/ImageUpload/ImageUpload";
-import Crop from "../components/Crop/Crop";
-import ClassicButton from "../components/ClassicButton copy";
 import Input from "../components/Input";
+import apiCalls from "../function/apiCalls";
+import { Link } from "react-router-dom";
+import ClassicButton from "../components/ClassicButton copy";
 
 export default function Kobi() {
   const [value, setValue] = useState("");
+  const [isValidLink, setIsValidLink] = useState(false);
   const onChange = (e) => {
     setValue(e.target.value);
     console.log(value);
   };
+
+  async function checkLink(url) {
+    try {
+      const response = await apiCalls("GET", "linkcheck", null, url);
+      console.log(response);
+      if (response === 200) {
+        // Check if the status code is 200 (OK)
+        setIsValidLink(true);
+      } else {
+        setIsValidLink(false);
+      }
+    } catch (error) {
+      console.error("Failed to check link:", error);
+      setIsValidLink(false);
+      return false;
+    }
+  }
+  checkLink(value);
   function SubmitButton() {
-    if (value) {
+    console.log(isValidLink);
+    if (isValidLink) {
       return (
         <div>
-          {/* <button type="button">Button</button> */}
-          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+          <ClassicButton width={"200px"} text={"link"} type={"submit"} />
         </div>
       );
     } else {
       return (
         <div>
-          {/* <button type="button" disabled>
-            Button
-          </button> */}
           <ClassicButton
             width={"200px"}
-            text={"שמור"}
+            text={"link"}
             type={"submit"}
-            disabled={`disabled`}
+            disabled={true}
           />
         </div>
       );
@@ -39,7 +54,9 @@ export default function Kobi() {
   return (
     <div>
       <Input type="text" label="Submit" onChange={onChange} />
-      <SubmitButton />
+      <Link to={value}>
+        <SubmitButton />
+      </Link>
     </div>
   );
 }
