@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import style from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
 import headerContext from "../../context/headerContext";
@@ -8,7 +8,8 @@ import { TbTicket } from "react-icons/tb";
 import apiCalls from "../../function/apiCalls";
 import translation from "./translation.js";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import { AiOutlineClockCircle } from "react-icons/ai";
+import { AiOutlineClockCircle, AiOutlineHome } from "react-icons/ai";
+import {MdOpenInNew} from "react-icons/md";
 import { BiMoney } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 import { BiCategory } from "react-icons/bi";
@@ -45,7 +46,7 @@ export default function ViewEvent() {
 
   // In the routing there is a param called event which contains the event id.
   // I collect the eventID from the event param and then I call the server to give me the whole event's data.
-
+  const navigate = useNavigate();
   const { event } = useParams();
 
   //Two states. One for the data itself, the other is for the loading.
@@ -117,7 +118,8 @@ export default function ViewEvent() {
   };
 
   return (
-    <div className={style.container}>
+    <div className={style.container}  onClick={ ()=>console.log("registrationPageURL", eventData)}>
+
       <div>
         {!loading ? (
           <img
@@ -280,18 +282,24 @@ export default function ViewEvent() {
         </div>
         {eventData && eventData.registrationPageURL && (
         <div className={style.section}>
-        <Link to={eventData.registrationPageURL} className={style.link}>
-        <ClassicButton 
-        width={200} 
-        text={translation.cards}
-        >        
-          <TbTicket className={style.ticketIcon}/>
-        </ClassicButton>
-        </Link>
+         <a className={style.cards} 
+          href={eventData.registrationPageURL} 
+          target="_blank" 
+          ></a>
+          <span className="openIcon">
+            <MdOpenInNew/>
+            </span>
+            לדף הרשמה וכרטיסים
         </div>
         )}
-        {isAdmin &&
+        {isAdmin && eventData &&
         <div className={style.adminContainer}>
+          <div className={style.advertiserInfo}>
+            <h3>פרטי המפרסם:</h3>
+            <p>{eventData.advertiser.name}</p>
+            <p>{eventData.advertiser.email} </p>
+            <p>{eventData.advertiser.tel} </p> 
+          </div>
         <button 
         className={`${style.adminPublish ? (isActive ? style.active : style.adminPublish): style.active}`}
         onClick={handleButtonToggle}
@@ -300,6 +308,18 @@ export default function ViewEvent() {
           {isActive ? 'פורסם בהצלחה 👍🏽' : 'פרסם'}
         </button>
         </div>}
+
+   
+        <div className={style.homeButton}>
+          <ClassicButton
+            width={'80%'}
+            type={'submit'}
+            onClick={()=>navigate('/')}
+            // onClick={loginAouth}
+          >
+            <AiOutlineHome className={style.icon} /> חזרה לדף הבית
+          </ClassicButton>
+        </div>
       </div>
     </div>
   );
