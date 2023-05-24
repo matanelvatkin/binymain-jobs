@@ -280,12 +280,26 @@ export default function ViewEvent() {
             <p>loading...</p>
           )}
         </div>
-        {eventData&&eventData.registrationPageURL&&
-        <div><a className={style.cards} href={eventData.registrationPageURL} target="_blank" ><span className="openIcon"><MdOpenInNew/></span>לדף הרשמה וכרטיסים
-        </a></div>}
-       
-        {isAdmin &&
+        {eventData && eventData.registrationPageURL && (
+        <div className={style.section}>
+         <a className={style.cards} 
+          href={eventData.registrationPageURL} 
+          target="_blank" 
+          ></a>
+          <span className="openIcon">
+            <MdOpenInNew/>
+            </span>
+            לדף הרשמה וכרטיסים
+        </div>
+        )}
+        {isAdmin && eventData &&
         <div className={style.adminContainer}>
+          <div className={style.advertiserInfo}>
+            <h3>פרטי המפרסם:</h3>
+            <p>{eventData.advertiser.name}</p>
+            <p>{eventData.advertiser.email} </p>
+            <p>{eventData.advertiser.tel} </p> 
+          </div>
         <button 
         className={`${style.adminPublish ? (isActive ? style.active : style.adminPublish): style.active}`}
         onClick={handleButtonToggle}
