@@ -52,11 +52,10 @@
 }
 
 .errorMessage {
-  padding: 3px;
-  color: red;
-  display: none;
-}
-
-input:invalid ~ .errorMessage {
   display: block;
+  padding: 5px;
+  color: red;
+}
+.isPlaceChosen {
+  display: none;
 }

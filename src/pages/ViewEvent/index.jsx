@@ -1,26 +1,43 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import style from "./style.module.css";
-import RoundButton from "../../components/RoundButton";
 import ClassicButton from "../../components/ClassicButton copy";
 import headerContext from "../../context/headerContext";
-import { AiFillCalendar } from "react-icons/ai";
 import { MdOutlinePlace } from "react-icons/md";
 import { TbTicket } from "react-icons/tb";
 import apiCalls from "../../function/apiCalls";
 import translation from "./translation.js";
-import { useNavigatenpm } from "react-router-dom";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { AiOutlineClockCircle, AiOutlineHome } from "react-icons/ai";
 import {MdOpenInNew} from "react-icons/md";
 import { BiMoney } from "react-icons/bi";
+import { BsPeopleFill } from "react-icons/bs";
+import { BiCategory } from "react-icons/bi";
 import FavouriteMark from "../../components/FavouriteMark";
 import userContext from "../../context/userContext";
+import { Link } from "react-router-dom";
 
 // Creator: Naama Orlan
 //This page view the details of a specific event.
 
 export default function ViewEvent() {
+
+
+  const audienceMapping = {
+    "64118b289057ecc057ef8a38": "נשים",
+    "64118b289057ecc057ef8a39": "משפחות",
+    "64118b289057ecc057ef8a3a": "מבוגרים",
+    "64118b289057ecc057ef8a3b": "נוער",
+    "64118b289057ecc057ef8a3c": "ילדים"
+  };
+
+  const categoryMapping = {
+    "641189cf3d762f6a181064c7": "כיף",
+    "641189cf3d762f6a181064c8": "הרצאות",
+    "641189cf3d762f6a181064c9": "אוכל",
+    "641189cf3d762f6a181064ca": "יצירה מקומית",
+    "641189cf3d762f6a181064cb": "מוזיקה"
+  };
 
   const {user} = useContext(userContext);
   const {isAdmin, setIsAdmin} = useContext(userContext);
@@ -36,7 +53,6 @@ export default function ViewEvent() {
 
   const [loading, setLoading] = useState(true);
   const [eventData, setEventData] = useState();
-  const [datesOfEvents, setDatesOfEvents] = useState([]);
   const [isActive, setIsActive] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
 
@@ -46,20 +62,22 @@ export default function ViewEvent() {
     if (user.userType === "admin") {
       setIsAdmin(true)
     }
+    if (apiData.status === "published") {
+      setIsPublished(true)
+      setIsActive(true)
+    }
     setEventData(apiData);
-    setDatesOfEvents(apiData.date)
-    
+    console.log(apiData);
   }
 
 
   useEffect(() => {
     fetchEvent();
-  }, []);
+  },[user.userType, setIsAdmin]);
 
   useEffect(() => {
     if (eventData) {
       setLoading(() => false);
-      console.log(eventData);
     }
   }, [eventData]);
 
@@ -86,7 +104,7 @@ export default function ViewEvent() {
         handlePublish();
       }
     }
-  };
+  };  
 
   
   const handlePublish = async () => {
@@ -205,6 +223,46 @@ export default function ViewEvent() {
               <div className={style.payment}>
           {eventData.payment.isFree === true? "כניסה חופשית" : "בתשלום" }
                 </div>
+            </div>
+          ) : (
+            <p>loading...</p>
+          )}
+        </div>
+
+        <div className={style.section}>
+          {!loading ? (
+            <div className={style.dataSection}>
+              <div className={style.reactIcon}>
+                <BsPeopleFill />
+              </div>
+              <div className={style.payment}>
+              {eventData.audiences.map((audience, index) => (
+          <span key={index}>
+            {audienceMapping[audience]}
+            {index !== eventData.audiences.length - 1 && ", "}
+          </span>
+        ))}
+                </div>
+            </div>
+          ) : (
+            <p>loading...</p>
+          )}
+        </div>
+
+        <div className={style.section}>
+          {!loading ? (
+            <div className={style.dataSection}>
+              <div className={style.reactIcon}>
+                <BiCategory />
+              </div>
+              <div className={style.payment}>
+              {eventData.categories.map((category, index) => (
+          <span key={index}>
+            {categoryMapping[category]}
+            {index !== eventData.categories.length - 1 && ", "}
+          </span>
+        ))}               
+        </div>
             </div>
           ) : (
             <p>loading...</p>

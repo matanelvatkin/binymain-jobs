@@ -39,6 +39,14 @@ margin-left: 30px;
   color: var(--text-third-color);
 }
 
+.date{
+  color: var(--text-secondary-color);
+}
+
+.hourOfEvent{
+  color: var(--text-secondary-color);
+}
+
 .dataSection {
   display: flex;
   flex-direction: row;

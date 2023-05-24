@@ -31,11 +31,10 @@
   filter: opacity(99%);
 }
 .errorMessage {
-  padding: 3px;
+  align-self: flex-end;
+  padding: 5px;
   color: red;
-  display: none;
 }
-
-input:invalid ~ .errorMessage {
-  display: block;
+.isChosen {
+  display: none;
 }
