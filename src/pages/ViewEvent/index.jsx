@@ -290,8 +290,14 @@ export default function ViewEvent() {
         </Link>
         </div>
         )}
-        {isAdmin &&
+        {isAdmin && eventData &&
         <div className={style.adminContainer}>
+          <div className={style.advertiserInfo}>
+            <h3>פרטי המפרסם:</h3>
+            <p>{eventData.advertiser.name}</p>
+            <p>{eventData.advertiser.email} </p>
+            <p>{eventData.advertiser.tel} </p> 
+          </div>
         <button 
         className={`${style.adminPublish ? (isActive ? style.active : style.adminPublish): style.active}`}
         onClick={handleButtonToggle}
