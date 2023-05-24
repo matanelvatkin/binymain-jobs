@@ -289,61 +289,86 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    for (const key in fileData) {
-      if (Array.isArray(fileData[key])) {
-        for (const file of fileData[key]) {
-          formData.append(key, file);
+    if (
+      values.eventName &&
+      values.summary &&
+      values.advertiserName &&
+      values.advertiserTel &&
+      values.advertiserEmail &&
+      values.categories[0] &&
+      values.audiences[0] &&
+      values.registrationPageURL &&
+      values.cardImageURL &&
+      values.coverImageURL
+    ) {
+      const formData = new FormData();
+      for (const key in fileData) {
+        if (Array.isArray(fileData[key])) {
+          for (const file of fileData[key]) {
+            formData.append(key, file);
+          }
+        } else {
+          formData.append(key, fileData[key]);
         }
-      } else {
-        formData.append(key, fileData[key]);
+        console.log("fileData", fileData);
       }
-      console.log("fileData", fileData);
+      formData.append(
+        "values",
+        JSON.stringify({
+          eventName: values.eventName,
+          summary: values.summary,
+          advertiser: {
+            name: values.advertiserName,
+            tel: values.advertiserTel,
+            email: values.advertiserEmail,
+          },
+          date: values.date,
+          day: values.days,
+          beginningTime: values.beginningTime,
+          finishTime: values.finishTime,
+          place: values.place,
+          categories: values.categories,
+          audiences: values.audiences,
+          registrationPageURL: values.registrationPageURL,
+          cardImageURL: values.cardImageURL,
+          coverImageURL: values.coverImageURL,
+          gallery: values.gallery,
+          repeatType: values.repeatType,
+          personalRepeat: values.personalRepeatType,
+          isReapeated: values.repeatType !== "אירוע ללא חזרה",
+          payment: {
+            isFree: values.isFree,
+          },
+          repeatSettings: {
+            type: values.repeatSettingsType,
+            repeatEnd: values.repeatSettingsRepeatEnd || values.date,
+          },
+        })
+      );
+
+      console.log([...formData.entries()]);
+
+      apiCalls("post", "/event/createvent", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }).then((res) => {
+        if (res._id != "") {
+          const newEventId = res._id;
+          nav(`/`);
+        }
+      });
+    } else {
+      return (
+        <div className={styles.button}>
+          <ClassicButton
+            width={"200px"}
+            text={"שמור"}
+            type={"submit"}
+            disabled={true}
+          />
+          <span className={styles.errorMessage}>נא למלא את כל השדות</span>
+        </div>
+      );
     }
-    formData.append(
-      "values",
-      JSON.stringify({
-        eventName: values.eventName,
-        summary: values.summary,
-        advertiser: {
-          name: values.advertiserName,
-          tel: values.advertiserTel,
-          email: values.advertiserEmail,
-        },
-        date: values.date,
-        day: values.days,
-        beginningTime: values.beginningTime,
-        finishTime: values.finishTime,
-        place: values.place,
-        categories: values.categories,
-        audiences: values.audiences,
-        registrationPageURL: values.registrationPageURL,
-        cardImageURL: values.cardImageURL,
-        coverImageURL: values.coverImageURL,
-        gallery: values.gallery,
-        repeatType: values.repeatType,
-        personalRepeat: values.personalRepeatType,
-        isReapeated: values.repeatType !== "אירוע ללא חזרה",
-        payment: {
-          isFree: values.isFree,
-        },
-        repeatSettings: {
-          type: values.repeatSettingsType,
-          repeatEnd: values.repeatSettingsRepeatEnd || values.date,
-        },
-      })
-    );
-
-    console.log([...formData.entries()]);
-
-    apiCalls("post", "/event/createvent", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    }).then((res) => {
-      if (res._id != "") {
-        const newEventId = res._id;
-        nav(`/`);
-      }
-    });
   };
 
   useEffect(() => {
@@ -396,20 +421,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       </div>
     );
   }
-  // else {
-  //   return (
-  //     <div className={styles.button}>
-  //       <ClassicButton
-  //         width={"200px"}
-  //         text={"שמור"}
-  //         type={"submit"}
-  //         disabled={true}
-  //       />
-  //       <span className={styles.errorMessage}>נא למלא את כל השדות</span>
-  //     </div>
-  //   );
-  // }
-  // }
 
   return (
     <div
