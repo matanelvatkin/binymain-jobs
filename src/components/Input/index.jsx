@@ -47,7 +47,7 @@ const Input = (props) => {
             style={{ width: width }}
             onChange={onChange}
             type={type}
-            ref={refInput}
+            ref={refInput?refInput:tempRef}
           />
           <label className={styles.labelRadio}>
             <div>{label} </div>
