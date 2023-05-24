@@ -18,6 +18,7 @@ import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
 import popUpContext from "../../context/popUpContext";
 import beginDateUpdate from "../../function/beginDateUpdate";
+import SelectInput from "../../components/SelectInput";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -431,7 +432,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         {inputs.map((input) => {
           if (input.type === "select")
             return (
-              <Select
+              <SelectInput
                 errorMessage={input.errorMessage}
                 {...input}
                 key={input.id}
@@ -466,7 +467,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
           } else if (input.type === "select")
             return (
-              <Select
+              <SelectInput
                 {...input}
                 errorMessage={input.errorMessage}
                 key={input.id}
