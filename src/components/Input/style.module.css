@@ -147,6 +147,6 @@
   display: none;
 }
 
-input:invalid ~ .errorMessage {
+/* input:invalid ~ .errorMessage {
   display: block;
-}
+} */
