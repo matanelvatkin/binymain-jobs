@@ -178,13 +178,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
     },
-    {
-      id: 1,
-      name: "price",
-      type: "text",
-      placeholder: "מחיר",
-      className: styles.priceNone,
-    },
+    // {
+    //   id: 1,
+    //   name: "price",
+    //   type: "text",
+    //   placeholder: "מחיר",
+    //   className: styles.priceNone,
+    // },
 
     // {
     //   id: 7,
