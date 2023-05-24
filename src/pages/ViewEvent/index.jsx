@@ -282,10 +282,16 @@ export default function ViewEvent() {
         </div>
         {eventData && eventData.registrationPageURL && (
         <div className={style.section}>
-        {eventData&&eventData.registrationPageURL&&
-        <div><a className={style.cards} href={eventData.registrationPageURL} target="_blank" /><span className="openIcon"><MdOpenInNew/></span>לדף הרשמה וכרטיסים
+         <a className={style.cards} 
+          href={eventData.registrationPageURL} 
+          target="_blank" 
+          ></a>
+          <span className="openIcon">
+            <MdOpenInNew/>
+            </span>
+            לדף הרשמה וכרטיסים
         </div>
-        }
+        )}
         {isAdmin && eventData &&
         <div className={style.adminContainer}>
           <div className={style.advertiserInfo}>
