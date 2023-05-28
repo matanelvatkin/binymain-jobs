@@ -374,12 +374,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
-      if (values.finishTime <= values.beginningTime) {
+      const beginningTimeObj = new Date("2000-01-01T" + values.beginningTime);
+      const finishingTimeObj = new Date("2000-01-01T" + values.finishTime);      
+      if (finishingTimeObj <= beginningTimeObj) {
         setTimeValidationOK(false);
       } else {
         setTimeValidationOK(true);
       }
-      setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
     }
   };
 
