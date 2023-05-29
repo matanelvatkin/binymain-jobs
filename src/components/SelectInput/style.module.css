@@ -1,0 +1,50 @@
+.select_container {
+  position: relative;
+}
+.select {
+  margin: 10px 0 0 50px;
+  width: 100%;
+}
+.select_box {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  width: 241px;
+  max-height: 150px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  border: 1px solid var(--text-third-color);
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  overflow: scroll;
+  z-index: 1;
+  background-color: var(--primary-color);
+}
+
+.option {
+  padding: 5px 0 5px 0;
+  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.25);
+}
+
+.icon {
+  height: 25px;
+  margin-top: 6px;
+}
+
+.arrow {
+  color: var(--text-secondary-color);
+  position: absolute;
+  left: 3px;
+  font-size: 20px;
+}
+
+.errorMessage {
+  display: block;
+  padding: 5px;
+  color: red;
+}
+.isPlaceChosen {
+  display: none;
+}

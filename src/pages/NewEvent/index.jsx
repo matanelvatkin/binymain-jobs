@@ -18,6 +18,7 @@ import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
 import popUpContext from "../../context/popUpContext";
 import beginDateUpdate from "../../function/beginDateUpdate";
+import SelectInput from "../../components/SelectInput";
 
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
@@ -178,13 +179,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
     },
-    {
-      id: 1,
-      name: "price",
-      type: "text",
-      placeholder: "מחיר",
-      className: styles.priceNone,
-    },
+    // {
+    //   id: 1,
+    //   name: "price",
+    //   type: "text",
+    //   placeholder: "מחיר",
+    //   className: styles.priceNone,
+    // },
 
     // {
     //   id: 7,
@@ -291,7 +292,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [eventData, setEventData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
+    // הכנסת שעת התחלה לתאריך ולתאריך סיום
     values.date = beginDateUpdate(values.date,values.beginningTime)
+    if(values.repeatSettingsRepeatEnd instanceof Date){values.repeatSettingsRepeatEnd= beginDateUpdate(values.repeatSettingsRepeatEnd ,values.beginningTime)}
+  
     const formData = new FormData();
     for (const key in fileData) {
       if (Array.isArray(fileData[key])) {
@@ -342,6 +346,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     apiCalls("post", "/event/createvent", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
+      console.log(res);
       if (res._id != "") {
         setSaveEventMode(true)
         setPopUpText("האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו");
@@ -379,8 +384,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       } else {
         setTimeValidationOK(true);
       }
-      setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
     }
+    if (e.target.type === "file") setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
 
   function SubmitButton() {
@@ -432,7 +437,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         {inputs.map((input) => {
           if (input.type === "select")
             return (
-              <Select
+              <SelectInput
                 errorMessage={input.errorMessage}
                 {...input}
                 key={input.id}
@@ -467,7 +472,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
           } else if (input.type === "select")
             return (
-              <Select
+              <SelectInput
                 {...input}
                 errorMessage={input.errorMessage}
                 key={input.id}

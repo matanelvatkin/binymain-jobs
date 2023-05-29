@@ -9,7 +9,7 @@ import apiCalls from "../../function/apiCalls";
 import translation from "./translation.js";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { AiOutlineClockCircle, AiOutlineHome } from "react-icons/ai";
-import {MdOpenInNew} from "react-icons/md";
+import { MdOpenInNew } from "react-icons/md";
 import { BiMoney } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 import { BiCategory } from "react-icons/bi";
@@ -39,8 +39,8 @@ export default function ViewEvent() {
     "641189cf3d762f6a181064cb": "מוזיקה"
   };
 
-  const {user} = useContext(userContext);
-  const {isAdmin, setIsAdmin} = useContext(userContext);
+  const { user } = useContext(userContext);
+  const { isAdmin, setIsAdmin } = useContext(userContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרטי האירוע");
 
@@ -73,7 +73,7 @@ export default function ViewEvent() {
 
   useEffect(() => {
     fetchEvent();
-  },[user.userType, setIsAdmin]);
+  }, [user.userType, setIsAdmin]);
 
   useEffect(() => {
     if (eventData) {
@@ -104,9 +104,9 @@ export default function ViewEvent() {
         handlePublish();
       }
     }
-  };  
+  };
 
-  
+
   const handlePublish = async () => {
     try {
       const updatedData = await apiCalls("put", `/event/${event}`, { status: "published" });
@@ -118,7 +118,7 @@ export default function ViewEvent() {
   };
 
   return (
-    <div className={style.container}  onClick={ ()=>console.log("registrationPageURL", eventData)}>
+    <div className={style.container} onClick={() => console.log("registrationPageURL", eventData)}>
 
       <div>
         {!loading ? (
@@ -130,144 +130,144 @@ export default function ViewEvent() {
         ) : (
           <p>loading...</p>
         )}
-      
+
       </div>
       <div className={style.content}>
         <div className={style.section}>
-       
+
           {!loading ? (
             <h1 className={style.heading}>{eventData.eventName}</h1>
           ) : (
             <p>loading...</p>
           )}
-           <div className={style.favourite}>
-          <FavouriteMark />
+          <div className={style.favourite}>
+            <FavouriteMark />
+          </div>
         </div>
-        </div>
-<div className={style.main}>
-        <div className={style.section}>
-          {!loading ? (
-            <div className={style.dataSection}>
-              <div className={style.reactIcon}>
-                <FaRegCalendarAlt />
-              </div>
-              <div className={style.dates}>
-                {eventData.date.map((date, index) => {
-                  const formattedDate = new Date(date).toLocaleDateString("he-IL", {
-                    weekday: 'long',
-                    day: 'numeric',
-                    month: 'long',
-                    timeZone: 'UTC',
-                    numberingSystem: 'latn'
-                  });
-                  const dateObj = {
-                    formattedDate,
-                    weekday: formattedDate.split(',')[0]
-                  };
-                  return (
-                    <div key={index} className={style.date}>
-                      { eventData.isReapeated ? (
-                      `${formattedDate} (כל  ${dateObj.weekday})`
-                      ) : (
-                      formattedDate
-                )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ) : (
-            <p>loading...</p>
-          )}
-        </div>
-
-        <div className={style.section}>
-          {!loading ? (
-            <div className={style.dataSection}>
-              <div className={style.reactIcon}>
-                <AiOutlineClockCircle />
-              </div>
-              <div
-                className={style.hourOfEvent}
-              >
-                 {eventData.finishTime}- {eventData.beginningTime}
-              </div>
-              </div>
-          ) : (
-            <p>loading...</p>
-          )}
-        </div>
-    
-
-        <div className={style.section}>
-          {!loading ? (
-            <div className={style.dataSection}>
-              <div className={style.reactIcon}>
-                <MdOutlinePlace />
-              </div>
-              
-              <div className={style.placeOfEvent}> {eventData.place}</div>
-              </div>
-            
-          ) : (
-            <p>loading...</p>
-          )}
-        </div>
-
-        <div className={style.section}>
-          {!loading ? (
-            <div className={style.dataSection}>
-              <div className={style.reactIcon}>
-                <BiMoney />
-              </div>
-              <div className={style.payment}>
-          {eventData.payment.isFree === true? "כניסה חופשית" : "בתשלום" }
+        <div className={style.main}>
+          <div className={style.section}>
+            {!loading ? (
+              <div className={style.dataSection}>
+                <div className={style.reactIcon}>
+                  <FaRegCalendarAlt />
                 </div>
-            </div>
-          ) : (
-            <p>loading...</p>
-          )}
-        </div>
-
-        <div className={style.section}>
-          {!loading ? (
-            <div className={style.dataSection}>
-              <div className={style.reactIcon}>
-                <BsPeopleFill />
-              </div>
-              <div className={style.payment}>
-              {eventData.audiences.map((audience, index) => (
-          <span key={index}>
-            {audienceMapping[audience]}
-            {index !== eventData.audiences.length - 1 && ", "}
-          </span>
-        ))}
+                <div className={style.dates}>
+                  {eventData.date.map((date, index) => {
+                    const formattedDate = new Date(date).toLocaleDateString("he-IL", {
+                      weekday: 'long',
+                      day: 'numeric',
+                      month: 'long',
+                      timeZone: 'UTC',
+                      numberingSystem: 'latn'
+                    });
+                    const dateObj = {
+                      formattedDate,
+                      weekday: formattedDate.split(',')[0]
+                    };
+                    return (
+                      <div key={index} className={style.date}>
+                        {eventData.isReapeated ? (
+                          `${formattedDate} (כל  ${dateObj.weekday})`
+                        ) : (
+                          formattedDate
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-            </div>
-          ) : (
-            <p>loading...</p>
-          )}
-        </div>
-
-        <div className={style.section}>
-          {!loading ? (
-            <div className={style.dataSection}>
-              <div className={style.reactIcon}>
-                <BiCategory />
               </div>
-              <div className={style.payment}>
-              {eventData.categories.map((category, index) => (
-          <span key={index}>
-            {categoryMapping[category]}
-            {index !== eventData.categories.length - 1 && ", "}
-          </span>
-        ))}               
-        </div>
-            </div>
-          ) : (
-            <p>loading...</p>
-          )}
-        </div>
+            ) : (
+              <p>loading...</p>
+            )}
+          </div>
+
+          <div className={style.section}>
+            {!loading ? (
+              <div className={style.dataSection}>
+                <div className={style.reactIcon}>
+                  <AiOutlineClockCircle />
+                </div>
+                <div
+                  className={style.hourOfEvent}
+                >
+                  {eventData.finishTime}- {eventData.beginningTime}
+                </div>
+              </div>
+            ) : (
+              <p>loading...</p>
+            )}
+          </div>
+
+
+          <div className={style.section}>
+            {!loading ? (
+              <div className={style.dataSection}>
+                <div className={style.reactIcon}>
+                  <MdOutlinePlace />
+                </div>
+
+                <div className={style.placeOfEvent}> {eventData.place}</div>
+              </div>
+
+            ) : (
+              <p>loading...</p>
+            )}
+          </div>
+
+          <div className={style.section}>
+            {!loading ? (
+              <div className={style.dataSection}>
+                <div className={style.reactIcon}>
+                  <BiMoney />
+                </div>
+                <div className={style.payment}>
+                  {eventData.payment.isFree === true ? "כניסה חופשית" : "בתשלום"}
+                </div>
+              </div>
+            ) : (
+              <p>loading...</p>
+            )}
+          </div>
+
+          <div className={style.section}>
+            {!loading ? (
+              <div className={style.dataSection}>
+                <div className={style.reactIcon}>
+                  <BsPeopleFill />
+                </div>
+                <div className={style.payment}>
+                  {eventData.audiences.map((audience, index) => (
+                    <span key={index}>
+                      {audienceMapping[audience]}
+                      {index !== eventData.audiences.length - 1 && ", "}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <p>loading...</p>
+            )}
+          </div>
+
+          <div className={style.section}>
+            {!loading ? (
+              <div className={style.dataSection}>
+                <div className={style.reactIcon}>
+                  <BiCategory />
+                </div>
+                <div className={style.payment}>
+                  {eventData.categories.map((category, index) => (
+                    <span key={index}>
+                      {categoryMapping[category]}
+                      {index !== eventData.categories.length - 1 && ", "}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <p>loading...</p>
+            )}
+          </div>
         </div>
 
         <div className={style.section}>
@@ -295,16 +295,22 @@ export default function ViewEvent() {
           </ClassicButton>
         </div>
        
-        {isAdmin &&
-        <div className={style.adminContainer}>
-        <button 
-        className={`${style.adminPublish ? (isActive ? style.active : style.adminPublish): style.active}`}
-        onClick={handleButtonToggle}
-        disabled={isPublished || isActive}
-        >
-          {isActive ? 'פורסם בהצלחה 👍🏽' : 'פרסם'}
-        </button>
-        </div>}
+        {isAdmin && eventData &&
+          <div className={style.adminContainer}>
+            <div className={style.advertiserInfo}>
+              <h3>פרטי המפרסם:</h3>
+              <p>{eventData.advertiser.name}</p>
+              <p>{eventData.advertiser.email} </p>
+              <p>{eventData.advertiser.tel} </p>
+            </div>
+            <button
+              className={`${style.adminPublish ? (isActive ? style.active : style.adminPublish) : style.active}`}
+              onClick={handleButtonToggle}
+              disabled={isPublished || isActive}
+            >
+              {isActive ? 'פורסם בהצלחה 👍🏽' : 'פרסם'}
+            </button>
+          </div>}
 
    
        
