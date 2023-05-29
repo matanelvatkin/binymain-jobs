@@ -19,6 +19,7 @@ const SelectIcon = ({
   header,
   text,
   icon,
+  isTheSubmitButtonPush,
   errorMessage,
   inText,
   ...props
@@ -71,7 +72,7 @@ const SelectIcon = ({
         </div>
       </div>
       <div>
-        {isChosen ? (
+        {isChosen && isTheSubmitButtonPush ? (
           <span className={styles.errorMessage}> {errorMessage}</span>
         ) : (
           <span className={styles.isChosen}> {errorMessage}</span>
