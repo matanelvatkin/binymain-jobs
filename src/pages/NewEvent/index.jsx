@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { isValidElement, useContext, useEffect, useRef, useState } from "react";
 import { settingsContext } from "../../layout/Layout";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
@@ -80,6 +80,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "בהתאמה אישית",
   ];
 
+  const [isChosen, setIsChosen] = useState(true);
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
   const [constancy, setConstancy] = useState("אירוע ללא חזרה");
@@ -289,9 +290,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
   ];
 
-  const [eventData, setEventData] = useState({});
+  const [eventDataIsValid, setEventDataIsValid] = useState(true);
   const handleSubmit = (e) => {
     e.preventDefault();
+    const formElement = e.target;
+    const isValid = formElement.checkValidity();
+    formElement.classList.add(style.submitted);
+    const firstInvalidField = formElement.querySelector(":invalid");
+    firstInvalidField?.focus();
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
     values.date = beginDateUpdate(values.date, values.beginningTime);
     if (values.repeatSettingsRepeatEnd instanceof Date) {
@@ -301,67 +307,87 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       );
     }
 
-    const formData = new FormData();
-    for (const key in fileData) {
-      if (Array.isArray(fileData[key])) {
-        for (const file of fileData[key]) {
-          formData.append(key, file);
-        }
-      } else {
-        formData.append(key, fileData[key]);
-      }
-      console.log("fileData", fileData);
+    if (!isChosen) {
+      isValid = true;
     }
-    formData.append(
-      "values",
-      JSON.stringify({
-        eventName: values.eventName,
-        summary: values.summary,
-        advertiser: {
-          name: values.advertiserName,
-          tel: values.advertiserTel,
-          email: values.advertiserEmail,
-        },
-        date: values.date,
-        day: values.days,
-        beginningTime: values.beginningTime,
-        finishTime: values.finishTime,
-        place: values.place,
-        categories: values.categories,
-        audiences: values.audiences,
-        registrationPageURL: values.registrationPageURL,
-        cardImageURL: values.cardImageURL,
-        coverImageURL: values.coverImageURL,
-        gallery: values.gallery,
-        repeatType: values.repeatType,
-        personalRepeat: values.personalRepeatType,
-        isReapeated: values.repeatType !== "אירוע ללא חזרה",
-        payment: {
-          isFree: values.isFree,
-        },
-        repeatSettings: {
-          type: values.repeatSettingsType,
-          repeatEnd: values.repeatSettingsRepeatEnd || values.date,
-        },
-      })
-    );
 
-    console.log([...formData.entries()]);
-
-    apiCalls("post", "/event/createvent", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    }).then((res) => {
-      console.log(res);
-      if (res._id != "") {
-        setSaveEventMode(true);
-        setPopUpText(
-          "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
-        );
-        setPopUp(true);
-        const newEventId = res._id;
-        nav(`/`);
+    if (
+      values.place &&
+      values.eventName &&
+      values.summary &&
+      values.advertiserName &&
+      values.advertiserTel &&
+      values.advertiserEmail &&
+      values.categories[0] &&
+      values.audiences[0] &&
+      values.registrationPageURL &&
+      values.cardImageURL &&
+      values.coverImageURL
+    ) {
+      const formData = new FormData();
+      for (const key in fileData) {
+        if (Array.isArray(fileData[key])) {
+          for (const file of fileData[key]) {
+            formData.append(key, file);
+          }
+        } else {
+          formData.append(key, fileData[key]);
+        }
+        console.log("fileData", fileData);
       }
-    });
+      formData.append(
+        "values",
+        JSON.stringify({
+          eventName: values.eventName,
+          summary: values.summary,
+          advertiser: {
+            name: values.advertiserName,
+            tel: values.advertiserTel,
+            email: values.advertiserEmail,
+          },
+          date: values.date,
+          day: values.days,
+          beginningTime: values.beginningTime,
+          finishTime: values.finishTime,
+          place: values.place,
+          categories: values.categories,
+          audiences: values.audiences,
+          registrationPageURL: values.registrationPageURL,
+          cardImageURL: values.cardImageURL,
+          coverImageURL: values.coverImageURL,
+          gallery: values.gallery,
+          repeatType: values.repeatType,
+          personalRepeat: values.personalRepeatType,
+          isReapeated: values.repeatType !== "אירוע ללא חזרה",
+          payment: {
+            isFree: values.isFree,
+          },
+          repeatSettings: {
+            type: values.repeatSettingsType,
+            repeatEnd: values.repeatSettingsRepeatEnd || values.date,
+          },
+        })
+      );
+
+      console.log([...formData.entries()]);
+
+      apiCalls("post", "/event/createvent", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }).then((res) => {
+        if (res._id != "") {
+          setSaveEventMode(true);
+          setPopUpText(
+            "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
+          );
+          setPopUp(true);
+          const newEventId = res._id;
+          nav(`/`);
+        }
+      });
+    } else {
+      setEventDataIsValid(false);
+      console.log({ eventDataIsValid });
+    }
   };
 
   useEffect(() => {
@@ -397,23 +423,33 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   };
 
   function SubmitButton() {
-    // if (
-    //   values.eventName &&
-    //   values.summary &&
-    //   values.advertiserName &&
-    //   values.advertiserTel &&
-    //   values.advertiserEmail &&
-    //   values.categories[0] &&
-    //   values.audiences[0] &&
-    //   values.registrationPageURL &&
-    //   values.cardImageURL &&
-    //   values.coverImageURL
-    // ) {
-    return (
-      <div className={styles.button}>
-        <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
-      </div>
-    );
+    if (
+      eventDataIsValid
+      // values.place &&
+      // values.eventName &&
+      // values.summary &&
+      // values.advertiserName &&
+      // values.advertiserTel &&
+      // values.advertiserEmail &&
+      // values.categories[0] &&
+      // values.audiences[0] &&
+      // values.registrationPageURL &&
+      // values.cardImageURL &&
+      // values.coverImageURL
+    ) {
+      return (
+        <div className={styles.button}>
+          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.button}>
+          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+          <span className={styles.errorMessage}>נא למלא את השדות החסרים</span>
+        </div>
+      );
+    }
   }
 
   return (
@@ -428,6 +464,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         onSubmit={handleSubmit}
         className={styles.form}
         encType="multipart/form-data"
+        noValidate
       >
         {inputs.map((input) => {
           if (input.type === "select")
@@ -441,11 +478,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
+                isChosen={isChosen}
+                setIsChosen={setIsChosen}
                 choossArray={input.name === "repeatType" ? typeData : placeData}
               />
             );
           else if (input.type === "selectIcon") {
-            console.log(input);
             return (
               <div className={styles.selectIcon}>
                 <div className={styles.iconLabel}>{input.label}</div>
@@ -467,7 +505,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
           } else if (input.type === "select")
             return (
-              <SelectInput
+              <Select
                 {...input}
                 errorMessage={input.errorMessage}
                 key={input.id}
