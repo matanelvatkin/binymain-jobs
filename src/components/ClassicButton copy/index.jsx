@@ -13,6 +13,9 @@ function ClassicButton({
   type,
   width,
   height,
+  backgroundColor,
+  color,
+  border,
   func,
   disabled,
   ...props
@@ -22,7 +25,7 @@ function ClassicButton({
       <button
         disabled={disabled}
         type={type}
-        style={{ width: width, height: height }}
+        style={{ width: width, height: height, backgroundColor:backgroundColor,color:color, border:border}}
         onClick={func}
         className={
           props.oppositeColor
