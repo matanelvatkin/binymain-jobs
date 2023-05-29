@@ -1,5 +1,5 @@
 import styles from "./style.module.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 // creator: Kobi Krumbein
 // color: _______________
@@ -13,6 +13,7 @@ const Input = (props) => {
     type,
     onChange,
     width,
+    refInput,
     ...inputProps
   } = props;
   // const onChange = (e) => {
@@ -20,6 +21,7 @@ const Input = (props) => {
   //     console.log("file", e.target.files);
   //   }
   // };
+  const tempRef = useRef()
   return (
     <>
       {type != "radio" ? (
@@ -33,6 +35,7 @@ const Input = (props) => {
             // style={{ width: width }}
             onChange={onChange}
             type={type}
+            ref={refInput?refInput:tempRef}
           />
           <span className={styles.errorMessage}>{errorMessage}</span>
         </div>
@@ -44,6 +47,7 @@ const Input = (props) => {
             style={{ width: width }}
             onChange={onChange}
             type={type}
+            ref={refInput?refInput:tempRef}
           />
           <label className={styles.labelRadio}>
             <div>{label} </div>

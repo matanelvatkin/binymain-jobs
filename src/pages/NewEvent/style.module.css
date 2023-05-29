@@ -25,11 +25,13 @@
 }
 
 .priceNone {
-  display: none;
+  /* display: none; */
+  color:blue;
 }
 
 .priceInline {
   display: inline;
+  color: red;
 }
 
 .date {
@@ -52,4 +54,9 @@
 
 .button {
   margin-top: 20px;
+}
+.errorMessage {
+  display: block;
+  padding: 5px;
+  color: red;
 }
