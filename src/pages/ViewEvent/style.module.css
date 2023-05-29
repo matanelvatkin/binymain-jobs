@@ -1,6 +1,6 @@
 .container {
   direction: rtl;
-  width: 100vw;
+  width: 100%;
 }
 
 .content {
@@ -39,13 +39,13 @@ margin-left: 30px;
   color: var(--text-third-color);
 }
 
-.date{
+/* .date{
   color: var(--text-secondary-color);
-}
+} */
 
-.hourOfEvent{
+/* .hourOfEvent{
   color: var(--text-secondary-color);
-}
+} */
 
 .dataSection {
   display: flex;

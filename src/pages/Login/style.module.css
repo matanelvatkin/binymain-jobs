@@ -1,7 +1,7 @@
 .main{
-    width: 100vw;
-    height: 86vh;
-    /* margin-top: 14vh; */
+    width: 100%;
+    height: 50%;
+    margin-top: 15%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
-    /* gap: 1rem; */
+    gap: 1%;
 }
 .connection{
     font-size:xx-large;
@@ -29,7 +29,8 @@
     direction: rtl;
 }
 .connect{
-    margin-bottom: -30%;
+    width: 100%;
+    margin-bottom: -25%;
 }
 .inputs{
     font-size: medium;
@@ -45,7 +46,7 @@
     font-size:15px;
     cursor: pointer;
     /* color: var(  --text-third-color); */
-    margin-top: -40%;
+    margin-top: -50%;
     text-decoration: underline;
 }
 
@@ -65,9 +66,7 @@
     margin-top: -35%;
 }
 
-.register{
 
-}
 
 .clickHere{
     margin-right: 5px;

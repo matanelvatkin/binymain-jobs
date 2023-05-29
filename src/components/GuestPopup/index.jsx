@@ -30,6 +30,9 @@ function  GuestPopup({text,guestMode,saveEventMode}) {
         {(guestMode||saveEventMode)&&
         <ClassicButton
           width={'45%'}
+          backgroundColor={'white'}
+          color={'black'}
+          border={'1px solid grey'}
           onClick={()=>{setPopUp(false) ; setSaveEventMode(false)}}
           text={!saveEventMode?"המשך כאורח":"אישור"}
         />

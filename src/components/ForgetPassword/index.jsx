@@ -38,7 +38,7 @@ function ForgetPassword() {
     return (
         <div className={styles.main}>
             <div className={styles.container}>
-                <h2>שכחתי סיסמא</h2>
+                <h2 className={styles.header}>שכחתי סיסמא</h2>
                 {!codeToReset ?
                     <form className={styles.form} onSubmit={handleSendToEmail}>
                         <Input

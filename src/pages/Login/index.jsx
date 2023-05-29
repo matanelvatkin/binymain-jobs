@@ -95,7 +95,7 @@ return (
                 autoComplete='off'
                 key={input.id}
                 {...input}
-                width={'300px'}
+                // width={'400px'}
                 className={styles.inputs}
                 onChange={handleChange}
               />
