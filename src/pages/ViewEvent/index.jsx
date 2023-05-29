@@ -283,6 +283,17 @@ export default function ViewEvent() {
         {eventData&&eventData.registrationPageURL&&
         <div><a className={style.cards} href={eventData.registrationPageURL} target="_blank" ><span className="openIcon"><MdOpenInNew/></span>לדף הרשמה וכרטיסים
         </a></div>}
+
+        <div className={style.homeButton}>
+          <ClassicButton
+            width={'80%'}
+            type={'submit'}
+            onClick={()=>navigate('/')}
+            // onClick={loginAouth}
+          >
+            <AiOutlineHome className={style.icon} /> חזרה לדף הבית
+          </ClassicButton>
+        </div>
        
         {isAdmin &&
         <div className={style.adminContainer}>
@@ -296,16 +307,7 @@ export default function ViewEvent() {
         </div>}
 
    
-        <div className={style.homeButton}>
-          <ClassicButton
-            width={'80%'}
-            type={'submit'}
-            onClick={()=>navigate('/')}
-            // onClick={loginAouth}
-          >
-            <AiOutlineHome className={style.icon} /> חזרה לדף הבית
-          </ClassicButton>
-        </div>
+       
       </div>
     </div>
   );
