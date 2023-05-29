@@ -16,12 +16,21 @@ const Input = (props) => {
     refInput,
     ...inputProps
   } = props;
-  // const onChange = (e) => {
-  //   if (e.target.type === "file") {
-  //     console.log("file", e.target.files);
-  //   }
-  // };
-  const tempRef = useRef()
+  const [validationMessage, setValidationMessage] = useState("");
+
+  const onInvalid = (e) => {
+    const target = e.target;
+    setValidationMessage(target.validationMessage);
+  };
+
+  const onBlur = (e) => {
+    const target = e.target;
+
+    if (!!validationMessage) {
+      setValidationMessage(target.validationMessage);
+    }
+  };
+  const tempRef = useRef();
   return (
     <>
       {type != "radio" ? (
@@ -32,10 +41,12 @@ const Input = (props) => {
           <input
             className={`${styles.input} ${className}`}
             {...inputProps}
+            onBlur={onBlur}
+            onInvalid={onInvalid}
             // style={{ width: width }}
             onChange={onChange}
             type={type}
-            ref={refInput?refInput:tempRef}
+            ref={refInput ? refInput : tempRef}
           />
           <span className={styles.errorMessage}>{errorMessage}</span>
         </div>
@@ -47,7 +58,7 @@ const Input = (props) => {
             style={{ width: width }}
             onChange={onChange}
             type={type}
-            ref={refInput?refInput:tempRef}
+            ref={refInput ? refInput : tempRef}
           />
           <label className={styles.labelRadio}>
             <div>{label} </div>

@@ -26,7 +26,7 @@
 
 .priceNone {
   /* display: none; */
-  color:blue;
+  color: blue;
 }
 
 .priceInline {
@@ -59,4 +59,11 @@
   display: block;
   padding: 5px;
   color: red;
+}
+.submitted input:invalid {
+  border-color: red;
+}
+
+.submitted input:invalid:focus {
+  outline-color: red;
 }
