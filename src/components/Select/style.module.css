@@ -52,7 +52,6 @@
 }
 
 .errorMessage {
-  display: block;
   padding: 5px;
   color: red;
 }

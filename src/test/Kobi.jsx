@@ -1,62 +1,137 @@
-import { useEffect, useState } from "react";
-
+import React, { useState, useRef } from "react";
 import Input from "../components/Input";
-import apiCalls from "../function/apiCalls";
-import { Link } from "react-router-dom";
-import ClassicButton from "../components/ClassicButton copy";
 
-export default function Kobi() {
-  const [value, setValue] = useState("");
-  const [isValidLink, setIsValidLink] = useState(false);
-  const onChange = (e) => {
-    setValue(e.target.value);
-    console.log(value);
+const Kobi = () => {
+  const [validationStatus, setValidationStatus] = useState([]);
+  const [shouldMoveCursor, setShouldMoveCursor] = useState(false);
+  const [validateInput, setValidateInput] = useState(false);
+  const inputRefs = useRef([]);
+
+  const handleInputChange = (index, event) => {
+    const { value } = event.target;
+    // Perform validation logic and update the validationStatus state
+    // based on your validation criteria
+    const newValidationStatus = [...validationStatus];
+    newValidationStatus[index] = validateInput(value);
+    setValidationStatus(newValidationStatus);
   };
 
-  async function checkLink(url) {
-    try {
-      const response = await apiCalls("GET", "linkcheck", null, url);
-      console.log(response);
-      if (response === 200) {
-        // Check if the status code is 200 (OK)
-        setIsValidLink(true);
-      } else {
-        setIsValidLink(false);
-      }
-    } catch (error) {
-      console.error("Failed to check link:", error);
-      setIsValidLink(false);
-      return false;
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    // Set the flag to move cursor
+    setShouldMoveCursor(true);
+
+    // Perform form submission logic
+    // ...
+  };
+
+  const moveCursorToFirstInvalid = () => {
+    const firstInvalidIndex = validationStatus.findIndex(
+      (status) => status !== "valid"
+    );
+
+    if (firstInvalidIndex !== -1) {
+      // Move cursor to the first invalid input
+      inputRefs.current[firstInvalidIndex].focus();
     }
-  }
-  checkLink(value);
-  function SubmitButton() {
-    console.log(isValidLink);
-    if (isValidLink) {
-      return (
-        <div>
-          <ClassicButton width={"200px"} text={"link"} type={"submit"} />
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <ClassicButton
-            width={"200px"}
-            text={"link"}
-            type={"submit"}
-            disabled={true}
-          />
-        </div>
-      );
-    }
-  }
+  };
+
   return (
-    <div>
-      <Input type="text" label="Submit" onChange={onChange} />
-      <Link to={value}>
-        <SubmitButton />
-      </Link>
-    </div>
+    <form onSubmit={handleFormSubmit}>
+      <Input
+        label="One"
+        ref={(el) => (inputRefs.current[0] = el)}
+        onChange={(event) => handleInputChange(0, event)}
+        className={
+          shouldMoveCursor && validationStatus[0] !== "valid" ? "invalid" : ""
+        }
+      />
+      <Input
+        label="Two"
+        ref={(el) => (inputRefs.current[1] = el)}
+        onChange={(event) => handleInputChange(1, event)}
+        className={
+          shouldMoveCursor && validationStatus[1] !== "valid" ? "invalid" : ""
+        }
+      />
+      <Input
+        label="Two"
+        ref={(el) => (inputRefs.current[1] = el)}
+        onChange={(event) => handleInputChange(1, event)}
+        className={
+          shouldMoveCursor && validationStatus[1] !== "valid" ? "invalid" : ""
+        }
+      />
+      <Input
+        label="Two"
+        ref={(el) => (inputRefs.current[1] = el)}
+        onChange={(event) => handleInputChange(1, event)}
+        className={
+          shouldMoveCursor && validationStatus[1] !== "valid" ? "invalid" : ""
+        }
+      />
+      <Input
+        label="Two"
+        ref={(el) => (inputRefs.current[1] = el)}
+        onChange={(event) => handleInputChange(1, event)}
+        className={
+          shouldMoveCursor && validationStatus[1] !== "valid" ? "invalid" : ""
+        }
+      />
+      <Input
+        label="Two"
+        ref={(el) => (inputRefs.current[1] = el)}
+        onChange={(event) => handleInputChange(1, event)}
+        className={
+          shouldMoveCursor && validationStatus[1] !== "valid" ? "invalid" : ""
+        }
+      />
+      <Input
+        label="Two"
+        ref={(el) => (inputRefs.current[1] = el)}
+        onChange={(event) => handleInputChange(1, event)}
+        className={
+          shouldMoveCursor && validationStatus[1] !== "valid" ? "invalid" : ""
+        }
+      />
+      <Input
+        label="Two"
+        ref={(el) => (inputRefs.current[1] = el)}
+        onChange={(event) => handleInputChange(1, event)}
+        className={
+          shouldMoveCursor && validationStatus[1] !== "valid" ? "invalid" : ""
+        }
+      />
+      <Input
+        label="Two"
+        ref={(el) => (inputRefs.current[1] = el)}
+        onChange={(event) => handleInputChange(1, event)}
+        className={
+          shouldMoveCursor && validationStatus[1] !== "valid" ? "invalid" : ""
+        }
+      />
+      <Input
+        label="Two"
+        ref={(el) => (inputRefs.current[1] = el)}
+        onChange={(event) => handleInputChange(1, event)}
+        className={
+          shouldMoveCursor && validationStatus[1] !== "valid" ? "invalid" : ""
+        }
+      />
+      <Input
+        label="Two"
+        ref={(el) => (inputRefs.current[1] = el)}
+        onChange={(event) => handleInputChange(1, event)}
+        className={
+          shouldMoveCursor && validationStatus[1] !== "valid" ? "invalid" : ""
+        }
+      />
+      {/* Add more input fields as needed */}
+      <button type="submit">Submit</button>
+      {shouldMoveCursor && moveCursorToFirstInvalid()}
+    </form>
   );
-}
+};
+
+export default Kobi;
