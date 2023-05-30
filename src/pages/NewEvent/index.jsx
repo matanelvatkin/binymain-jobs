@@ -235,6 +235,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "cardImageURL",
       type: "file",
       errorMessage: "שדה חובה!",
+      instructions:"*מומלץ להעלות תמונה מרובעת 1:1",
       label: "תמונת אירוע",
       accept: "image/*",
       required: true,
@@ -244,6 +245,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "coverImageURL",
       type: "file",
       errorMessage: "שדה חובה!",
+      instructions:"*מומלץ להעלות תמונה מלבנית 16:9",
+
       label: "תמונת כיסוי",
       accept: "image/*",
       required: true,
@@ -547,6 +550,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 key={input.id}
                 {...input}
                 errorMessage={input.errorMessage}
+                instructions={input.instructions}
                 value={values[input.name]}
                 onChange={onChange}
                 className={input.className}

@@ -90,10 +90,10 @@
   flex-direction: row;
   margin-bottom: -2px;
   width: 335px;
-  height: 42px;
+  height: 25px;
 
   /* Gray / 1 */
-  background: #f8f8fa;
+  /* background: #f8f8fa; */
 }
 
 .input[type="date"] {
@@ -164,4 +164,10 @@
   transition: 0.1s;
   outline: none;
   outline-color: red;
+}
+
+.uploadInstructions {
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }

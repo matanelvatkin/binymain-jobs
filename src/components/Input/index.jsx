@@ -9,6 +9,7 @@ const Input = (props) => {
   const {
     label,
     errorMessage,
+    instructions,
     className = "",
     type,
     onChange,
@@ -50,6 +51,7 @@ const Input = (props) => {
             type={type}
             ref={inputRef ? inputRef : tempRef}
           />
+          <p className={styles.uploadInstructions}>{instructions}</p>
           {isTheSubmitButtonPush ? (
             <span className={styles.errorMessage}>{errorMessage}</span>
           ) : null}
