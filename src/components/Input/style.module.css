@@ -90,10 +90,10 @@
   flex-direction: row;
   margin-bottom: -2px;
   width: 335px;
-  height: 42px;
+  height: 25px;
 
   /* Gray / 1 */
-  background: #f8f8fa;
+  /* background: #f8f8fa; */
 }
 
 .input[type="date"] {
@@ -141,4 +141,9 @@
 
 input:invalid ~ .errorMessage {
   display: block;
+}
+
+.uploadInstructions {
+  font-size: 12px;
+  margin-top: 5px;
 }

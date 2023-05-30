@@ -9,6 +9,7 @@ const Input = (props) => {
   const {
     label,
     errorMessage,
+    instructions,
     className = "",
     type,
     onChange,
@@ -36,7 +37,9 @@ const Input = (props) => {
             onChange={onChange}
             type={type}
             ref={refInput?refInput:tempRef}
-          />
+            />
+            <p className={styles.uploadInstructions}>{instructions}</p>
+
           <span className={styles.errorMessage}>{errorMessage}</span>
         </div>
       ) : (
