@@ -72,7 +72,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const paymentData = ["בתשלום", "בחינם"];
   const typeData = [
-    "אירוע ללא חזרה",
+    "אירוע חד פעמי",
     "אירוע יומי",
     "אירוע שבועי",
     "בהתאמה אישית",
@@ -80,7 +80,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
-  const [constancy, setConstancy] = useState("אירוע ללא חזרה");
+  const [constancy, setConstancy] = useState("אירוע חד פעמי");
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
@@ -91,7 +91,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     advertiserTel: "",
     advertiserEmail: "",
     isRepeated: false,
-    repeatType: "אירוע ללא חזרה",
+    repeatType: "אירוע חד פעמי",
     personalRepeatType: "",
     date: new Date(),
     repeatSettingsType: "endDate",
@@ -123,7 +123,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 2,
       name: "constancy",
-      type: constancy || "אירוע ללא חזרה",
+      type: constancy || "אירוע חד פעמי",
     },
     {
       id: 3,
@@ -405,6 +405,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
+
+  const formattedDate = new Date(values.date).toLocaleDateString("he-IL", {
+    weekday: 'long',
+    // day: 'numeric',
+    // month: 'long',
+    timeZone: 'UTC',
+    numberingSystem: 'latn'
+  });
   useEffect(() => {
     if (
       values.eventName &&
@@ -524,7 +532,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 }
               />
             );
-          else if (input.type === "אירוע ללא חזרה")
+          else if (input.type === "אירוע חד פעמי")
             return (
               <div className={styles.date}>
                 {" "}
@@ -537,7 +545,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 className={styles.advanced}
                 onClick={() => setNewEventPopup(true)}
               >
-                מתקדם
+                
+              <u> {`${constancy} ${constancy !== "אירוע חד פעמי" ? formattedDate : "" }`}</u>           
               </div>
             );
           else if (input.type == "toogleSwitch")

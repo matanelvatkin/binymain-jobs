@@ -2,8 +2,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -13,43 +13,74 @@
 
 .popup {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     background-color: var(--bg-color);
     font-size: larger;
     text-align-last: center;
     padding: 10px;
-    border-radius: 5px;
-    width: 95%;
-    /* height: 50%; */
-    position: relative;
+    border-radius: 10px;
+    width: 97%;
+    min-height: 50vh;
+    box-shadow: 4px 0px 14px 4px #776868c3;
+    /* position: relative; */
     /* overflow-x: scroll; */
 }
 
 .form{
-    position: relative;
-   
+  /* border: 1px solid blue; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 47vh;
+    width: 106%;
 }
 .select{
-    position: absolute;
-    top:2%;
-    
+  /* border: 1px solid red; */
+  display: flex;
 }
 
  .p {
+  /* border: 1px solid green; */
   width: 100%; 
-  margin-top: 15%;
   overflow: scroll;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: space-around;
   }
   
+  .x{
+    width: 35px;
+    height: inherit;
+  }
 
 
+  .submitAndCancelBox{
+    display: flex;
+    gap: 2px;
+    direction: ltr;
+    margin-right: 71%;
+  }
 
+  .submit{
+    width: 50px;
+    height: 40px;
+    color: var(--text-secondary-color);
+    background: none;
+    border: none;
+  }
+  .cancel{
+    width: 50px;
+    height: 40px;
+    color: var(--text-third-color);
+    background: none;
+    border: none;
+  }
 
+/* 
   .form {
     display: flex;
     flex-direction: column;
@@ -59,4 +90,4 @@
     height: 100%;
     width: 100%;
 
-  }
+  } */
