@@ -16,20 +16,17 @@ import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
-import popUpContext from "../../context/popUpContext";
-import beginDateUpdate from "../../function/beginDateUpdate";
-import SelectInput from "../../components/SelectInput";
-
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup, setNewEventPopup] = useState(false);
+  const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
+  const [isInputFormValid, setIsTheFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
   // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
   const ref = useRef();
 
-  const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
   const handleToggleSwitch = (e) => {
     setChecked(!checked);
     setValues({ ...values, isFree: checked });
@@ -64,6 +61,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "נחליאל",
     "נוה צוף",
     `ניל"י`,
+    "סנה-בני אדם",
     "עופרה",
     "פסגות",
     "רימונים",
@@ -179,13 +177,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
     },
-    // {
-    //   id: 1,
-    //   name: "price",
-    //   type: "text",
-    //   placeholder: "מחיר",
-    //   className: styles.priceNone,
-    // },
+    {
+      id: 1,
+      name: "price",
+      type: "text",
+      placeholder: "מחיר",
+      className: styles.priceNone,
+    },
 
     // {
     //   id: 7,
@@ -237,6 +235,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "cardImageURL",
       type: "file",
       errorMessage: "שדה חובה!",
+      instructions:"*מומלץ להעלות תמונה מרובעת 1:1",
       label: "תמונת אירוע",
       accept: "image/*",
       required: true,
@@ -246,6 +245,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "coverImageURL",
       type: "file",
       errorMessage: "שדה חובה!",
+      instructions:"*מומלץ להעלות תמונה מלבנית 16:9",
+
       label: "תמונת כיסוי",
       accept: "image/*",
       required: true,
@@ -292,69 +293,72 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [eventData, setEventData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
-    // הכנסת שעת התחלה לתאריך ולתאריך סיום
-    values.date = beginDateUpdate(values.date,values.beginningTime)
-    if(values.repeatSettingsRepeatEnd instanceof Date){values.repeatSettingsRepeatEnd= beginDateUpdate(values.repeatSettingsRepeatEnd ,values.beginningTime)}
-  
-    const formData = new FormData();
-    for (const key in fileData) {
-      if (Array.isArray(fileData[key])) {
-        for (const file of fileData[key]) {
-          formData.append(key, file);
+    const formElement = e.target;
+    // const isValid = formElement.checkValidity();
+    formElement.classList.add(styles.submitted);
+    const firstInvalidField = formElement.querySelector(":invalid");
+    firstInvalidField?.focus();
+
+    setIsTheSubmitButtonPush(true);
+    console.log({ isTheSubmitButtonPush });
+    if (!isInputFormValid) {
+    } else {
+      const formData = new FormData();
+      for (const key in fileData) {
+        if (Array.isArray(fileData[key])) {
+          for (const file of fileData[key]) {
+            formData.append(key, file);
+          }
+        } else {
+          formData.append(key, fileData[key]);
         }
-      } else {
-        formData.append(key, fileData[key]);
+        console.log("fileData", fileData);
       }
-      console.log("fileData", fileData);
+      formData.append(
+        "values",
+        JSON.stringify({
+          eventName: values.eventName,
+          summary: values.summary,
+          advertiser: {
+            name: values.advertiserName,
+            tel: values.advertiserTel,
+            email: values.advertiserEmail,
+          },
+          date: values.date,
+          day: values.days,
+          beginningTime: values.beginningTime,
+          finishTime: values.finishTime,
+          place: values.place,
+          categories: values.categories,
+          audiences: values.audiences,
+          registrationPageURL: values.registrationPageURL,
+          cardImageURL: values.cardImageURL,
+          coverImageURL: values.coverImageURL,
+          gallery: values.gallery,
+          repeatType: values.repeatType,
+          personalRepeat: values.personalRepeatType,
+          isReapeated: values.repeatType !== "אירוע ללא חזרה",
+          payment: {
+            isFree: values.isFree,
+          },
+          repeatSettings: {
+            type: values.repeatSettingsType,
+            repeatEnd: values.repeatSettingsRepeatEnd || values.date,
+          },
+        })
+      );
+
+      console.log([...formData.entries()]);
+
+      apiCalls("post", "/event/createvent", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }).then((res) => {
+        if (res._id != "") {
+          const newEventId = res._id;
+          nav(`/`);
+        }
+      });
     }
-    formData.append(
-      "values",
-      JSON.stringify({
-        eventName: values.eventName,
-        summary: values.summary,
-        advertiser: {
-          name: values.advertiserName,
-          tel: values.advertiserTel,
-          email: values.advertiserEmail,
-        },
-        date: values.date,
-        day: values.days,
-        beginningTime: values.beginningTime,
-        finishTime: values.finishTime,
-        place: values.place,
-        categories: values.categories,
-        audiences: values.audiences,
-        registrationPageURL: values.registrationPageURL,
-        cardImageURL: values.cardImageURL,
-        coverImageURL: values.coverImageURL,
-        gallery: values.gallery,
-        repeatType: values.repeatType,
-        personalRepeat: values.personalRepeatType,
-        isReapeated: values.repeatType !== "אירוע ללא חזרה",
-        payment: {
-          isFree: values.isFree,
-        },
-        repeatSettings: {
-          type: values.repeatSettingsType,
-          repeatEnd: values.repeatSettingsRepeatEnd || values.date,
-        },
-      })
-    );
-
-    console.log([...formData.entries()]);
-
-    apiCalls("post", "/event/createvent", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    }).then((res) => {
-      console.log(res);
-      if (res._id != "") {
-        setSaveEventMode(true)
-        setPopUpText("האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו");
-        setPopUp(true)
-        const newEventId = res._id;
-        nav(`/`);
-      }
-    });
   };
 
   useEffect(() => {
@@ -384,11 +388,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       } else {
         setTimeValidationOK(true);
       }
+      setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
     }
-    if (e.target.type === "file") setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
-
-  function SubmitButton() {
+  useEffect(() => {
     if (
       values.eventName &&
       values.summary &&
@@ -401,25 +404,42 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       values.cardImageURL &&
       values.coverImageURL
     ) {
-      return (
-        <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
-        </div>
-      );
-    } else {
-      return (
-        <div className={styles.button}>
-          <ClassicButton
-            width={"200px"}
-            text={"שמור"}
-            type={"submit"}
-            disabled={true}
-          />
-          <span className={styles.errorMessage}>נא למלא את כל השדות</span>
-        </div>
-      );
+      isInputFormValid(true);
     }
+  }, [isInputFormValid]);
+  function SubmitButton() {
+    // if (
+    //   values.eventName &&
+    //   values.summary &&
+    //   values.advertiserName &&
+    //   values.advertiserTel &&
+    //   values.advertiserEmail &&
+    //   values.categories[0] &&
+    //   values.audiences[0] &&
+    //   values.registrationPageURL &&
+    //   values.cardImageURL &&
+    //   values.coverImageURL
+    // ) {
+    return (
+      <div className={styles.button}>
+        <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+      </div>
+    );
   }
+  // else {
+  //   return (
+  //     <div className={styles.button}>
+  //       <ClassicButton
+  //         width={"200px"}
+  //         text={"שמור"}
+  //         type={"submit"}
+  //         disabled={true}
+  //       />
+  //       <span className={styles.errorMessage}>נא למלא את כל השדות</span>
+  //     </div>
+  //   );
+  // }
+  // }
 
   return (
     <div
@@ -431,13 +451,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       <div className={styles.header}>כאן מכניסים את כל פרטי האירוע שלך</div>{" "}
       <form
         onSubmit={handleSubmit}
+        noValidate
         className={styles.form}
         encType="multipart/form-data"
       >
         {inputs.map((input) => {
           if (input.type === "select")
             return (
-              <SelectInput
+              <Select
                 errorMessage={input.errorMessage}
                 {...input}
                 key={input.id}
@@ -446,6 +467,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
+                isTheSubmitButtonPush={isTheSubmitButtonPush}
                 choossArray={input.name === "repeatType" ? typeData : placeData}
               />
             );
@@ -456,6 +478,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 <div className={styles.iconLabel}>{input.label}</div>
                 <SelectIcon
                   {...input}
+                  isTheSubmitButtonPush={isTheSubmitButtonPush}
                   errorMessage={input.errorMessage}
                   inText={false}
                   key={input.id}
@@ -472,7 +495,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
           } else if (input.type === "select")
             return (
-              <SelectInput
+              <Select
                 {...input}
                 errorMessage={input.errorMessage}
                 key={input.id}
@@ -481,6 +504,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
+                isTheSubmitButtonPush={isTheSubmitButtonPush}
                 choossArray={
                   input.name === "repeatType" ? typeData : paymentData
                 }
@@ -526,11 +550,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 key={input.id}
                 {...input}
                 errorMessage={input.errorMessage}
+                instructions={input.instructions}
                 value={values[input.name]}
                 onChange={onChange}
                 className={input.className}
                 type={input.type}
                 width={"240px"}
+                isTheSubmitButtonPush={isTheSubmitButtonPush}
               />
             );
         })}
