@@ -73,7 +73,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const paymentData = ["בתשלום", "בחינם"];
   const typeData = [
-    "אירוע ללא חזרה",
+    "אירוע חד פעמי",
     "אירוע יומי",
     "אירוע שבועי",
     "בהתאמה אישית",
@@ -81,7 +81,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
-  const [constancy, setConstancy] = useState("אירוע ללא חזרה");
+  const [constancy, setConstancy] = useState("אירוע חד פעמי");
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
@@ -92,7 +92,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     advertiserTel: "",
     advertiserEmail: "",
     isRepeated: false,
-    repeatType: "אירוע ללא חזרה",
+    repeatType: "אירוע חד פעמי",
     personalRepeatType: "",
     date: new Date(),
     repeatSettingsType: "endDate",
@@ -124,7 +124,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 2,
       name: "constancy",
-      type: constancy || "אירוע ללא חזרה",
+      type: constancy || "אירוע חד פעמי",
     },
     {
       id: 3,
@@ -329,7 +329,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         gallery: values.gallery,
         repeatType: values.repeatType,
         personalRepeat: values.personalRepeatType,
-        isReapeated: values.repeatType !== "אירוע ללא חזרה",
+        isReapeated: values.repeatType !== "אירוע חד פעמי ",
         payment: {
           isFree: values.isFree,
         },
@@ -371,9 +371,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setAudiences(() => [...settingContext.audiences]);
     setCategories(() => [...settingContext.categories]);
   }, [settingContext.audiences, settingContext.categories]);
-  useEffect(() => {
-    console.log({ values });
-  }, [values]);
+  // useEffect(() => {
+  //   console.log({ values });
+  // }, [values]);
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
@@ -385,6 +385,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
     }
   };
+
+  const formattedDate = new Date(values.date).toLocaleDateString("he-IL", {
+    weekday: 'long',
+    // day: 'numeric',
+    // month: 'long',
+    timeZone: 'UTC',
+    numberingSystem: 'latn'
+  });
 
   function SubmitButton() {
     if (
@@ -448,7 +456,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
           else if (input.type === "selectIcon") {
-            console.log(input);
+            // console.log(input);
             return (
               <div className={styles.selectIcon}>
                 <div className={styles.iconLabel}>{input.label}</div>
@@ -484,7 +492,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 }
               />
             );
-          else if (input.type === "אירוע ללא חזרה")
+          else if (input.type === "אירוע חד פעמי")
             return (
               <div className={styles.date}>
                 {" "}
@@ -497,7 +505,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 className={styles.advanced}
                 onClick={() => setNewEventPopup(true)}
               >
-                מתקדם
+                
+              <u> {`${constancy} ${constancy !== "אירוע חד פעמי" ? formattedDate : "" }`}</u>           
               </div>
             );
           else if (input.type == "toogleSwitch")
