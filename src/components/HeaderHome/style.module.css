@@ -1,7 +1,7 @@
 .main{
     direction: ltr;
     background-color: var(--bg-secondary-color);
-    width: 100vw;
+    width: 100%;
     border-radius: 0px 0px 25px 25px;    
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
     transition: .3s;
@@ -57,7 +57,7 @@
 
 .scroll{
 background-color:  var(--bg-secondary-color);
-position: fixed;
+position: absolute;
 }
 
 .searchContainer{
@@ -98,7 +98,7 @@ margin-left: 18%;
     background-color:transparent;
     color: var(--text-Fourth-color);
     font-size: 15px;
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Heebo', sans-serif;
     outline: none;
 }
 ::placeholder {

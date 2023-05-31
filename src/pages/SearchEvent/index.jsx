@@ -226,7 +226,7 @@ export default function SearchEvent() {
           <div className={style.location}>
             {
               <Select
-                placeholder={location}
+                placeholder={location||"בחר מיקום"}
                 choossArray={locations}
                 func={setLocation}
                 icon="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"

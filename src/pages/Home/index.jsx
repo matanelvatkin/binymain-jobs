@@ -20,7 +20,7 @@ function Home() {
   const pageSize = 10;
 
   const [events, setEvents] = useState([]);
-  const [nextPage, setNextPage] = useState(1);
+  const [nextPage, setNextPage] = useState(undefined);
 
   const { search, setHeader } = useContext(headerContext);
   const { user, setUser } = useContext(userContext);

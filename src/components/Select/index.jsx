@@ -14,6 +14,7 @@ const Select = ({
   className = "",
   values,
   setValues = () => {},
+  isTheSubmitButtonPush,
   ...props
 }) => {
   const [isPlaceChosen, setIsPlaceChosen] = useState(false);
@@ -68,11 +69,9 @@ const Select = ({
           ))}
         </div>
       ) : null}
-      {!isPlaceChosen ? (
+      {!isPlaceChosen && isTheSubmitButtonPush ? (
         <span className={styles.errorMessage}> {errorMessage}</span>
-      ) : (
-        <span className={styles.isPlaceChosen}> {errorMessage}</span>
-      )}
+      ) : null}
     </div>
   );
 };

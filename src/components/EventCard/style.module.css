@@ -1,6 +1,5 @@
 .main{
-    max-width: 96vw;
-    min-width: 96vw;
+width: 96%;
     height: 16vh;
     border-radius: 7px;
     display: flex;
@@ -73,10 +72,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: var(--text-secondary-color);
+    color: var(--bg-secondary-color);
 }
 .date{
-    color: var(--text-secondary-color);
+    color: var(--bg-secondary-color);
 }
 
 .loadButton{
