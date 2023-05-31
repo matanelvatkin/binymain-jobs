@@ -235,7 +235,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "cardImageURL",
       type: "file",
       errorMessage: "שדה חובה!",
-      instructions:"*מומלץ להעלות תמונה מרובעת 1:1",
+      instructions: "*מומלץ להעלות תמונה מרובעת 1:1",
       label: "תמונת אירוע",
       accept: "image/*",
       required: true,
@@ -245,7 +245,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "coverImageURL",
       type: "file",
       errorMessage: "שדה חובה!",
-      instructions:"*מומלץ להעלות תמונה מלבנית 16:9",
+      instructions: "*מומלץ להעלות תמונה מלבנית 16:9",
 
       label: "תמונת כיסוי",
       accept: "image/*",
@@ -299,8 +299,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     const firstInvalidField = formElement.querySelector(":invalid");
     firstInvalidField?.focus();
 
-    setIsTheSubmitButtonPush(true);
-    console.log({ isTheSubmitButtonPush });
     if (!isInputFormValid) {
     } else {
       const formData = new FormData();
@@ -377,11 +375,26 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setAudiences(() => [...settingContext.audiences]);
     setCategories(() => [...settingContext.categories]);
   }, [settingContext.audiences, settingContext.categories]);
-  useEffect(() => {
-    console.log({ values });
-  }, [values]);
+  useEffect(() => {}, [values]);
+
   const onChange = (e) => {
+    console.log({ isInputFormValid, values });
     setValues({ ...values, [e.target.name]: e.target.value });
+    if (
+      values.eventName &&
+      values.summary &&
+      values.advertiserName &&
+      values.advertiserTel &&
+      values.advertiserEmail &&
+      values.categories[0] &&
+      values.audiences[0] &&
+      values.registrationPageURL &&
+      values.cardImageURL &&
+      values.coverImageURL
+    ) {
+      setIsTheFormValid(true);
+      console.log({ isInputFormValid });
+    }
     if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
       if (values.finishTime <= values.beginningTime) {
         setTimeValidationOK(false);
@@ -404,7 +417,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       values.cardImageURL &&
       values.coverImageURL
     ) {
-      isInputFormValid(true);
+      setIsTheFormValid(true);
+      console.log({ isInputFormValid });
     }
   }, [isInputFormValid]);
   function SubmitButton() {
@@ -472,7 +486,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               />
             );
           else if (input.type === "selectIcon") {
-            console.log(input);
             return (
               <div className={styles.selectIcon}>
                 <div className={styles.iconLabel}>{input.label}</div>
