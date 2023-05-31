@@ -401,8 +401,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       } else {
         setTimeValidationOK(true);
       }
-      setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
     }
+    if (e.target.type === "file")
+      setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
   useEffect(() => {
     if (
