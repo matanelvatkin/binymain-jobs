@@ -34,7 +34,7 @@
 }
 
 .arrow {
-  color: var(--text-secondary-color);
+  color: var(--bg-secondary-color);
   position: absolute;
   left: 3px;
   font-size: 20px;

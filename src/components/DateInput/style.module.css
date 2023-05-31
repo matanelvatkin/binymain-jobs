@@ -24,7 +24,7 @@
 
 .calIcon,
 .arrIcon {
-  color: var(--text-secondary-color);
+  color: var(--bg-secondary-color);
 }
 
 .calIcon {
