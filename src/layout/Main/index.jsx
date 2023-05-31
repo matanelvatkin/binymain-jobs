@@ -9,18 +9,30 @@ import Registeretion from "../../pages/Registeretion";
 import Test from "../../pages/Test";
 import ResetPassword from "../../components/ResetPassword";
 import ForgetPassword from "../../components/ForgetPassword";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import userContext from "../../context/userContext";
 import { useEffect } from "react";
 import popUpContext from "../../context/popUpContext";
 import apiCalls from "../../function/apiCalls";
+import { settingsContext } from "../Layout";
 
 
 function Main() {
 
   const { user, setUser } = useContext(userContext);
   const { setPopUp, setGuestMode, setPopUpText } = useContext(popUpContext);
+  const settingContext = useContext(settingsContext);
 
+  const [loading, setLoading] = useState(true);
+
+  const [categories, setCategories] = useState([]);
+  const [audiences, setAudiences] = useState([]);
+  const [location, setLocation] = useState("");
+  const [btnDates, setBtnDates] = useState({
+    today: true,
+    tomorrow: false,
+    thisWeek: false,
+  });
 
   const VerifyToken = async (e) => {
     const token = localStorage.getItem("Token");
@@ -52,6 +64,14 @@ function Main() {
     VerifyToken(); 
   },[]);
 
+  useEffect(() => {
+    if (settingContext.categories && settingContext.audiences) {
+      setAudiences(settingContext.audiences);
+      setCategories(settingContext.categories);
+      setLoading(() => false);
+    }
+  }, [settingContext.audiences, settingContext.categories]);
+
   return (
     <main>
       <Routes>
@@ -62,8 +82,15 @@ function Main() {
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
 
-        <Route path="/searchEvent" element={<SearchEvent />} />
+        <Route path="/searchEvent" element={<SearchEvent 
+                categories={categories} setCategories={setCategories}
+                audiences={audiences} setAudiences={setAudiences}
+                location={location} setLocation={setLocation}
+                btnDates={btnDates} setBtnDates={setBtnDates}
+                loading={loading}
+        />} />
         <Route path="/searchEvent/result/:query" element={<SearchResult />} />
+
         <Route path="/viewEvent/:event" element={<ViewEvent />} />
         <Route path="/test" element={<Test />} />
         <Route path="*" element={<Navigate to="/" />} />
