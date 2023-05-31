@@ -41,10 +41,7 @@
 }
 
 .errorMessage {
-  display: block;
+  display: none;
   padding: 5px;
   color: red;
-}
-.isPlaceChosen {
-  display: none;
 }
