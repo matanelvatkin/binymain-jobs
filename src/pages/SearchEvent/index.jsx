@@ -13,7 +13,6 @@ import { ImLocation } from "react-icons/im";
 import beginDateUpdate from "../../function/beginDateUpdate";
 
 export default function SearchEvent({setSearch}) {
-  console.log(typeof setSearch);
   const [loading, setLoading] = useState(true);
   
   const [categories, setCategories] = useState([]);
@@ -118,10 +117,10 @@ function handleSubmit(){
   if(btnDates.tomorrow){btnDatesUpdate= "tomorrow"}
   if(btnDates.thisWeek){btnDatesUpdate= "thisWeek"}
 
-console.log(categoriesUpdate,"categoriesUpdate");
-console.log(audiencesUpdate,"audiencesUpdate");
-console.log(location,"location");
-console.log(btnDatesUpdate,"btnDatesUpdate");
+// console.log(categoriesUpdate,"categoriesUpdate");
+// console.log(audiencesUpdate,"audiencesUpdate");
+// console.log(location,"location");
+// console.log(btnDatesUpdate,"btnDatesUpdate");
 
 setSearch(
   {
@@ -138,10 +137,10 @@ setSearch(
 
   return (
     <div>
-      {console.log(categories)}
+      {/* {console.log(categories)} */}
       {/* {console.log(audiences)} */}
       {/* {console.log(location)} */}
-      {console.log(btnDates)}
+      {/* {console.log(btnDates)} */}
 
 
       <div className={style.content}>

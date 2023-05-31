@@ -10,7 +10,7 @@ import headerContext from "../../context/headerContext";
 import { translation } from "../SearchEvent/translation";
 
 export default function SearchResult({search}) {
-  console.log(search);
+  // console.log(search);
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidQuery, setIsInvalidQuery] = useState(false);
   const [events, setEvents] = useState();
@@ -46,12 +46,12 @@ export default function SearchResult({search}) {
       pageSize: 10,
       search: search.location,
     });
-    console.log(apiSingleEvents);
+    // console.log(apiSingleEvents);
     // console.log(singleEventsFilter);
     // let apiReptedEvents = await apiCalls("post", "/event", repetedEventsFilter);
     // console.log(apiReptedEvents);
     let apiEvents = apiSingleEvents.event//.concat([apiReptedEvents.event]);
-    console.log(apiEvents);
+    // console.log(apiEvents);
     setEvents(() => apiEvents);
   }
 

@@ -55,22 +55,22 @@ function Layout() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (
-        !user &&
-        (location.pathname == "/searchEvent" ||
-          location.pathname.startsWith("/viewEvent"))
-      ) 
-      {
-        setGuestMode(true);
-        setPopUpText("עדיין לא יצא לנו להכיר😊");
-        setPopUp(true);
-      }
-    }, 20000);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     if (
+  //       !user &&
+  //       (location.pathname == "/searchEvent" ||
+  //         location.pathname.startsWith("/viewEvent"))
+  //     ) 
+  //     {
+  //       setGuestMode(true);
+  //       setPopUpText("עדיין לא יצא לנו להכיר😊");
+  //       setPopUp(true);
+  //     }
+  //   }, 5000);
 
-    return () => clearInterval(intervalId);
-  }, [user, location.pathname]);
+  //   return () => clearInterval(intervalId);
+  // }, [user, location.pathname]);
 
   return (
     <>
