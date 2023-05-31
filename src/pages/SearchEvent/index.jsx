@@ -7,20 +7,32 @@ import RoundButton from "../../components/RoundButton";
 import DateInput from "../../components/DateInput";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
-// import { settingsContext } from "../../layout/Layout";
+import { settingsContext } from "../../layout/Layout";
 import Select from "../../components/Select";
 import { ImLocation } from "react-icons/im";
-// import beginDateUpdate from "../../function/beginDateUpdate";
+import beginDateUpdate from "../../function/beginDateUpdate";
 
-export default function SearchEvent({categories, setCategories ,audiences, setAudiences ,location, setLocation, btnDates, setBtnDates, loading}) {
-
+export default function SearchEvent({setSearch}) {
+  console.log(typeof setSearch);
+  const [loading, setLoading] = useState(true);
+  
+  const [categories, setCategories] = useState([]);
+  const [audiences, setAudiences] = useState([]);
+  const [location, setLocation] = useState("");
+  const [btnDates, setBtnDates] = useState({
+    today: true,
+    tomorrow: false,
+    thisWeek: false,
+  });
   const [date, setDate] = useState(new Date());
   
-  // const settingContext = useContext(settingsContext);
+  const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
+  
+  const navigate = useNavigate();
 
   setHeader(translation.advencedSearch);
-
+  
 
 
 function clickCategory(e) {
@@ -51,7 +63,13 @@ function handleThisWeekBtn() {
   });
 }
 
-function handleSubmit(){console.log("click")}
+useEffect(() => {
+  if (settingContext.categories && settingContext.audiences) {
+    setAudiences(settingContext.audiences);
+    setCategories(settingContext.categories);
+    setLoading(() => false);
+  }
+}, [settingContext.audiences, settingContext.categories]);
 
 useEffect(() => {
   if (date.toLocaleDateString() === new Date().toLocaleDateString())
@@ -84,12 +102,48 @@ function clickAudience(e) {
         )
       }
 
+function handleSubmit(){
+
+  let categoriesUpdate= createListIdSettingIsTrue(categories)
+  let audiencesUpdate = createListIdSettingIsTrue (audiences)
+  
+   function createListIdSettingIsTrue (array){
+    let arrayUpdate =[]
+    array.forEach(v=>{if(v.isActive){arrayUpdate.push(v._id)}})
+    return arrayUpdate
+   }
+
+  let btnDatesUpdate;
+  if(btnDates.today){btnDatesUpdate= "today"}
+  if(btnDates.tomorrow){btnDatesUpdate= "tomorrow"}
+  if(btnDates.thisWeek){btnDatesUpdate= "thisWeek"}
+
+console.log(categoriesUpdate,"categoriesUpdate");
+console.log(audiencesUpdate,"audiencesUpdate");
+console.log(location,"location");
+console.log(btnDatesUpdate,"btnDatesUpdate");
+
+setSearch(
+  {
+    categories: categoriesUpdate
+    ,audiences: audiencesUpdate
+    ,location: location
+    ,btnDates: btnDatesUpdate
+  }
+  )
+
+  navigate("/searchEvent/result")
+}
+
+
   return (
     <div>
-      {/* {console.log(categories,"categories")}
-      {console.log(audiences)}
-      {console.log(location)}
-      {console.log(btnDates)} */}
+      {console.log(categories)}
+      {/* {console.log(audiences)} */}
+      {/* {console.log(location)} */}
+      {console.log(btnDates)}
+
+
       <div className={style.content}>
         <div className={style.section}>
           <span className={style.title}>{translation.category}</span>
@@ -134,7 +188,7 @@ function clickAudience(e) {
           <div className={style.location}>
             {
               <Select
-                placeholder={location||"בחר מיקום"}
+                placeholder={location}
                 choossArray={locations}
                 func={setLocation}
                 icon="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
@@ -186,7 +240,6 @@ function clickAudience(e) {
 }
 
 
-// const navigate = useNavigate();
 
 
 
