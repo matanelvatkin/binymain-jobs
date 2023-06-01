@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 // creator: Hadar Naiman
 export default function DateInput({ values, setValues = () => {} ,  ...props }) {
   const [datepicker, setdatepicker] = useState(false);
+  const [defaultDate, setDefaultDate] = useState('');
   const [selectDate, setSelectDate] = useState(
     props.val ? props.val : new Date()
   );

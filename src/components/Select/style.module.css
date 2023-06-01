@@ -4,20 +4,23 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  position: relative;
+  justify-items: center;
+  /* position: relative; */
   background-color: var(--text-Fourth-color);
   border: none;
   color: var(--text-third-color);
-
   border-radius: 10px;
   box-shadow: 2px 3px 2px 2px #ccc9c9c3;
 }
 .select {
-  margin: 10px 0 0 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   width: 100%;
 }
 .select_box {
-  margin: 10px;
+  /* margin: 10px; */
+  margin-top: 4px;
   padding: 10px;
   border: none;
   width: 241px;
@@ -45,10 +48,10 @@
 }
 
 .arrow {
-  color: var(--bg-secondary-color);
-  position: absolute;
-  left: 3px;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  height: auto;
+  color: var(--text-secondary-color);
 }
 
 .errorMessage {

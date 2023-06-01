@@ -23,7 +23,7 @@ function EventCard({ events, nextPage , loadMore }) {
   };
   return (
     <>
-    {(!events[0])?<Loader/>:null}
+    {(!(events&&events[0]))?<Loader/>:null}
       {events?.map((v) =>{ 
           const date = new Date(v.date[0]);
           const formattedDate = date.toLocaleDateString("he-IL",
