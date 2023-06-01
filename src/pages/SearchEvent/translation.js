@@ -5,6 +5,7 @@ const translation = {
     audience: 'קהל יעד',
     location: 'מיקום',
     date: 'תאריך',
+    allDate: 'כל התאריכים',
     today: 'היום',
     tomorrow: 'מחר',
     thisWeek: 'השבוע',
