@@ -14,11 +14,12 @@ const Input = (props) => {
     type,
     onChange,
     width,
-    inputRef,
+    refInput,
     isTheSubmitButtonPush,
     ...inputProps
   } = props;
   const [validationMessage, setValidationMessage] = useState("");
+  const tempRef = useRef();
   const onInvalid = (e) => {
     const target = e.target;
     setValidationMessage(target.errorMessage);
@@ -30,12 +31,6 @@ const Input = (props) => {
       setValidationMessage(target.validationMessage);
     }
   };
-  // const onChange = (e) => {
-  //   if (e.target.type === "file") {
-  //     console.log("file", e.target.files);
-  //   }
-  // };
-  const tempRef = useRef();
   return (
     <>
       {type != "radio" ? (
@@ -49,7 +44,7 @@ const Input = (props) => {
             // style={{ width: width }}
             onChange={onChange}
             type={type}
-            ref={inputRef ? inputRef : tempRef}
+            ref={refInput ? refInput : tempRef}
           />
           <p className={styles.uploadInstructions}>{instructions}</p>
           {isTheSubmitButtonPush ? (

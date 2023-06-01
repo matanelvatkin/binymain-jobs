@@ -4,16 +4,12 @@ import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 import SelectIcon from "../../components/SelectIcon";
+import SelectInput from "../../components/SelectInput";
 import styles from "./style.module.css";
 import headerContext from "../../context/headerContext";
 import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
-import PersonalEvent from "../../components/PersonalEvent";
-import WeeklyEvent from "../../components/WeeklyEvent";
-import DailyEvent from "../../components/DailyEvent";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
-import { FaShekelSign } from "react-icons/fa";
-import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
 
@@ -431,39 +427,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     }
   }, [isInputFormValid]);
   function SubmitButton() {
-    // if (
-    //   values.eventName &&
-    //   values.summary &&
-    //   values.advertiserName &&
-    //   values.advertiserTel &&
-    //   values.advertiserEmail &&
-    //   values.categories[0] &&
-    //   values.audiences[0] &&
-    //   values.registrationPageURL &&
-    //   values.cardImageURL &&
-    //   values.coverImageURL
-    // ) {
     return (
       <div className={styles.button}>
         <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
       </div>
     );
   }
-  // else {
-  //   return (
-  //     <div className={styles.button}>
-  //       <ClassicButton
-  //         width={"200px"}
-  //         text={"שמור"}
-  //         type={"submit"}
-  //         disabled={true}
-  //       />
-  //       <span className={styles.errorMessage}>נא למלא את כל השדות</span>
-  //     </div>
-  //   );
-  // }
-  // }
-
   return (
     <div
       dir="RTL"
@@ -481,9 +450,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         {inputs.map((input) => {
           if (input.type === "select")
             return (
-              <Select
+              <SelectInput
                 errorMessage={input.errorMessage}
-                {...input}
                 key={input.id}
                 placeholder={input.placeholder}
                 value={values[input.name]}
@@ -492,6 +460,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 setValues={setValues}
                 isTheSubmitButtonPush={isTheSubmitButtonPush}
                 choossArray={input.name === "repeatType" ? typeData : placeData}
+                {...input}
               />
             );
           else if (input.type === "selectIcon") {
