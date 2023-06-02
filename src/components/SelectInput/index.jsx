@@ -22,8 +22,10 @@ const SelectInput = ({
   const [openPopup, setOpenPopup] = useState(false);
   const inputRef = useRef();
   useEffect(() => {
-      if(valueText) {
-        inputRef.current.value=valueText}
+    console.log(valueText);
+    if (valueText) {
+      inputRef.current.value = valueText;
+    }
   }, [valueText]);
   useEffect(() => {
     setValues({ ...values, [props.name]: valueText });
@@ -31,13 +33,13 @@ const SelectInput = ({
   }, [valueText]);
   const lableOnclick = (e) => {
     if (e.target.value === "") setValueText();
-    inputRef.current.setCustomValidity("Invalid field.")
+    inputRef.current.setCustomValidity("Invalid field.");
     setOpenPopup((prev) => e.target.value || true);
   };
   const changeTextValue = (e) => {
-    inputRef.current.setCustomValidity("")
+    inputRef.current.setCustomValidity("");
     setValueText(e.target.innerText);
-    setOpenPopup(false);
+    // setOpenPopup(false);
   };
   return (
     <div className={styles.select_container}>
@@ -49,7 +51,7 @@ const SelectInput = ({
           lableOnclick(e);
         }}
         onFocus={() => setOpenPopup(true)}
-        onBlur={() => setTimeout(() => setOpenPopup(false), 0.5)}
+        // onBlur={() => setTimeout(() => setOpenPopup(false), 1)}
       />
       {openPopup ? (
         <div className={`${styles.select_box}`}>
@@ -63,7 +65,11 @@ const SelectInput = ({
               <p
                 key={opt}
                 className={`${styles.option}`}
-                onClick={changeTextValue}
+                onClick={(e) => {
+                  inputRef.current.setCustomValidity("");
+                  setValueText(e.target.innerText);
+                  setOpenPopup(false)
+                }}
               >
                 {opt}
               </p>

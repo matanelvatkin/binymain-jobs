@@ -296,6 +296,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     firstInvalidField?.focus();
 
     if (!isInputFormValid) {
+      console.log("invalid");
     } else {
       const formData = new FormData();
       for (const key in fileData) {

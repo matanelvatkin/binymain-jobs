@@ -1,9 +1,11 @@
 .select_container {
   position: relative;
+  z-index: 1;
 }
 .select {
   margin: 10px 0 0 50px;
   width: 100%;
+  z-index: 1;
 }
 .select_box {
   margin: 10px;
@@ -24,6 +26,7 @@
 }
 
 .option {
+  z-index: 3;
   padding: 5px 0 5px 0;
   box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.25);
 }
