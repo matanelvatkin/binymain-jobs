@@ -12,6 +12,9 @@ import { useNavigate } from "react-router-dom";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
+import beginDateUpdate from "../../function/beginDateUpdate";
+import popUpContext from "../../context/popUpContext";
+import { locations } from "../SearchEvent/translation";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -23,6 +26,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [timeValidationOK, setTimeValidationOK] = useState(true);
   const ref = useRef();
 
+  const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
+
+
   const handleToggleSwitch = (e) => {
     setChecked(!checked);
     setValues({ ...values, isFree: checked });
@@ -33,42 +39,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log(fileData);
   };
   const nav = useNavigate();
-  const placeData = [
-    "עלמון",
-    "עמיחי",
-    "עטרת",
-    "בית חורון",
-    "דולב",
-    "עלי",
-    "גני מודיעין",
-    "גבע בנימין",
-    "גבעון החדשה",
-    "חשמונאים",
-    "כפר אדומים",
-    "כפר האורנים",
-    "כוכב השחר",
-    "כוכב יעקב",
-    "מעלה לבונה",
-    "מעלה מכמש",
-    "מתתיהו",
-    "מבוא חורון",
-    "מצפה יריחו",
-    "נעלה",
-    "נחליאל",
-    "נוה צוף",
-    `ניל"י`,
-    "סנה-בני אדם",
-    "עופרה",
-    "פסגות",
-    "רימונים",
-    "שילה",
-    "טלמון",
-  ];
+  const placeData = locations
+
   const [loading, setLoading] = useState(true);
 
   const paymentData = ["בתשלום", "בחינם"];
   const typeData = [
-    "אירוע ללא חזרה",
+    "אירוע חד פעמי",
     "אירוע יומי",
     "אירוע שבועי",
     "בהתאמה אישית",
@@ -76,7 +53,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
-  const [constancy, setConstancy] = useState("אירוע ללא חזרה");
+  const [constancy, setConstancy] = useState("אירוע חד פעמי");
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
@@ -87,7 +64,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     advertiserTel: "",
     advertiserEmail: "",
     isRepeated: false,
-    repeatType: "אירוע ללא חזרה",
+    repeatType: "אירוע חד פעמי",
     personalRepeatType: "",
     date: new Date(),
     repeatSettingsType: "endDate",
@@ -119,7 +96,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 2,
       name: "constancy",
-      type: constancy || "אירוע ללא חזרה",
+      type: constancy || "אירוע חד פעמי",
     },
     {
       id: 3,
@@ -289,6 +266,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [eventData, setEventData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // הכנסת שעת התחלה לתאריך ולתאריך סיום
+    values.date = beginDateUpdate(values.date,values.beginningTime)
+    if(values.repeatSettingsRepeatEnd instanceof Date){values.repeatSettingsRepeatEnd= beginDateUpdate(values.repeatSettingsRepeatEnd ,values.beginningTime)}
+
     const formElement = e.target;
     // const isValid = formElement.checkValidity();
     formElement.classList.add(styles.submitted);
@@ -349,6 +331,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
         if (res._id != "") {
+          setSaveEventMode(true)
+          setPopUpText("האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו");
+          setPopUp(true)
           const newEventId = res._id;
           nav(`/`);
         }
@@ -402,6 +387,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
+
+  const formattedDate = new Date(values.date).toLocaleDateString("he-IL", {
+    weekday: 'long',
+    // day: 'numeric',
+    // month: 'long',
+    timeZone: 'UTC',
+    numberingSystem: 'latn'
+  });
   useEffect(() => {
     if (
       values.eventName &&
@@ -477,8 +470,24 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 />
               </div>
             );
-          }
-          else if (input.type === "אירוע ללא חזרה")
+          } else if (input.type === "select")
+            return (
+              <Select
+                {...input}
+                errorMessage={input.errorMessage}
+                key={input.id}
+                placeholder={input.placeholder}
+                value={values[input.name]}
+                name={input.name}
+                values={values}
+                setValues={setValues}
+                isTheSubmitButtonPush={isTheSubmitButtonPush}
+                choossArray={
+                  input.name === "repeatType" ? typeData : paymentData
+                }
+              />
+            );
+          else if (input.type === "אירוע חד פעמי")
             return (
               <div className={styles.date}>
                 {" "}
@@ -491,7 +500,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 className={styles.advanced}
                 onClick={() => setNewEventPopup(true)}
               >
-                מתקדם
+                
+              <u> {`${constancy} ${constancy !== "אירוע חד פעמי" ? formattedDate : "" }`}</u>           
               </div>
             );
           else if (input.type == "toogleSwitch")

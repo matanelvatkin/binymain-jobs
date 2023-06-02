@@ -9,9 +9,8 @@ import Registeretion from "../../pages/Registeretion";
 import Test from "../../pages/Test";
 import ResetPassword from "../../components/ResetPassword";
 import ForgetPassword from "../../components/ForgetPassword";
-import { useContext } from "react";
+import { useContext , useEffect, useState } from "react";
 import userContext from "../../context/userContext";
-import { useEffect } from "react";
 import popUpContext from "../../context/popUpContext";
 import apiCalls from "../../function/apiCalls";
 
@@ -20,6 +19,8 @@ function Main() {
 
   const { user, setUser } = useContext(userContext);
   const { setPopUp, setGuestMode, setPopUpText } = useContext(popUpContext);
+  
+  const [search, setSearch] = useState({categories:[] ,audiences:[] ,location: "" ,btnDates: ""})
 
 
   const VerifyToken = async (e) => {
@@ -62,8 +63,9 @@ function Main() {
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
 
-        <Route path="/searchEvent" element={<SearchEvent />} />
-        <Route path="/searchEvent/result/:query" element={<SearchResult />} />
+        <Route path="/searchEvent" element={<SearchEvent setSearch={setSearch}/>} />
+        <Route path="/searchEvent/result" element={<SearchResult search={search} />} />
+
         <Route path="/viewEvent/:event" element={<ViewEvent />} />
         <Route path="/test" element={<Test />} />
         <Route path="*" element={<Navigate to="/" />} />
