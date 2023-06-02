@@ -9,32 +9,44 @@ import Loader from "../../components/Loader";
 import { settingsContext } from "../../layout/Layout";
 import Select from "../../components/Select";
 
+// Yair Ken
+// I tried to make the date buttons relatively generic, so to add them to this component, you only need to add them to the array and show
+
 export default function SearchEvent({setSearch}) {
 
+  const textShow = translation
   const arrBtnDates = ["allDate","today","tomorrow","thisWeek"]
+  const DefaultBtnDate = "allDate"
+  const DefaultBtnDateObject= setDefaultBtnDateObject (arrBtnDates,DefaultBtnDate)
+  const arrayLocations = locations
+  const locationPlaceholder = textShow.choseLocation
+  
+  const [btnDates, setBtnDates] = useState(DefaultBtnDateObject);
 
   const [loading, setLoading] = useState(true);
   
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
-  const [location, setLocation] = useState("");
-  const [btnDates, setBtnDates] = useState({
-    "allDate": true,
-    "today": false,
-    "tomorrow": false,
-    "thisWeek": false,
-  });
+  const [location, setLocation] = useState(locationPlaceholder);
   
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   
   const navigate = useNavigate();
-
+  
   setHeader(translation.advencedSearch);
   
   
+  function setDefaultBtnDateObject (arrBtnDates,DefaultBtnDate){
+      const Object = {}
+      arrBtnDates.forEach(btn => {
+          Object[btn] = btn === DefaultBtnDate;
+      });
+      return Object
+  }
+  
   function clickAudience(e) {
-          setAudiences((prev) =>
+    setAudiences((prev) =>
           prev.map((v, i) =>
           i == e.target.id ? { ...v, isActive: !v.isActive } : v
           )
@@ -74,33 +86,40 @@ function handleSubmit(){
   let categoriesUpdate= createListIdSettingIsTrue(categories)
   let audiencesUpdate = createListIdSettingIsTrue (audiences)
   
-   function createListIdSettingIsTrue (array){
-    let arrayUpdate =[]
-    array.forEach(v=>{if(v.isActive){arrayUpdate.push(v._id)}})
-    return arrayUpdate
+  let locationUpdate = location
+   if (locationUpdate===textShow.choseLocation) {
+    locationUpdate = ""
    }
 
-  let btnDatesUpdate;
-  if(btnDates.allDate){btnDatesUpdate= "allDate"}
-  if(btnDates.today){btnDatesUpdate= "today"}
-  if(btnDates.tomorrow){btnDatesUpdate= "tomorrow"}
-  if(btnDates.thisWeek){btnDatesUpdate= "thisWeek"}
+   let btnDatesUpdate;
+   for (const key in btnDates) {
+       if (btnDates[key]) {
+           btnDatesUpdate = key;
+           break;
+       }
+   }
 
 // console.log(categoriesUpdate,"categoriesUpdate");
 // console.log(audiencesUpdate,"audiencesUpdate");
-// console.log(location,"location");
+// console.log(locationUpdate,"locationUpdate");
 // console.log(btnDatesUpdate,"btnDatesUpdate");
 
 setSearch(
   {
     categories: categoriesUpdate
     ,audiences: audiencesUpdate
-    ,location: location
+    ,location: locationUpdate
     ,btnDates: btnDatesUpdate
   }
   )
-
+  
   navigate("/searchEvent/result")
+  
+  function createListIdSettingIsTrue (array){
+   let arrayUpdate =[]
+   array.forEach(v=>{if(v.isActive){arrayUpdate.push(v._id)}})
+   return arrayUpdate
+  }
 }
 
 
@@ -111,15 +130,14 @@ setSearch(
       {/* {console.log(location)} */}
       {/* {console.log(btnDates)} */}
 
-
       <div className={style.content}>
         <div className={style.section}>
-          <span className={style.title}>{translation.category}</span>
+          <span className={style.title}>{textShow.category}</span>
           <div className={style.categories}>
             {!loading ? (
               categories.map((category, i) => (
                 <RoundButton
-                  text={translation[category.name]}
+                  text={textShow[category.name]}
                   icon={category.icon}
                   func={clickCategory}
                   id={i}
@@ -133,12 +151,12 @@ setSearch(
         </div>
 
         <div className={style.section}>
-          <span className={style.title}>{translation.audience}</span>
+          <span className={style.title}>{textShow.audience}</span>
           <div className={style.audiences}>
             {!loading ? (
               audiences.map((audience, i) => (
                 <RoundButton
-                  text={translation[audience.name]}
+                  text={textShow[audience.name]}
                   icon={audience.icon}
                   id={i}
                   func={clickAudience}
@@ -152,12 +170,12 @@ setSearch(
         </div>
 
         <div className={style.section}>
-          <span className={style.title}>{translation.location}</span>
+          <span className={style.title}>{textShow.location}</span>
           <div className={style.location}>
             {
               <Select
                 placeholder={location}
-                choossArray={locations}
+                choossArray={arrayLocations}
                 func={setLocation}
                 icon="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
               />
@@ -166,12 +184,12 @@ setSearch(
         </div>
 
         <div className={style.section}>
-          <span className={style.title}>{translation.date}</span>
+          <span className={style.title}>{textShow.date}</span>
           <div className={style.dateBtnSelection}>
             {arrBtnDates.map(btnDate=>
             <ClassicButton
               width={100}
-              text={translation[btnDate]}
+              text={textShow[btnDate]}
               isActive={btnDates[btnDate]}
               name={btnDate}
               key={btnDate}
@@ -184,7 +202,7 @@ setSearch(
         <div className={style.footerBtn}>
           <ClassicButton
             width={300}
-            text={translation.search}
+            text={textShow.search}
             func={handleSubmit}
           />
         </div>

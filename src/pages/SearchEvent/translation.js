@@ -4,6 +4,7 @@ const translation = {
     category: 'קטגוריה',
     audience: 'קהל יעד',
     location: 'מיקום',
+    choseLocation : 'בחר מיקום',
     date: 'תאריך',
     allDate: 'כל התאריכים',
     today: 'היום',
