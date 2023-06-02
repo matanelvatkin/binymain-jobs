@@ -11,6 +11,8 @@ import Select from "../../components/Select";
 
 export default function SearchEvent({setSearch}) {
 
+  const arrBtnDates = ["allDate","today","tomorrow","thisWeek"]
+
   const [loading, setLoading] = useState(true);
   
   const [categories, setCategories] = useState([]);
@@ -166,38 +168,16 @@ setSearch(
         <div className={style.section}>
           <span className={style.title}>{translation.date}</span>
           <div className={style.dateBtnSelection}>
-          <ClassicButton
-              width={100}
-              text={translation.allDate}
-              isActive={btnDates.allDate}
-              name="allDate"
-              func={clickDateBtn}
-              oppositeColor
-            />
+            {arrBtnDates.map(btnDate=>
             <ClassicButton
               width={100}
-              text={translation.today}
-              isActive={btnDates.today}
-              name="today"
+              text={translation[btnDate]}
+              isActive={btnDates[btnDate]}
+              name={btnDate}
+              key={btnDate}
               func={clickDateBtn}
               oppositeColor
-            />
-            <ClassicButton
-              width={100}
-              text={translation.tomorrow}
-              isActive={btnDates.tomorrow}
-              name="tomorrow"
-              func={clickDateBtn}
-              oppositeColor
-            />
-            <ClassicButton
-              width={100}
-              text={translation.thisWeek}
-              isActive={btnDates.thisWeek}
-              name="thisWeek"
-              func={clickDateBtn}
-              oppositeColor
-              />
+            /> )}
           </div>
         </div>
 
