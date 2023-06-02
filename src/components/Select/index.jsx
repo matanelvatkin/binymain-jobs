@@ -42,19 +42,18 @@ const Select = ({
         <img className={styles.icon} src={icon} />
         <p className={`${styles.select}`} onClick={lableOnclick}>
           {valueText}
-        
+        </p>
         {openPopup ? (
           <BsArrowUpShort
             className={styles.arrow}
-            style={{ width: "30px"}}
+            style={{ width: "40px", marginRight: "10px", marginTop: "10px" }}
           />
         ) : (
           <BsArrowDownShort
             className={styles.arrow}
-            style={{ width: "30px"}}
+            style={{ width: "40px", marginRight: "10px", marginTop: "10px" }}
           />
         )}
-        </p>
       </div>
       {openPopup ? (
         <div className={`${styles.select_box}`}>
