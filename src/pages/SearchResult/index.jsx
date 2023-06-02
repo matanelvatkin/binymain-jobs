@@ -10,7 +10,7 @@ import headerContext from "../../context/headerContext";
 import { translation } from "../SearchEvent/translation";
 
 export default function SearchResult({search}) {
-  // console.log(search);
+  console.log(search);
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidQuery, setIsInvalidQuery] = useState(false);
   const [events, setEvents] = useState();

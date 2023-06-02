@@ -12,6 +12,9 @@ import { useNavigate } from "react-router-dom";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
+import beginDateUpdate from "../../function/beginDateUpdate";
+import popUpContext from "../../context/popUpContext";
+import { locations } from "../SearchEvent/translation";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -23,6 +26,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [timeValidationOK, setTimeValidationOK] = useState(true);
   const ref = useRef();
 
+  const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
+
+
   const handleToggleSwitch = (e) => {
     setChecked(!checked);
     setValues({ ...values, isFree: checked });
@@ -33,37 +39,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log(fileData);
   };
   const nav = useNavigate();
-  const placeData = [
-    "עלמון",
-    "עמיחי",
-    "עטרת",
-    "בית חורון",
-    "דולב",
-    "עלי",
-    "גני מודיעין",
-    "גבע בנימין",
-    "גבעון החדשה",
-    "חשמונאים",
-    "כפר אדומים",
-    "כפר האורנים",
-    "כוכב השחר",
-    "כוכב יעקב",
-    "מעלה לבונה",
-    "מעלה מכמש",
-    "מתתיהו",
-    "מבוא חורון",
-    "מצפה יריחו",
-    "נעלה",
-    "נחליאל",
-    "נוה צוף",
-    `ניל"י`,
-    "סנה-בני אדם",
-    "עופרה",
-    "פסגות",
-    "רימונים",
-    "שילה",
-    "טלמון",
-  ];
+  const placeData = locations
+
   const [loading, setLoading] = useState(true);
 
   const paymentData = ["בתשלום", "בחינם"];
@@ -289,6 +266,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [eventData, setEventData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // הכנסת שעת התחלה לתאריך ולתאריך סיום
+    values.date = beginDateUpdate(values.date,values.beginningTime)
+    if(values.repeatSettingsRepeatEnd instanceof Date){values.repeatSettingsRepeatEnd= beginDateUpdate(values.repeatSettingsRepeatEnd ,values.beginningTime)}
+
     const formElement = e.target;
     // const isValid = formElement.checkValidity();
     formElement.classList.add(styles.submitted);
@@ -348,6 +330,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
         if (res._id != "") {
+          setSaveEventMode(true)
+          setPopUpText("האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו");
+          setPopUp(true)
           const newEventId = res._id;
           nav(`/`);
         }
