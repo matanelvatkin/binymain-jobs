@@ -15,7 +15,7 @@ import ToggleSwitch from "../../components/ToggleSwitch";
 import beginDateUpdate from "../../function/beginDateUpdate";
 import popUpContext from "../../context/popUpContext";
 import { locations } from "../SearchEvent/translation";
-
+import { timeValidation } from "./timeValidation";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -23,7 +23,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
   const [isInputFormValid, setIsTheFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
- 
+  const [timeValidationOK, setTimeValidationOK] = useState(true);
+  const [timeValidationMessage ,setTimeValidationMessage] = useState("");
+  
   const ref = useRef();
 
   const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
@@ -340,7 +342,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     }
   };
   
-  
+  useEffect(() => {
+    if(timeValidationMessage!=="")
+      setTimeValidationOK(false);
+    else
+      setTimeValidationOK(true);
+  }, [timeValidationMessage]);
+
+
 
   useEffect(() => {
     setConstancy(values.repeatType);
@@ -378,13 +387,27 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       setIsTheFormValid(true);
       console.log({ isInputFormValid });
     }
-    if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
-      if (values.finishTime <= values.beginningTime) {
-        setTimeValidationOK(false);
-      } else {
-        setTimeValidationOK(true);
-      }
+   //if the targeted input is the beginningTime or finishingTime then- we make a validation check.
+
+  if(e.target.name === "beginningTime" || e.target.name === "finishTime")
+  {      
+    
+    //set the beginning and finishing time from the values object
+    const beginningTimeObj = new Date("2000-01-01T" + values.beginningTime);
+    const finishingTimeObj = new Date("2000-01-01T" + values.finishTime);  
+    
+    //update the beginningTimeObj or the finishingTimeObj according to the targeted value.
+    const [hours, minutes] = e.target.value.split(':');
+    
+    if (e.target.name === "beginningTime") {
+      beginningTimeObj.setHours(hours);
+      beginningTimeObj.setMinutes(minutes);
+    } else {
+      finishingTimeObj.setHours(hours);
+      finishingTimeObj.setMinutes(minutes);
     }
+    setTimeValidationMessage(timeValidation(beginningTimeObj, finishingTimeObj));
+  }
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
@@ -495,6 +518,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 <NoRepeatEvent values={values} setValues={setValues} />
               </div>
             );
+            else if (input.type == "pTimeValidationOK")
+            return (
+              <p>
+                {timeValidationMessage}
+              </p>
+            );
           else if (input.type === "button")
             return (
               <div
@@ -513,7 +542,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 onChange={handleToggleSwitch}
               />
             );
-         
           else
             return (
               <Input
