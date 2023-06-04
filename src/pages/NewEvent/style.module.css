@@ -24,16 +24,6 @@
   width: 100%;
 }
 
-.priceNone {
-  /* display: none; */
-  color: blue;
-}
-
-.priceInline {
-  display: inline;
-  color: red;
-}
-
 .date {
   /* position: relative; */
   margin-top: -20px;
