@@ -15,6 +15,7 @@ import ToggleSwitch from "../../components/ToggleSwitch";
 import beginDateUpdate from "../../function/beginDateUpdate";
 import popUpContext from "../../context/popUpContext";
 import { locations } from "../SearchEvent/translation";
+import { timeValidation } from "./timeValidation";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -22,8 +23,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
   const [isInputFormValid, setIsTheFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
-  // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
+  const [timeValidationMessage ,setTimeValidationMessage] = useState("");
+  
   const ref = useRef();
 
   const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
@@ -121,7 +123,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 5,
       name: "beginningTime",
       type: "time",
-      label: "זמן התחלה",
+      label: "מתי האירוע מתחיל?",
       errorMessage: "שדה חובה!",
       placeholder: "זמן התחלה",
       required: true,
@@ -135,7 +137,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 6,
       name: "finishTime",
       type: "time",
-      label: "זמן סיום",
+      label: "מתי האירוע מסתיים?",
       errorMessage: "שדה חובה!",
       placeholder: "זמן סיום",
       required: true,
@@ -150,13 +152,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
     },
-    {
-      id: 1,
-      name: "price",
-      type: "text",
-      placeholder: "מחיר",
-      className: styles.priceNone,
-    },
+    // {
+    //   id: 1,
+    //   name: "price",
+    //   type: "text",
+    //   placeholder: "מחיר",
+    // },
 
     // {
     //   id: 7,
@@ -339,6 +340,15 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       });
     }
   };
+  
+  useEffect(() => {
+    if(timeValidationMessage!=="")
+      setTimeValidationOK(false);
+    else
+      setTimeValidationOK(true);
+  }, [timeValidationMessage]);
+
+
 
   useEffect(() => {
     setConstancy(values.repeatType);
@@ -376,13 +386,27 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       setIsTheFormValid(true);
       console.log({ isInputFormValid });
     }
-    if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
-      if (values.finishTime <= values.beginningTime) {
-        setTimeValidationOK(false);
-      } else {
-        setTimeValidationOK(true);
-      }
+   //if the targeted input is the beginningTime or finishingTime then- we make a validation check.
+
+  if(e.target.name === "beginningTime" || e.target.name === "finishTime")
+  {      
+    
+    //set the beginning and finishing time from the values object
+    const beginningTimeObj = new Date("2000-01-01T" + values.beginningTime);
+    const finishingTimeObj = new Date("2000-01-01T" + values.finishTime);  
+    
+    //update the beginningTimeObj or the finishingTimeObj according to the targeted value.
+    const [hours, minutes] = e.target.value.split(':');
+    
+    if (e.target.name === "beginningTime") {
+      beginningTimeObj.setHours(hours);
+      beginningTimeObj.setMinutes(minutes);
+    } else {
+      finishingTimeObj.setHours(hours);
+      finishingTimeObj.setMinutes(minutes);
     }
+    setTimeValidationMessage(timeValidation(beginningTimeObj, finishingTimeObj));
+  }
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
@@ -493,6 +517,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 <NoRepeatEvent values={values} setValues={setValues} />
               </div>
             );
+            else if (input.type == "pTimeValidationOK")
+            return (
+              <p className={styles.timeValidation}>
+                {timeValidationMessage}
+              </p>
+            );
           else if (input.type === "button")
             return (
               <div
@@ -510,16 +540,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 checked={checked}
                 onChange={handleToggleSwitch}
               />
-            );
-          else if (input.type == "pTimeValidationOK")
-            return (
-              <p
-                className={
-                  timeValidationOK ? styles.priceNone : styles.priceInline
-                }
-              >
-                משך האירוע - שעה לפחות
-              </p>
             );
           else
             return (
