@@ -72,10 +72,10 @@ width: 96%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: var(--text-secondary-color);
+    color: var(--bg-secondary-color);
 }
 .date{
-    color: var(--text-secondary-color);
+    color: var(--bg-secondary-color);
 }
 
 .loadButton{

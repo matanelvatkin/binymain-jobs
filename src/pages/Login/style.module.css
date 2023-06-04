@@ -71,7 +71,7 @@
 .clickHere{
     margin-right: 5px;
    text-decoration: underline;
-   color: var(  --text-secondary-color);
+   color: var(--bg-secondary-color);
 }
 
 /* .secondButtonContainer{

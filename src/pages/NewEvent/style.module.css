@@ -50,3 +50,10 @@
   padding: 5px;
   color: red;
 }
+.submitted input:invalid {
+  border-color: red;
+}
+
+.submitted input:invalid:focus {
+  outline-color: red;
+}

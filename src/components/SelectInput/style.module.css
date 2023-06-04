@@ -34,17 +34,14 @@
 }
 
 .arrow {
-  color: var(--text-secondary-color);
+  color: var(--bg-secondary-color);
   position: absolute;
   left: 3px;
   font-size: 20px;
 }
 
 .errorMessage {
-  display: block;
+  display: none;
   padding: 5px;
   color: red;
-}
-.isPlaceChosen {
-  display: none;
 }

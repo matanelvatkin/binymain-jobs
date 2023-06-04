@@ -4,192 +4,140 @@ import { locations, translation } from "./translation";
 import style from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
 import RoundButton from "../../components/RoundButton";
-import DateInput from "../../components/DateInput";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { settingsContext } from "../../layout/Layout";
 import Select from "../../components/Select";
-import { ImLocation } from "react-icons/im";
 
-export default function SearchEvent() {
-  const navigate = useNavigate();
-  const settingContext = useContext(settingsContext);
+// Yair Ken
+// I tried to make the date buttons relatively generic, so to add them to this component, you only need to add them to the array and show
+
+export default function SearchEvent({setSearch}) {
+
+  const textShow = translation
+  const arrBtnDates = ["allDate","today","tomorrow","thisWeek"]
+  const DefaultBtnDate = "allDate"
+  const DefaultBtnDateObject= setDefaultBtnDateObject (arrBtnDates,DefaultBtnDate)
+  const arrayLocations = locations
+  const locationPlaceholder = textShow.choseLocation
+  
+  const [btnDates, setBtnDates] = useState(DefaultBtnDateObject);
+
   const [loading, setLoading] = useState(true);
+  
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
-
-  useEffect(() => {
-    if (settingContext.categories && settingContext.audiences) {
-      setAudiences(settingContext.audiences);
-      setCategories(settingContext.categories);
-      setLoading(() => false);
-    }
-  }, [settingContext.audiences, settingContext.categories]);
-
-  const [location, setLocation] = useState("");
-
-  const [date, setDate] = useState(new Date());
-
-  const [btnDates, setBtnDates] = useState({
-    today: true,
-    tomorrow: false,
-    thisWeek: false,
-  });
-
-  useEffect(() => {
-    if (date.toLocaleDateString() === new Date().toLocaleDateString())
-      setBtnDates((prev) => {
-        let newBtnDates = { ...prev };
-        Object.keys(prev).forEach((v) => (newBtnDates[v] = false));
-        newBtnDates.today = true;
-        return newBtnDates;
-      });
-    else if (
-      date.toLocaleDateString() ===
-      new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toLocaleDateString()
-    )
-      setBtnDates((prev) => {
-        let newBtnDates = { ...prev };
-        Object.keys(prev).forEach((v) => (newBtnDates[v] = false));
-        newBtnDates.tomorrow = true;
-        return newBtnDates;
-      });
-    else {
-      setBtnDates(() => ({ today: false, tomorrow: false, thisWeek: false }));
-    }
-  }, [date]);
-
+  const [location, setLocation] = useState(locationPlaceholder);
+  
+  const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
+  
+  const navigate = useNavigate();
+  
   setHeader(translation.advencedSearch);
-
-  function clickCategory(e) {
-    setCategories((prev) =>
-      prev.map((v, i) =>
-        i == e.target.id
-          ? (console.log(e.target), { ...v, isActive: !v.isActive })
-          : v
-      )
-    );
+  
+  
+  function setDefaultBtnDateObject (arrBtnDates,DefaultBtnDate){
+      const Object = {}
+      arrBtnDates.forEach(btn => {
+          Object[btn] = btn === DefaultBtnDate;
+      });
+      return Object
   }
-
+  
   function clickAudience(e) {
     setAudiences((prev) =>
-      prev.map((v, i) =>
-        i == e.target.id ? { ...v, isActive: !v.isActive } : v
-      )
-    );
-  }
+          prev.map((v, i) =>
+          i == e.target.id ? { ...v, isActive: !v.isActive } : v
+          )
+          )
+        }
 
-  function handleThisWeekBtn() {
-    setBtnDates((prev) => {
-      let newBtnDates = { ...prev };
-      Object.keys(prev).forEach((v) => (newBtnDates[v] = false));
-      newBtnDates.thisWeek = true;
-      return newBtnDates;
-    });
-  }
-
-  function handleTodayTomorrwBtn(e) {
-    if (e.target.name === "today") {
-      setDate(() => new Date());
-      return;
-    }
-
-    setDate(() => new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
-  }
-
-  // function handleSelectDate(date) {
-  //   setDate(() => date);
-  //   if (btnDates.thisWeek)
-  //     setBtnDates((prev) => ({ ...prev, thisWeek: false }));
-  // }
-
-  function handleSubmit() {
-    let dateArr = date.toLocaleDateString().split(" ");
-
-    dateArr[1] = "00:00:00";
-    let startDateQuery = dateArr.join(" ");
-
-    dateArr[1] = "23:59:59";
-    let endDateQuery = dateArr.join(" ");
-
-    let endDayOfWeek = "";
-
-    if (btnDates.thisWeek) {
-      let today = new Date().getDay();
-      if (today === 7) {
-        endDayOfWeek = new Date(date.getTime() + 6 * 24 * 60 ** 2 * 1000)
-          .toLocaleString()
-          .split(" ");
-        endDayOfWeek[1] = "23:59:59";
-        endDayOfWeek = endDayOfWeek.join(" ");
-      } else if (today === 6) {
-        endDayOfWeek = endDateQuery;
-      } else {
-        endDayOfWeek = new Date(
-          date.getTime() + (6 - today) * 24 * 60 ** 2 * 1000
+  function clickCategory(e) {
+  setCategories((prev) =>
+    prev.map((v, i) =>
+      i == e.target.id
+        ? (console.log(e.target), { ...v, isActive: !v.isActive })
+        : v
         )
-          .toLocaleString()
-          .split(" ");
-        endDayOfWeek[1] = "23:59:59";
-        endDayOfWeek = endDayOfWeek.join(" ");
+        );
       }
-    }
 
-    let dbQuery = {
-      $and: [
-        { date: { $gte: new Date(startDateQuery) } },
-        {
-          date: {
-            $lte: endDayOfWeek
-              ? new Date(endDayOfWeek)
-              : new Date(endDateQuery),
-          },
-        },
-      ],
-    };
+  function clickDateBtn(e) {
+  setBtnDates((prev) => {
+    let newBtnDates = { ...prev };
+    Object.keys(prev).forEach((v) => (newBtnDates[v] = false));
+    newBtnDates[e.target.name] = true;
+    return newBtnDates;
+  });
+}
 
-    let activeCategories = categories.filter((category) => category.isActive);
-    let activeAudiences = audiences.filter((audience) => audience.isActive);
-
-    if (activeCategories.length >= 2) {
-      dbQuery.category = { $in: [] };
-      activeCategories.forEach((category) =>
-        dbQuery.category.$in.push(category._id)
-      );
-    } else if (activeCategories.length) {
-      dbQuery.category = { $in: [activeCategories[0]._id] };
-    }
-
-    if (activeAudiences.length >= 2) {
-      dbQuery.targetAudience = { $in: [] };
-      activeAudiences.forEach((audience) =>
-        dbQuery.targetAudience.$in.push(audience._id)
-      );
-    } else if (activeAudiences.length) {
-      dbQuery.targetAudience = { $in: [activeAudiences[0]._id] };
-    }
-
-    let query = JSON.stringify(dbQuery);
-    const encodedQueryString = encodeURIComponent(query);
-
-    navigate(`/searchEvent/result/${encodedQueryString}`);
+useEffect(() => {
+  if (settingContext.categories && settingContext.audiences) {
+    setAudiences(settingContext.audiences);
+    setCategories(settingContext.categories);
+    setLoading(() => false);
   }
+}, [settingContext.audiences, settingContext.categories]);
 
-  function useBackBtn() {
-    navigate(-1);
+
+function handleSubmit(){
+
+  let categoriesUpdate= createListIdSettingIsTrue(categories)
+  let audiencesUpdate = createListIdSettingIsTrue (audiences)
+  
+  let locationUpdate = location
+   if (locationUpdate===textShow.choseLocation) {
+    locationUpdate = ""
+   }
+
+   let btnDatesUpdate;
+   for (const key in btnDates) {
+       if (btnDates[key]) {
+           btnDatesUpdate = key;
+           break;
+       }
+   }
+
+// console.log(categoriesUpdate,"categoriesUpdate");
+// console.log(audiencesUpdate,"audiencesUpdate");
+// console.log(locationUpdate,"locationUpdate");
+// console.log(btnDatesUpdate,"btnDatesUpdate");
+
+setSearch(
+  {
+    categories: categoriesUpdate
+    ,audiences: audiencesUpdate
+    ,location: locationUpdate
+    ,btnDates: btnDatesUpdate
   }
+  )
+  
+  navigate("/searchEvent/result")
+  
+  function createListIdSettingIsTrue (array){
+   let arrayUpdate =[]
+   array.forEach(v=>{if(v.isActive){arrayUpdate.push(v._id)}})
+   return arrayUpdate
+  }
+}
+
 
   return (
     <div>
+      {/* {console.log(categories)} */}
+      {/* {console.log(audiences)} */}
+      {/* {console.log(location)} */}
+      {/* {console.log(btnDates)} */}
+
       <div className={style.content}>
         <div className={style.section}>
-          <span className={style.title}>{translation.category}</span>
+          <span className={style.title}>{textShow.category}</span>
           <div className={style.categories}>
             {!loading ? (
               categories.map((category, i) => (
                 <RoundButton
-                  text={translation[category.name]}
+                  text={textShow[category.name]}
                   icon={category.icon}
                   func={clickCategory}
                   id={i}
@@ -203,12 +151,12 @@ export default function SearchEvent() {
         </div>
 
         <div className={style.section}>
-          <span className={style.title}>{translation.audience}</span>
+          <span className={style.title}>{textShow.audience}</span>
           <div className={style.audiences}>
             {!loading ? (
               audiences.map((audience, i) => (
                 <RoundButton
-                  text={translation[audience.name]}
+                  text={textShow[audience.name]}
                   icon={audience.icon}
                   id={i}
                   func={clickAudience}
@@ -222,12 +170,12 @@ export default function SearchEvent() {
         </div>
 
         <div className={style.section}>
-          <span className={style.title}>{translation.location}</span>
+          <span className={style.title}>{textShow.location}</span>
           <div className={style.location}>
             {
               <Select
                 placeholder={location}
-                choossArray={locations}
+                choossArray={arrayLocations}
                 func={setLocation}
                 icon="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
               />
@@ -236,39 +184,25 @@ export default function SearchEvent() {
         </div>
 
         <div className={style.section}>
-          <span className={style.title}>{translation.date}</span>
+          <span className={style.title}>{textShow.date}</span>
           <div className={style.dateBtnSelection}>
+            {arrBtnDates.map(btnDate=>
             <ClassicButton
               width={100}
-              text={translation.today}
-              isActive={btnDates.today}
-              name="today"
-              func={handleTodayTomorrwBtn}
+              text={textShow[btnDate]}
+              isActive={btnDates[btnDate]}
+              name={btnDate}
+              key={btnDate}
+              func={clickDateBtn}
               oppositeColor
-            />
-            <ClassicButton
-              width={100}
-              text={translation.tomorrow}
-              isActive={btnDates.tomorrow}
-              name="tomorrow"
-              func={handleTodayTomorrwBtn}
-              oppositeColor
-            />
-            <ClassicButton
-              width={100}
-              text={translation.thisWeek}
-              isActive={btnDates.thisWeek}
-              func={handleThisWeekBtn}
-              oppositeColor
-            />
+            /> )}
           </div>
-          {/* <DateInput func={handleSelectDate} val={date} /> */}
         </div>
 
         <div className={style.footerBtn}>
           <ClassicButton
             width={300}
-            text={translation.search}
+            text={textShow.search}
             func={handleSubmit}
           />
         </div>

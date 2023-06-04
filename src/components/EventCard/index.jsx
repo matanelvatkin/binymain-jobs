@@ -3,6 +3,7 @@ import { ImLocation2 } from "react-icons/im";
 import { AiOutlineReload } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import ClassicButton from '../ClassicButton copy'
+import Loader from "../Loader";
 
 
 // creator: Yisrael Olonoff
@@ -22,6 +23,7 @@ function EventCard({ events, nextPage , loadMore }) {
   };
   return (
     <>
+    {(!(events&&events[0]))?<Loader/>:null}
       {events?.map((v) =>{ 
           const date = new Date(v.date[0]);
           const formattedDate = date.toLocaleDateString("he-IL",
