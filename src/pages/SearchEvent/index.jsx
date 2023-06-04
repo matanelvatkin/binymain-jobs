@@ -34,7 +34,7 @@ export default function SearchEvent({setSearch}) {
   
   const navigate = useNavigate();
   
-  setHeader(translation.advencedSearch);
+  setHeader(textShow.advencedSearch);
   
   
   function setDefaultBtnDateObject (arrBtnDates,DefaultBtnDate){
