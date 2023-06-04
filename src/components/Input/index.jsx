@@ -15,26 +15,22 @@ const Input = (props) => {
     onChange,
     width,
     inputRef,
-    isTheSubmitButtonPush,
+    isValid,
     ...inputProps
   } = props;
-  const [validationMessage, setValidationMessage] = useState("");
+  const [validationMessage, setValidationMessage] = useState(!isValid);
+
   const onInvalid = (e) => {
-    const target = e.target;
-    setValidationMessage(target.errorMessage);
+    setValidationMessage(true);
   };
+
   const onBlur = (e) => {
     const target = e.target;
-
     if (!!validationMessage) {
-      setValidationMessage(target.validationMessage);
+      setValidationMessage(false);
     }
   };
-  // const onChange = (e) => {
-  //   if (e.target.type === "file") {
-  //     console.log("file", e.target.files);
-  //   }
-  // };
+
   const tempRef = useRef();
   return (
     <>
@@ -45,35 +41,40 @@ const Input = (props) => {
           </label>
           <input
             className={`${styles.input} ${className}`}
-            {...inputProps}
-            // style={{ width: width }}
+            onInvalid={onInvalid}
+            onBlur={onBlur}
             onChange={onChange}
             type={type}
             ref={inputRef ? inputRef : tempRef}
+            {...inputProps}
           />
           <p className={styles.uploadInstructions}>{instructions}</p>
-          {isTheSubmitButtonPush ? (
-            <span className={styles.errorMessage}>{errorMessage}</span>
-          ) : null}
+          {!!validationMessage && (
+            <span className={styles.errorMessage || validationMessage}>
+              {errorMessage}
+            </span>
+          )}
         </div>
       ) : (
         <div className={styles.radio}>
           <input
             className={`${styles.input} ${className}`}
-            {...inputProps}
             style={{ width: width }}
             onChange={onChange}
             type={type}
             onBlur={onBlur}
             onInvalid={onInvalid}
-            // ref={inputRef ? inputRef : tempRef}
+            {...inputProps}
+            ref={inputRef ? inputRef : tempRef}
           />
           <label className={styles.labelRadio}>
             <div>{label} </div>
           </label>
-          {isTheSubmitButtonPush ? (
-            <span className={styles.errorMessage}>{errorMessage}</span>
-          ) : null}
+          {!!validationMessage && (
+            <span className={styles.errorMessage || validationMessage}>
+              {errorMessage}
+            </span>
+          )}
         </div>
       )}
     </>
