@@ -57,3 +57,7 @@
 .submitted input:invalid:focus {
   outline-color: red;
 }
+
+.timeValidation {
+  color: red;
+}

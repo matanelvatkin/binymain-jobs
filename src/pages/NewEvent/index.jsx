@@ -123,7 +123,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 5,
       name: "beginningTime",
       type: "time",
-      label: "זמן התחלה",
+      label: "מתי האירוע מתחיל?",
       errorMessage: "שדה חובה!",
       placeholder: "זמן התחלה",
       required: true,
@@ -137,7 +137,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 6,
       name: "finishTime",
       type: "time",
-      label: "זמן סיום",
+      label: "מתי האירוע מסתיים?",
       errorMessage: "שדה חובה!",
       placeholder: "זמן סיום",
       required: true,
@@ -519,7 +519,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
             else if (input.type == "pTimeValidationOK")
             return (
-              <p>
+              <p className={styles.timeValidation}>
                 {timeValidationMessage}
               </p>
             );
