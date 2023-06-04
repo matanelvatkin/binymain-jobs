@@ -22,6 +22,7 @@ export function timeValidation (beginningTimeObj, finishTimeObj)
     const maximumDurationMs = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
 
     //check the validation checkes, and set the propper values in the validationValues Array.
+     
       if (beginningTimeObj < minTimeObj)
       {
         updateValidationError(error.error1);
@@ -32,7 +33,12 @@ export function timeValidation (beginningTimeObj, finishTimeObj)
         updateValidationError(error.error2);
         return validationError;
       }
-      if(durationMs<minimumDurationMs || durationMs <0)
+      if(durationMs <0)
+      {
+        updateValidationError(error.error5);
+        return validationError;
+      } 
+      if(durationMs<minimumDurationMs)
       {
         updateValidationError(error.error3);
         return validationError;
@@ -42,5 +48,6 @@ export function timeValidation (beginningTimeObj, finishTimeObj)
         updateValidationError(error.error4);
         return validationError;
       }   
+      
       return validationError;
 }
