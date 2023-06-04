@@ -21,12 +21,12 @@ import beginDateUpdate from "../../function/beginDateUpdate";
 import SelectInput from "../../components/SelectInput";
 
 
+
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup, setNewEventPopup] = useState(false);
   const [checked, setChecked] = useState(false);
-  // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
-  const [timeValidationOK, setTimeValidationOK] = useState(true);
+ 
   const ref = useRef();
 
   const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
@@ -356,6 +356,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       }
     });
   };
+  
+  
 
   useEffect(() => {
     setConstancy(values.repeatType);
@@ -376,17 +378,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   useEffect(() => {
     console.log({ values });
   }, [values]);
+  
   const onChange = (e) => {
+    
     setValues({ ...values, [e.target.name]: e.target.value });
-    if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
-      const beginningTimeObj = new Date("2000-01-01T" + values.beginningTime);
-      const finishingTimeObj = new Date("2000-01-01T" + values.finishTime);      
-      if (finishingTimeObj <= beginningTimeObj) {
-        setTimeValidationOK(false);
-      } else {
-        setTimeValidationOK(true);
-      }
-    }
+
     if (e.target.type === "file") setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
 
@@ -512,16 +508,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 onChange={handleToggleSwitch}
               />
             );
-          else if (input.type == "pTimeValidationOK")
-            return (
-              <p
-                className={
-                  timeValidationOK ? styles.priceNone : styles.priceInline
-                }
-              >
-                משך האירוע - שעה לפחות
-              </p>
-            );
+         
           else
             return (
               <Input
