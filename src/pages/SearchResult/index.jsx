@@ -35,12 +35,13 @@ export default function SearchResult() {
   };
 
   async function fetchEvents() {
-    let apiSingleEvents = await apiCalls("post", "/event", singleEventsFilter);
-    console.log(apiSingleEvents);
-    let apiReptedEvents = await apiCalls("post", "/event", repetedEventsFilter);
-    console.log(apiReptedEvents);
-    let apiEvents = apiSingleEvents.event.concat(apiReptedEvents.event);
-    console.log(apiEvents);
+    let apiSingleEvents = await apiCalls("post", "/event/search", {
+      page: 1,
+      pageSize: 10,
+      ...search,
+    });
+
+    let apiEvents = apiSingleEvents.event;
     setEvents(() => apiEvents);
   }
 

@@ -265,6 +265,7 @@ export default function SearchEvent() {
           {/* <DateInput func={handleSelectDate} val={date} /> */}
         </div>
 
+      </div>
         <div className={style.footerBtn}>
           <ClassicButton
             width={300}
@@ -272,7 +273,6 @@ export default function SearchEvent() {
             func={handleSubmit}
           />
         </div>
-      </div>
     </div>
   );
 }
