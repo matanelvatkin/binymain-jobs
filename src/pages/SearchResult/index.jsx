@@ -16,10 +16,10 @@ export default function SearchResult({search}) {
   setHeader(translation.advencedSearch);
 
   async function fetchEvents() {
-    let apiSingleEvents = await apiCalls("post", "/event", {
+    let apiSingleEvents = await apiCalls("post", "/event/search", {
       page: 1,
       pageSize: 10,
-      search: search.location,
+      ...search
     });
     
     let apiEvents = apiSingleEvents.event
