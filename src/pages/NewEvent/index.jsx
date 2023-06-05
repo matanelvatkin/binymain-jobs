@@ -146,6 +146,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
     {
       id: 5,
+      name: "Accurate location",
+      type: "text",
+      errorMessage: "אוי שכחת למלא כאן פרטים",
+      placeholder: "מיקום מדויק או כתובת",
+      required: true,
+    },
+    {
+      id: 6,
       name: "beginningTime",
       type: "time",
       label: "זמן התחלה",
@@ -159,7 +167,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "pTimeValidationOK",
     },
     {
-      id: 6,
+      id: 7,
       name: "finishTime",
       type: "time",
       label: "זמן סיום",
@@ -168,7 +176,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       required: true,
     },
     {
-      id: 7,
+      id: 8,
       name: "payment",
       type: "toogleSwitch",
       label: "עלות",
@@ -195,25 +203,25 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     // },
 
     {
-      id: 8,
+      id: 9,
       name: "categories",
       type: "selectIcon",
       label: "קטגוריה",
-      errorMessage: "יש לבחור קטגוריה",
+      errorMessage: "אוי שכחת למלא כאן פרטים",
       placeholder: "קטגוריה",
       required: true,
     },
     {
-      id: 9,
+      id: 10,
       name: "audiences",
       type: "selectIcon",
       label: "קהל יעד",
-      errorMessage: "יש לבחור קהל יעד",
+      errorMessage: "אוי שכחת למלא כאן פרטים",
       placeholder: "קהל יעד",
       required: true,
     },
     {
-      id: 10,
+      id: 11,
       name: "summary",
       type: "text",
       // label: "תקציר",
@@ -222,7 +230,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       required: true,
     },
     {
-      id: 11,
+      id: 12,
       name: "registrationPageURL",
       type: "url",
       // label: "דף הרשמה לאירוע",
@@ -231,7 +239,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       required: true,
     },
     {
-      id: 12,
+      id: 13,
       name: "cardImageURL",
       type: "file",
       errorMessage: "אוי שכחת למלא כאן את פרטים",
@@ -241,7 +249,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       required: true,
     },
     {
-      id: 13,
+      id: 14,
       name: "coverImageURL",
       type: "file",
       errorMessage: "אוי שכחת למלא כאן את פרטים",
@@ -274,7 +282,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "advertiserTel",
       type: "tel",
       // label: "טלפון",
-      errorMessage: "אוי שכחת למלא פרטים יש להזין מספר תקין",
+      errorMessage: "אוי שכחת למלא פרטים",
       placeholder: "טלפון",
       required: true,
       pattern: "^[0-9]{8,15}$",
@@ -284,7 +292,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "advertiserEmail",
       type: "email",
       // label: "מייל",
-      errorMessage: "אוי שכחת למלא פרטים יש להזין אימייל תקין",
+      errorMessage: "אוי שכחת למלא פרטים",
       placeholder: "מייל",
       required: true,
     },
@@ -450,7 +458,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       style={style}
       {...props}
     >
-      <div className={styles.header}>כאן מכניסים את כל פרטי האירוע שלך</div>{" "}
+      <div className={styles.header}>
+        כמה פרטים כדי שנוכל לפרסם את האירוע שלך
+      </div>{" "}
       <form
         onSubmit={handleSubmit}
         noValidate

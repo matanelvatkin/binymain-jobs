@@ -38,7 +38,7 @@ export default function SearchResult() {
     let apiSingleEvents = await apiCalls("post", "/event/search", {
       page: 1,
       pageSize: 10,
-      ...search,
+      // ...search,
     });
 
     let apiEvents = apiSingleEvents.event;
