@@ -18,7 +18,7 @@ export default function SearchResult({search}) {
   async function fetchEvents() {
     let apiSingleEvents = await apiCalls("post", "/event/search", {
       page: 1,
-      pageSize: 10,
+      pageSize: 20,
       ...search
     });
     
