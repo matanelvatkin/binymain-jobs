@@ -109,7 +109,10 @@ export default function ViewEvent() {
 
   const handlePublish = async () => {
     try {
-      const updatedData = await apiCalls("put", `/event/${event}`, { status: "published" });
+      const updatedData = await apiCalls("put", `/event/${event}`,
+      { status: "published",
+        publishedAt:Date.now()
+      });
       console.log(updatedData);
       setIsPublished(true);
     } catch (error) {
