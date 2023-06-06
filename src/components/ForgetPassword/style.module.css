@@ -58,7 +58,7 @@
 
   .main{
     width: 100%;
-    margin-top: 30%;
+    margin-top: 15%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -71,11 +71,12 @@
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
-    gap: 1.1rem;
+    margin-top: 15%;
+    /* gap: 1.1rem; */
 }
 
 .header{
-  margin-bottom: 10%;
+  margin-bottom: 1%;
 }
 
 .form{
@@ -83,12 +84,13 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 1rem;
+    /* gap: 1rem; */
     direction: rtl;
 }
 
-.inputs{
-    font-size: medium;
+.input{
+  width: 100%;
+  margin-top: 10%;
 }
 
 .icon{
@@ -96,13 +98,23 @@
     margin-left: 10px;
 }
 
+.code{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.mail{
+  font-size: large;
+  margin:-7% 8% 3% 0;
+}
 .firstButton{
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
     direction: rtl;
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 .secondButtonContainer{

@@ -34,7 +34,7 @@ margin:-5% 0 0 55%;
 .question{
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: center;
     margin: 4% 4% 0;
     font: size 5%;
 }
