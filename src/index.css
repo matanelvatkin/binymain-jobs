@@ -5,10 +5,11 @@
   --bg-secondary-color: #537fe7;
   --primary-color: #f8f8fa;
   --text-color: #120d26;
-  --text-secondary-color: #5669ff;
+  /* --text-secondary-color:#5669FF; */
   --text-third-color: #747688;
   --text-Fourth-color: #ffffff;
   --input-color: #f8f8fa;
+  --input-border-color: #cccccf;
 }
 
 body {
