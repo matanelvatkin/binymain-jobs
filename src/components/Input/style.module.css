@@ -62,7 +62,7 @@
   /* Gray / 1 */
   background: var(--text-Fourth-color);
   border-radius: 15px;
-  border: black 1px solid;
+  border: var(--input-border-color) 1px solid;
   /* box-shadow: 2px 3px 2px 2px #ccc9c9c3; */
   color: black;
   /* Inside auto layout */
