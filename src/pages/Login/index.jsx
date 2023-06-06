@@ -121,7 +121,7 @@ return (
         </div>
       </form>
 
-<div className={styles.qution} >
+<div className={styles.question} >
       <div className={styles.forgotPassword} onClick={navToForgetPassword}>?שכחת סיסמא  </div>
 
         <div className={styles.register}>
