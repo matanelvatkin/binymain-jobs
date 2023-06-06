@@ -25,10 +25,10 @@
 .button{
     /* display: flex;
     align-items: center; */
-    position: sticky;
+    position: fixed;
     width: fit-content;
     height: 50px;
     bottom: 2%;
-    left: 13px;
+    left: 3%;
     margin-right: 30%;
 } 
