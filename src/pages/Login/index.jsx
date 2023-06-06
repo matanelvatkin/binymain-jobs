@@ -84,7 +84,7 @@ const inputs = [
 
 
 return (
-  <div className={styles.main}>
+  // <div className={styles.main}>
     <div className={styles.container}>
       <h2 className={styles.connection}>התחברות</h2>
       <form className={styles.form} onSubmit={loginAouth} >
@@ -102,19 +102,13 @@ return (
             </div>
           )
         })}
-        <div className={styles.switchAndForgot}>
-          <span
-            className={styles.forgotPassword}
-            onClick={navToForgetPassword}
-          >
-            שכחתי סיסמא?
-          </span>
-          <ToggleSwitch
+       <div className={styles.remember}>
+       <ToggleSwitch
             text={'זכור אותי'}
             checked={checked}
             onChange={handleToggleSwitch}
           />
-        </div>
+       </div>
 
         <div className={styles.firstButton}>
           <ClassicButton
@@ -127,12 +121,15 @@ return (
         </div>
       </form>
 
-      
+<div className={styles.qution} >
+      <div className={styles.forgotPassword} onClick={navToForgetPassword}>?שכחת סיסמא  </div>
+
         <div className={styles.register}>
          <div> עדיין אין לך חשבון?<span onClick={navToRegistretionPage} className={styles.clickHere}>לחץ כאן</span></div>
          </div>
          </div>
-        </div>
+         </div>
+        // </div>
 )
 }
 export default Login

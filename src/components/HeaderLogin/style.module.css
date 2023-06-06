@@ -3,7 +3,7 @@
     position: relative;
     background-color: var(--bg-secondary-color);
     width: 100%;
-    height: 15vh;
+    height: 30vh;
     border-radius: 0px 0px 35px 35px;    
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
     transition: .3s;
@@ -13,8 +13,12 @@
 .header{
     display: flex;
     position: absolute;
-    top: 10%;
-    left: 7%;
+    top: 18%;
+    left: 18%;
+}
+
+.hereEvent{
+    display: flex;
 }
 
 .title{
@@ -24,12 +28,11 @@
     font-weight: normal;
     font-size: 450%;
     letter-spacing: -1pt;
-    margin-right: 6pt;
-    margin-bottom: 10pt;
 }
 
 .logo{
-    color: var(--text-Fourth-color);
+color: var(--text-Fourth-color);
  font-size: 300%;
  margin-top: 5%;
+ margin-left: 2%;
 }
