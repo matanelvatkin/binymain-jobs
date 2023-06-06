@@ -16,6 +16,7 @@ import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
+import SelectInput from "../../components/SelectInput";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -470,7 +471,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         {inputs.map((input) => {
           if (input.type === "select")
             return (
-              <Select
+              <SelectInput
                 errorMessage={input.errorMessage}
                 key={input.id}
                 placeholder={input.placeholder}

@@ -41,7 +41,6 @@
 }
 
 .errorMessage {
-  display: none;
   padding: 5px;
   color: red;
 }
