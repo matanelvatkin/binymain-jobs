@@ -59,9 +59,9 @@ export default function ViewEvent() {
 
   async function fetchEvent() {
     let apiData = await apiCalls("get", "/event/" + event);
-    // if (user.userType === "admin") {
-    //   setIsAdmin(true)
-    // }
+    if (user.userType === "admin") {
+      setIsAdmin(true)
+    }
     if (apiData.status === "published") {
       setIsPublished(true)
       setIsActive(true)
@@ -297,8 +297,8 @@ export default function ViewEvent() {
             <AiOutlineHome className={style.icon} /> חזרה לדף הבית
           </ClassicButton>
         </div>
-
-        {user.userType === "admin" && eventData &&
+       
+        {isAdmin && eventData &&
           <div className={style.adminContainer}>
             <div className={style.advertiserInfo}>
               <h3>פרטי המפרסם:</h3>
