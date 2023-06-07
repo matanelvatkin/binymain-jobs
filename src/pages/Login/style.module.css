@@ -3,56 +3,57 @@
     height: 80vh;
 } */
 
-.container{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-} 
-.connection{
-    font-size:xx-large;
-    margin: 5% 50% 5% 35%;
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
 }
-.form{
-    width: 100%;
-   /* height: 100%; */
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: space-around;
-    /* direction: rtl; */
+.connection {
+  font-size: xx-large;
+  margin: 5% 50% 5% 35%;
 }
-.inputs{
-    direction: rtl;
-    margin:0 0 5% 8%;
-} 
-.remember{
-margin:-5% 0 0 55%;
+.form {
+  width: 100%;
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: space-around;
+  /* direction: rtl; */
 }
-
-.question{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 4% 4% 0;
-    font: size 5%;
+.inputs {
+  direction: rtl;
+  margin: 0 0 5% 8%;
+}
+.remember {
+  margin: -5% 0 0 55%;
 }
 
-.forgotPassword{
-    cursor: pointer;
-    text-decoration: underline;
-    margin-bottom: 2%;
+.question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4% 4% 0;
+  font: size 5%;
 }
 
-.clickHere{
-    margin-right: 5px;
-   text-decoration: underline;
-   color: var(--bg-secondary-color);
+.forgotPassword {
+  cursor: pointer;
+  text-decoration: underline;
+  margin-bottom: 2%;
+}
+
+.clickHere {
+  margin-right: 5px;
+  text-decoration: underline;
+  color: var(--bg-secondary-color);
 }
 
 .firstButton{
     width: 100%;
+    height: 7vh;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -60,16 +61,14 @@ margin:-5% 0 0 55%;
     margin-top: 10%;
 }
 
-.button{
-    display: flex;
-    align-items: center;
-  
+.button {
+  display: flex;
+  align-items: center;
 }
-.icon{
-    font-size: large;
-    margin-left: 10px;
+.icon {
+  font-size: large;
+  margin-left: 10px;
 }
-
 
 /* .secondButtonContainer{
     width: 100%;

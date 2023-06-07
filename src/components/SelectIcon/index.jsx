@@ -16,6 +16,7 @@ const SelectIcon = ({
   setValues = () => {},
   values,
   name,
+  isValid,
   header,
   text,
   icon,
@@ -24,6 +25,7 @@ const SelectIcon = ({
   inText,
   ...props
 }) => {
+  const [validationMessage, setValidationMessage] = useState(isValid);
   const [isChosen, setIsChosen] = useState(true);
   const handleCategoryClick = (e) => {
     if (typeof setArray === "function") {
@@ -56,6 +58,11 @@ const SelectIcon = ({
     <div className={styles.main}>
       <div className={styles.container}>
         <p className={styles.header}>{header}</p>
+        <div>
+          {isChosen && validationMessage && (
+            <span className={styles.errorMessage}> {errorMessage}</span>
+          )}
+        </div>
         <div className={styles.icons}>
           {array.map((category, index) => (
             <RoundButton
@@ -70,13 +77,6 @@ const SelectIcon = ({
             />
           ))}
         </div>
-      </div>
-      <div>
-        {isChosen && isTheSubmitButtonPush ? (
-          <span className={styles.errorMessage}> {errorMessage}</span>
-        ) : (
-          <span className={styles.isChosen}> {errorMessage}</span>
-        )}
       </div>
     </div>
   );
