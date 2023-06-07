@@ -25,7 +25,7 @@ const SelectIcon = ({
   inText,
   ...props
 }) => {
-  const [validationMessage, setValidationMessage] = useState(isValid);
+  const [validationMessage, setValidationMessage] = useState(false);
   const [isChosen, setIsChosen] = useState(true);
   const handleCategoryClick = (e) => {
     if (typeof setArray === "function") {
@@ -49,8 +49,10 @@ const SelectIcon = ({
   useEffect(() => {
     if (!values[name][0]) {
       setIsChosen(true);
+      setValidationMessage(false);
     } else {
       setIsChosen(false);
+      setValidationMessage(true);
     }
   });
 

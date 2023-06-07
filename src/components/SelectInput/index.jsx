@@ -22,6 +22,10 @@ const SelectInput = ({
   const [openPopup, setOpenPopup] = useState(false);
   const inputRef = useRef();
   useEffect(() => {
+    inputRef.current.setCustomValidity("");
+    // setIsValid(inputRef.current.setCustomValidity(""));
+  }, []);
+  useEffect(() => {
     if (valueText) {
       inputRef.current.value = valueText;
     }
@@ -53,6 +57,7 @@ const SelectInput = ({
         refInput={inputRef}
         onFocus={() => setOpenPopup(true)}
         onblur={() => setTimeout(() => setOpenPopup(false), 200)}
+        isValid={isValid}
       />
       {openPopup ? (
         <div className={`${styles.select_box}`}>

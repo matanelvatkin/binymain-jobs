@@ -124,7 +124,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
     {
       id: 5,
-      name: "Accurate location",
+      name: "accuratelocation",
       type: "text",
       errorMessage: "אוי שכחת למלא כאן פרטים",
       placeholder: "מיקום מדויק או כתובת",
@@ -354,7 +354,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
           );
           setPopUp(true);
-          const newEventId = res._id;
           nav(`/`);
         }
       });
@@ -386,6 +385,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    console.log({ values });
     if (
       values.eventName &&
       values.summary &&
