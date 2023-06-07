@@ -46,6 +46,7 @@ const SelectInput = ({
       <Input
         type="text"
         placeholder={placeholder}
+        errorMessage={errorMessage}
         onChange={(e) => {
           lableOnclick(e);
         }}
