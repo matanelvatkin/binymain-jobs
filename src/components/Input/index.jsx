@@ -16,6 +16,7 @@ const Input = (props) => {
     width,
     refInput,
     isValid,
+    onblur = () => {},
     ...inputProps
   } = props;
   const [validationMessage, setValidationMessage] = useState(!isValid);
@@ -25,6 +26,7 @@ const Input = (props) => {
   };
 
   const onBlur = (e) => {
+    onblur();
     const target = e.target;
     if (!!validationMessage) {
       setValidationMessage(false);
@@ -41,12 +43,12 @@ const Input = (props) => {
           </label>
           <input
             className={`${styles.input} ${className}`}
+            {...inputProps}
             onInvalid={onInvalid}
             onBlur={onBlur}
             onChange={onChange}
             type={type}
-            ref={inputRef ? inputRef : tempRef}
-            {...inputProps}
+            ref={refInput ? refInput : tempRef}
           />
           <p className={styles.uploadInstructions}>{instructions}</p>
           {!!validationMessage && (
@@ -65,7 +67,7 @@ const Input = (props) => {
             onBlur={onBlur}
             onInvalid={onInvalid}
             {...inputProps}
-            ref={inputRef ? inputRef : tempRef}
+            // ref={inputRef ? inputRef : tempRef}
           />
           <label className={styles.labelRadio}>
             <div>{label} </div>
