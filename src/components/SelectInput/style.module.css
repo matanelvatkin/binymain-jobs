@@ -1,11 +1,9 @@
 .select_container {
   position: relative;
-  z-index: 1;
 }
 .select {
   margin: 10px 0 0 50px;
   width: 100%;
-  z-index: 1;
 }
 .select_box {
   margin: 10px;
@@ -21,12 +19,10 @@
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   overflow: scroll;
-  z-index: 1;
   background-color: var(--primary-color);
 }
 
 .option {
-  z-index: 3;
   padding: 5px 0 5px 0;
   box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.25);
 }
