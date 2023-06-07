@@ -15,7 +15,7 @@ export default function EmptySearch() {
     <div>
         <img src={"../../../public/Group33596.png"} alt="" />
         <span>{translaiton.weCouldentFindWhatYouSearched}</span>
-        <ClassicButton text={translaiton.tryAgain} width={260} func={handleClick} />
+        {/* <ClassicButton text={translaiton.tryAgain} width={260} func={handleClick} /> */}
     </div>
   )
 }
