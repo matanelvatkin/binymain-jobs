@@ -52,6 +52,7 @@ function ForgetPassword() {
                             <ClassicButton
                                 text={"שלח"}
                                 width={'86%'}
+                                height={'100%'}
                                 type={'submit'} 
                             />
                         </div>
@@ -75,6 +76,7 @@ function ForgetPassword() {
                             <ClassicButton
                                 text={"הכנס"}
                                 width={'86%'}
+                                height={'100%'}
                             />
                             </div>
                         </form>
