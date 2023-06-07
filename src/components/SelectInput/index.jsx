@@ -52,6 +52,7 @@ const SelectInput = ({
         onChange={(e) => {
           lableOnclick(e);
         }}
+        refInput={inputRef}
         onFocus={() => setOpenPopup(true)}
         onBlur={() => setTimeout(() => setOpenPopup(false), 200)}
       />
