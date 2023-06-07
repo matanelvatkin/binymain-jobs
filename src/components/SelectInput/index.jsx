@@ -22,7 +22,6 @@ const SelectInput = ({
   const [openPopup, setOpenPopup] = useState(false);
   const inputRef = useRef();
   useEffect(() => {
-    console.log(valueText);
     if (valueText) {
       inputRef.current.value = valueText;
     }
@@ -51,7 +50,7 @@ const SelectInput = ({
           lableOnclick(e);
         }}
         onFocus={() => setOpenPopup(true)}
-        // onBlur={() => setTimeout(() => setOpenPopup(false), 1)}
+        onBlur={() => setTimeout(() => setOpenPopup(false),200)}
       />
       {openPopup ? (
         <div className={`${styles.select_box}`}>
