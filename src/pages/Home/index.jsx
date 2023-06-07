@@ -65,7 +65,7 @@ function Home() {
   const fetchEventsSearch = () => {
     apiCalls("post", "event", {
       page: 1,
-      search: search,
+      search: search
     }).then((data) => {
       setEvents(data.event);
       setNextPage(data.nextPage);
