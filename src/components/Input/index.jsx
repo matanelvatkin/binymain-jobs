@@ -14,7 +14,7 @@ const Input = (props) => {
     type,
     onChange,
     width,
-    inputRef,
+    refInput,
     isValid,
     ...inputProps
   } = props;
