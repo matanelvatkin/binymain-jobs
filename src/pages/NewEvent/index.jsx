@@ -4,19 +4,20 @@ import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 import SelectIcon from "../../components/SelectIcon";
+import SelectInput from "../../components/SelectInput";
 import styles from "./style.module.css";
 import headerContext from "../../context/headerContext";
 import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
-import PersonalEvent from "../../components/PersonalEvent";
-import WeeklyEvent from "../../components/WeeklyEvent";
-import DailyEvent from "../../components/DailyEvent";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
 import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
-import SelectInput from "../../components/SelectInput";
+import beginDateUpdate from "../../function/beginDateUpdate";
+import popUpContext from "../../context/popUpContext";
+import { locations } from "../SearchEvent/translation";
+import { timeValidation } from "./timeValidation";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -26,7 +27,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [checked, setChecked] = useState(false);
   // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
+  const [timeValidationMessage, setTimeValidationMessage] = useState("");
+
   const ref = useRef();
+
+  const { setPopUpText, setPopUp, setSaveEventMode } = useContext(popUpContext);
 
   const handleToggleSwitch = (e) => {
     setChecked(!checked);
@@ -38,42 +43,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log(fileData);
   };
   const nav = useNavigate();
-  const placeData = [
-    "עלמון",
-    "עמיחי",
-    "עטרת",
-    "בית חורון",
-    "דולב",
-    "עלי",
-    "גני מודיעין",
-    "גבע בנימין",
-    "גבעון החדשה",
-    "חשמונאים",
-    "כפר אדומים",
-    "כפר האורנים",
-    "כוכב השחר",
-    "כוכב יעקב",
-    "מעלה לבונה",
-    "מעלה מכמש",
-    "מתתיהו",
-    "מבוא חורון",
-    "מצפה יריחו",
-    "נעלה",
-    "נחליאל",
-    "נוה צוף",
-    `ניל"י`,
-    "סנה-בני אדם",
-    "עופרה",
-    "פסגות",
-    "רימונים",
-    "שילה",
-    "טלמון",
-  ];
+  const placeData = locations;
+
   const [loading, setLoading] = useState(true);
 
   const paymentData = ["בתשלום", "בחינם"];
   const typeData = [
-    "אירוע ללא חזרה",
+    "אירוע חד פעמי",
     "אירוע יומי",
     "אירוע שבועי",
     "בהתאמה אישית",
@@ -81,7 +57,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
-  const [constancy, setConstancy] = useState("אירוע ללא חזרה");
+  const [constancy, setConstancy] = useState("אירוע חד פעמי");
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
@@ -92,7 +68,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     advertiserTel: "",
     advertiserEmail: "",
     isRepeated: false,
-    repeatType: "אירוע ללא חזרה",
+    repeatType: "אירוע חד פעמי",
     personalRepeatType: "",
     date: new Date(),
     repeatSettingsType: "endDate",
@@ -124,7 +100,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 2,
       name: "constancy",
-      type: constancy || "אירוע ללא חזרה",
+      type: constancy || "אירוע חד פעמי",
     },
     {
       id: 3,
@@ -157,7 +133,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 6,
       name: "beginningTime",
       type: "time",
-      label: "זמן התחלה",
+      label: "מתי האירוע מתחיל?",
       errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "זמן התחלה",
       required: true,
@@ -171,7 +147,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 7,
       name: "finishTime",
       type: "time",
-      label: "זמן סיום",
+      label: "מתי האירוע מסתיים?",
       errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "זמן סיום",
       required: true,
@@ -186,13 +162,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
     },
-    {
-      id: 1,
-      name: "price",
-      type: "text",
-      placeholder: "מחיר",
-      className: styles.priceNone,
-    },
+    // {
+    //   id: 1,
+    //   name: "price",
+    //   type: "text",
+    //   placeholder: "מחיר",
+    // },
 
     // {
     //   id: 7,
@@ -302,6 +277,16 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [eventData, setEventData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // הכנסת שעת התחלה לתאריך ולתאריך סיום
+    values.date = beginDateUpdate(values.date, values.beginningTime);
+    if (values.repeatSettingsRepeatEnd instanceof Date) {
+      values.repeatSettingsRepeatEnd = beginDateUpdate(
+        values.repeatSettingsRepeatEnd,
+        values.beginningTime
+      );
+    }
+
     const formElement = e.target;
     setIsValid(formElement.checkValidity());
     formElement.classList.add(styles.submitted);
@@ -361,12 +346,22 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
         if (res._id != "") {
+          setSaveEventMode(true);
+          setPopUpText(
+            "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
+          );
+          setPopUp(true);
           const newEventId = res._id;
           nav(`/`);
         }
       });
     }
   };
+
+  useEffect(() => {
+    if (timeValidationMessage !== "") setTimeValidationOK(false);
+    else setTimeValidationOK(true);
+  }, [timeValidationMessage]);
 
   useEffect(() => {
     setConstancy(values.repeatType);
@@ -403,16 +398,38 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       setIsTheFormValid(true);
       console.log({ isInputFormValid });
     }
+    //if the targeted input is the beginningTime or finishingTime then- we make a validation check.
+
     if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
-      if (values.finishTime <= values.beginningTime) {
-        setTimeValidationOK(false);
+      //set the beginning and finishing time from the values object
+      const beginningTimeObj = new Date("2000-01-01T" + values.beginningTime);
+      const finishingTimeObj = new Date("2000-01-01T" + values.finishTime);
+
+      //update the beginningTimeObj or the finishingTimeObj according to the targeted value.
+      const [hours, minutes] = e.target.value.split(":");
+
+      if (e.target.name === "beginningTime") {
+        beginningTimeObj.setHours(hours);
+        beginningTimeObj.setMinutes(minutes);
       } else {
-        setTimeValidationOK(true);
+        finishingTimeObj.setHours(hours);
+        finishingTimeObj.setMinutes(minutes);
       }
+      setTimeValidationMessage(
+        timeValidation(beginningTimeObj, finishingTimeObj)
+      );
     }
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
+
+  const formattedDate = new Date(values.date).toLocaleDateString("he-IL", {
+    weekday: "long",
+    // day: 'numeric',
+    // month: 'long',
+    timeZone: "UTC",
+    numberingSystem: "latn",
+  });
   useEffect(() => {
     if (
       values.eventName &&
@@ -522,12 +539,16 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 }
               />
             );
-          else if (input.type === "אירוע ללא חזרה")
+          else if (input.type === "אירוע חד פעמי")
             return (
               <div className={styles.date}>
                 {" "}
                 <NoRepeatEvent values={values} setValues={setValues} />
               </div>
+            );
+          else if (input.type == "pTimeValidationOK")
+            return (
+              <p className={styles.errorMessage}>{timeValidationMessage}</p>
             );
           else if (input.type === "button")
             return (
@@ -535,7 +556,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 className={styles.advanced}
                 onClick={() => setNewEventPopup(true)}
               >
-                מתקדם
+                <u>
+                  {" "}
+                  {`${constancy} ${
+                    constancy !== "אירוע חד פעמי" ? formattedDate : ""
+                  }`}
+                </u>
               </div>
             );
           else if (input.type == "toogleSwitch")
@@ -545,16 +571,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 checked={checked}
                 onChange={handleToggleSwitch}
               />
-            );
-          else if (input.type == "pTimeValidationOK")
-            return (
-              <p
-                className={
-                  timeValidationOK ? styles.priceNone : styles.priceInline
-                }
-              >
-                משך האירוע - שעה לפחות
-              </p>
             );
           else
             return (
