@@ -18,7 +18,7 @@ const SelectInput = ({
   ...props
 }) => {
   const [isValid, setIsValid] = useState(true);
-  const [valueText, setValueText] = useState();
+  const [valueText, setValueText] = useState("");
   const [openPopup, setOpenPopup] = useState(false);
   const inputRef = useRef();
   useEffect(() => {
@@ -41,9 +41,6 @@ const SelectInput = ({
     // setOpenPopup(false);
   };
 
-  useEffect(() => {
-    if (valueText) inputRef.current.value = valueText;
-  }, [valueText]);
   return (
     <div className={styles.select_container}>
       <Input
@@ -54,7 +51,7 @@ const SelectInput = ({
         }}
         refInput={inputRef}
         onFocus={() => setOpenPopup(true)}
-        onBlur={() => setTimeout(() => setOpenPopup(false), 200)}
+        onblur={() => setTimeout(() => setOpenPopup(false), 200)}
       />
       {openPopup ? (
         <div className={`${styles.select_box}`}>
