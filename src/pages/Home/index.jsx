@@ -14,13 +14,13 @@ import apiCalls from "../../function/apiCalls";
 // and the "ClassicButton" components.
 // the button position is fixed to the same exsect position
 // on the page.
-// pageSize= how many events in loading
+// כמות התוצאות שבכל עמוד בדף הבית- נקבע בשרת
 
 function Home() {
-  const pageSize = 10;
 
   const [events, setEvents] = useState([]);
   const [nextPage, setNextPage] = useState(undefined);
+  const [searchMode, setSearchMode] = useState("loading")
 
   const { search, setHeader } = useContext(headerContext);
   const { user, setUser } = useContext(userContext);
@@ -56,22 +56,24 @@ function Home() {
   const fetchEventsNext = () => {
     apiCalls("post", "event", {
       page: nextPage,
-      pageSize: pageSize,
       search: search,
     }).then((data) => {
       setEvents((currentEvent) => currentEvent.concat(data.event));
       setNextPage(data.nextPage);
+
     });
   };
 
   const fetchEventsSearch = () => {
+    setSearchMode("loading")
     apiCalls("post", "event", {
       page: 1,
-      pageSize: pageSize,
       search: search,
     }).then((data) => {
       setEvents(data.event);
       setNextPage(data.nextPage);
+      if(data.event.length===0)(setSearchMode("noResult"))
+      else {setSearchMode("isResult")}
     });
   };
 
@@ -83,6 +85,7 @@ function Home() {
           events={events}
           nextPage={nextPage}
           loadMore={fetchEventsNext}
+          searchMode= {searchMode}
         />
       </div>
       <div className={styles.button}>

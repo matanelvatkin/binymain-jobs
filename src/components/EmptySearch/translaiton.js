@@ -1,6 +1,6 @@
 
 const translaiton = {
-    weCouldentFindWhatYouSearched: 'לא מצאנו את מה שחיפשתה...',
+    weCouldentFindWhatYouSearched: '...לא מצאנו מה שחיפשת',
     tryAgain: 'אפשר לנסות שוב'
 }
 
