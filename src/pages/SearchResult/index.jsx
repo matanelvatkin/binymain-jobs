@@ -7,7 +7,7 @@ import EmptySearch from "../../components/EmptySearch";
 import InvalidQuery from "../../components/InvalidQuery";
 import style from "./style.module.css";
 
-export default function SearchResult() {
+export default function SearchResult({ search }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidQuery, setIsInvalidQuery] = useState(false);
   const [events, setEvents] = useState();
@@ -38,7 +38,7 @@ export default function SearchResult() {
     let apiSingleEvents = await apiCalls("post", "/event/search", {
       page: 1,
       pageSize: 10,
-      // ...search,
+      ...search,
     });
 
     let apiEvents = apiSingleEvents.event;
