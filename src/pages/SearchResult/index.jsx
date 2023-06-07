@@ -9,12 +9,12 @@ export default function SearchResult({search}) {
   console.log(search);
 
   const [searchMode, setSearchMode] = useState("loading")
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState();
   const [nextPage, setNextPage] = useState(1);
 
 
-  const { setHeader } = useContext(headerContext);
 
+  const { setHeader } = useContext(headerContext);
   setHeader(translation.advencedSearch);
 
   async function fetchEvents() {
@@ -38,6 +38,7 @@ export default function SearchResult({search}) {
       console.log(err);
     }
   }, []);
+
   return (
     <div className={style.container}>
       <EventCard events={events} searchMode={searchMode} nextPage={nextPage} loadMore={fetchEvents}/>

@@ -1,77 +1,73 @@
-.main{
-    width: 100%;
-    height: 50%;
-    margin-top: 15%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
+/* .main{
+    margin-top: 10%;
+    height: 80vh;
+} */
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+.connection {
+  font-size: xx-large;
+  margin: 5% 50% 5% 35%;
+}
+.form {
+  width: 100%;
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: space-around;
+  /* direction: rtl; */
+}
+.inputs {
+  direction: rtl;
+  margin: 0 0 5% 8%;
+}
+.remember {
+  margin: -5% 0 0 55%;
 }
 
-.container{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
-    gap: 1%;
-}
-.connection{
-    font-size:xx-large;
-}
-.form{
-    width: 100%;
-    height: 66vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
-    direction: rtl;
-}
-.connect{
-    width: 100%;
-    margin-bottom: -25%;
-}
-.inputs{
-    font-size: medium;
-    margin-top: -15%;
+.question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4% 4% 0;
+  font: size 5%;
 }
 
-.icon{
-    font-size: large;
-    margin-left: 10px;
+.forgotPassword {
+  cursor: pointer;
+  text-decoration: underline;
+  margin-bottom: 2%;
 }
 
-.forgotPassword{
-    font-size:15px;
-    cursor: pointer;
-    /* color: var(  --text-third-color); */
-    margin-top: -50%;
-    text-decoration: underline;
-}
-
-.switchAndForgot{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.3rem;
+.clickHere {
+  margin-right: 5px;
+  text-decoration: underline;
+  color: var(--bg-secondary-color);
 }
 
 .firstButton{
     width: 100%;
+    height: 7vh;
     display: flex;
     align-items: center;
     flex-direction: column;
     direction: rtl;
-    margin-top: -35%;
+    margin-top: 10%;
 }
 
-
-
-.clickHere{
-    margin-right: 5px;
-   text-decoration: underline;
-   color: var(--bg-secondary-color);
+.button {
+  display: flex;
+  align-items: center;
+}
+.icon {
+  font-size: large;
+  margin-left: 10px;
 }
 
 /* .secondButtonContainer{

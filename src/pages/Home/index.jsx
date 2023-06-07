@@ -20,7 +20,6 @@ function Home() {
 
   const [events, setEvents] = useState([]);
   const [nextPage, setNextPage] = useState(undefined);
-  const [searchMode, setSearchMode] = useState("loading")
 
   const { search, setHeader } = useContext(headerContext);
   const { user, setUser } = useContext(userContext);
@@ -60,20 +59,16 @@ function Home() {
     }).then((data) => {
       setEvents((currentEvent) => currentEvent.concat(data.event));
       setNextPage(data.nextPage);
-
     });
   };
 
   const fetchEventsSearch = () => {
-    setSearchMode("loading")
     apiCalls("post", "event", {
       page: 1,
       search: search,
     }).then((data) => {
       setEvents(data.event);
       setNextPage(data.nextPage);
-      if(data.event.length===0)(setSearchMode("noResult"))
-      else {setSearchMode("isResult")}
     });
   };
 
@@ -85,7 +80,6 @@ function Home() {
           events={events}
           nextPage={nextPage}
           loadMore={fetchEventsNext}
-          searchMode= {searchMode}
         />
       </div>
       <div className={styles.button}>

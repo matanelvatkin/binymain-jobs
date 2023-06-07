@@ -7,8 +7,10 @@ function HeaderLogin() {
   return ( 
     <div className={styles.main}> 
         <div className={styles.header} >
+          <div className={styles.hereEvent}>
            <h1 className={styles.title}> HereEvent </h1>
            <BiAnalyse className={styles.logo}/>
+           </div>
            </div>
            </div>
 )}

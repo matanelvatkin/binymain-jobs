@@ -4,7 +4,6 @@ import { AiOutlineReload } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import ClassicButton from '../ClassicButton copy'
 import Loader from "../Loader";
-import EmptySearch from "../EmptySearch";
 
 
 // creator: Yisrael Olonoff
@@ -15,7 +14,7 @@ import EmptySearch from "../EmptySearch";
 // where every object is a card, this will change once we
 // have real data to work with.
 
-function EventCard({ events , nextPage , loadMore , searchMode}) {
+function EventCard({ events, nextPage , loadMore }) {
 
   const navigate = useNavigate();
 
@@ -24,31 +23,31 @@ function EventCard({ events , nextPage , loadMore , searchMode}) {
   };
   return (
     <>
-    {(searchMode=="loading")?<Loader/>:(searchMode=="noResult")?<EmptySearch/>:
-      events?.map((v) =>{ 
-        const date = new Date(v.date[0]);
-        const formattedDate = date.toLocaleDateString("he-IL",
-        {
-          weekday: 'long',
-          month: "long",
-          day: "numeric",
-        });
-        
-        return (
-          <div
-          className={styles.main}
-          key={v._id}
-          onClick={() => {
-            navToViewEvent(v._id);
-          }}
-          >
+    {(!events[0])?<Loader/>:null}
+      {events?.map((v) =>{ 
+          const date = new Date(v.date[0]);
+          const formattedDate = date.toLocaleDateString("he-IL",
+           {
+            weekday: 'long',
+            month: "long",
+            day: "numeric",
+          });
+
+          return (
+            <div
+            className={styles.main}
+              key={v._id}
+              onClick={() => {
+                navToViewEvent(v._id);
+              }}
+            >
               
               <div className={styles.imgFrame}>
                 <img
                   className={styles.img}
                   src={v.cardImageURL || v.coverImageURL}
                   alt="Event pic"
-                  />
+                />
               </div>
 
               <div className={styles.infoBar}>
@@ -69,13 +68,13 @@ function EventCard({ events , nextPage , loadMore , searchMode}) {
 
             </div>
           );
-        })}
+            })}
         {nextPage?
       <div
       className={styles.loadButton}>
         <ClassicButton 
         onClick={loadMore} 
-        text={'עוד...'}
+        text={'Load'}
         width={"100px"}
         ><AiOutlineReload/></ClassicButton>
         </div>
