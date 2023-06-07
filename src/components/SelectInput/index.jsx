@@ -36,6 +36,11 @@ const SelectInput = ({
     setIsValid(false);
     // setValue(valueText);
   };
+  const onBlur = (e) => {
+    setTimeout(() => setOpenPopup(false), 0.5);
+    setIsValid(false);
+  };
+
   useEffect(() => {
     if (valueText) inputRef.current.value = valueText;
   }, [valueText]);
@@ -48,7 +53,7 @@ const SelectInput = ({
           lableOnclick(e);
         }}
         onFocus={() => setOpenPopup(true)}
-        onBlur={() => setTimeout(() => setOpenPopup(false), 0.5)}
+        onBlur={onBlur}
         refInput={inputRef}
         isValid={isValid}
       />
