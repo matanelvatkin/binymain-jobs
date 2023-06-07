@@ -23,7 +23,7 @@ const PersonalEvent = ({
     { name: "ו" },
     { name: "ש" },
   ];
-  const repeat = ["שבועי", "ללא חזרה"];
+  const repeat = ["דו חודשי", "שבועי", "ללא חזרה"];
   const [endRepeat, setEndRepeat] = useState({});
   const [chooseRadio, setChooseRadio] = useState("");
   const onChange = (e) => {

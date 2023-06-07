@@ -17,8 +17,8 @@ const SelectInput = ({
   setValues = () => {},
   ...props
 }) => {
-  const [isPlaceChosen, setIsPlaceChosen] = useState(false);
-  const [valueText, setValueText] = useState("");
+  const [isValid, setIsValid] = useState(true);
+  const [valueText, setValueText] = useState();
   const [openPopup, setOpenPopup] = useState(false);
   const inputRef = useRef();
   useEffect(() => {
@@ -40,17 +40,21 @@ const SelectInput = ({
     setValueText(e.target.innerText);
     // setOpenPopup(false);
   };
+
+  useEffect(() => {
+    if (valueText) inputRef.current.value = valueText;
+  }, [valueText]);
   return (
     <div className={styles.select_container}>
       <Input
         type="text"
         placeholder={placeholder}
-        refInput={inputRef}
         onChange={(e) => {
           lableOnclick(e);
         }}
+        refInput={inputRef}
         onFocus={() => setOpenPopup(true)}
-        onBlur={() => setTimeout(() => setOpenPopup(false),200)}
+        onBlur={() => setTimeout(() => setOpenPopup(false), 200)}
       />
       {openPopup ? (
         <div className={`${styles.select_box}`}>
@@ -67,7 +71,7 @@ const SelectInput = ({
                 onClick={(e) => {
                   inputRef.current.setCustomValidity("");
                   setValueText(e.target.innerText);
-                  setOpenPopup(false)
+                  setOpenPopup(false);
                 }}
               >
                 {opt}
@@ -75,11 +79,6 @@ const SelectInput = ({
             ))}
         </div>
       ) : null}
-      {!isPlaceChosen ? (
-        <span className={styles.errorMessage}> {errorMessage}</span>
-      ) : (
-        <span className={styles.isPlaceChosen}> {errorMessage}</span>
-      )}
     </div>
   );
 };

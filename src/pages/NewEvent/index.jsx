@@ -10,6 +10,8 @@ import headerContext from "../../context/headerContext";
 import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
+import { FaShekelSign } from "react-icons/fa";
+import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
 import beginDateUpdate from "../../function/beginDateUpdate";
@@ -20,16 +22,16 @@ import { timeValidation } from "./timeValidation";
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup, setNewEventPopup] = useState(false);
-  const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
+  const [isValid, setIsValid] = useState(true);
   const [isInputFormValid, setIsTheFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
+  // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
-  const [timeValidationMessage ,setTimeValidationMessage] = useState("");
-  
+  const [timeValidationMessage, setTimeValidationMessage] = useState("");
+
   const ref = useRef();
 
-  const {setPopUpText , setPopUp , setSaveEventMode} = useContext(popUpContext)
-
+  const { setPopUpText, setPopUp, setSaveEventMode } = useContext(popUpContext);
 
   const handleToggleSwitch = (e) => {
     setChecked(!checked);
@@ -41,7 +43,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log(fileData);
   };
   const nav = useNavigate();
-  const placeData = locations
+  const placeData = locations;
 
   const [loading, setLoading] = useState(true);
 
@@ -91,7 +93,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "eventName",
       type: "text",
       // label: "שם האירוע",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "שם האירוע",
       required: true,
     },
@@ -104,7 +106,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 3,
       name: "advanced",
       type: "button",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "מתקדם",
       label: "מתקדם",
     },
@@ -114,17 +116,25 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "place",
       type: "select",
       label: "מקום",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "בחר מיקום",
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
     {
       id: 5,
+      name: "Accurate location",
+      type: "text",
+      errorMessage: "אוי שכחת למלא כאן פרטים",
+      placeholder: "מיקום מדויק או כתובת",
+      required: true,
+    },
+    {
+      id: 6,
       name: "beginningTime",
       type: "time",
       label: "מתי האירוע מתחיל?",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "זמן התחלה",
       required: true,
     },
@@ -134,20 +144,20 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "pTimeValidationOK",
     },
     {
-      id: 6,
+      id: 7,
       name: "finishTime",
       type: "time",
       label: "מתי האירוע מסתיים?",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "זמן סיום",
       required: true,
     },
     {
-      id: 7,
+      id: 8,
       name: "payment",
       type: "toogleSwitch",
       label: "עלות",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "עלות",
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
@@ -169,56 +179,56 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     // },
 
     {
-      id: 8,
+      id: 9,
       name: "categories",
       type: "selectIcon",
       label: "קטגוריה",
-      errorMessage: "יש לבחור קטגוריה",
+      errorMessage: "אוי שכחת למלא כאן פרטים",
       placeholder: "קטגוריה",
       required: true,
     },
     {
-      id: 9,
+      id: 10,
       name: "audiences",
       type: "selectIcon",
       label: "קהל יעד",
-      errorMessage: "יש לבחור קהל יעד",
+      errorMessage: "אוי שכחת למלא כאן פרטים",
       placeholder: "קהל יעד",
       required: true,
     },
     {
-      id: 10,
+      id: 11,
       name: "summary",
       type: "text",
       // label: "תקציר",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "תיאור האירוע",
       required: true,
     },
     {
-      id: 11,
+      id: 12,
       name: "registrationPageURL",
       type: "url",
       // label: "דף הרשמה לאירוע",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: " לינק להרשמה/כרטיסים לאירוע",
       required: true,
     },
     {
-      id: 12,
+      id: 13,
       name: "cardImageURL",
       type: "file",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       instructions: "*מומלץ להעלות תמונה מרובעת 1:1",
       label: "תמונת אירוע",
       accept: "image/*",
       required: true,
     },
     {
-      id: 13,
+      id: 14,
       name: "coverImageURL",
       type: "file",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       instructions: "*מומלץ להעלות תמונה מלבנית 16:9",
 
       label: "תמונת כיסוי",
@@ -239,7 +249,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "advertiserName",
       type: "text",
       // label: "שם המפרסם",
-      errorMessage: "שדה חובה!",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "שם המפרסם",
       required: true,
     },
@@ -248,7 +258,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "advertiserTel",
       type: "tel",
       // label: "טלפון",
-      errorMessage: "שדה חובה! יש להזין מספר תקין",
+      errorMessage: "אוי שכחת למלא פרטים",
       placeholder: "טלפון",
       required: true,
       pattern: "^[0-9]{8,15}$",
@@ -258,7 +268,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "advertiserEmail",
       type: "email",
       // label: "מייל",
-      errorMessage: "שדה חובה! יש להזין אימייל תקין",
+      errorMessage: "אוי שכחת למלא פרטים",
       placeholder: "מייל",
       required: true,
     },
@@ -269,11 +279,16 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     e.preventDefault();
 
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
-    values.date = beginDateUpdate(values.date,values.beginningTime)
-    if(values.repeatSettingsRepeatEnd instanceof Date){values.repeatSettingsRepeatEnd= beginDateUpdate(values.repeatSettingsRepeatEnd ,values.beginningTime)}
+    values.date = beginDateUpdate(values.date, values.beginningTime);
+    if (values.repeatSettingsRepeatEnd instanceof Date) {
+      values.repeatSettingsRepeatEnd = beginDateUpdate(
+        values.repeatSettingsRepeatEnd,
+        values.beginningTime
+      );
+    }
 
     const formElement = e.target;
-    // const isValid = formElement.checkValidity();
+    setIsValid(formElement.checkValidity());
     formElement.classList.add(styles.submitted);
     const firstInvalidField = formElement.querySelector(":invalid");
     firstInvalidField?.focus();
@@ -332,24 +347,22 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
         if (res._id != "") {
-          setSaveEventMode(true)
-          setPopUpText("האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו");
-          setPopUp(true)
+          setSaveEventMode(true);
+          setPopUpText(
+            "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
+          );
+          setPopUp(true);
           const newEventId = res._id;
           nav(`/`);
         }
       });
     }
   };
-  
+
   useEffect(() => {
-    if(timeValidationMessage!=="")
-      setTimeValidationOK(false);
-    else
-      setTimeValidationOK(true);
+    if (timeValidationMessage !== "") setTimeValidationOK(false);
+    else setTimeValidationOK(true);
   }, [timeValidationMessage]);
-
-
 
   useEffect(() => {
     setConstancy(values.repeatType);
@@ -370,7 +383,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   useEffect(() => {}, [values]);
 
   const onChange = (e) => {
-    console.log({ isInputFormValid, values });
     setValues({ ...values, [e.target.name]: e.target.value });
     if (
       values.eventName &&
@@ -387,37 +399,37 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       setIsTheFormValid(true);
       console.log({ isInputFormValid });
     }
-   //if the targeted input is the beginningTime or finishingTime then- we make a validation check.
+    //if the targeted input is the beginningTime or finishingTime then- we make a validation check.
 
-  if(e.target.name === "beginningTime" || e.target.name === "finishTime")
-  {      
-    
-    //set the beginning and finishing time from the values object
-    const beginningTimeObj = new Date("2000-01-01T" + values.beginningTime);
-    const finishingTimeObj = new Date("2000-01-01T" + values.finishTime);  
-    
-    //update the beginningTimeObj or the finishingTimeObj according to the targeted value.
-    const [hours, minutes] = e.target.value.split(':');
-    
-    if (e.target.name === "beginningTime") {
-      beginningTimeObj.setHours(hours);
-      beginningTimeObj.setMinutes(minutes);
-    } else {
-      finishingTimeObj.setHours(hours);
-      finishingTimeObj.setMinutes(minutes);
+    if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
+      //set the beginning and finishing time from the values object
+      const beginningTimeObj = new Date("2000-01-01T" + values.beginningTime);
+      const finishingTimeObj = new Date("2000-01-01T" + values.finishTime);
+
+      //update the beginningTimeObj or the finishingTimeObj according to the targeted value.
+      const [hours, minutes] = e.target.value.split(":");
+
+      if (e.target.name === "beginningTime") {
+        beginningTimeObj.setHours(hours);
+        beginningTimeObj.setMinutes(minutes);
+      } else {
+        finishingTimeObj.setHours(hours);
+        finishingTimeObj.setMinutes(minutes);
+      }
+      setTimeValidationMessage(
+        timeValidation(beginningTimeObj, finishingTimeObj)
+      );
     }
-    setTimeValidationMessage(timeValidation(beginningTimeObj, finishingTimeObj));
-  }
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
 
   const formattedDate = new Date(values.date).toLocaleDateString("he-IL", {
-    weekday: 'long',
+    weekday: "long",
     // day: 'numeric',
     // month: 'long',
-    timeZone: 'UTC',
-    numberingSystem: 'latn'
+    timeZone: "UTC",
+    numberingSystem: "latn",
   });
   useEffect(() => {
     if (
@@ -443,6 +455,21 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       </div>
     );
   }
+  // else {
+  //   return (
+  //     <div className={styles.button}>
+  //       <ClassicButton
+  //         width={"200px"}
+  //         text={"שמור"}
+  //         type={"submit"}
+  //         disabled={true}
+  //       />
+  //       <span className={styles.errorMessage}>נא למלא את כל השדות</span>
+  //     </div>
+  //   );
+  // }
+  // }
+
   return (
     <div
       dir="RTL"
@@ -450,7 +477,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       style={style}
       {...props}
     >
-      <div className={styles.header}>כאן מכניסים את כל פרטי האירוע שלך</div>{" "}
+      <div className={styles.header}>
+        כמה פרטים כדי שנוכל לפרסם את האירוע שלך
+      </div>{" "}
       <form
         onSubmit={handleSubmit}
         noValidate
@@ -468,7 +497,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                isTheSubmitButtonPush={isTheSubmitButtonPush}
+                isValid={isValid}
                 choossArray={input.name === "repeatType" ? typeData : placeData}
                 {...input}
               />
@@ -478,8 +507,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               <div className={styles.selectIcon}>
                 <div className={styles.iconLabel}>{input.label}</div>
                 <SelectIcon
-                  {...input}
-                  isTheSubmitButtonPush={isTheSubmitButtonPush}
+                  isValid={isValid}
                   errorMessage={input.errorMessage}
                   inText={false}
                   key={input.id}
@@ -491,6 +519,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   setArray={
                     input.name === "categories" ? setCategories : setAudiences
                   }
+                  {...input}
                 />
               </div>
             );
@@ -505,7 +534,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 name={input.name}
                 values={values}
                 setValues={setValues}
-                isTheSubmitButtonPush={isTheSubmitButtonPush}
+                isValid={isValid}
                 choossArray={
                   input.name === "repeatType" ? typeData : paymentData
                 }
@@ -518,11 +547,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 <NoRepeatEvent values={values} setValues={setValues} />
               </div>
             );
-            else if (input.type == "pTimeValidationOK")
+          else if (input.type == "pTimeValidationOK")
             return (
-              <p className={styles.timeValidation}>
-                {timeValidationMessage}
-              </p>
+              <p className={styles.errorMessage}>{timeValidationMessage}</p>
             );
           else if (input.type === "button")
             return (
@@ -530,8 +557,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 className={styles.advanced}
                 onClick={() => setNewEventPopup(true)}
               >
-                
-              <u> {`${constancy} ${constancy !== "אירוע חד פעמי" ? formattedDate : "" }`}</u>           
+                <u>
+                  {" "}
+                  {`${constancy} ${
+                    constancy !== "אירוע חד פעמי" ? formattedDate : ""
+                  }`}
+                </u>
               </div>
             );
           else if (input.type == "toogleSwitch")
@@ -546,15 +577,15 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             return (
               <Input
                 key={input.id}
-                {...input}
                 errorMessage={input.errorMessage}
                 instructions={input.instructions}
                 value={values[input.name]}
                 onChange={onChange}
+                isValid={isValid}
                 className={input.className}
                 type={input.type}
                 width={"240px"}
-                isTheSubmitButtonPush={isTheSubmitButtonPush}
+                {...input}
               />
             );
         })}
