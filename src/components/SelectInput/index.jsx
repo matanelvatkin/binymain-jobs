@@ -14,22 +14,24 @@ const SelectInput = ({
   style = {},
   className = "",
   values,
+  isTheSubmitButtonPush,
   setValues = () => {},
   ...props
 }) => {
-  const [isValid, setIsValid] = useState(true);
-  const [valueText, setValueText] = useState("");
+  const [isValid, setIsValid] = useState(isTheSubmitButtonPush);
+  const [valueText, setValueText] = useState();
   const [openPopup, setOpenPopup] = useState(false);
   const inputRef = useRef();
-  useEffect(() => {
-    inputRef.current.setCustomValidity("");
-    // setIsValid(inputRef.current.setCustomValidity(""));
-  }, []);
   useEffect(() => {
     if (valueText) {
       inputRef.current.value = valueText;
     }
   }, [valueText]);
+  useEffect(() => {
+    if (isTheSubmitButtonPush) {
+      setIsValid(false);
+    }
+  }, []);
   useEffect(() => {
     setValues({ ...values, [props.name]: valueText });
     if (typeof props.func === "function") props.func(valueText);
@@ -45,19 +47,21 @@ const SelectInput = ({
     // setOpenPopup(false);
   };
 
+  useEffect(() => {
+    if (valueText) inputRef.current.value = valueText;
+  }, [valueText]);
   return (
     <div className={styles.select_container}>
       <Input
         type="text"
         placeholder={placeholder}
-        errorMessage={errorMessage}
         onChange={(e) => {
           lableOnclick(e);
         }}
         refInput={inputRef}
-        onFocus={() => setOpenPopup(true)}
-        onblur={() => setTimeout(() => setOpenPopup(false), 200)}
         isValid={isValid}
+        onFocus={() => setOpenPopup(true)}
+        onBlur={() => setTimeout(() => setOpenPopup(false), 200)}
       />
       {openPopup ? (
         <div className={`${styles.select_box}`}>

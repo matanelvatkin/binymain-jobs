@@ -25,6 +25,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [isValid, setIsValid] = useState(true);
   const [isInputFormValid, setIsTheFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
   // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
   const [timeValidationMessage, setTimeValidationMessage] = useState("");
@@ -279,6 +280,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setIsTheSubmitButtonPush(true);
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
     values.date = beginDateUpdate(values.date, values.beginningTime);
     if (values.repeatSettingsRepeatEnd instanceof Date) {
@@ -287,8 +289,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         values.beginningTime
       );
     }
-
     const formElement = e.target;
+    // if (values.categories[0] === null) {
+    //   const categoriesInvalid = formElement.querySelector("categories");
+    //   categoriesInvalid?.focus();
+    // }
     setIsValid(formElement.checkValidity());
     formElement.classList.add(styles.submitted);
     const firstInvalidField = formElement.querySelector(":invalid");
@@ -385,7 +390,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-    console.log({ values });
     if (
       values.eventName &&
       values.summary &&
@@ -500,6 +504,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 values={values}
                 setValues={setValues}
                 isValid={isValid}
+                isTheSubmitButtonPush={isTheSubmitButtonPush}
                 choossArray={input.name === "repeatType" ? typeData : placeData}
                 {...input}
               />
@@ -517,6 +522,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   name={input.name}
                   values={values}
                   setValues={setValues}
+                  isTheSubmitButtonPush={setIsTheSubmitButtonPush}
                   array={input.name === "categories" ? categories : audiences}
                   setArray={
                     input.name === "categories" ? setCategories : setAudiences

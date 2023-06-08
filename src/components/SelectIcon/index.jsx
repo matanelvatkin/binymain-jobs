@@ -49,10 +49,8 @@ const SelectIcon = ({
   useEffect(() => {
     if (!values[name][0]) {
       setIsChosen(true);
-      setValidationMessage(false);
     } else {
       setIsChosen(false);
-      setValidationMessage(true);
     }
   });
 
