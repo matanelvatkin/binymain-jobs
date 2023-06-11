@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400&display=swap');
 
 :root {
   --bg-color: #f5f5f5;
@@ -13,14 +13,14 @@
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var(----text-Fourth-color);
   color: var(--text-color);
-  font-family: "Varela Round", sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
 
 label {
   font-size: var(--font-size-label);
-  font-family: "Varela Round", sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
 
 * {
@@ -28,10 +28,9 @@ label {
   padding: 0;
   box-sizing: border-box;
 }
-button {
-  font-family: "Varela Round", sans-serif;
+button {  font-family: 'Heebo', sans-serif;
 }
 
 input {
-  font-family: "Varela Round", sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
