@@ -9,7 +9,9 @@ export default function SearchResult({search}) {
   console.log(search);
 
   const [searchMode, setSearchMode] = useState("loading")
-  const [events, setEvents] = useState();
+  const [events, setEvents] = useState([]);
+  const [nextPage, setNextPage] = useState(1);
+
 
   const { setHeader } = useContext(headerContext);
 
@@ -17,13 +19,13 @@ export default function SearchResult({search}) {
 
   async function fetchEvents() {
     let apiSingleEvents = await apiCalls("post", "/event/search", {
-      page: 1,
-      pageSize: 10,
+      page:nextPage,
       ...search
     });
     
     let apiEvents = apiSingleEvents.event
-    setEvents(() => apiEvents);
+    setEvents((currentEvent) => currentEvent.concat(apiEvents));
+    setNextPage(apiSingleEvents.nextPage);
     if(apiEvents.length===0)(setSearchMode("noResult"))
     else {setSearchMode("isResult")}
   }
@@ -38,7 +40,7 @@ export default function SearchResult({search}) {
   }, []);
   return (
     <div className={style.container}>
-      <EventCard events={events} searchMode={searchMode}/>
+      <EventCard events={events} searchMode={searchMode} nextPage={nextPage} loadMore={fetchEvents}/>
     </div>
   );
 }

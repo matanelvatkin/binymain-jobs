@@ -75,7 +75,7 @@ function EventCard({ events , nextPage , loadMore , searchMode}) {
       className={styles.loadButton}>
         <ClassicButton 
         onClick={loadMore} 
-        text={'עוד...'}
+        text={'...עוד'}
         width={"100px"}
         ><AiOutlineReload/></ClassicButton>
         </div>

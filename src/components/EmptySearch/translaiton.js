@@ -1,7 +1,7 @@
 
 const translaiton = {
-    weCouldentFindWhatYouSearched: '...לא מצאנו את מה שחיפשת',
-    tryAgain: 'אפשר לנסות מחדש'
+    weCouldentFindWhatYouSearched: '...לא מצאנו מה שחיפשת',
+    tryAgain: 'אפשר לנסות שוב'
 }
 
 export default translaiton

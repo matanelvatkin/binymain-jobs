@@ -199,7 +199,6 @@ setSearch(
           </div>
         </div>
 
-      </div>
         <div className={style.footerBtn}>
           <ClassicButton
             width={300}
@@ -207,6 +206,7 @@ setSearch(
             func={handleSubmit}
           />
         </div>
+      </div>
     </div>
   );
 }

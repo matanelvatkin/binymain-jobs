@@ -59,15 +59,23 @@ export default function ViewEvent() {
 
   async function fetchEvent() {
     let apiData = await apiCalls("get", "/event/" + event);
-    // if (user.userType === "admin") {
-    //   setIsAdmin(true)
-    // }
+    if (user.userType === "admin") {
+      checkUserType();
     if (apiData.status === "published") {
       setIsPublished(true)
       setIsActive(true)
     }
+  }
     setEventData(apiData);
     console.log(apiData);
+  }
+
+  async function checkUserType() {
+    const token = localStorage.getItem("Token");
+    let apiData = await apiCalls('post', "user/checkUserType", { aoutherizetion: token })
+    if (apiData) {
+      setIsAdmin(apiData.userType)
+    }
   }
 
 
@@ -298,7 +306,7 @@ export default function ViewEvent() {
           </ClassicButton>
         </div>
 
-        {user.userType === "admin" && eventData &&
+        {isAdmin === user.userType && eventData &&
           <div className={style.adminContainer}>
             <div className={style.advertiserInfo}>
               <h3>פרטי המפרסם:</h3>

@@ -17,13 +17,14 @@ const SelectInput = ({
   setValues = () => {},
   ...props
 }) => {
-  const [isPlaceChosen, setIsPlaceChosen] = useState(false);
+  const [isValid, setIsValid] = useState(true);
   const [valueText, setValueText] = useState("");
   const [openPopup, setOpenPopup] = useState(false);
   const inputRef = useRef();
   useEffect(() => {
-      if(valueText) {
-        inputRef.current.value=valueText}
+    if (valueText) {
+      inputRef.current.value = valueText;
+    }
   }, [valueText]);
   useEffect(() => {
     setValues({ ...values, [props.name]: valueText });
@@ -31,25 +32,27 @@ const SelectInput = ({
   }, [valueText]);
   const lableOnclick = (e) => {
     if (e.target.value === "") setValueText();
-    inputRef.current.setCustomValidity("Invalid field.")
+    inputRef.current.setCustomValidity("Invalid field.");
     setOpenPopup((prev) => e.target.value || true);
   };
   const changeTextValue = (e) => {
-    inputRef.current.setCustomValidity("")
+    inputRef.current.setCustomValidity("");
     setValueText(e.target.innerText);
-    setOpenPopup(false);
+    // setOpenPopup(false);
   };
+
   return (
     <div className={styles.select_container}>
       <Input
         type="text"
         placeholder={placeholder}
-        refInput={inputRef}
+        errorMessage={errorMessage}
         onChange={(e) => {
           lableOnclick(e);
         }}
+        refInput={inputRef}
         onFocus={() => setOpenPopup(true)}
-        onBlur={() => setTimeout(() => setOpenPopup(false), 0.5)}
+        onblur={() => setTimeout(() => setOpenPopup(false), 200)}
       />
       {openPopup ? (
         <div className={`${styles.select_box}`}>
@@ -63,18 +66,17 @@ const SelectInput = ({
               <p
                 key={opt}
                 className={`${styles.option}`}
-                onClick={changeTextValue}
+                onClick={(e) => {
+                  inputRef.current.setCustomValidity("");
+                  setValueText(e.target.innerText);
+                  setOpenPopup(false);
+                }}
               >
                 {opt}
               </p>
             ))}
         </div>
       ) : null}
-      {!isPlaceChosen ? (
-        <span className={styles.errorMessage}> {errorMessage}</span>
-      ) : (
-        <span className={styles.isPlaceChosen}> {errorMessage}</span>
-      )}
     </div>
   );
 };

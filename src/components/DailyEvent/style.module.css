@@ -9,13 +9,6 @@
     width: 15%;
 }
 
-.dateAndLabel{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 7px;
-}
-
 .titles {
     display: flex;
     justify-content: flex-start;
@@ -29,35 +22,25 @@
     justify-content: center;
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
-    min-height: 200px;
-}
-
 .endDate {
+    /* display: flex; */
     width: 100%;
-}
 
+}
 
 .endDateInputs {
     display: flex;
-    margin: 30px;
+    margin: 20px;
     /* flex-direction: column; */
     /* justify-content: center; */
     justify-content: space-around;
 }
-/* .date {
-    border: 1px solid green;
-    width: fit-content;
+.date {
+    width: 70%;
      margin: -40px 30px -10px 0;
-} */
+}
 
 .numberOfDays {
     padding: 10px;
     margin: -30px 0 0 0;
-    width: fit-content;
 }
