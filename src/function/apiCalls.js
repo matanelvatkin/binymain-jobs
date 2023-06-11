@@ -13,15 +13,16 @@ const apiCalls = async (
   // const baseUrl = "https://server-production-7ef9.up.railway.app";
 
   const fullUrl = `${baseUrl}/api/${url}`;
+  console.log("******************", header);
   try {
     const data = await axios({
       method: method,
       url: fullUrl,
       data: information,
       params: { q: param },
-      headers: { header },
+      headers:  {...header,authorization : "Bearer "+localStorage.Token} ,
     });
-    // console.log("******************", data.data);
+    // console.log("******************", data);
     return data.data;
   } catch (error) {
     console.log(error);
