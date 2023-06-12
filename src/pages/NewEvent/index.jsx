@@ -25,6 +25,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [isValid, setIsValid] = useState(true);
   const [isInputFormValid, setIsTheFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
   // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
   const [timeValidationMessage, setTimeValidationMessage] = useState("");
@@ -76,6 +77,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     beginningTime: "18:00",
     finishTime: "20:00",
     place: "",
+    accuratelocation: "",
     registrationPageURL: "",
     categories: [{}],
     audiences: [{}],
@@ -123,7 +125,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
     {
       id: 5,
-      name: "Accurate location",
+      name: "accuratelocation",
       type: "text",
       errorMessage: "אוי שכחת למלא כאן פרטים",
       placeholder: "מיקום מדויק או כתובת",
@@ -278,6 +280,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setIsTheSubmitButtonPush(true);
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
     values.date = beginDateUpdate(values.date, values.beginningTime);
     if (values.repeatSettingsRepeatEnd instanceof Date) {
@@ -286,8 +289,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         values.beginningTime
       );
     }
-
     const formElement = e.target;
+    // if (values.categories[0] === null) {
+    //   const categoriesInvalid = formElement.querySelector("categories");
+    //   categoriesInvalid?.focus();
+    // }
     setIsValid(formElement.checkValidity());
     formElement.classList.add(styles.submitted);
     const firstInvalidField = formElement.querySelector(":invalid");
@@ -322,6 +328,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           beginningTime: values.beginningTime,
           finishTime: values.finishTime,
           place: values.place,
+          accuratelocation: values.accuratelocation,
           categories: values.categories,
           audiences: values.audiences,
           registrationPageURL: values.registrationPageURL,
@@ -352,7 +359,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
           );
           setPopUp(true);
-          const newEventId = res._id;
           nav(`/`);
         }
       });
@@ -498,6 +504,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 values={values}
                 setValues={setValues}
                 isValid={isValid}
+                isTheSubmitButtonPush={isTheSubmitButtonPush}
+                setIsTheSubmitButtonPush={setIsTheSubmitButtonPush}
                 choossArray={input.name === "repeatType" ? typeData : placeData}
                 {...input}
               />
@@ -515,6 +523,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   name={input.name}
                   values={values}
                   setValues={setValues}
+                  isTheSubmitButtonPush={setIsTheSubmitButtonPush}
                   array={input.name === "categories" ? categories : audiences}
                   setArray={
                     input.name === "categories" ? setCategories : setAudiences

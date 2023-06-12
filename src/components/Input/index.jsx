@@ -16,6 +16,7 @@ const Input = (props) => {
     width,
     refInput,
     isValid,
+    isTheSubmitButtonPush,
     onblur = () => {},
     ...inputProps
   } = props;

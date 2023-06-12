@@ -9,7 +9,7 @@ import Kobi from "../../test/Kobi";
 function Test() {
   return (
     <div className={styles.main}>
-      {/* <Kobi /> */}
+      <Kobi />
     </div>
   );
 }

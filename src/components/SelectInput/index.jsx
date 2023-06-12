@@ -14,11 +14,13 @@ const SelectInput = ({
   style = {},
   className = "",
   values,
+  isTheSubmitButtonPush,
+  setIsTheSubmitButtonPush,
   setValues = () => {},
   ...props
 }) => {
   const [isValid, setIsValid] = useState(true);
-  const [valueText, setValueText] = useState("");
+  const [valueText, setValueText] = useState();
   const [openPopup, setOpenPopup] = useState(false);
   const inputRef = useRef();
   useEffect(() => {
@@ -41,19 +43,26 @@ const SelectInput = ({
     // setOpenPopup(false);
   };
 
+  useEffect(() => {
+    if (valueText) inputRef.current.value = valueText;
+  }, [valueText]);
   return (
     <div className={styles.select_container}>
       <Input
         type="text"
         placeholder={placeholder}
-        errorMessage={errorMessage}
         onChange={(e) => {
           lableOnclick(e);
+          setIsTheSubmitButtonPush(false);
         }}
+        isTheSubmitButtonPush={isTheSubmitButtonPush}
         refInput={inputRef}
         onFocus={() => setOpenPopup(true)}
-        onblur={() => setTimeout(() => setOpenPopup(false), 200)}
+        onBlur={() => setTimeout(() => setOpenPopup(false), 200)}
       />
+      {isTheSubmitButtonPush && (
+        <span className={styles.errorMessage}>{errorMessage}</span>
+      )}
       {openPopup ? (
         <div className={`${styles.select_box}`}>
           {choossArray
