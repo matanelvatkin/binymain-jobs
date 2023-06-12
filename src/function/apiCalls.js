@@ -19,9 +19,9 @@ const apiCalls = async (
       url: fullUrl,
       data: information,
       params: { q: param },
-      headers: { header },
+      headers:  {...header,authorization : "Bearer "+localStorage.Token} ,
     });
-    // console.log("******************", data.data);
+    // console.log("******************", data);
     return data.data;
   } catch (error) {
     console.log(error);
