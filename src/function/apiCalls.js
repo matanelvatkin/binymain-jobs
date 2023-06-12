@@ -13,7 +13,6 @@ const apiCalls = async (
   // const baseUrl = "https://server-production-7ef9.up.railway.app";
 
   const fullUrl = `${baseUrl}/api/${url}`;
-  console.log("******************", header);
   try {
     const data = await axios({
       method: method,
