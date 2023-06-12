@@ -15,10 +15,11 @@ const SelectInput = ({
   className = "",
   values,
   isTheSubmitButtonPush,
+  setIsTheSubmitButtonPush,
   setValues = () => {},
   ...props
 }) => {
-  const [isValid, setIsValid] = useState(isTheSubmitButtonPush);
+  const [isValid, setIsValid] = useState(true);
   const [valueText, setValueText] = useState();
   const [openPopup, setOpenPopup] = useState(false);
   const inputRef = useRef();
@@ -27,11 +28,6 @@ const SelectInput = ({
       inputRef.current.value = valueText;
     }
   }, [valueText]);
-  useEffect(() => {
-    if (isTheSubmitButtonPush) {
-      setIsValid(false);
-    }
-  }, []);
   useEffect(() => {
     setValues({ ...values, [props.name]: valueText });
     if (typeof props.func === "function") props.func(valueText);
@@ -57,12 +53,16 @@ const SelectInput = ({
         placeholder={placeholder}
         onChange={(e) => {
           lableOnclick(e);
+          setIsTheSubmitButtonPush(false);
         }}
+        isTheSubmitButtonPush={isTheSubmitButtonPush}
         refInput={inputRef}
-        isValid={isValid}
         onFocus={() => setOpenPopup(true)}
         onBlur={() => setTimeout(() => setOpenPopup(false), 200)}
       />
+      {isTheSubmitButtonPush && (
+        <span className={styles.errorMessage}>{errorMessage}</span>
+      )}
       {openPopup ? (
         <div className={`${styles.select_box}`}>
           {choossArray

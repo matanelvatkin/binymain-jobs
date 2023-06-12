@@ -505,6 +505,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 setValues={setValues}
                 isValid={isValid}
                 isTheSubmitButtonPush={isTheSubmitButtonPush}
+                setIsTheSubmitButtonPush={setIsTheSubmitButtonPush}
                 choossArray={input.name === "repeatType" ? typeData : placeData}
                 {...input}
               />
