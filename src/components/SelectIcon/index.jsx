@@ -60,7 +60,7 @@ const SelectIcon = ({
       <div className={styles.container}>
         <p className={styles.header}>{header}</p>
         <div>
-          {isChosen && (
+          {isChosen && isTheSubmitButtonPush && (
             <span className={styles.errorMessage}> {errorMessage}</span>
           )}
         </div>
