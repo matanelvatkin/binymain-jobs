@@ -523,7 +523,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   name={input.name}
                   values={values}
                   setValues={setValues}
-                  isTheSubmitButtonPush={setIsTheSubmitButtonPush}
+                  isTheSubmitButtonPush={isTheSubmitButtonPush}
                   array={input.name === "categories" ? categories : audiences}
                   setArray={
                     input.name === "categories" ? setCategories : setAudiences
