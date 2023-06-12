@@ -89,7 +89,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     gallery: [],
   });
 
-א  const inputs = [
+  const inputs = [
     {
       id: 1,
       name: "eventName",
