@@ -14,6 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import userContext from "../../context/userContext";
 import popUpContext from "../../context/popUpContext";
 import apiCalls from "../../function/apiCalls";
+import NewNewEvent from "../../pages/NewNewEvent";
 
 
 function Main() {
@@ -81,6 +82,7 @@ function Main() {
         <Route path="/test" element={<Test />} />
         <Route path="/newNewEvent" element={<NewNewEvent />} />
         <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/newNewEvent" element={<NewNewEvent />} />
         {user && <Route path="/newEvent" element={<NewEvent />} />}
       </Routes>
     </main>

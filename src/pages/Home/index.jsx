@@ -42,6 +42,8 @@ function Home() {
     }
   };
 
+  const navToNewNewEvent = () => { navigate("/newNewEvent"); }
+
   setHeader("home");
 
   const logOut = () => {
@@ -95,6 +97,16 @@ function Home() {
           text={"פרסם אירוע  ➕"}
           onClick={() => {
             navToNewEvent();
+          }}
+        />
+      </div>
+      <div className={styles.newButton}>
+        <ClassicButton
+          width={"250px"}
+          height={"100%"}
+          text={" פרסם אירוע חדש ➕"}
+          onClick={() => {
+            navToNewNewEvent();
           }}
         />
       </div>
