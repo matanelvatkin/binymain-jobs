@@ -80,7 +80,6 @@ function Main() {
 
         <Route path="/viewEvent/:event" element={<ViewEvent />} />
         <Route path="/test" element={<Test />} />
-        <Route path="/newNewEvent" element={<NewNewEvent />} />
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/newNewEvent" element={<NewNewEvent />} />
         {user && <Route path="/newEvent" element={<NewEvent />} />}
