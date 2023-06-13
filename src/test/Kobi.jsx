@@ -4,7 +4,7 @@ import styles from "../components/SelectIcon/style.module.css";
 import { hebTranslation } from "../components/SelectIcon/translition";
 import { settingsContext } from "../layout/Layout";
 import Select from "react-select";
-import MultiSelect from "../components/MultiSelect/MultiSelect";
+//import MultiSelect from "../components/MultiSelect/MultiSelect";
 
 const options = [
   { value: "chocolate", label: "Chocolate" },
@@ -12,5 +12,6 @@ const options = [
   { value: "vanilla", label: "Vanilla" },
 ];
 export default function Kobi() {
-  return <MultiSelect options={options} />;
+  return <div></div>;
+  //return <MultiSelect options={options} />;
 }

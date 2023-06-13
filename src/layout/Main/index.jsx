@@ -1,6 +1,7 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "../../pages/Home";
 import NewEvent from "../../pages/NewEvent";
+import NewNewEvent from "../../pages/NewNewEvent";
 import SearchEvent from "../../pages/SearchEvent";
 import ViewEvent from "../../pages/ViewEvent";
 import SearchResult from "../../pages/SearchResult";
@@ -13,6 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import userContext from "../../context/userContext";
 import popUpContext from "../../context/popUpContext";
 import apiCalls from "../../function/apiCalls";
+
 
 function Main() {
   const { user, setUser } = useContext(userContext);
@@ -77,6 +79,7 @@ function Main() {
 
         <Route path="/viewEvent/:event" element={<ViewEvent />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/newNewEvent" element={<NewNewEvent />} />
         <Route path="*" element={<Navigate to="/" />} />
         {user && <Route path="/newEvent" element={<NewEvent />} />}
       </Routes>
