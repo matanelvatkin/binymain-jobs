@@ -21,11 +21,12 @@ const SelectIcon = ({
   text,
   icon,
   isTheSubmitButtonPush,
+  setIsTheSubmitButtonPush,
   errorMessage,
   inText,
   ...props
 }) => {
-  const [validationMessage, setValidationMessage] = useState(isValid);
+  // const [validationMessage, setValidationMessage] = useState(false);
   const [isChosen, setIsChosen] = useState(true);
   const handleCategoryClick = (e) => {
     if (typeof setArray === "function") {
@@ -59,7 +60,7 @@ const SelectIcon = ({
       <div className={styles.container}>
         <p className={styles.header}>{header}</p>
         <div>
-          {isChosen && validationMessage && (
+          {isChosen && isTheSubmitButtonPush && (
             <span className={styles.errorMessage}> {errorMessage}</span>
           )}
         </div>

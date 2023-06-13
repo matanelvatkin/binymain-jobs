@@ -25,6 +25,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [isValid, setIsValid] = useState(true);
   const [isInputFormValid, setIsTheFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
   // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
   const [timeValidationMessage, setTimeValidationMessage] = useState("");
@@ -76,6 +77,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     beginningTime: "18:00",
     finishTime: "20:00",
     place: "",
+    accuratelocation: "",
     registrationPageURL: "",
     categories: [{}],
     audiences: [{}],
@@ -93,7 +95,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "eventName",
       type: "text",
       // label: "שם האירוע",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "שם האירוע",
       required: true,
     },
@@ -106,7 +108,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 3,
       name: "advanced",
       type: "button",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "מתקדם",
       label: "מתקדם",
     },
@@ -116,16 +118,16 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "place",
       type: "select",
       label: "מקום",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "בחר מיקום",
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
     {
       id: 5,
-      name: "Accurate location",
+      name: "accuratelocation",
       type: "text",
-      errorMessage: "אוי שכחת למלא כאן פרטים",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "מיקום מדויק או כתובת",
       required: true,
     },
@@ -134,7 +136,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "beginningTime",
       type: "time",
       label: "מתי האירוע מתחיל?",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "זמן התחלה",
       required: true,
     },
@@ -148,7 +150,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "finishTime",
       type: "time",
       label: "מתי האירוע מסתיים?",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "זמן סיום",
       required: true,
     },
@@ -157,7 +159,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "payment",
       type: "toogleSwitch",
       label: "עלות",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "עלות",
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
@@ -183,7 +185,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "categories",
       type: "selectIcon",
       label: "קטגוריה",
-      errorMessage: "אוי שכחת למלא כאן פרטים",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "קטגוריה",
       required: true,
     },
@@ -192,7 +194,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "audiences",
       type: "selectIcon",
       label: "קהל יעד",
-      errorMessage: "אוי שכחת למלא כאן פרטים",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "קהל יעד",
       required: true,
     },
@@ -201,7 +203,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "summary",
       type: "text",
       // label: "תקציר",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "תיאור האירוע",
       required: true,
     },
@@ -210,7 +212,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "registrationPageURL",
       type: "url",
       // label: "דף הרשמה לאירוע",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: " לינק להרשמה/כרטיסים לאירוע",
       required: true,
     },
@@ -218,7 +220,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 13,
       name: "cardImageURL",
       type: "file",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       instructions: "*מומלץ להעלות תמונה מרובעת 1:1",
       label: "תמונת אירוע",
       accept: "image/*",
@@ -228,7 +230,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 14,
       name: "coverImageURL",
       type: "file",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       instructions: "*מומלץ להעלות תמונה מלבנית 16:9",
 
       label: "תמונת כיסוי",
@@ -249,7 +251,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "advertiserName",
       type: "text",
       // label: "שם המפרסם",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "שם המפרסם",
       required: true,
     },
@@ -258,7 +260,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "advertiserTel",
       type: "tel",
       // label: "טלפון",
-      errorMessage: "אוי שכחת למלא פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "טלפון",
       required: true,
       pattern: "^[0-9]{8,15}$",
@@ -268,7 +270,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "advertiserEmail",
       type: "email",
       // label: "מייל",
-      errorMessage: "אוי שכחת למלא פרטים",
+      errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "מייל",
       required: true,
     },
@@ -278,6 +280,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setIsTheSubmitButtonPush(true);
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
     values.date = beginDateUpdate(values.date, values.beginningTime);
     if (values.repeatSettingsRepeatEnd instanceof Date) {
@@ -286,8 +289,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         values.beginningTime
       );
     }
-
     const formElement = e.target;
+    // if (values.categories[0] === null) {
+    //   const categoriesInvalid = formElement.querySelector("categories");
+    //   categoriesInvalid?.focus();
+    // }
     setIsValid(formElement.checkValidity());
     formElement.classList.add(styles.submitted);
     const firstInvalidField = formElement.querySelector(":invalid");
@@ -322,6 +328,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           beginningTime: values.beginningTime,
           finishTime: values.finishTime,
           place: values.place,
+          accuratelocation: values.accuratelocation,
           categories: values.categories,
           audiences: values.audiences,
           registrationPageURL: values.registrationPageURL,
@@ -352,7 +359,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
           );
           setPopUp(true);
-          const newEventId = res._id;
           nav(`/`);
         }
       });
@@ -498,6 +504,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 values={values}
                 setValues={setValues}
                 isValid={isValid}
+                isTheSubmitButtonPush={isTheSubmitButtonPush}
+                setIsTheSubmitButtonPush={setIsTheSubmitButtonPush}
                 choossArray={input.name === "repeatType" ? typeData : placeData}
                 {...input}
               />
@@ -515,6 +523,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                   name={input.name}
                   values={values}
                   setValues={setValues}
+                  isTheSubmitButtonPush={isTheSubmitButtonPush}
                   array={input.name === "categories" ? categories : audiences}
                   setArray={
                     input.name === "categories" ? setCategories : setAudiences
