@@ -14,7 +14,6 @@ import { useContext, useEffect, useState } from "react";
 import userContext from "../../context/userContext";
 import popUpContext from "../../context/popUpContext";
 import apiCalls from "../../function/apiCalls";
-import NewNewEvent from "../../pages/NewNewEvent";
 
 
 function Main() {
