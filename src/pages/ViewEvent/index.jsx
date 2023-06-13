@@ -66,7 +66,12 @@ export default function ViewEvent() {
       setIsActive(true)
     }
   }
+  if(new Date(apiData.date[apiData.date.length-1])>new Date()){
+    const futureDates = apiData.date.filter((date) => new Date(date) >= new Date());
+    apiData.date = futureDates.slice(0, 1);
+  }
     setEventData(apiData);
+
     console.log(apiData);
   }
 
