@@ -62,23 +62,51 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
+  // const [values, setValues] = useState({
+  //   eventName: sessionStorage.getItem("eventName"),
+  //   summary: sessionStorage.getItem("summary"),
+  //   advertiserName: sessionStorage.getItem("advertiserName"),
+  //   advertiserTel: sessionStorage.getItem("advertiserTel"),
+  //   advertiserEmail: sessionStorage.getItem("advertiserEmail"),
+  //   isRepeated: false,
+  //   repeatType: "אירוע חד פעמי",
+  //   personalRepeatType: "",
+  //   date: new Date(),
+  //   repeatSettingsType: "endDate",
+  //   repeatSettingsRepeatEnd: undefined,
+  //   beginningTime: "18:00",
+  //   finishTime: "20:00",
+  //   place: sessionStorage.getItem("place"),
+  //   accuratelocation: sessionStorage.getItem("accuratelocation"),
+  //   registrationPageURL: sessionStorage.getItem("registrationPageURL"),
+  //   categories: [{}],
+  //   audiences: [{}],
+  //   isFree: true,
+  //   price: sessionStorage.getItem("price"),
+  //   days: [],
+  //   cardImageURL: sessionStorage.getItem("cardImageURL"),
+  //   coverImageURL: sessionStorage.getItem("coverImageURL"),
+  //   gallery: [],
+  // });
   const [values, setValues] = useState({
-    eventName: "",
-    summary: "",
-    advertiserName: "",
-    advertiserTel: "",
-    advertiserEmail: "",
+    eventName: sessionStorage.getItem("eventName"),
+    summary: sessionStorage.getItem("eventName"),
+    advertiserName: sessionStorage.getItem("advertiserName"),
+    advertiserTel: sessionStorage.getItem("advertiserTel"),
+    advertiserEmail: sessionStorage.getItem("advertiserEmail"),
     isRepeated: false,
     repeatType: "אירוע חד פעמי",
     personalRepeatType: "",
-    date: new Date(),
+    date: !sessionStorage.getItem("date")
+      ? new Date()
+      : sessionStorage.getItem("date"),
     repeatSettingsType: "endDate",
     repeatSettingsRepeatEnd: undefined,
     beginningTime: "18:00",
     finishTime: "20:00",
     place: "",
-    accuratelocation: "",
-    registrationPageURL: "",
+    accuratelocation: sessionStorage.getItem("accuratelocation"),
+    registrationPageURL: sessionStorage.getItem("registrationPageURL"),
     categories: [{}],
     audiences: [{}],
     isFree: true,
@@ -386,10 +414,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setAudiences(() => [...settingContext.audiences]);
     setCategories(() => [...settingContext.categories]);
   }, [settingContext.audiences, settingContext.categories]);
-  useEffect(() => {}, [values]);
+  // useEffect(() => {}, [values]);
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    sessionStorage.setItem(e.target.name, e.target.value);
+
     if (
       values.eventName &&
       values.summary &&
@@ -405,6 +435,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       setIsTheFormValid(true);
       console.log({ isInputFormValid });
     }
+
     //if the targeted input is the beginningTime or finishingTime then- we make a validation check.
 
     if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
@@ -429,7 +460,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
   };
-
+  // useEffect(() => {
+  //   for (const key in values) {
+  //     setValues({ ...values, [key]: sessionStorage.getItem([key]) });
+  //     console.log(values);
+  //   }
+  // }, [values]);
   const formattedDate = new Date(values.date).toLocaleDateString("he-IL", {
     weekday: "long",
     // day: 'numeric',
@@ -532,24 +568,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 />
               </div>
             );
-          } else if (input.type === "select")
-            return (
-              <Select
-                {...input}
-                errorMessage={input.errorMessage}
-                key={input.id}
-                placeholder={input.placeholder}
-                value={values[input.name]}
-                name={input.name}
-                values={values}
-                setValues={setValues}
-                isValid={isValid}
-                choossArray={
-                  input.name === "repeatType" ? typeData : paymentData
-                }
-              />
-            );
-          else if (input.type === "אירוע חד פעמי")
+          } else if (input.type === "אירוע חד פעמי")
             return (
               <div className={styles.date}>
                 {" "}
