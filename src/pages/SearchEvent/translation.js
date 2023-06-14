@@ -55,6 +55,10 @@ const locations = [
 "רימונים",
 "שילה",
 "טלמון",
+"שער בנימין",
+"קידה",
+"אש קודש",
+"בית אל"
 ];
 
 export {locations, translation}

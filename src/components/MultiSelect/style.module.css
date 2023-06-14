@@ -15,3 +15,16 @@
 .multiselect button.selected {
   background-color: #b3d4fc;
 }
+
+.errorMessage {
+  display: block;
+  padding: 5px;
+  color: red;
+}
+.submitted select:invalid {
+  border-color: red;
+}
+
+.submitted select:invalid:focus {
+  outline-color: red;
+}
