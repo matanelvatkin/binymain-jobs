@@ -1,0 +1,58 @@
+.content {
+padding: 15pt;
+text-align: right;
+    
+}
+
+.title {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 10px;
+}
+
+.footerBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width:100%;
+}
+
+#back {
+    background-color: white;
+    color: black;
+}
+
+.dateBtnSelection {
+    display: flex;
+}
+
+.categories {
+    display: flex;}
+
+.categories div {
+    margin-top: 1.5%;
+    margin-right: 2%;
+    margin-left: -5px;
+
+}
+
+.location {
+    margin-top: 1.5%;
+    margin-right: 2%;
+    margin-left: -5px;
+}
+
+.audiences {
+    display: flex;
+}
+
+.audiences div {
+    margin-top: 1.5%;
+    margin-right: 2%;
+    margin-left: -5px;
+}
+
+.section {
+    margin-top: 4%;
+}
