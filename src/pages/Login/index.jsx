@@ -18,10 +18,12 @@ import apiCalls from '../../function/apiCalls';
 function Login() {
   const { user, setUser } = useContext(userContext);
   const { setHeader } = useContext(headerContext)
+
   setHeader('login')
 
   const [checked, setChecked] = useState(true);
   const [userInfo, setUserInfo] = useState({})
+  // const [ errMsg, setErrMsg ] = useState();
 
   const navigate = useNavigate();
 
@@ -39,18 +41,19 @@ function Login() {
       {
         email: userInfo.email,
         password: userInfo.password,
-      })
-      console.log(res);
+      });
+
+      console.log(res.response);
+
     if (res.token) {
       setUser(res.user)
       setToken(res.token)
       localStorage.setItem('Token', res.token)
       console.log('token set');
       navigate("/");
-    }
-    else {
-      console.log(res);
-      alert('אימייל/סיסמא לא נכונים')
+    } else {
+      console.log('im else in client:', res);
+      alert(res)
     };
   }
 
@@ -71,6 +74,7 @@ const inputs = [
     name: "email",
     type: "email",
     placeholder: '📧 אימייל',
+    errMessage: "הכנס מייל חוקי",
     required: true,
   },
   {
@@ -78,6 +82,7 @@ const inputs = [
     name: "password",
     type: "password",
     placeholder: "🗝️ סיסמא",
+    errMessage: "הכנס סיסמא",
     required: true,
   },
 ];
@@ -92,6 +97,7 @@ return (
           return (
             <div className={styles.connect}>
               <Input
+              errorMessage={input.errMessage}
                 autoComplete='off'
                 key={input.id}
                 {...input}
@@ -115,7 +121,6 @@ return (
             width={'86%'}
             height={"100%"}
             type={'submit'}
-            onClick={loginAouth}
           >
             <FaSignInAlt className={styles.icon} /> התחברות
           </ClassicButton>

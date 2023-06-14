@@ -18,6 +18,7 @@ import beginDateUpdate from "../../function/beginDateUpdate";
 import popUpContext from "../../context/popUpContext";
 import { allLocations } from "../SearchEvent/translation";
 import { timeValidation } from "./timeValidation";
+import MultiSelect from "../../components/MultiSelect";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -25,6 +26,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [isValid, setIsValid] = useState(true);
   const [isInputFormValid, setIsTheFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [selectRequired, setSelectRequired] = useState(false);
   const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
   // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
@@ -44,8 +46,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log(fileData);
   };
   const nav = useNavigate();
-  const placeData = allLocations;
-
+  const placeData = allLocations.map((i) => {
+    return { value: i, label: i };
+  });
   const [loading, setLoading] = useState(true);
 
   const paymentData = ["בתשלום", "בחינם"];
@@ -123,14 +126,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
-    {
-      id: 5,
-      name: "accuratelocation",
-      type: "text",
-      errorMessage: "אוי שכחת למלא כאן את פרטים",
-      placeholder: "מיקום מדויק או כתובת",
-      required: true,
-    },
+    // {
+    //   id: 5,
+    //   name: "accuratelocation",
+    //   type: "text",
+    //   errorMessage: "אוי שכחת למלא כאן את פרטים",
+    //   placeholder: "מיקום מדויק או כתובת",
+    //   required: true,
+    // },
     {
       id: 6,
       name: "beginningTime",
@@ -295,6 +298,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     //   categoriesInvalid?.focus();
     // }
     setIsValid(formElement.checkValidity());
+    if(!values.place) setSelectRequired(true);
     formElement.classList.add(styles.submitted);
     const firstInvalidField = formElement.querySelector(":invalid");
     firstInvalidField?.focus();
@@ -495,7 +499,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         {inputs.map((input) => {
           if (input.type === "select")
             return (
-              <SelectInput
+              <MultiSelect
                 errorMessage={input.errorMessage}
                 key={input.id}
                 placeholder={input.placeholder}
@@ -504,9 +508,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 values={values}
                 setValues={setValues}
                 isValid={isValid}
+                selectRequired={selectRequired}
+                setSelectRequired={setSelectRequired}
                 isTheSubmitButtonPush={isTheSubmitButtonPush}
                 setIsTheSubmitButtonPush={setIsTheSubmitButtonPush}
-                choossArray={input.name === "repeatType" ? typeData : placeData}
+                options={input.name === "repeatType" ? typeData : placeData}
                 {...input}
               />
             );
@@ -532,23 +538,23 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 />
               </div>
             );
-          } else if (input.type === "select")
-            return (
-              <Select
-                {...input}
-                errorMessage={input.errorMessage}
-                key={input.id}
-                placeholder={input.placeholder}
-                value={values[input.name]}
-                name={input.name}
-                values={values}
-                setValues={setValues}
-                isValid={isValid}
-                choossArray={
-                  input.name === "repeatType" ? typeData : paymentData
-                }
-              />
-            );
+          } // else if (input.type === "select")
+          //   return (
+          //     <Select
+          //       {...input}
+          //       errorMessage={input.errorMessage}
+          //       key={input.id}
+          //       placeholder={input.placeholder}
+          //       value={values[input.name]}
+          //       name={input.name}
+          //       values={values}
+          //       setValues={setValues}
+          //       isValid={isValid}
+          //       choossArray={
+          //         input.name === "repeatType" ? typeData : paymentData
+          //       }
+          //     />
+          //   );
           else if (input.type === "אירוע חד פעמי")
             return (
               <div className={styles.date}>
