@@ -73,7 +73,10 @@ const NewNewEvent = () => {
   
   <div class="mb-3">
     <label class="form-label">שם האירוע</label>
-    <input class="form-control"></input>
+    <input class="form-control" required></input>
+    <div class="invalid-feedback">
+        אויש, נראה ששכחת להזין את שם האירוע
+      </div>
   </div>
   
   <div class="mb-3">
@@ -176,8 +179,13 @@ const NewNewEvent = () => {
     <input class="form-control" aria-describedby="emailHelp"></input>
   </div>
   <div class="mb-3">
+  <div class="input-group has-validation">
     <label class="form-label">מייל</label>
-    <input class="form-control" aria-describedby="emailHelp"></input>
+    <input class="form-control" aria-describedby="emailHelp" required></input>
+    <div class="invalid-feedback">
+        אויש, נראה ששכחת להזין את האימייל שלך
+      </div>
+    </div>
   </div>
 
 <div class="d-grid gap-2">
@@ -185,8 +193,6 @@ const NewNewEvent = () => {
   </div>
   
 </form>
-
-
   </div>;
 };
 
