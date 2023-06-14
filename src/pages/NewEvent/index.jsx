@@ -102,8 +102,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       : sessionStorage.getItem("date"),
     repeatSettingsType: "endDate",
     repeatSettingsRepeatEnd: undefined,
-    beginningTime: "18:00",
-    finishTime: "20:00",
+    beginningTime: !sessionStorage.getItem("beginningTime")
+      ? "18:00"
+      : sessionStorage.getItem("beginningTime"),
+    finishTime: !sessionStorage.getItem("finishTime")
+      ? "20:00"
+      : sessionStorage.getItem("finishTime"),
+
     place: "",
     accuratelocation: sessionStorage.getItem("accuratelocation"),
     registrationPageURL: sessionStorage.getItem("registrationPageURL"),
