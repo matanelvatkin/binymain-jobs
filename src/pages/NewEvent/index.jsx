@@ -112,7 +112,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       ? "20:00"
       : sessionStorage.getItem("finishTime"),
 
-    place: "",
+    place: sessionStorage.getItem("place"),
     accuratelocation: sessionStorage.getItem("accuratelocation"),
     registrationPageURL: sessionStorage.getItem("registrationPageURL"),
     categories: [{}],
@@ -159,14 +159,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
-    // {
-    //   id: 5,
-    //   name: "accuratelocation",
-    //   type: "text",
-    //   errorMessage: "אוי שכחת למלא כאן את פרטים",
-    //   placeholder: "מיקום מדויק או כתובת",
-    //   required: true,
-    // },
+    {
+      id: 5,
+      name: "accuratelocation",
+      type: "text",
+      errorMessage: "אוי שכחת למלא כאן את פרטים",
+      placeholder: "מיקום מדויק או כתובת",
+      required: true,
+    },
     {
       id: 6,
       name: "beginningTime",
