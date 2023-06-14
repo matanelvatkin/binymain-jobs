@@ -16,7 +16,7 @@ import NewEventPopup from "../../components/NewEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
 import beginDateUpdate from "../../function/beginDateUpdate";
 import popUpContext from "../../context/popUpContext";
-import { locations } from "../SearchEvent/translation";
+import { allLocations } from "../SearchEvent/translation";
 import { timeValidation } from "./timeValidation";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
@@ -44,7 +44,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     console.log(fileData);
   };
   const nav = useNavigate();
-  const placeData = locations;
+  const placeData = allLocations;
 
   const [loading, setLoading] = useState(true);
 
