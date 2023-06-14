@@ -1,25 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400&display=swap');
 
 :root {
   --bg-color: #f5f5f5;
   --bg-secondary-color: #537fe7;
   --primary-color: #f8f8fa;
   --text-color: #120d26;
-  --text-secondary-color: #5669ff;
+  /* --text-secondary-color:#5669FF; */
   --text-third-color: #747688;
   --text-Fourth-color: #ffffff;
   --input-color: #f8f8fa;
+  --input-border-color: #cccccf;
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var(----text-Fourth-color);
   color: var(--text-color);
-  font-family: "Varela Round", sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
 
 label {
   font-size: var(--font-size-label);
-  font-family: "Varela Round", sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
 
 * {
@@ -27,10 +28,9 @@ label {
   padding: 0;
   box-sizing: border-box;
 }
-button {
-  font-family: "Varela Round", sans-serif;
+button {  font-family: 'Heebo', sans-serif;
 }
 
 input {
-  font-family: "Varela Round", sans-serif;
+  font-family: 'Heebo', sans-serif;
 }

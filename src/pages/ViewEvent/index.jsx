@@ -60,14 +60,27 @@ export default function ViewEvent() {
   async function fetchEvent() {
     let apiData = await apiCalls("get", "/event/" + event);
     if (user.userType === "admin") {
-      setIsAdmin(true)
-    }
+      checkUserType();
     if (apiData.status === "published") {
       setIsPublished(true)
       setIsActive(true)
     }
+  }
+  if(new Date(apiData.date[apiData.date.length-1])>new Date()){
+    const futureDates = apiData.date.filter((date) => new Date(date) >= new Date());
+    apiData.date = futureDates.slice(0, 1);
+  }
     setEventData(apiData);
+
     console.log(apiData);
+  }
+
+  async function checkUserType() {
+    const token = localStorage.getItem("Token");
+    let apiData = await apiCalls('post', "user/checkUserType", { aoutherizetion: token })
+    if (apiData) {
+      setIsAdmin(apiData.userType)
+    }
   }
 
 
@@ -109,7 +122,10 @@ export default function ViewEvent() {
 
   const handlePublish = async () => {
     try {
-      const updatedData = await apiCalls("put", `/event/${event}`, { status: "published" });
+      const updatedData = await apiCalls("put", `/event/${event}`,
+      { status: "published",
+        publishedAt:Date.now()
+      });
       console.log(updatedData);
       setIsPublished(true);
     } catch (error) {
@@ -294,8 +310,8 @@ export default function ViewEvent() {
             <AiOutlineHome className={style.icon} /> חזרה לדף הבית
           </ClassicButton>
         </div>
-       
-        {isAdmin && eventData &&
+
+        {isAdmin === user.userType && eventData &&
           <div className={style.adminContainer}>
             <div className={style.advertiserInfo}>
               <h3>פרטי המפרסם:</h3>

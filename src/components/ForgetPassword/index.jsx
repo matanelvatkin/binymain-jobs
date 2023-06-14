@@ -36,47 +36,54 @@ function ForgetPassword() {
     }
 
     return (
-        <div className={styles.main}>
+        // <div className={styles.main}>
             <div className={styles.container}>
                 <h2 className={styles.header}>שכחתי סיסמא</h2>
                 {!codeToReset ?
                     <form className={styles.form} onSubmit={handleSendToEmail}>
+                        <div  className={styles.input}>
                         <Input
                             placeholder={"הכנס את כתובת המייל שלך"}
-                            // width={'300px'}
                             name={'email'}
                             type={'email'}
                         />
+                        </div>
                         <div className={styles.firstButton}>
                             <ClassicButton
                                 text={"שלח"}
-                                width={'90%'}
-                                type={'submit'}
+                                width={'86%'}
+                                height={'100%'}
+                                type={'submit'} 
                             />
                         </div>
                     </form>
                     :
-                    <div>
+                    <div className={styles.container}>
                         <form onSubmit={verifyCode} className={styles.form} >
-                            <div className={styles.form}>
-                                <p>שלחנו לך קוד לכתובת המייל</p>
+                            <div className={styles.code}>
+                                <p className={styles.mail}>שלחנו לך קוד לכתובת המייל</p>
+                                <div  className={styles.inputCode}>
                                 <Input
                                     placeholder={"הכנס את הקוד"}
-                                    width={'300px'}
                                     name={'code'}
+                                    type={'number'}
+
                                 />
+                                </div>
                             </div>
+
                             <div className={styles.firstButton}>
                             <ClassicButton
                                 text={"הכנס"}
-                                width={'70%'}
+                                width={'86%'}
+                                height={'100%'}
                             />
                             </div>
                         </form>
                     </div>
                 }
             </div>
-        </div>
+        // </div>
 
     )
 

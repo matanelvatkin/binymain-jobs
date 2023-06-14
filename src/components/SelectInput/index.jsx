@@ -14,30 +14,38 @@ const SelectInput = ({
   style = {},
   className = "",
   values,
+  isTheSubmitButtonPush,
+  setIsTheSubmitButtonPush,
   setValues = () => {},
   ...props
 }) => {
-  const [isPlaceChosen, setIsPlaceChosen] = useState(false);
+  const [isValid, setIsValid] = useState(true);
   const [valueText, setValueText] = useState();
   const [openPopup, setOpenPopup] = useState(false);
-  const inputRef=useRef()
+  const inputRef = useRef();
+  useEffect(() => {
+    if (valueText) {
+      inputRef.current.value = valueText;
+    }
+  }, [valueText]);
   useEffect(() => {
     setValues({ ...values, [props.name]: valueText });
     if (typeof props.func === "function") props.func(valueText);
   }, [valueText]);
   const lableOnclick = (e) => {
-    if(e.target.value==='') setValueText()
-    setOpenPopup((prev) => e.target.value||true);
+    if (e.target.value === "") setValueText();
+    inputRef.current.setCustomValidity("Invalid field.");
+    setOpenPopup((prev) => e.target.value || true);
   };
   const changeTextValue = (e) => {
+    inputRef.current.setCustomValidity("");
     setValueText(e.target.innerText);
-    setOpenPopup(false);
-    // setIsPlaceChosen(true);
-    // setValue(valueText);
+    // setOpenPopup(false);
   };
-  useEffect(()=>{
-    if(valueText) inputRef.current.value=valueText
-  },[valueText])
+
+  useEffect(() => {
+    if (valueText) inputRef.current.value = valueText;
+  }, [valueText]);
   return (
     <div className={styles.select_container}>
       <Input
@@ -45,33 +53,39 @@ const SelectInput = ({
         placeholder={placeholder}
         onChange={(e) => {
           lableOnclick(e);
+          setIsTheSubmitButtonPush(false);
         }}
-        onFocus={()=>setOpenPopup(true)}
-        onBlur={()=>setTimeout(()=>setOpenPopup(false),.5)}
+        isTheSubmitButtonPush={isTheSubmitButtonPush}
         refInput={inputRef}
-        
-        />
+        onFocus={() => setOpenPopup(true)}
+        onBlur={() => setTimeout(() => setOpenPopup(false), 200)}
+      />
+      {isTheSubmitButtonPush && (
+        <span className={styles.errorMessage}>{errorMessage}</span>
+      )}
       {openPopup ? (
-          <div className={`${styles.select_box}`}>
-          {choossArray.filter(opt=>{
-              if(typeof openPopup === 'string') return opt.startsWith(openPopup.toLowerCase())
-              else return true
-            }).map((opt) => (
-                <p
+        <div className={`${styles.select_box}`}>
+          {choossArray
+            .filter((opt) => {
+              if (typeof openPopup === "string")
+                return opt.startsWith(openPopup.toLowerCase());
+              else return true;
+            })
+            .map((opt) => (
+              <p
                 key={opt}
                 className={`${styles.option}`}
-                onClick={changeTextValue}
-                >
-              {opt}
-            </p>
-          ))}
+                onClick={(e) => {
+                  inputRef.current.setCustomValidity("");
+                  setValueText(e.target.innerText);
+                  setOpenPopup(false);
+                }}
+              >
+                {opt}
+              </p>
+            ))}
         </div>
       ) : null}
-      {!isPlaceChosen ? (
-        <span className={styles.errorMessage}> {errorMessage}</span>
-      ) : (
-          <span className={styles.isPlaceChosen}> {errorMessage}</span>
-          )}
     </div>
   );
 };
