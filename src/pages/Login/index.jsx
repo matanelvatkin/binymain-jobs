@@ -43,16 +43,12 @@ function Login() {
         password: userInfo.password,
       });
 
-      console.log(res.response);
-
     if (res.token) {
       setUser(res.user)
       setToken(res.token)
       localStorage.setItem('Token', res.token)
-      console.log('token set');
       navigate("/");
     } else {
-      console.log('im else in client:', res);
       alert(res)
     };
   }
@@ -65,7 +61,6 @@ const handleChange = (e) => {
 
 const handleToggleSwitch = (e) => {
   setChecked(!checked);
-  console.log(checked);
 }
 
 const inputs = [

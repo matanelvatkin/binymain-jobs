@@ -18,12 +18,18 @@ function Registeretion() {
 
   const navigate = useNavigate();
 
+  const navToLoginPage = () => {
+    navigate("/login");
+  };
+
+
   const inputs = [
     {
       id: 1,
       name: "fullName",
       type: "text",
       placeholder: `🙍🏽‍♂️ שם מלא`,
+      maxLength: "22",
       required: true,
     },
     {
@@ -31,6 +37,7 @@ function Registeretion() {
       name: "password",
       type: "password",
       placeholder: "🗝️ הגדר סיסמא",
+      maxLength: "14",
       required: true,
     },
     {
@@ -38,6 +45,7 @@ function Registeretion() {
       name: "confirmPassword",
       type: "password",
       placeholder: "🗝️ אמת סיסמא",
+      maxLength: "14",
       required: true,
     },
     {
@@ -51,6 +59,13 @@ function Registeretion() {
 
   const createUser = async (e) => {
     e.preventDefault();
+    const name = userData.fullName.trim();
+  const words = name.split(' ');
+
+  // Filter out words with less than 2 letters
+  const filteredWords = words.filter(word => word.length >= 2);
+
+  if (filteredWords.length >= 2) {
     if (userData.password === userData.confirmPassword) {
       const { confirmPassword, ...data } = userData;
       const updatedData = {
@@ -58,26 +73,50 @@ function Registeretion() {
         userType: "regular"
       };
       console.log(updatedData);
-      
-      try{
-      const res = await apiCalls("post", "user/creatUser", updatedData)
-      console.log(`im regular log: ${res.status}`);
-      if (res.status === "success") {
-        console.log('user saved succesfuly!');
-        navigate('/login')
-      } else if (res.status !== "success") {
-        console.log('error');
-      } }
-       catch (error) {
-        console.log(error);
-        alert('אימייל בשימוש')
+
+      try {
+        const res = await apiCalls("post", "user/creatUser", updatedData)
+        if (!res.newUser.error) {
+          navigate('/login')
+        } else {
+          alert(res.newUser.error);
+        }
+      }
+      catch (error) {
+        alert(error)
       };
-    } else alert('ססמאות לא תואמות')
+    } else {
+      alert('ססמאות לא תואמות')
   }
+ } 
+  else {
+    alert('יש להזין לפחות שני מילים בעלות לפחות 2 אותיות לכל מילה');
+  }
+  };
+
+
+
+  const handleKeyDown = (e) => {
+    const allowedKeys = /^[a-zA-Z ]$/;
+    if (e.target.name === 'fullName' && !allowedKeys.test(e.key) && e.key !== 'Backspace') {
+      e.preventDefault();
+    }
+  };
+
 
   const handleChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
+    if (e.target.name === 'fullName') {
+      const name = e.target.value;
+      const filteredName = name.replace(/[^a-zA-Z ]/g, '');
+      setUserData({ ...userData, [e.target.name]: filteredName });
+    } else {
+      setUserData({ ...userData, [e.target.name]: e.target.value });
+    }
   };
+
+  // const handleChange = (e) => {
+  //   setUserData({ ...userData, [e.target.name]: e.target.value });
+  // };
 
 
   return (
@@ -85,7 +124,7 @@ function Registeretion() {
 
       <form className={styles.formArea} onSubmit={createUser} autoComplete="off">
 
-      <div className={styles.header}><span> נעים מאוד :)</span><span>  נשמח להכיר אותך, כמה פרטים חשובים ונמשיך</span></div>
+        <div className={styles.header}><span> נעים מאוד :)</span><span>  נשמח להכיר אותך, כמה פרטים חשובים ונמשיך</span></div>
         <div className={styles.container}>
           {inputs.map((input) => {
             return (
@@ -96,22 +135,27 @@ function Registeretion() {
                   width={'90%'}
                   className={styles.inputs}
                   onChange={handleChange}
+                  onKeyDown={handleKeyDown}
+                  maxLength={input.maxLength}
                 />
               </div>
             )
           })}
         </div>
         <div className={styles.create}>
-        <ClassicButton
-          width={'86%'}
-          height={'100%'}
-          type={'submit'}
-        >
-          <IoIosCreate className={styles.icon} /> צור משתמש
-        </ClassicButton>
+          <ClassicButton
+            width={'86%'}
+            height={'100%'}
+            type={'submit'}
+          >
+            <IoIosCreate className={styles.icon} /> צור משתמש
+          </ClassicButton>
         </div>
 
-      </form> 
+      </form>
+      <div className={styles.register}>
+         <div> יש לך כבר חשבון?<span onClick={navToLoginPage} className={styles.clickHere}>לחץ כאן</span></div>
+         </div>
     </div>
   )
 }
