@@ -12,7 +12,7 @@ const MultiSelect = ({
   errorMessage,
   isValid,
   selectRequired,
-  setSelectRequired
+  setSelectRequired,
 }) => {
   const [selectedOption, setSelectedOption] = useState({});
   const [validationMessage, setValidationMessage] = useState(!isValid);
@@ -20,7 +20,8 @@ const MultiSelect = ({
   useEffect(() => {
     if (selectedOption && selectedOption.value) {
       setValues({ ...values, [name]: selectedOption.value });
-      setSelectRequired(false)
+      sessionStorage.setItem("place", selectedOption.value);
+      setSelectRequired(false);
     }
     console.log(isValid);
   }, [selectedOption]);
@@ -31,14 +32,20 @@ const MultiSelect = ({
         blurInputOnSelect={true}
         isRtl={true}
         placeholder={placeholder}
+        defaultValue={{
+          label: sessionStorage.getItem("place"),
+          value: sessionStorage.getItem("place"),
+        }}
         isSearchable={true}
         isClearable={true}
         required={true}
         className={styles.submitted}
         onChange={setSelectedOption}
-        onBlur={()=>{setSelectRequired(true)}}
+        onBlur={() => {
+          setSelectRequired(true);
+        }}
       />
-      {!validationMessage && selectRequired&&(
+      {!validationMessage && selectRequired && (
         <span className={styles.errorMessage || validationMessage}>
           {errorMessage}
         </span>
