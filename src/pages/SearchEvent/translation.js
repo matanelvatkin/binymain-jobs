@@ -59,12 +59,12 @@ const locationsAreaLess = [
 "בית אל"
 ];
 
-const allLocations = Object.values(areaLocations).reduce((acc, locations) => {
-  return acc.concat(locations);
+const locations = Object.values(areaLocations).reduce((acc, location) => {
+  return acc.concat(location);
 }, locationsAreaLess).sort()
 
 const allAreas = Object.keys(areaLocations);
 
-const areaAndAllLocations = allAreas.concat(allLocations)
+const areaAndAllLocations = allAreas.concat(locations)
 
-export {allAreas, allLocations, areaAndAllLocations ,areaLocations, translation}
+export {allAreas, locations, areaAndAllLocations ,areaLocations, translation}
