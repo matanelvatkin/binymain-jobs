@@ -63,7 +63,7 @@ const locations = Object.values(areaLocations).reduce((acc, location) => {
   return acc.concat(location);
 }, locationsAreaLess).sort()
 
-const allAreas = Object.keys(areaLocations);
+const allAreas = Object.keys(areaLocations).sort();
 
 const areaAndAllLocations = allAreas.concat(locations)
 
