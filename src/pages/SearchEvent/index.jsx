@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import headerContext from "../../context/headerContext";
-import { locations, translation } from "./translation";
+import { allAreas, areaAndAllLocations,areaLocations, translation } from "./translation";
 import style from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
 import RoundButton from "../../components/RoundButton";
@@ -18,7 +18,7 @@ export default function SearchEvent({setSearch}) {
   const arrBtnDates = ["allDate","today","tomorrow","thisWeek"]
   const DefaultBtnDate = "allDate"
   const DefaultBtnDateObject= setDefaultBtnDateObject (arrBtnDates,DefaultBtnDate)
-  const arrayLocations = locations
+  const arrayLocations = areaAndAllLocations
   const locationPlaceholder = textShow.choseLocation
   
   const [btnDates, setBtnDates] = useState(DefaultBtnDateObject);
@@ -87,9 +87,12 @@ function handleSubmit(){
   let audiencesUpdate = createListIdSettingIsTrue (audiences)
   
   let locationUpdate = location
-   if (locationUpdate===textShow.choseLocation) {
+   if (location===textShow.choseLocation) {
     locationUpdate = ""
    }
+   else if(allAreas.includes(location)){
+    locationUpdate= areaLocations[location]
+  }
 
    let btnDatesUpdate;
    for (const key in btnDates) {
