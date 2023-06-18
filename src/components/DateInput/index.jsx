@@ -9,9 +9,10 @@ import DatePicker from "react-datepicker";
 export default function DateInput({ values, setValues = () => {}, ...props }) {
   const [datepicker, setdatepicker] = useState(false);
   const [selectDate, setSelectDate] = useState(
-    !sessionStorage.getItem("date")
-      ? new Date()
-      : sessionStorage.getItem("date")
+    // !sessionStorage.getItem("date")
+    // ?
+    new Date()
+    // : sessionStorage.getItem("date")
   );
   useEffect(() => {
     setValues({ ...values, date: selectDate });

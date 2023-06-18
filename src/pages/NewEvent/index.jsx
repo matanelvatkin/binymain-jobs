@@ -24,10 +24,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup, setNewEventPopup] = useState(false);
   const [isValid, setIsValid] = useState(true);
-  const [isInputFormValid, setIsTheFormValid] = useState(false);
+  const [isInputFormValid, setIsInputFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
   const [selectRequired, setSelectRequired] = useState(false);
   const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
+  const [submittedForDisableButton, setSubmittedForDisableButton] =
+    useState(false);
   // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
   const [timeValidationMessage, setTimeValidationMessage] = useState("");
@@ -41,10 +43,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setValues({ ...values, isFree: checked });
   };
 
-  const fileChangeHandler = (e) => {
-    setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    console.log(fileData);
-  };
+  // const fileChangeHandler = (e) => {
+  //   setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
+  //   console.log(fileData);
+  // };
   const nav = useNavigate();
   const placeData = locations.map((i) => {
     return { value: i, label: i };
@@ -100,9 +102,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     isRepeated: false,
     repeatType: "אירוע חד פעמי",
     personalRepeatType: "",
-    date: !sessionStorage.getItem("date")
-      ? new Date()
-      : sessionStorage.getItem("date"),
+    date: "",
     repeatSettingsType: "endDate",
     repeatSettingsRepeatEnd: undefined,
     beginningTime: !sessionStorage.getItem("beginningTime")
@@ -317,6 +317,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     e.preventDefault();
 
     setIsTheSubmitButtonPush(true);
+    setSubmittedForDisableButton(true);
+    console.log(submittedForDisableButton);
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
     values.date = beginDateUpdate(values.date, values.beginningTime);
     if (values.repeatSettingsRepeatEnd instanceof Date) {
@@ -392,6 +394,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       }).then((res) => {
         if (res._id != "") {
           setSaveEventMode(true);
+          sessionStorage.clear();
           setPopUpText(
             "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
           );
@@ -428,6 +431,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     sessionStorage.setItem(e.target.name, e.target.value);
+    setSubmittedForDisableButton(false);
 
     if (
       values.eventName &&
@@ -441,7 +445,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       values.cardImageURL &&
       values.coverImageURL
     ) {
-      setIsTheFormValid(true);
+      setIsInputFormValid(true);
       console.log({ isInputFormValid });
     }
 
@@ -468,6 +472,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     }
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
+    // const fileToStorage = JSON.stringify(e.target.files[0].name);
+    // console.log(fileToStorage);
+    // sessionStorage.setItem(e.target.name, fileToStorage);
   };
   // useEffect(() => {
   //   for (const key in values) {
@@ -495,31 +502,72 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       values.cardImageURL &&
       values.coverImageURL
     ) {
-      setIsTheFormValid(true);
+      setIsInputFormValid(true);
       console.log({ isInputFormValid });
     }
-  }, [isInputFormValid]);
+    // else {
+    //       if (!values.eventName) {
+    //         console.log(`${values.eventName} is invalid`);
+    //       }
+    //
+    //       if (!values.summary) {
+    //         console.log(`${values.summary} is invalid`);
+    //       }
+    //
+    //       if (!values.advertiserName) {
+    //         console.log(`${values.advertiserName} is invalid`);
+    //       }
+    //
+    //       if (!values.advertiserTel) {
+    //         console.log(`${values.advertiserTel} is invalid`);
+    //       }
+    //
+    //       if (!values.advertiserEmail) {
+    //         console.log(`${values.advertiserEmail} is invalid`);
+    //       }
+    //
+    //       if (!values.categories[0]) {
+    //         console.log(`${values.categories} is invalid`);
+    //       }
+    //
+    //       if (!values.audiences[0]) {
+    //         console.log(`${values.audiences} is invalid`);
+    //       }
+    //
+    //       if (!values.registrationPageURL) {
+    //         console.log(`${values.registrationPageURL} is invalid`);
+    //       }
+    //
+    //       if (!values.cardImageURL) {
+    //         console.log(`${values.cardImageURL} is invalid`);
+    //       }
+    //
+    //       if (!values.coverImageURL) {
+    //         console.log(`${values.coverImageURL} is invalid`);
+    //       }
+    //     }
+  }, [onChange]);
+
   function SubmitButton() {
-    return (
-      <div className={styles.button}>
-        <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
-      </div>
-    );
+    if (isInputFormValid && submittedForDisableButton) {
+      return (
+        <div className={styles.button}>
+          <ClassicButton
+            width={"200px"}
+            text={"פורסם, אנא המתן"}
+            type={"submit"}
+            disabled={true}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.button}>
+          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+        </div>
+      );
+    }
   }
-  // else {
-  //   return (
-  //     <div className={styles.button}>
-  //       <ClassicButton
-  //         width={"200px"}
-  //         text={"שמור"}
-  //         type={"submit"}
-  //         disabled={true}
-  //       />
-  //       <span className={styles.errorMessage}>נא למלא את כל השדות</span>
-  //     </div>
-  //   );
-  // }
-  // }
 
   return (
     <div
