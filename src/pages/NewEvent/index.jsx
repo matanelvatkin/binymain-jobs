@@ -554,7 +554,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         <div className={styles.button}>
           <ClassicButton
             width={"200px"}
-            text={"פורסם, אנא המתן"}
+            text={"נשלח לפרסום, אנא המתן"}
             type={"submit"}
             disabled={true}
           />
