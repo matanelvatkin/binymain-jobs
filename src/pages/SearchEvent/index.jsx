@@ -180,6 +180,7 @@ setSearch(
                 placeholder={location}
                 choossArray={arrayLocations}
                 func={setLocation}
+                style={{width:"95%"}}
                 icon="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
               />
             }
@@ -187,20 +188,55 @@ setSearch(
         </div>
 
         <div className={style.section}>
-          <span className={style.title}>{textShow.date}</span>
-          <div className={style.dateBtnSelection}>
-            {arrBtnDates.map(btnDate=>
-            <ClassicButton
-              width={100}
-              text={textShow[btnDate]}
-              isActive={btnDates[btnDate]}
-              name={btnDate}
-              key={btnDate}
-              func={clickDateBtn}
-              oppositeColor
-            /> )}
-          </div>
-        </div>
+  <span className={style.title}>{textShow.date}</span>
+  <div className={style.dateBtnSelection}>
+    <div className={style.allDateButton}>
+      <ClassicButton
+        width={"35%"}
+        text={textShow.allDate}
+        isActive={btnDates.allDate}
+        name="allDate"
+        key="allDate"
+        func={clickDateBtn}
+        border={"solid 1px #CCCCCC"}
+        oppositeColor
+      />
+    </div>
+    <div className={style.otherButtons}>
+    <ClassicButton
+        width= {'23%'} 
+        text={textShow[arrBtnDates[1]]}
+        isActive={btnDates[arrBtnDates[1]]}
+        name={arrBtnDates[1]}
+        key={arrBtnDates[1]}
+        func={clickDateBtn}
+        border={"solid 1px #CCCCCC"}
+        oppositeColor
+      />
+      <ClassicButton
+        width= {'35%'} 
+        text={textShow[arrBtnDates[2]]}
+        isActive={btnDates[arrBtnDates[2]]}
+        name={arrBtnDates[2]}
+        key={arrBtnDates[2]}
+        func={clickDateBtn}
+        border={"solid 1px #CCCCCC"}
+        oppositeColor
+      />
+      <ClassicButton
+        width= {'35%'} 
+        text={textShow[arrBtnDates[3]]}
+        isActive={btnDates[arrBtnDates[3]]}
+        name={arrBtnDates[3]}
+        key={arrBtnDates[3]}
+        func={clickDateBtn}
+        border={"solid 1px #CCCCCC"}
+        oppositeColor
+      />
+    </div>
+  </div>
+</div>
+
 
         <div className={style.footerBtn}>
           <ClassicButton

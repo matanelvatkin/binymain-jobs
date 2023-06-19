@@ -4,7 +4,14 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.main > span {
+ padding: 12px 0 0 0;
+ display: flex;
+ text-align: center;
+ align-items: center;
+ justify-content: center;
+ height: 50%;
+}
 .button, .active {
   display: flex;
   justify-content: center;
