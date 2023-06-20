@@ -1,0 +1,92 @@
+import styles from "./style.module.css";
+import React, {useState, useEffect } from "react";
+import Input from "../Input";
+import Customized from "../Customized"
+
+export default function RecurringEventPopup({setNewEventPopup, values, setValues, setReturnType,chooseRadio,setChooseRadio}){
+  // const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
+  const[custom,setCustom]= useState(false);  
+  
+  
+
+  const chooseRadioClick = (e) => {
+    setChooseRadio(e.target.value)
+    setReturnType(chooseRadio)
+    if(e.target.value=="בהתאמה אישית"){
+setCustom(true)
+    }
+    else if(e.target.value=="חד- פעמי"){
+      setTimeout(()=>{
+        setNewEventPopup(false)}, 400);
+        setValues({ ...values, isRepeated: false, repeatType: "disposable", personalRepeatType: ""});
+    }
+    else if(e.target.value=="מדי יום"){
+      setTimeout(()=>{
+        setNewEventPopup(false)}, 400);
+        setValues({ ...values, isRepeated: true, repeatType: "daily", personalRepeatType: ""});
+
+    }
+    else if(e.target.value=="מדי שבוע"){
+      setTimeout(()=>{
+        setNewEventPopup(false)}, 400);
+        setValues({ ...values, isRepeated: true, repeatType: "'weekly'", personalRepeatType: ""});
+
+    }
+
+
+
+  }
+
+useEffect(()=>{
+setReturnType(chooseRadio)
+}, [chooseRadio]
+)
+
+return(
+    <div className={styles.container} onClick={()=>setNewEventPopup(false)}>
+        <div className={styles.popup} onClick={(event) => event.stopPropagation()}>
+        <Input
+            label="חד- פעמי"
+            type="radio"
+            name="recurring"
+            value="חד- פעמי"
+            isChecked={chooseRadio==="חד- פעמי"}
+            onChange={chooseRadioClick}            
+          />   
+        <Input
+            label="מדי יום"
+            type="radio"
+            name="recurring"
+            value="מדי יום"
+            isChecked={chooseRadio==="מדי יום"}
+            onChange={chooseRadioClick}
+            
+          />
+         <Input
+            label="מדי שבוע"
+            type="radio"
+            name="recurring"
+            value="מדי שבוע"
+            isChecked={chooseRadio==="מדי שבוע"}
+            onChange={chooseRadioClick}
+          />
+     <Input
+            label="התאמה אישית..."
+            type="radio"
+            name="recurring"
+            value="בהתאמה אישית"
+            isChecked={chooseRadio==="בהתאמה אישית"}
+            onChange={chooseRadioClick}
+          />
+
+
+{custom&&
+<Customized value={values} setValues={setValues}/>}
+
+
+        </div>
+    </div>
+)
+
+
+}

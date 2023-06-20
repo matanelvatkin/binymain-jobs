@@ -12,7 +12,7 @@ import apiCalls from '../../function/apiCalls'
 
 function Registeretion() {
   const { setHeader } = useContext(headerContext)
-  setHeader('דף הרשמה')
+  setHeader(' הרשמה')
 
   const [userData, setUserData] = useState({})
 

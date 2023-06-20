@@ -13,12 +13,14 @@ import NoRepeatEvent from "../../components/NoRepeatEvent";
 import { FaShekelSign } from "react-icons/fa";
 import DateInput from "../../components/DateInput";
 import NewEventPopup from "../../components/NewEventPopup";
+import RecurringEventPopup from "../../components/RecurringEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
 import beginDateUpdate from "../../function/beginDateUpdate";
 import popUpContext from "../../context/popUpContext";
 import { locations } from "../SearchEvent/translation";
 import { timeValidation } from "./timeValidation";
 import MultiSelect from "../../components/MultiSelect";
+import {FiRotateCw} from 'react-icons/fi'
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -58,10 +60,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "אירוע שבועי",
     "בהתאמה אישית",
   ];
-
+const [returnType, setReturnType]= useState("חד פעמי")
+const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
-  const [constancy, setConstancy] = useState("אירוע חד פעמי");
+  const [constancy, setConstancy] = useState("חד פעמי");
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
@@ -98,13 +101,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     advertiserTel: sessionStorage.getItem("advertiserTel"),
     advertiserEmail: sessionStorage.getItem("advertiserEmail"),
     isRepeated: false,
-    repeatType: "אירוע חד פעמי",
+    repeatType: "חד פעמי",
     personalRepeatType: "",
     date: !sessionStorage.getItem("date")
       ? new Date()
       : sessionStorage.getItem("date"),
-    repeatSettingsType: "endDate",
-    repeatSettingsRepeatEnd: undefined,
+    // repeatSettingsType: "endDate",
+    // repeatSettingsRepeatEnd: undefined,
     beginningTime: !sessionStorage.getItem("beginningTime")
       ? "18:00"
       : sessionStorage.getItem("beginningTime"),
@@ -119,7 +122,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     audiences: [{}],
     isFree: true,
     price: "",
-    days: [],
+    days: [{}],
     cardImageURL: "",
     coverImageURL: "",
     gallery: [],
@@ -138,7 +141,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 2,
       name: "constancy",
-      type: constancy || "אירוע חד פעמי",
+      type: constancy || "חד פעמי",
     },
     {
       id: 3,
@@ -380,6 +383,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           },
           repeatSettings: {
             type: values.repeatSettingsType,
+            // repeatEnd: values.repeatSettingsRepeatEnd || values.date,
             repeatEnd: values.repeatSettingsRepeatEnd || values.date,
           },
         })
@@ -407,17 +411,17 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     else setTimeValidationOK(true);
   }, [timeValidationMessage]);
 
-  useEffect(() => {
-    setConstancy(values.repeatType);
-    setValues({
-      ...values,
-      repeatSettingsType: "endDate",
-      repeatSettingsRepeatEnd: undefined,
-      days: [],
-      personalRepeatType: undefined,
-      date: new Date(),
-    });
-  }, [values.repeatType]);
+  // useEffect(() => {
+  //   setConstancy(values.repeatType);
+  //   setValues({
+  //     ...values,
+  //     repeatSettingsType: "endDate",
+  //     repeatSettingsRepeatEnd: undefined,
+  //     days: [],
+  //     personalRepeatType: undefined,
+  //     date: new Date(),
+  //   });
+  // }, [values.repeatType]);
 
   useEffect(() => {
     setAudiences(() => [...settingContext.audiences]);
@@ -579,13 +583,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 />
               </div>
             );
-          } else if (input.type === "אירוע חד פעמי")
-            return (
-              <div className={styles.date}>
-                {" "}
-                <NoRepeatEvent values={values} setValues={setValues} />
-              </div>
-            );
+          } else if (input.type === "חד פעמי")
+          return (
+            <div className={styles.date}>
+              {" "}
+              <NoRepeatEvent values={values} setValues={setValues} />
+            </div>
+          );
           else if (input.type == "pTimeValidationOK")
             return (
               <p className={styles.errorMessage}>{timeValidationMessage}</p>
@@ -596,12 +600,16 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 className={styles.advanced}
                 onClick={() => setNewEventPopup(true)}
               >
-                <u>
+                {/* <u>
                   {" "}
                   {`${constancy} ${
-                    constancy !== "אירוע חד פעמי" ? formattedDate : ""
+                    constancy !== {returnType} ? formattedDate : ""
                   }`}
-                </u>
+                </u> */}
+                <div>
+                       <FiRotateCw/> {returnType}
+
+                </div>
               </div>
             );
           else if (input.type == "toogleSwitch")
@@ -630,12 +638,15 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         })}
 
         {newEventPopup && (
-          <NewEventPopup
+          <RecurringEventPopup
             setNewEventPopup={setNewEventPopup}
             values={values}
             setValues={setValues}
-            constancy={constancy}
-            setConstancy={setConstancy}
+            setReturnType={setReturnType}
+            chooseRadio={chooseRadio}
+            setChooseRadio={setChooseRadio}
+            // constancy={constancy}
+            // setConstancy={setConstancy}
           />
         )}
 
