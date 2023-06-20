@@ -19,6 +19,9 @@ import popUpContext from "../../context/popUpContext";
 import { locations } from "../SearchEvent/translation";
 import { timeValidation } from "./timeValidation";
 import MultiSelect from "../../components/MultiSelect";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -133,6 +136,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       // label: "שם האירוע",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "שם האירוע",
+      className: "form-control",
       required: true,
     },
     {
@@ -156,6 +160,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       label: "מקום",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "בחר מיקום",
+      className: "form-control",
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
@@ -165,6 +170,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "text",
       errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "מיקום מדויק או כתובת",
+      className: "form-control",
       required: true,
     },
     {
@@ -174,6 +180,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       label: "מתי האירוע מתחיל?",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "זמן התחלה",
+      className: "form-control",
       required: true,
     },
     {
@@ -188,6 +195,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       label: "מתי האירוע מסתיים?",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "זמן סיום",
+      className: "form-control",
       required: true,
     },
     {
@@ -197,6 +205,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       label: "עלות",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "עלות",
+      className: "form-control",
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
     },
@@ -241,6 +250,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       // label: "תקציר",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "תיאור האירוע",
+      className: "form-control",
       required: true,
     },
     {
@@ -250,6 +260,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       // label: "דף הרשמה לאירוע",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: " לינק להרשמה/כרטיסים לאירוע",
+      className: "form-control",
       required: true,
     },
     {
@@ -260,6 +271,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       instructions: "*מומלץ להעלות תמונה מרובעת 1:1",
       label: "תמונת אירוע",
       accept: "image/*",
+      className: "form-control",
       required: true,
     },
     {
@@ -267,6 +279,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "coverImageURL",
       type: "file",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
+      className: "form-control",
       instructions: "*מומלץ להעלות תמונה מלבנית 16:9",
 
       label: "תמונת כיסוי",
@@ -288,6 +301,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "text",
       // label: "שם המפרסם",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
+      className: "form-control",
       placeholder: "שם המפרסם",
       required: true,
     },
@@ -297,6 +311,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "tel",
       // label: "טלפון",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
+      className: "form-control",
       placeholder: "טלפון",
       required: true,
       pattern: "^[0-9]{8,15}$",
@@ -307,6 +322,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "email",
       // label: "מייל",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
+      className: "form-control",
       placeholder: "מייל",
       required: true,
     },
