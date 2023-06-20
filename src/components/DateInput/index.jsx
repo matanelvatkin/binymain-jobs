@@ -6,10 +6,13 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 
 // creator: Hadar Naiman
-export default function DateInput({ values, setValues = () => {} ,  ...props }) {
+export default function DateInput({ values, setValues = () => {}, ...props }) {
   const [datepicker, setdatepicker] = useState(false);
   const [selectDate, setSelectDate] = useState(
-    props.val ? props.val : new Date()
+    // !sessionStorage.getItem("date")
+    // ?
+    new Date()
+    // : sessionStorage.getItem("date")
   );
   useEffect(() => {
     setValues({ ...values, date: selectDate });
@@ -17,6 +20,7 @@ export default function DateInput({ values, setValues = () => {} ,  ...props }) 
 
   function dateSelectHandle(date) {
     setSelectDate(() => date);
+    sessionStorage.setItem("date", date);
     setdatepicker(!datepicker);
     if (typeof props.func === "function") props.func(date);
   }

@@ -12,9 +12,10 @@ export default function EmptySearch() {
     }
 
   return (
-    <div>
-        <img src={"../../../public/Group33596.png"} alt="" />
-        <span>{translaiton.weCouldentFindWhatYouSearched}</span>
+    <div className= {style.container} dir="rtl">
+        <img src={"/Group33596.png"} alt="" className= {style.img}/>
+        <span className= {style.weCouldentFindWhatYouSearched} > {translaiton.weCouldentFindWhatYouSearched}</span>
+        <span className= {style.tryAgain} > {translaiton.tryAgain}</span>
         {/* <ClassicButton text={translaiton.tryAgain} width={260} func={handleClick} /> */}
     </div>
   )

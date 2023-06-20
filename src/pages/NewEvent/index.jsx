@@ -18,14 +18,18 @@ import beginDateUpdate from "../../function/beginDateUpdate";
 import popUpContext from "../../context/popUpContext";
 import { locations } from "../SearchEvent/translation";
 import { timeValidation } from "./timeValidation";
+import MultiSelect from "../../components/MultiSelect";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup, setNewEventPopup] = useState(false);
   const [isValid, setIsValid] = useState(true);
-  const [isInputFormValid, setIsTheFormValid] = useState(false);
+  const [isInputFormValid, setIsInputFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [selectRequired, setSelectRequired] = useState(false);
   const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
+  const [submittedForDisableButton, setSubmittedForDisableButton] =
+    useState(false);
   // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
   const [timeValidationMessage, setTimeValidationMessage] = useState("");
@@ -39,13 +43,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setValues({ ...values, isFree: checked });
   };
 
-  const fileChangeHandler = (e) => {
-    setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    console.log(fileData);
-  };
+  // const fileChangeHandler = (e) => {
+  //   setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
+  //   console.log(fileData);
+  // };
   const nav = useNavigate();
-  const placeData = locations;
-
+  const placeData = locations.map((i) => {
+    return { value: i, label: i };
+  });
   const [loading, setLoading] = useState(true);
 
   const paymentData = ["בתשלום", "בחינם"];
@@ -62,23 +67,54 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
+  // const [values, setValues] = useState({
+  //   eventName: sessionStorage.getItem("eventName"),
+  //   summary: sessionStorage.getItem("summary"),
+  //   advertiserName: sessionStorage.getItem("advertiserName"),
+  //   advertiserTel: sessionStorage.getItem("advertiserTel"),
+  //   advertiserEmail: sessionStorage.getItem("advertiserEmail"),
+  //   isRepeated: false,
+  //   repeatType: "אירוע חד פעמי",
+  //   personalRepeatType: "",
+  //   date: new Date(),
+  //   repeatSettingsType: "endDate",
+  //   repeatSettingsRepeatEnd: undefined,
+  //   beginningTime: "18:00",
+  //   finishTime: "20:00",
+  //   place: sessionStorage.getItem("place"),
+  //   accuratelocation: sessionStorage.getItem("accuratelocation"),
+  //   registrationPageURL: sessionStorage.getItem("registrationPageURL"),
+  //   categories: [{}],
+  //   audiences: [{}],
+  //   isFree: true,
+  //   price: sessionStorage.getItem("price"),
+  //   days: [],
+  //   cardImageURL: sessionStorage.getItem("cardImageURL"),
+  //   coverImageURL: sessionStorage.getItem("coverImageURL"),
+  //   gallery: [],
+  // });
   const [values, setValues] = useState({
-    eventName: "",
-    summary: "",
-    advertiserName: "",
-    advertiserTel: "",
-    advertiserEmail: "",
+    eventName: sessionStorage.getItem("eventName"),
+    summary: sessionStorage.getItem("eventName"),
+    advertiserName: sessionStorage.getItem("advertiserName"),
+    advertiserTel: sessionStorage.getItem("advertiserTel"),
+    advertiserEmail: sessionStorage.getItem("advertiserEmail"),
     isRepeated: false,
     repeatType: "אירוע חד פעמי",
     personalRepeatType: "",
-    date: new Date(),
+    date: "",
     repeatSettingsType: "endDate",
     repeatSettingsRepeatEnd: undefined,
-    beginningTime: "18:00",
-    finishTime: "20:00",
-    place: "",
-    accuratelocation: "",
-    registrationPageURL: "",
+    beginningTime: !sessionStorage.getItem("beginningTime")
+      ? "18:00"
+      : sessionStorage.getItem("beginningTime"),
+    finishTime: !sessionStorage.getItem("finishTime")
+      ? "20:00"
+      : sessionStorage.getItem("finishTime"),
+
+    place: sessionStorage.getItem("place"),
+    accuratelocation: sessionStorage.getItem("accuratelocation"),
+    registrationPageURL: sessionStorage.getItem("registrationPageURL"),
     categories: [{}],
     audiences: [{}],
     isFree: true,
@@ -281,6 +317,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     e.preventDefault();
 
     setIsTheSubmitButtonPush(true);
+    setSubmittedForDisableButton(true);
+    console.log(submittedForDisableButton);
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
     values.date = beginDateUpdate(values.date, values.beginningTime);
     if (values.repeatSettingsRepeatEnd instanceof Date) {
@@ -295,6 +333,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     //   categoriesInvalid?.focus();
     // }
     setIsValid(formElement.checkValidity());
+    if (!values.place) setSelectRequired(true);
     formElement.classList.add(styles.submitted);
     const firstInvalidField = formElement.querySelector(":invalid");
     firstInvalidField?.focus();
@@ -355,6 +394,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       }).then((res) => {
         if (res._id != "") {
           setSaveEventMode(true);
+          sessionStorage.clear();
           setPopUpText(
             "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
           );
@@ -386,10 +426,13 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setAudiences(() => [...settingContext.audiences]);
     setCategories(() => [...settingContext.categories]);
   }, [settingContext.audiences, settingContext.categories]);
-  useEffect(() => {}, [values]);
+  // useEffect(() => {}, [values]);
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    sessionStorage.setItem(e.target.name, e.target.value);
+    setSubmittedForDisableButton(false);
+
     if (
       values.eventName &&
       values.summary &&
@@ -402,9 +445,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       values.cardImageURL &&
       values.coverImageURL
     ) {
-      setIsTheFormValid(true);
+      setIsInputFormValid(true);
       console.log({ isInputFormValid });
     }
+
     //if the targeted input is the beginningTime or finishingTime then- we make a validation check.
 
     if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
@@ -428,8 +472,16 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     }
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
+    // const fileToStorage = JSON.stringify(e.target.files[0].name);
+    // console.log(fileToStorage);
+    // sessionStorage.setItem(e.target.name, fileToStorage);
   };
-
+  // useEffect(() => {
+  //   for (const key in values) {
+  //     setValues({ ...values, [key]: sessionStorage.getItem([key]) });
+  //     console.log(values);
+  //   }
+  // }, [values]);
   const formattedDate = new Date(values.date).toLocaleDateString("he-IL", {
     weekday: "long",
     // day: 'numeric',
@@ -450,31 +502,72 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       values.cardImageURL &&
       values.coverImageURL
     ) {
-      setIsTheFormValid(true);
+      setIsInputFormValid(true);
       console.log({ isInputFormValid });
     }
-  }, [isInputFormValid]);
+    // else {
+    //       if (!values.eventName) {
+    //         console.log(`${values.eventName} is invalid`);
+    //       }
+    //
+    //       if (!values.summary) {
+    //         console.log(`${values.summary} is invalid`);
+    //       }
+    //
+    //       if (!values.advertiserName) {
+    //         console.log(`${values.advertiserName} is invalid`);
+    //       }
+    //
+    //       if (!values.advertiserTel) {
+    //         console.log(`${values.advertiserTel} is invalid`);
+    //       }
+    //
+    //       if (!values.advertiserEmail) {
+    //         console.log(`${values.advertiserEmail} is invalid`);
+    //       }
+    //
+    //       if (!values.categories[0]) {
+    //         console.log(`${values.categories} is invalid`);
+    //       }
+    //
+    //       if (!values.audiences[0]) {
+    //         console.log(`${values.audiences} is invalid`);
+    //       }
+    //
+    //       if (!values.registrationPageURL) {
+    //         console.log(`${values.registrationPageURL} is invalid`);
+    //       }
+    //
+    //       if (!values.cardImageURL) {
+    //         console.log(`${values.cardImageURL} is invalid`);
+    //       }
+    //
+    //       if (!values.coverImageURL) {
+    //         console.log(`${values.coverImageURL} is invalid`);
+    //       }
+    //     }
+  }, [onChange]);
+
   function SubmitButton() {
-    return (
-      <div className={styles.button}>
-        <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
-      </div>
-    );
+    if (isInputFormValid && submittedForDisableButton) {
+      return (
+        <div className={styles.button}>
+          <ClassicButton
+            width={"200px"}
+            text={"נשלח לפרסום, אנא המתן"}
+            type={"submit"}
+            disabled={true}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.button}>
+          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+        </div>
+      );
+    }
   }
-  // else {
-  //   return (
-  //     <div className={styles.button}>
-  //       <ClassicButton
-  //         width={"200px"}
-  //         text={"שמור"}
-  //         type={"submit"}
-  //         disabled={true}
-  //       />
-  //       <span className={styles.errorMessage}>נא למלא את כל השדות</span>
-  //     </div>
-  //   );
-  // }
-  // }
 
   return (
     <div
@@ -495,7 +588,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         {inputs.map((input) => {
           if (input.type === "select")
             return (
-              <SelectInput
+              <MultiSelect
                 errorMessage={input.errorMessage}
                 key={input.id}
                 placeholder={input.placeholder}
@@ -504,9 +597,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 values={values}
                 setValues={setValues}
                 isValid={isValid}
+                selectRequired={selectRequired}
+                setSelectRequired={setSelectRequired}
                 isTheSubmitButtonPush={isTheSubmitButtonPush}
                 setIsTheSubmitButtonPush={setIsTheSubmitButtonPush}
-                choossArray={input.name === "repeatType" ? typeData : placeData}
+                options={input.name === "repeatType" ? typeData : placeData}
                 {...input}
               />
             );
@@ -532,24 +627,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 />
               </div>
             );
-          } else if (input.type === "select")
-            return (
-              <Select
-                {...input}
-                errorMessage={input.errorMessage}
-                key={input.id}
-                placeholder={input.placeholder}
-                value={values[input.name]}
-                name={input.name}
-                values={values}
-                setValues={setValues}
-                isValid={isValid}
-                choossArray={
-                  input.name === "repeatType" ? typeData : paymentData
-                }
-              />
-            );
-          else if (input.type === "אירוע חד פעמי")
+          } else if (input.type === "אירוע חד פעמי")
             return (
               <div className={styles.date}>
                 {" "}
