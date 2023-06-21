@@ -81,7 +81,7 @@ function Main() {
         <Route path="/test" element={<Test />} />
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/newNewEvent" element={<NewNewEvent />} />
-        {user && <Route path="/newEvent" element={<NewEvent />} />}
+        {localStorage.Token && <Route path="/newEvent" element={<NewEvent />} />}
       </Routes>
     </main>
   );

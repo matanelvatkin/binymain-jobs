@@ -1,6 +1,10 @@
 .content {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     direction: rtl;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
 .title {
@@ -24,16 +28,31 @@
 
 .dateBtnSelection {
     display: flex;
+    flex-direction: column;
+}
+
+.allDateButton{
+    padding-right: 7px;
+}
+
+.otherButtons{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 7px 0 7px;
+    margin-top: 7px;
 }
 
 .categories {
-    display: flex;}
+    display: flex;
+    justify-content: space-around;
+}
 
 .categories div {
-    margin-top: 1.5%;
+    flex-basis: 0;
+  flex-grow: 1;
+    /* margin-top: 1.5%;
     margin-right: 2%;
-    margin-left: -5px;
-
+    margin-left: -5px; */
 }
 
 .location {
@@ -44,14 +63,19 @@
 
 .audiences {
     display: flex;
+    justify-content: space-around;
+
 }
 
 .audiences div {
-    margin-top: 1.5%;
+    flex-basis: 0;
+    flex-grow: 1;
+    /* margin-top: 1.5%;
     margin-right: 2%;
-    margin-left: -5px;
+    margin-left: -5px; */
 }
 
 .section {
     margin-top: 4%;
+    margin-bottom: 4%;
 }
