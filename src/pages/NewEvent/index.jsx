@@ -19,9 +19,8 @@ import popUpContext from "../../context/popUpContext";
 import { locations } from "../SearchEvent/translation";
 import { timeValidation } from "./timeValidation";
 import MultiSelect from "../../components/MultiSelect";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -46,10 +45,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setValues({ ...values, isFree: checked });
   };
 
-  // const fileChangeHandler = (e) => {
-  //   setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-  //   console.log(fileData);
-  // };
   const nav = useNavigate();
   const placeData = locations.map((i) => {
     return { value: i, label: i };
@@ -334,7 +329,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
     setIsTheSubmitButtonPush(true);
     setSubmittedForDisableButton(true);
-    console.log(submittedForDisableButton);
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
     values.date = beginDateUpdate(values.date, values.beginningTime);
     if (values.repeatSettingsRepeatEnd instanceof Date) {
@@ -344,10 +338,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       );
     }
     const formElement = e.target;
-    // if (values.categories[0] === null) {
-    //   const categoriesInvalid = formElement.querySelector("categories");
-    //   categoriesInvalid?.focus();
-    // }
+    console.log(formElement.checkValidity());
     setIsValid(formElement.checkValidity());
     if (!values.place) setSelectRequired(true);
     formElement.classList.add(styles.submitted);
@@ -366,7 +357,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         } else {
           formData.append(key, fileData[key]);
         }
-        console.log("fileData", fileData);
       }
       formData.append(
         "values",
@@ -459,7 +449,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       values.audiences[0] &&
       values.registrationPageURL &&
       values.cardImageURL &&
-      values.coverImageURL
+      values.coverImageURL &&
+      isValid
     ) {
       setIsInputFormValid(true);
       console.log({ isInputFormValid });
@@ -488,16 +479,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     }
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    // const fileToStorage = JSON.stringify(e.target.files[0].name);
-    // console.log(fileToStorage);
-    // sessionStorage.setItem(e.target.name, fileToStorage);
   };
-  // useEffect(() => {
-  //   for (const key in values) {
-  //     setValues({ ...values, [key]: sessionStorage.getItem([key]) });
-  //     console.log(values);
-  //   }
-  // }, [values]);
   const formattedDate = new Date(values.date).toLocaleDateString("he-IL", {
     weekday: "long",
     // day: 'numeric',
@@ -516,52 +498,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       values.audiences[0] &&
       values.registrationPageURL &&
       values.cardImageURL &&
-      values.coverImageURL
+      values.coverImageURL &&
+      isValid
     ) {
       setIsInputFormValid(true);
       console.log({ isInputFormValid });
     }
-    // else {
-    //       if (!values.eventName) {
-    //         console.log(`${values.eventName} is invalid`);
-    //       }
-    //
-    //       if (!values.summary) {
-    //         console.log(`${values.summary} is invalid`);
-    //       }
-    //
-    //       if (!values.advertiserName) {
-    //         console.log(`${values.advertiserName} is invalid`);
-    //       }
-    //
-    //       if (!values.advertiserTel) {
-    //         console.log(`${values.advertiserTel} is invalid`);
-    //       }
-    //
-    //       if (!values.advertiserEmail) {
-    //         console.log(`${values.advertiserEmail} is invalid`);
-    //       }
-    //
-    //       if (!values.categories[0]) {
-    //         console.log(`${values.categories} is invalid`);
-    //       }
-    //
-    //       if (!values.audiences[0]) {
-    //         console.log(`${values.audiences} is invalid`);
-    //       }
-    //
-    //       if (!values.registrationPageURL) {
-    //         console.log(`${values.registrationPageURL} is invalid`);
-    //       }
-    //
-    //       if (!values.cardImageURL) {
-    //         console.log(`${values.cardImageURL} is invalid`);
-    //       }
-    //
-    //       if (!values.coverImageURL) {
-    //         console.log(`${values.coverImageURL} is invalid`);
-    //       }
-    //     }
   }, [onChange]);
 
   function SubmitButton() {
