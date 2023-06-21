@@ -95,7 +95,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   // });
   const [values, setValues] = useState({
     eventName: sessionStorage.getItem("eventName"),
-    summary: sessionStorage.getItem("eventName"),
+    summary: sessionStorage.getItem("summary"),
     advertiserName: sessionStorage.getItem("advertiserName"),
     advertiserTel: sessionStorage.getItem("advertiserTel"),
     advertiserEmail: sessionStorage.getItem("advertiserEmail"),
