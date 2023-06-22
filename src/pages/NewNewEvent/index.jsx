@@ -10,11 +10,15 @@ import style from "./style.module.css";
 
 const NewNewEvent = () => {
 
+  // variables for the categories and audiences
+
   const settingContext = useContext(settingsContext);
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
 
+  // this useEffect sets the Audiences and the Categories
+  
   useEffect(() => {
     if (settingContext.categories && settingContext.audiences) {
       setAudiences(settingContext.audiences);
@@ -23,9 +27,12 @@ const NewNewEvent = () => {
     }
   }, [settingContext.audiences, settingContext.categories]);
 
+  //setting the header
+  
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
 
+  //this function 
   function clickCategory(e) {
     setCategories((prev) =>
       prev.map((v, i) =>
@@ -44,24 +51,42 @@ const NewNewEvent = () => {
     );
   }
 
-  function applyFormValidation() {
-    const forms = document.querySelectorAll('.needs-validation');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target.elements);
+    
+    //Get the form values
+    const eventName = e.target.elements[eventName].value;
+  const eventDate = e.target.elements[eventDate].value;
+  const place = e.target.elements[place].value;
+  const specificPlace = e.target.elements[specificPlace].value;
+  const beginningTime = e.target.elements[beginningTime].value;
+  const finishTime = e.target.elements[finishTime].value;
+  const isFree = e.target.elements[isFree].checked;
+  const summary = e.target.elements[summary].value;
+  const registrationPageURL = e.target.elements[registrationPageURL].value;
+  const cardImageURL = e.target.elements[cardImageURL].files[0];
+  const coverImageURL = e.target.elements[coverImageURL].files[0];
+  const advertiserName = e.target.elements[advertiserName].value;
+  const advertiserTel = e.target.elements[advertiserTel].value;
+  const advertiserEmail = e.target.elements[advertiserEmail].value;
   
-    Array.from(forms).forEach(form => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
+// Create an object with the form data
+const formData = {
   
-        form.classList.add('was-validated');
-      }, false);
-    });
+  
+};
+
+// Perform any validation or data processing here
+
+// Submit the form data to the server or perform any desired actions
+console.log(formData);
+
+// Reset the form
+e.target.reset();
+
   }
-  useEffect(() => {
-    applyFormValidation();
-  }, []);  
-  
+
   return <div className={style.content} dir="rtl">
   <br/>
   <div class="fs-5 fw-bold">
@@ -69,42 +94,42 @@ const NewNewEvent = () => {
       </div>
       <br/>  
    
-   <form class="needs-validation" novalidate>
+   <form onSubmit={handleSubmit}>
   
   <div class="mb-3">
     <label class="form-label">שם האירוע</label>
-    <input class="form-control"></input>
+    <input class="form-control" name="eventName"></input>
   </div>
   
   <div class="mb-3">
-  <label for="exampleInputEmail1" class="form-label">מתי האירוע מתקיים?</label>
-    <input class="form-control" type="date" id="exampleInputEmail1" placeholder='תאריך האירוע'></input>
+  <label class="form-label">מתי האירוע מתקיים?</label>
+    <input class="form-control" type="date" name="eventDate" placeholder='תאריך האירוע'></input>
   </div>
   <div class="mb-3">
-  <label for="exampleInputEmail1" class="form-label">בחר מיקום</label>
-  <select class="form-select mb-2" aria-label="Default select example" id="location">
+  <label class="form-label">בחר מיקום</label>
+  <select class="form-select mb-2" id="location" name="place">
     <option selected>שער בנימין</option>
     {locations.map((v)=> <option value={v}>{v}</option>)}
-  </select>
+  </select>         
 </div>
   <div class="mb-3">
-  <label class="form-label">הזן מיקום מדויק או כתובת</label>
+  <label class="form-label" name="specificPlace">הזן מיקום מדויק או כתובת</label>
     <input class="form-control"></input>
   </div>
 
   <div class="mb-3">
   <label class="form-label">מתי האירוע יתחיל?</label>
-    <input class="form-control" type="time" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='מיקום מדויק או כתובת'></input>
+    <input class="form-control" type="time" name="beginningTime"></input>
   </div>
 
   <div class="mb-3">
   <label class="form-label">מתי האירוע יסתיים?</label>
-    <input class="form-control" type="time" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='מיקום מדויק או כתובת'></input>
+    <input class="form-control" type="time" name="finishTime"></input>
   </div>
 
   <div class="form-check form-switch">
   <input class="form-check-input"  style={{ float: 'right' }} type="checkbox"></input>
-  <label class="form-check-label">כניסה בתשלום</label>
+  <label class="form-check-label" name="isFree">כניסה בתשלום</label>
 </div>
 
 <div className={style.section}>
@@ -146,38 +171,38 @@ const NewNewEvent = () => {
         </div>
 <br/>
 <div class="form-group">
-    <label for="exampleFormControlTextarea1">קצת פרטים על האירוע...</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <label class="form-label">קצת פרטים על האירוע...</label>
+    <textarea class="form-control" rows="3" name="summary"></textarea>
   </div>
 <br/>
   <div class="mb-3">
   <label class="form-label">לינק להרשמה / לפרטים נוספים</label>
-    <input class="form-control"></input>
+    <input class="form-control" name="regisrationPageURL"></input>
   </div>
 
 
 <div class="mb-3">
-  <label for="formFile" class="form-label">תמונה ראשית</label>
-  <input class="form-control" type="file" id="formFile"></input>
+  <label class="form-label">תמונה ראשית</label>
+  <input class="form-control" type="file" name="cardImageURL"></input>
   <div class="form-text">יש להעלות תמונה מרובעת ביחס 1:1</div>
 </div>
 <div class="mb-3">
-  <label for="formFileMultiple" class="form-label">תמונת נושא</label>
-  <input class="form-control" type="file" id="formFile"></input>
+  <label class="form-label">תמונת נושא</label>
+  <input class="form-control" type="file" name="coverImageURL"></input>
   <div class="form-text">יש להעלות תמונה לרוחב ביחס 16:9</div>
 </div>
 
 <div class="mb-3">
     <label class="form-label">שם המפרסם</label>
-    <input class="form-control" aria-describedby="emailHelp"></input>
+    <input class="form-control" name="advertiserName"></input>
   </div>
   <div class="mb-3">
     <label class="form-label">טלפון</label>
-    <input class="form-control" aria-describedby="emailHelp"></input>
+    <input class="form-control" name="advertiserTel"></input>
   </div>
   <div class="mb-3">
     <label class="form-label">מייל</label>
-    <input class="form-control" aria-describedby="emailHelp"></input>
+    <input class="form-control" name="advertiserEmail"></input>
   </div>
 
 <div class="d-grid gap-2">
@@ -185,8 +210,6 @@ const NewNewEvent = () => {
   </div>
   
 </form>
-
-
   </div>;
 };
 

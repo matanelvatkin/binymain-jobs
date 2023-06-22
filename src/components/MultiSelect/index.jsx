@@ -33,12 +33,12 @@ const MultiSelect = ({
         isRtl={true}
         placeholder={placeholder}
         defaultValue={
-          sessionStorage.getItem("place") != 0
+          sessionStorage.getItem("place") != null
             ? {
                 label: sessionStorage.getItem("place"),
                 value: sessionStorage.getItem("place"),
               }
-            : { label: placeholder, value: "" }
+            : { label: placeholder, value: `${placeholder}` }
         }
         isSearchable={true}
         isClearable={true}
