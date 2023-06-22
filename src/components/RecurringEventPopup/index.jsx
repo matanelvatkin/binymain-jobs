@@ -18,29 +18,37 @@ setCustom(true)
     else if(e.target.value=="חד- פעמי"){
       setTimeout(()=>{
         setNewEventPopup(false)}, 400);
+        console.log("חד פעמי")
         setValues({ ...values, isRepeated: false, repeatType: "disposable", personalRepeatType: ""});
     }
     else if(e.target.value=="מדי יום"){
       setTimeout(()=>{
         setNewEventPopup(false)}, 400);
+        // setValues({ ...values, isRepeated: true, repeatType: "daily", personalRepeatType: "", repeatSettingsRepeatEnd:endDefaultDate(values.date)});
         setValues({ ...values, isRepeated: true, repeatType: "daily", personalRepeatType: ""});
+
 
     }
     else if(e.target.value=="מדי שבוע"){
       setTimeout(()=>{
         setNewEventPopup(false)}, 400);
-        setValues({ ...values, isRepeated: true, repeatType: "'weekly'", personalRepeatType: ""});
+        // setValues({ ...values, isRepeated: true, repeatType: "weekly", personalRepeatType: "", repeatSettingsRepeatEnd:endDefaultDate(values.date)});
+        setValues({ ...values, isRepeated: true, repeatType: "weekly"});
+
 
     }
-
-
-
   }
 
 useEffect(()=>{
 setReturnType(chooseRadio)
 }, [chooseRadio]
 )
+
+function endDefaultDate(date){
+  const endDate=new Date(date.getFullYear(), date.getMonth() + 1, date.getDate()-1);
+  return endDate
+}
+
 
 return(
     <div className={styles.container} onClick={()=>setNewEventPopup(false)}>

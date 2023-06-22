@@ -32,10 +32,14 @@ const MultiSelect = ({
         blurInputOnSelect={true}
         isRtl={true}
         placeholder={placeholder}
-        defaultValue={{
-          label: sessionStorage.getItem("place"),
-          value: sessionStorage.getItem("place"),
-        }}
+        defaultValue={
+          sessionStorage.getItem("place") != 0
+            ? {
+                label: sessionStorage.getItem("place"),
+                value: sessionStorage.getItem("place"),
+              }
+            : { label: placeholder, value: "" }
+        }
         isSearchable={true}
         isClearable={true}
         required={true}

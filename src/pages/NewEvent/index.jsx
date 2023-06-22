@@ -26,10 +26,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
   const [newEventPopup, setNewEventPopup] = useState(false);
   const [isValid, setIsValid] = useState(true);
-  const [isInputFormValid, setIsTheFormValid] = useState(false);
+  const [isInputFormValid, setIsInputFormValid] = useState(false);
   const [checked, setChecked] = useState(false);
   const [selectRequired, setSelectRequired] = useState(false);
   const [isTheSubmitButtonPush, setIsTheSubmitButtonPush] = useState(false);
+  const [submittedForDisableButton, setSubmittedForDisableButton] =
+    useState(false);
   // if the timeValidationOK is true, then the times are correct - the finish time is bigger than the beginning time, and the event is at least 1 hour.
   const [timeValidationOK, setTimeValidationOK] = useState(true);
   const [timeValidationMessage, setTimeValidationMessage] = useState("");
@@ -43,10 +45,10 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setValues({ ...values, isFree: checked });
   };
 
-  const fileChangeHandler = (e) => {
-    setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    console.log(fileData);
-  };
+  // const fileChangeHandler = (e) => {
+  //   setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
+  //   console.log(fileData);
+  // };
   const nav = useNavigate();
   const placeData = locations.map((i) => {
     return { value: i, label: i };
@@ -101,13 +103,11 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     advertiserTel: sessionStorage.getItem("advertiserTel"),
     advertiserEmail: sessionStorage.getItem("advertiserEmail"),
     isRepeated: false,
-    repeatType: "חד פעמי",
+    repeatType: "disposable",
     personalRepeatType: "",
-    date: !sessionStorage.getItem("date")
-      ? new Date()
-      : sessionStorage.getItem("date"),
-    // repeatSettingsType: "endDate",
-    // repeatSettingsRepeatEnd: undefined,
+    date: [],
+    repeatSettingsEnd: "endDate",
+    repeatSettingsRepeatEnd: undefined,
     beginningTime: !sessionStorage.getItem("beginningTime")
       ? "18:00"
       : sessionStorage.getItem("beginningTime"),
@@ -320,6 +320,8 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     e.preventDefault();
 
     setIsTheSubmitButtonPush(true);
+    setSubmittedForDisableButton(true);
+    console.log(submittedForDisableButton);
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
     values.date = beginDateUpdate(values.date, values.beginningTime);
     if (values.repeatSettingsRepeatEnd instanceof Date) {
@@ -377,13 +379,12 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
           gallery: values.gallery,
           repeatType: values.repeatType,
           personalRepeat: values.personalRepeatType,
-          isReapeated: values.repeatType !== "אירוע ללא חזרה",
+          isReapeated: values.isRepeated,
           payment: {
             isFree: values.isFree,
           },
-          repeatSettings: {
-            type: values.repeatSettingsType,
-            // repeatEnd: values.repeatSettingsRepeatEnd || values.date,
+          repeatSettingsPersonal: {
+            type: values.repeatSettingsEnd,
             repeatEnd: values.repeatSettingsRepeatEnd || values.date,
           },
         })
@@ -396,6 +397,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       }).then((res) => {
         if (res._id != "") {
           setSaveEventMode(true);
+          // sessionStorage.clear();
           setPopUpText(
             "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
           );
@@ -432,6 +434,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     sessionStorage.setItem(e.target.name, e.target.value);
+    setSubmittedForDisableButton(false);
 
     if (
       values.eventName &&
@@ -445,7 +448,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       values.cardImageURL &&
       values.coverImageURL
     ) {
-      setIsTheFormValid(true);
+      setIsInputFormValid(true);
       console.log({ isInputFormValid });
     }
 
@@ -472,6 +475,9 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     }
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
+    // const fileToStorage = JSON.stringify(e.target.files[0].name);
+    // console.log(fileToStorage);
+    // sessionStorage.setItem(e.target.name, fileToStorage);
   };
   // useEffect(() => {
   //   for (const key in values) {
@@ -499,31 +505,72 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       values.cardImageURL &&
       values.coverImageURL
     ) {
-      setIsTheFormValid(true);
+      setIsInputFormValid(true);
       console.log({ isInputFormValid });
     }
-  }, [isInputFormValid]);
+    // else {
+    //       if (!values.eventName) {
+    //         console.log(`${values.eventName} is invalid`);
+    //       }
+    //
+    //       if (!values.summary) {
+    //         console.log(`${values.summary} is invalid`);
+    //       }
+    //
+    //       if (!values.advertiserName) {
+    //         console.log(`${values.advertiserName} is invalid`);
+    //       }
+    //
+    //       if (!values.advertiserTel) {
+    //         console.log(`${values.advertiserTel} is invalid`);
+    //       }
+    //
+    //       if (!values.advertiserEmail) {
+    //         console.log(`${values.advertiserEmail} is invalid`);
+    //       }
+    //
+    //       if (!values.categories[0]) {
+    //         console.log(`${values.categories} is invalid`);
+    //       }
+    //
+    //       if (!values.audiences[0]) {
+    //         console.log(`${values.audiences} is invalid`);
+    //       }
+    //
+    //       if (!values.registrationPageURL) {
+    //         console.log(`${values.registrationPageURL} is invalid`);
+    //       }
+    //
+    //       if (!values.cardImageURL) {
+    //         console.log(`${values.cardImageURL} is invalid`);
+    //       }
+    //
+    //       if (!values.coverImageURL) {
+    //         console.log(`${values.coverImageURL} is invalid`);
+    //       }
+    //     }
+  }, [onChange]);
+
   function SubmitButton() {
-    return (
-      <div className={styles.button}>
-        <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
-      </div>
-    );
+    if (isInputFormValid && submittedForDisableButton) {
+      return (
+        <div className={styles.button}>
+          <ClassicButton
+            width={"200px"}
+            text={"נשלח לפרסום, אנא המתן"}
+            type={"submit"}
+            disabled={true}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.button}>
+          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+        </div>
+      );
+    }
   }
-  // else {
-  //   return (
-  //     <div className={styles.button}>
-  //       <ClassicButton
-  //         width={"200px"}
-  //         text={"שמור"}
-  //         type={"submit"}
-  //         disabled={true}
-  //       />
-  //       <span className={styles.errorMessage}>נא למלא את כל השדות</span>
-  //     </div>
-  //   );
-  // }
-  // }
 
   return (
     <div

@@ -1,0 +1,7 @@
+.days{
+    width: 12%;
+    border: 1px solid var( --text-color);
+    border-radius: 50%;
+    padding-bottom: 1%;
+    cursor: pointer;;
+}
