@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { settingsContext } from "../../layout/Layout";
 import Select from "../../components/Select";
+import MultiSelect from "../../components/MultiSelect";
 
 // Yair Ken
 // I tried to make the date buttons relatively generic, so to add them to this component, you only need to add them to the array and show
@@ -176,7 +177,7 @@ setSearch(
           <span className={style.title}>{textShow.location}</span>
           <div className={style.location}>
             {
-              <Select
+              <MultiSelect
                 placeholder={location}
                 choossArray={arrayLocations}
                 func={setLocation}
