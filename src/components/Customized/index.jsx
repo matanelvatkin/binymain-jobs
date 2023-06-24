@@ -6,30 +6,24 @@ import DateInput from "../DateInput";
 import ClassicButton from "../ClassicButton copy";
 import SelectDays from "../SelectDays";
 
-
-function handleBack(e){
-  console.log(e.target.value)
-}
-
-
-
 //personalRepeatType, repeatSettingsEnd, repeatSettingsRepeatEnd,     days: [{}],
 
 
 export default function Customized({values,setValues = () => { },...props}) {
     const { setHeader } = useContext(headerContext)
     // const [endRepeat, setEndRepeat] = useState({});
-    const [choose, setChoose]= useState("weeks");
+    const [chooseDayOrWeek, setChooseDayOrWeek]= useState("weeks");
     const [numberTimes, setNumberTimes]= useState();
+    const [chooseDays, setChooseDays]=useState([""]);
     const [repeatSettingsEnd, setRepeatSettingsEnd]= useState("endDate");
-    const [end, setEnd]= useState();
+    const [repeatEnd, setRepeatEnd]= useState();
 
-    const[clickDay, setClickDay]= useState() 
-    const [chooseDays, setChooseDays]=useState([]);
+    const[clickDay, setClickDay]= useState("") 
+    const [isClicked, setIsClicked]=useState(false)
 
 
     const chooseBack = (e) => {
-      setChoose(e.target.value);
+      setChooseDayOrWeek(e.target.value);
       // setValues({ ...values, isRepeated: true, repeatType: "customized", personalRepeatType: e.target.value, });
     };
 
@@ -38,19 +32,17 @@ export default function Customized({values,setValues = () => { },...props}) {
     }
 
     useEffect(()=>{
-      console.log(clickDay)
-      console.log(chooseDays)
     chooseDays.includes(clickDay)?
     setChooseDays(chooseDays.filter((day)=>day!==clickDay)):
     setChooseDays([...chooseDays, clickDay]);
     console.log(chooseDays)
   },
-    [clickDay])
+    [isClicked])
 
     setHeader(' תדירות מותאמת אישית')
 
-    const days = [{value: "א", day:"sunday"}, {value: "ב", day: "monday"}, {value:"ג", day:"thuesdya"},
-    {value: "ד", day: "wednesday"}, {value: "ה", day:"thursday" }, {value:"ו", day:"friday" }, {value:"ש", day: "saturday"}];
+    const days = [{value: "א", day:"1"}, {value: "ב", day: "2"}, {value:"ג", day:"3"},
+    {value: "ד", day: "4"}, {value: "ה", day:"5" }, {value:"ו", day:"6" }, {value:"ש", day: "7"}];
 
 return(
     <div className={styles.container}>
@@ -62,11 +54,12 @@ return(
     </select>
           </span>
 
-{choose==="weeks"&&
+{chooseDayOrWeek==="weeks"&&
 
         <div className={styles.days_div}>
           {
-            days.map((day)=><SelectDays days={day} setClickDay={setClickDay}/>)
+            days.map((day)=><SelectDays days={day} setClickDay={setClickDay}
+            isClicked={isClicked} setIsClicked={setIsClicked}/>)
           }
 
 

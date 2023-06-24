@@ -3,11 +3,20 @@ import styles from "./style.module.css";
 
 
 
-export default function({days, setClickDay}){
+export default function({days, setClickDay, isClicked, setIsClicked}){
 
+    const [chooseStyle, setChooseStyle]=useState(styles.days)
+
+function handleClickDay(days){
+    setClickDay(days)
+    chooseStyle==styles.days? setChooseStyle(styles.chooseDay):
+    setChooseStyle(styles.days)
+    setIsClicked(!isClicked)
+
+}
 
 return(
-    <div className={styles.days} onClick={()=>setClickDay(days.value)}>{days.value}</div>
+    <div className={chooseStyle} onClick={()=>handleClickDay(days.day)}>{days.value}'</div>
 )
 
 
