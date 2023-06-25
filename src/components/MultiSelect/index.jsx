@@ -20,9 +20,10 @@ const MultiSelect = ({
   useEffect(() => {
     if (selectedOption && selectedOption.value) {
       setValues({ ...values, [name]: selectedOption.value });
-      sessionStorage.setItem("place", selectedOption.value);
+      name&&sessionStorage.setItem("place", selectedOption.value);
       setSelectRequired(false);
     }
+    console.log("name : ",name);
     console.log(isValid);
   }, [selectedOption]);
   return (
@@ -32,7 +33,7 @@ const MultiSelect = ({
         blurInputOnSelect={true}
         isRtl={true}
         placeholder={placeholder}
-        defaultValue={
+        defaultValue={name&&
           sessionStorage.getItem("place") != null
             ? {
                 label: sessionStorage.getItem("place"),
