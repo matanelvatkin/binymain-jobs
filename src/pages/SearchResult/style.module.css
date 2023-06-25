@@ -1,6 +1,9 @@
 .container {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     flex-direction: column;
-    margin-top: 8px;
+    margin-top: 30px;
+    gap: 4vh;
 }
