@@ -1,5 +1,8 @@
 import styles from "./style.module.css";
 import { useRef, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 // creator: Kobi Krumbein
 // color: _______________

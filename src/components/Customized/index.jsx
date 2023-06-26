@@ -1,6 +1,5 @@
 import styles from "./style.module.css";
-import { useState, useContext, useEffect } from 'react';
-import headerContext from '../../context/headerContext';
+import { useState, useEffect } from 'react';
 import Input from "../Input";
 import DateInput from "../DateInput";
 import ClassicButton from "../ClassicButton copy";
@@ -10,26 +9,26 @@ import SelectDays from "../SelectDays";
 
 
 export default function Customized({values,setValues = () => { },...props}) {
-    const { setHeader } = useContext(headerContext)
-    // const [endRepeat, setEndRepeat] = useState({});
+
     const [chooseDayOrWeek, setChooseDayOrWeek]= useState("weeks");
-    const [numberTimes, setNumberTimes]= useState();
+    const [numberTimes, setNumberTimes]= useState(1);
     const [chooseDays, setChooseDays]=useState([""]);
     const [repeatSettingsEnd, setRepeatSettingsEnd]= useState("endDate");
-    const [repeatEnd, setRepeatEnd]= useState();
+    const [repeatDateEnd, setRepeatDateEnd]= useState({});
+    const [repeatTimesEnd, setRepeatTimesEnd]= useState(1)
 
     const[clickDay, setClickDay]= useState("") 
     const [isClicked, setIsClicked]=useState(false)
 
 
-    const chooseBack = (e) => {
-      setChooseDayOrWeek(e.target.value);
-      // setValues({ ...values, isRepeated: true, repeatType: "customized", personalRepeatType: e.target.value, });
-    };
+    // const chooseBack = (e) => {
+    //   setChooseDayOrWeek(e.target.value);
+    //   // setValues({ ...values, isRepeated: true, repeatType: "customized", personalRepeatType: e.target.value, });
+    // };
 
-    const chooseNumber=(e)=>{
-    setNumberTimes(e.target.value)      
-    }
+    // const chooseNumber=(e)=>{
+    // setNumberTimes(e.target.value)      
+    // }
 
     useEffect(()=>{
     chooseDays.includes(clickDay)?
@@ -39,16 +38,34 @@ export default function Customized({values,setValues = () => { },...props}) {
   },
     [isClicked])
 
-    setHeader(' תדירות מותאמת אישית')
 
-    const days = [{value: "א", day:"1"}, {value: "ב", day: "2"}, {value:"ג", day:"3"},
-    {value: "ד", day: "4"}, {value: "ה", day:"5" }, {value:"ו", day:"6" }, {value:"ש", day: "7"}];
+    function saveClick(){
+      console.log(values)
+    setValues({ ...values,
+       isRepeated: true, repeatType: "customized",
+       repeatTimes: numberTimes, 
+       personalRepeatType: chooseDayOrWeek,
+   days: chooseDays, 
+   repeatSettingsEnd: repeatSettingsEnd,
+   repeatDateEnd: repeatDateEnd|| new Date(),
+   repeatTimesEnd:repeatTimesEnd||1 
+});
+  //  console.log(values)
+    }
+
+
+    const days = [{value: "א", day:0}, {value: "ב", day: 1}, {value:"ג", day:2},
+    {value: "ד", day: 3}, {value: "ה", day:4 }, {value:"ו", day:5 }, {value:"ש", day: 6}];
 
 return(
     <div className={styles.container}>
     <div>חזרה כל</div>
-    <input type="number" min="2" max="30" onInput={chooseNumber}/>
-    <span><select onChange={chooseBack}>
+    <input type="number" min="1" max="30" 
+    onInput={(e)=> setNumberTimes(e.target.value)}
+    />
+    <span><select
+     onChange={(e)=>setChooseDayOrWeek(e.target.value)}
+     >
 <option value="weeks">שבועות</option>
 <option value="days">ימים</option>
     </select>
@@ -78,7 +95,7 @@ return(
             isChecked={true}
           />
           </div>
-          <span> <DateInput values={repeatSettingsEnd} setValues={setRepeatSettingsEnd} /></span>
+          <span> <DateInput values={repeatDateEnd} setValues={setRepeatDateEnd} /></span>
           </div>
 
       <div className={styles.number}>
@@ -90,7 +107,9 @@ return(
             value="endNumber"
           />
        <div className={styles.backNum}>
-        <input type="number" onInput={(e)=>setRepeatSettingsEnd(e.target.value)}min="2" max="30"/>
+        <input type="number" 
+        onInput={(e)=>setRepeatTimesEnd(e.target.value)}
+        min="1" max="30"/>
         <span>חזרות</span>
        </div>
        
@@ -100,7 +119,9 @@ return(
           <div className={styles.buttons}>
           <ClassicButton
           text="סיים"
-          width="30%"/>
+          width="30%"
+          func={saveClick}
+          />
 
           <ClassicButton
           text="ביטול"

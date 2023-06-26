@@ -89,7 +89,7 @@ return(
 
 
 {custom&&
-<Customized value={values} setValues={setValues}/>}
+<Customized values={values} setValues={setValues}/>}
 
 
         </div>

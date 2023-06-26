@@ -21,6 +21,8 @@ import { locations } from "../SearchEvent/translation";
 import { timeValidation } from "./timeValidation";
 import MultiSelect from "../../components/MultiSelect";
 import {FiRotateCw} from 'react-icons/fi'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -45,10 +47,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setValues({ ...values, isFree: checked });
   };
 
-  // const fileChangeHandler = (e) => {
-  //   setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-  //   console.log(fileData);
-  // };
   const nav = useNavigate();
   const placeData = locations.map((i) => {
     return { value: i, label: i };
@@ -98,16 +96,19 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
   // });
   const [values, setValues] = useState({
     eventName: sessionStorage.getItem("eventName"),
-    summary: sessionStorage.getItem("eventName"),
+    summary: sessionStorage.getItem("summary"),
     advertiserName: sessionStorage.getItem("advertiserName"),
     advertiserTel: sessionStorage.getItem("advertiserTel"),
     advertiserEmail: sessionStorage.getItem("advertiserEmail"),
     isRepeated: false,
     repeatType: "disposable",
+    repeatTimes:1,
     personalRepeatType: "",
-    date: [],
+    date: "",
     repeatSettingsEnd: "endDate",
-    repeatSettingsRepeatEnd: undefined,
+    // repeatSettingsRepeatEnd: undefined,
+    repeatDateEnd:{},
+    repeatTimesEnd:1,
     beginningTime: !sessionStorage.getItem("beginningTime")
       ? "18:00"
       : sessionStorage.getItem("beginningTime"),
@@ -122,7 +123,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     audiences: [{}],
     isFree: true,
     price: "",
-    days: [{}],
+    days: [],
     cardImageURL: "",
     coverImageURL: "",
     gallery: [],
@@ -136,6 +137,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       // label: "שם האירוע",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "שם האירוע",
+      className: "form-control",
       required: true,
     },
     {
@@ -159,6 +161,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       label: "מקום",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "בחר מיקום",
+      className: "form-control",
       icon: "https://cdn3.iconfinder.com/data/icons/lineo-mobile/100/gps-256.png",
       required: true,
     },
@@ -168,6 +171,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       type: "text",
       errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "מיקום מדויק או כתובת",
+      className: "form-control",
       required: true,
     },
     {
@@ -177,6 +181,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       label: "מתי האירוע מתחיל?",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "זמן התחלה",
+      className: "form-control",
       required: true,
     },
     {
@@ -191,6 +196,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       label: "מתי האירוע מסתיים?",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "זמן סיום",
+      className: "form-control",
       required: true,
     },
     {
@@ -200,6 +206,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       label: "עלות",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "עלות",
+      className: "form-control",
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
     },
@@ -244,6 +251,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       // label: "תקציר",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "תיאור האירוע",
+      className: "form-control",
       required: true,
     },
     {
@@ -253,6 +261,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       // label: "דף הרשמה לאירוע",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: " לינק להרשמה/כרטיסים לאירוע",
+      className: "form-control",
       required: true,
     },
     {
@@ -263,6 +272,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       instructions: "*מומלץ להעלות תמונה מרובעת 1:1",
       label: "תמונת אירוע",
       accept: "image/*",
+      className: "form-control",
       required: true,
     },
     {
@@ -270,6 +280,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       name: "coverImageURL",
       type: "file",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
+      className: "form-control",
       instructions: "*מומלץ להעלות תמונה מלבנית 16:9",
 
       label: "תמונת כיסוי",
@@ -291,6 +302,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       type: "text",
       // label: "שם המפרסם",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
+      className: "form-control",
       placeholder: "שם המפרסם",
       required: true,
     },
@@ -300,6 +312,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       type: "tel",
       // label: "טלפון",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
+      className: "form-control",
       placeholder: "טלפון",
       required: true,
       pattern: "^[0-9]{8,15}$",
@@ -310,6 +323,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       type: "email",
       // label: "מייל",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
+      className: "form-control",
       placeholder: "מייל",
       required: true,
     },
@@ -321,20 +335,16 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
 
     setIsTheSubmitButtonPush(true);
     setSubmittedForDisableButton(true);
-    console.log(submittedForDisableButton);
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
     values.date = beginDateUpdate(values.date, values.beginningTime);
-    if (values.repeatSettingsRepeatEnd instanceof Date) {
-      values.repeatSettingsRepeatEnd = beginDateUpdate(
-        values.repeatSettingsRepeatEnd,
+    if (values.repeatDateEnd instanceof Date) {
+      values.repeatDateEnd = beginDateUpdate(
+        values.repeatDateEnd,
         values.beginningTime
       );
     }
     const formElement = e.target;
-    // if (values.categories[0] === null) {
-    //   const categoriesInvalid = formElement.querySelector("categories");
-    //   categoriesInvalid?.focus();
-    // }
+    console.log(formElement.checkValidity());
     setIsValid(formElement.checkValidity());
     if (!values.place) setSelectRequired(true);
     formElement.classList.add(styles.submitted);
@@ -353,7 +363,6 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
         } else {
           formData.append(key, fileData[key]);
         }
-        console.log("fileData", fileData);
       }
       formData.append(
         "values",
@@ -380,12 +389,14 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
           repeatType: values.repeatType,
           personalRepeat: values.personalRepeatType,
           isReapeated: values.isRepeated,
+          repeatTimes: values.repeatTimes,
           payment: {
             isFree: values.isFree,
           },
           repeatSettingsPersonal: {
             type: values.repeatSettingsEnd,
-            repeatEnd: values.repeatSettingsRepeatEnd || values.date,
+            dateEnd: values.repeatDateEnd,
+            timesEnd: values.repeatTimesEnd
           },
         })
       );
@@ -446,7 +457,8 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       values.audiences[0] &&
       values.registrationPageURL &&
       values.cardImageURL &&
-      values.coverImageURL
+      values.coverImageURL &&
+      isValid
     ) {
       setIsInputFormValid(true);
       console.log({ isInputFormValid });
@@ -475,16 +487,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     }
     if (e.target.type === "file")
       setFileData({ ...fileData, [e.target.name]: e.target.files[0] });
-    // const fileToStorage = JSON.stringify(e.target.files[0].name);
-    // console.log(fileToStorage);
-    // sessionStorage.setItem(e.target.name, fileToStorage);
   };
-  // useEffect(() => {
-  //   for (const key in values) {
-  //     setValues({ ...values, [key]: sessionStorage.getItem([key]) });
-  //     console.log(values);
-  //   }
-  // }, [values]);
   const formattedDate = new Date(values.date).toLocaleDateString("he-IL", {
     weekday: "long",
     // day: 'numeric',
@@ -503,52 +506,12 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       values.audiences[0] &&
       values.registrationPageURL &&
       values.cardImageURL &&
-      values.coverImageURL
+      values.coverImageURL &&
+      isValid
     ) {
       setIsInputFormValid(true);
       console.log({ isInputFormValid });
     }
-    // else {
-    //       if (!values.eventName) {
-    //         console.log(`${values.eventName} is invalid`);
-    //       }
-    //
-    //       if (!values.summary) {
-    //         console.log(`${values.summary} is invalid`);
-    //       }
-    //
-    //       if (!values.advertiserName) {
-    //         console.log(`${values.advertiserName} is invalid`);
-    //       }
-    //
-    //       if (!values.advertiserTel) {
-    //         console.log(`${values.advertiserTel} is invalid`);
-    //       }
-    //
-    //       if (!values.advertiserEmail) {
-    //         console.log(`${values.advertiserEmail} is invalid`);
-    //       }
-    //
-    //       if (!values.categories[0]) {
-    //         console.log(`${values.categories} is invalid`);
-    //       }
-    //
-    //       if (!values.audiences[0]) {
-    //         console.log(`${values.audiences} is invalid`);
-    //       }
-    //
-    //       if (!values.registrationPageURL) {
-    //         console.log(`${values.registrationPageURL} is invalid`);
-    //       }
-    //
-    //       if (!values.cardImageURL) {
-    //         console.log(`${values.cardImageURL} is invalid`);
-    //       }
-    //
-    //       if (!values.coverImageURL) {
-    //         console.log(`${values.coverImageURL} is invalid`);
-    //       }
-    //     }
   }, [onChange]);
 
   function SubmitButton() {
@@ -653,10 +616,8 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
                     constancy !== {returnType} ? formattedDate : ""
                   }`}
                 </u> */}
-                <div>
                        <FiRotateCw/> {returnType}
 
-                </div>
               </div>
             );
           else if (input.type == "toogleSwitch")
