@@ -521,7 +521,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     } else {
       return (
         <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+          <ClassicButton width={"350px"} text={"שמור"} height={50} type={"submit"} />
         </div>
       );
     }
