@@ -251,7 +251,8 @@ setSearch(
 
         <div className={style.footerBtn}>
           <ClassicButton
-            width={300}
+            width={360}
+            height={50}
             text={textShow.search}
             func={handleSubmit}
           />
