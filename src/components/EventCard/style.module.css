@@ -66,6 +66,11 @@
   gap: 1%;
 }
 
+.location>p{
+  margin: 0;
+  text-align: center;
+}
+
 .time {
   display: flex;
   flex-direction: column;
