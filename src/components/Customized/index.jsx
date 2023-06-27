@@ -8,7 +8,7 @@ import SelectDays from "../SelectDays";
 //personalRepeatType, repeatSettingsEnd, repeatSettingsRepeatEnd,     days: [{}],
 
 
-export default function Customized({values,setValues = () => { },...props}) {
+export default function Customized({values,setValues = () => { },setCustom, ...props}) {
 
     const [chooseDayOrWeek, setChooseDayOrWeek]= useState("weeks");
     const [numberTimes, setNumberTimes]= useState(1);
@@ -49,10 +49,10 @@ export default function Customized({values,setValues = () => { },...props}) {
    repeatSettingsEnd: repeatSettingsEnd,
    repeatDateEnd: repeatDateEnd|| new Date(),
    repeatTimesEnd:repeatTimesEnd||1 
-});
-  //  console.log(values)
+}
+);
+setCustom(false)
     }
-
 
     const days = [{value: "א", day:0}, {value: "ב", day: 1}, {value:"ג", day:2},
     {value: "ד", day: 3}, {value: "ה", day:4 }, {value:"ו", day:5 }, {value:"ש", day: 6}];

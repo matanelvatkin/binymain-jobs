@@ -107,7 +107,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     date: "",
     repeatSettingsEnd: "endDate",
     // repeatSettingsRepeatEnd: undefined,
-    repeatDateEnd:{},
+    repeatDateEnd: new Date(),
     repeatTimesEnd:1,
     beginningTime: !sessionStorage.getItem("beginningTime")
       ? "18:00"
@@ -406,6 +406,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       apiCalls("post", "/event/createvent", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
+        console.log(res)
         if (res._id != "") {
           setSaveEventMode(true);
           // sessionStorage.clear();

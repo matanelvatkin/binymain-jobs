@@ -16,15 +16,16 @@ export default function RecurringEventPopup({setNewEventPopup, values, setValues
 setCustom(true)
     }
     else if(e.target.value=="חד- פעמי"){
-      setTimeout(()=>{
-        setNewEventPopup(false)}, 400);
+      // setTimeout(()=>{
+        // setNewEventPopup(false)}, 400);
+        setNewEventPopup(false)
+      // }, 1000);
         console.log("חד פעמי")
         setValues({ ...values, isRepeated: false, repeatType: "disposable", personalRepeatType: ""});
     }
     else if(e.target.value=="מדי יום"){
       setTimeout(()=>{
         setNewEventPopup(false)}, 400);
-        // setValues({ ...values, isRepeated: true, repeatType: "daily", personalRepeatType: "", repeatSettingsRepeatEnd:endDefaultDate(values.date)});
         setValues({ ...values, isRepeated: true, repeatType: "daily", personalRepeatType: ""});
 
 
@@ -32,10 +33,7 @@ setCustom(true)
     else if(e.target.value=="מדי שבוע"){
       setTimeout(()=>{
         setNewEventPopup(false)}, 400);
-        // setValues({ ...values, isRepeated: true, repeatType: "weekly", personalRepeatType: "", repeatSettingsRepeatEnd:endDefaultDate(values.date)});
         setValues({ ...values, isRepeated: true, repeatType: "weekly"});
-
-
     }
   }
 
@@ -48,7 +46,6 @@ function endDefaultDate(date){
   const endDate=new Date(date.getFullYear(), date.getMonth() + 1, date.getDate()-1);
   return endDate
 }
-
 
 return(
     <div className={styles.container} onClick={()=>setNewEventPopup(false)}>
@@ -89,7 +86,7 @@ return(
 
 
 {custom&&
-<Customized values={values} setValues={setValues}/>}
+<Customized values={values} setValues={setValues} setCustom={setCustom}/>}
 
 
         </div>
