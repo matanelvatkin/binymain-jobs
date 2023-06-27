@@ -29,6 +29,7 @@ const MultiSelect = ({
   return (
     <>
       <Select
+      style={{width:'100%'}}
         options={options}
         blurInputOnSelect={true}
         isRtl={true}
