@@ -567,11 +567,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           else if (input.type === "selectIcon") {
             return (
               <div className={styles.selectIcon}>
-                <div className={styles.iconLabel}>{input.label}</div>
                 <SelectIcon
                   isValid={isValid}
                   errorMessage={input.errorMessage}
                   inText={false}
+                  header={input.label}
                   key={input.id}
                   value={values[input.name]}
                   name={input.name}
