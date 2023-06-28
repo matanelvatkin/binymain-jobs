@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400&display=swap");
 
 :root {
   --bg-color: #f5f5f5;
@@ -12,15 +12,15 @@
   --input-border-color: #cccccf;
 }
 
-body {
-  background-color: var(----text-Fourth-color);
+body.app {
+  font-family: "Heebo", sans-serif;
+  background-color: var(--text-Fourth-color);
   color: var(--text-color);
-  font-family: 'Heebo', sans-serif;
 }
 
 label {
   font-size: var(--font-size-label);
-  font-family: 'Heebo', sans-serif;
+  font-family: "Heebo", sans-serif;
 }
 
 * {
@@ -28,9 +28,10 @@ label {
   padding: 0;
   box-sizing: border-box;
 }
-button {  font-family: 'Heebo', sans-serif;
+button {
+  font-family: "Heebo", sans-serif;
 }
 
 input {
-  font-family: 'Heebo', sans-serif;
+  font-family: "Heebo", sans-serif;
 }
