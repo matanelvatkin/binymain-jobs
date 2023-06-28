@@ -138,7 +138,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 2,
       name: "constancy",
       type: constancy || "אירוע חד פעמי",
-      className:"form-control",
+      className: "form-control",
     },
     {
       id: 3,
@@ -396,17 +396,17 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
 
       console.log([...formData.entries()]);
 
+      setPopUpText(
+        "האירוע שרצית לפרסם נשלח למערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
+      );
+      setPopUp(true);
+      nav(`/`);
       apiCalls("post", "/event/createvent", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
         if (res._id != "") {
           setSaveEventMode(true);
           sessionStorage.clear();
-          setPopUpText(
-            "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
-          );
-          setPopUp(true);
-          nav(`/`);
         }
       });
     }
@@ -523,7 +523,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     } else {
       return (
         <div className={styles.button}>
-          <ClassicButton width={"350px"} text={"שמור"} height={50} type={"submit"} />
+          <ClassicButton
+            width={"350px"}
+            text={"שמור"}
+            height={50}
+            type={"submit"}
+          />
         </div>
       );
     }
