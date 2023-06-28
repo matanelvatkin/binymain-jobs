@@ -22,6 +22,7 @@
   direction: rtl;
   gap: 15px;
   width: 100%;
+  padding-bottom: 15px;
 }
 
 .priceNone {
@@ -46,7 +47,7 @@
 .selectIcon {
   /* margin-top: -8px; */
   padding-left: 5%;
-  padding-right:5%;
+  padding-right: 5%;
   width: 100%;
 }
 .selectIcon div {
