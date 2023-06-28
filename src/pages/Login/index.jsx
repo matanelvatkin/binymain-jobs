@@ -113,7 +113,7 @@ return (
 
         <div className={styles.firstButton}>
           <ClassicButton
-            width={'85%'}
+            width={'100%'}
             height={'50px'}
             type={'submit'}
           >

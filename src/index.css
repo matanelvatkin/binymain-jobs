@@ -12,9 +12,9 @@
   --input-border-color: #cccccf;
 }
 
-body.app {
+#root {
   font-family: "Heebo", sans-serif;
-  background-color: var(--text-Fourth-color);
+  background-color: var(--bg-color);
   color: var(--text-color);
 }
 
@@ -28,6 +28,7 @@ label {
   padding: 0;
   box-sizing: border-box;
 }
+
 button {
   font-family: "Heebo", sans-serif;
 }
