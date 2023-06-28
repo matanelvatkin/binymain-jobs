@@ -55,14 +55,14 @@
   color: var(--bg-secondary-color);
 }
 
-.firstButton{
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    direction: rtl;
-    margin-top: 10%;
+.firstButton {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  direction: rtl;
+  margin-top: 10%;
 }
 
 .button {
@@ -72,6 +72,18 @@
 .icon {
   font-size: large;
   margin-left: 10px;
+}
+.errorMessage {
+  display: block;
+  padding: 5px;
+  color: red;
+}
+.submitted input:invalid {
+  border-color: red;
+}
+
+.submitted input:invalid:focus {
+  outline-color: red;
 }
 
 /* .secondButtonContainer{
