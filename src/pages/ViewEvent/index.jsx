@@ -296,13 +296,15 @@ export default function ViewEvent() {
             <p>loading...</p>
           )}
         </div>
+        <div className={style.linkAndButton}>
         {eventData&&eventData.registrationPageURL&&
         <div><a className={style.cards} href={eventData.registrationPageURL} target="_blank" ><span className="openIcon"><MdOpenInNew/></span>לדף הרשמה וכרטיסים
         </a></div>}
 
         <div className={style.homeButton}>
           <ClassicButton
-            width={'80%'}
+            width={'90%'}
+            height={'50px'}
             type={'submit'}
             onClick={()=>navigate('/')}
             // onClick={loginAouth}
@@ -310,15 +312,17 @@ export default function ViewEvent() {
             <AiOutlineHome className={style.icon} /> חזרה לדף הבית
           </ClassicButton>
         </div>
+        </div>
 
         {isAdmin === user.userType && eventData &&
           <div className={style.adminContainer}>
             <div className={style.advertiserInfo}>
-              <h3>פרטי המפרסם:</h3>
+              <h4>פרטי המפרסם:</h4>
               <p>{eventData.advertiser.name}</p>
               <p>{eventData.advertiser.email} </p>
               <p>{eventData.advertiser.tel} </p>
             </div>
+            <div className={style.publishButton}>
             <button
               className={`${style.adminPublish ? (isActive ? style.active : style.adminPublish) : style.active}`}
               onClick={handleButtonToggle}
@@ -326,6 +330,7 @@ export default function ViewEvent() {
             >
               {isActive ? 'פורסם בהצלחה 👍🏽' : 'פרסם'}
             </button>
+          </div>
           </div>}
 
    
