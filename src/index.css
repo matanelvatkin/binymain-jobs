@@ -14,7 +14,7 @@
 
 #root {
   font-family: "Heebo", sans-serif;
-  background-color: var(--bg-color);
+  background-color: var(--text-Fourth-color);
   color: var(--text-color);
 }
 
