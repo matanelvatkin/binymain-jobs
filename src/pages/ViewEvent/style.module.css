@@ -76,14 +76,19 @@
   font-size: 20px;
 }
 
+.linkAndButton{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .adminContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin-left: 5%;
-  height: 200px;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 250px;
   font-size: large;
   font-weight: bold;
 }
@@ -91,19 +96,26 @@
 .advertiserInfo {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 }
 
 .advertiserInfo > p {
   color: var(--text-secondary-color);
 }
-.advertiserInfo > h3 {
-  color: var(--text-third-color);
+.advertiserInfo > h4 {
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+.publishButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .adminPublish {
-  width: 200px;
-  height: 55px;
+  width: 90%;
+  height: 50px;
   background-color: var(--bg-secondary-color);
   color: var(--text-Fourth-color);
   font-size: large;
@@ -112,8 +124,8 @@
 }
 
 .active {
-  width: 200px;
-  height: 55px;
+  width: 90%;
+  height: 50px;
   background-color: var(--text-third-color);
   color: var(--text-Fourth-color);
   font-size: large;
@@ -126,5 +138,7 @@
 }
 
 .homeButton {
-  margin: 10% 15% 10% 10%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
