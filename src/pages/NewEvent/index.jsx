@@ -511,7 +511,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       return (
         <div className={styles.button}>
           <ClassicButton
-            width={"200px"}
+            width={"350px"}
+            height={50}
             text={"נשלח לפרסום, אנא המתן"}
             type={"submit"}
             disabled={true}
@@ -521,7 +522,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     } else {
       return (
         <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+          <ClassicButton width={"350px"} text={"שמור"} height={50} type={"submit"} />
         </div>
       );
     }
@@ -566,11 +567,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           else if (input.type === "selectIcon") {
             return (
               <div className={styles.selectIcon}>
-                <div className={styles.iconLabel}>{input.label}</div>
                 <SelectIcon
                   isValid={isValid}
                   errorMessage={input.errorMessage}
                   inText={false}
+                  header={input.label}
                   key={input.id}
                   value={values[input.name]}
                   name={input.name}

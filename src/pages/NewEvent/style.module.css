@@ -45,6 +45,12 @@
 }
 .selectIcon {
   margin-top: -8px;
+  width: 100%;
+}
+.selectIcon div {
+  flex-basis: 0;
+  flex-grow: 1;
+  height: fit-content;
 }
 .iconLabel {
   color: var(--text-third-color);
@@ -53,7 +59,8 @@
 }
 
 .button {
-  margin-top: 20px;
+  /* margin-top: 15px; */
+  padding: 10px;
 }
 .errorMessage {
   display: block;
