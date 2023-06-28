@@ -138,6 +138,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 2,
       name: "constancy",
       type: constancy || "אירוע חד פעמי",
+      className:"form-control",
     },
     {
       id: 3,

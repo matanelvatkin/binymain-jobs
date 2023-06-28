@@ -114,7 +114,7 @@ function Login() {
         </div>
 
         <div className={styles.firstButton}>
-          <ClassicButton width={"86%"} height={"100%"} type={"submit"}>
+          <ClassicButton width={"85%"} height={"50px"} type={"submit"}>
             <FaSignInAlt className={styles.icon} /> התחברות
           </ClassicButton>
         </div>
