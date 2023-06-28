@@ -13,7 +13,7 @@ import apiCalls from "../../function/apiCalls";
 function Registeretion() {
   const { setHeader } = useContext(headerContext);
   setHeader("דף הרשמה");
-
+  const [isValid, setIsValid] = useState(true);
   const [userData, setUserData] = useState({});
 
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ function Registeretion() {
       name: "fullName",
       type: "text",
       placeholder: `🙍🏽‍♂️ שם מלא`,
+      errorMessage: "הכנס שם",
       maxLength: "22",
       required: true,
     },
@@ -36,6 +37,7 @@ function Registeretion() {
       name: "password",
       type: "password",
       placeholder: "🗝️ הגדר סיסמא",
+      errorMessage: "הכנס סיסמא",
       maxLength: "14",
       required: true,
     },
@@ -44,6 +46,7 @@ function Registeretion() {
       name: "confirmPassword",
       type: "password",
       placeholder: "🗝️ אמת סיסמא",
+      errorMessage: "אמת סיסמא",
       maxLength: "14",
       required: true,
     },
@@ -52,12 +55,18 @@ function Registeretion() {
       name: "email",
       type: "email",
       placeholder: "📧 כתובת אימייל",
+      errorMessage: "הכנס אימייל תקין",
       required: true,
     },
   ];
 
   const createUser = async (e) => {
     e.preventDefault();
+    const formElement = e.target;
+    setIsValid(formElement.checkValidity());
+    formElement.classList.add(styles.submitted);
+    const firstInvalidField = formElement.querySelector(":invalid");
+    firstInvalidField?.focus();
     const name = userData.fullName.trim();
     const words = name.split(" ");
 
@@ -120,6 +129,7 @@ function Registeretion() {
     <div className={styles.main}>
       <form
         className={styles.formArea}
+        noValidate
         onSubmit={createUser}
         autoComplete="off"
       >
@@ -130,12 +140,14 @@ function Registeretion() {
         <div className={styles.container}>
           {inputs.map((input) => {
             return (
-              <div className={styles.feild}>
+              <div className={styles.field}>
                 <Input
+                  isValid={isValid}
                   key={input.id}
                   {...input}
                   width={"90%"}
                   className={styles.inputs}
+                  errorMessage={input.errorMessage}
                   onChange={handleChange}
                   onKeyDown={handleKeyDown}
                   maxLength={input.maxLength}
