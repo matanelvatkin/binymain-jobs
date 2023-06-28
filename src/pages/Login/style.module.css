@@ -12,7 +12,8 @@
 }
 .connection {
   font-size: xx-large;
-  margin: 5% 50% 5% 35%;
+  text-align: center;
+  padding-top: 4%;
 }
 .form {
   width: 100%;
@@ -22,6 +23,8 @@
   /* align-items: center; */
   justify-content: space-around;
   direction: rtl;
+  padding-left: 4%;
+  padding-right: 4%;
 }
 .inputs {
   direction: rtl;
