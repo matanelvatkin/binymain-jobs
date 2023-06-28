@@ -113,8 +113,8 @@ return (
 
         <div className={styles.firstButton}>
           <ClassicButton
-            width={'86%'}
-            height={"100%"}
+            width={'85%'}
+            height={'50px'}
             type={'submit'}
           >
             <FaSignInAlt className={styles.icon} /> התחברות

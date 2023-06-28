@@ -95,7 +95,7 @@ function Home() {
       <div className={styles.button}>
         <ClassicButton
           width={"250px"}
-          height={"100%"}
+          height={"50px"}
           onClick={() => {
             navToNewEvent();
           }}
