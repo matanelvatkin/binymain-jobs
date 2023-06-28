@@ -70,9 +70,9 @@ function EventCard({ events, nextPage, loadMore, searchMode }) {
       )}
       {nextPage ? (
         <div className={styles.loadButton}>
-          <ClassicButton onClick={loadMore} text={"...עוד"} width={"100px"}>
-            <AiOutlineReload />
-          </ClassicButton>
+          <u onClick={loadMore}>
+            <AiOutlineReload /> טען עוד
+          </u>
         </div>
       ) : null}
     </>
