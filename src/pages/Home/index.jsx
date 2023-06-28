@@ -7,6 +7,7 @@ import headerContext from "../../context/headerContext";
 import userContext from "../../context/userContext";
 import popUpContext from "../../context/popUpContext";
 import apiCalls from "../../function/apiCalls";
+import {IoIosAddCircleOutline} from 'react-icons/io'
 
 // Creator: Yisrael_Olonoff
 // i created the home page using the "Header", "EventCard",
@@ -94,12 +95,13 @@ function Home() {
       <div className={styles.button}>
         <ClassicButton
           width={"250px"}
-          height={"100%"}
-          text={"פרסם אירוע  ➕"}
+          height={"50px"}
           onClick={() => {
             navToNewEvent();
           }}
-        />
+        >
+          <IoIosAddCircleOutline className={styles.icon}/>פרסם אירוע 
+        </ClassicButton>
       </div>
       {/* <div className={styles.newButton}>
         <ClassicButton

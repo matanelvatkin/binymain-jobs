@@ -145,7 +145,7 @@ function Registeretion() {
           })}
         </div>
         <div className={styles.create}>
-          <ClassicButton width={"250px"} height={"100%"} type={"submit"}>
+          <ClassicButton width={"250px"} height={"50px"} type={"submit"}>
             <IoIosCreate className={styles.icon} /> צור משתמש
           </ClassicButton>
         </div>
