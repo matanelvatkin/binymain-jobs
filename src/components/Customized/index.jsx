@@ -12,12 +12,13 @@ export default function Customized({values,setValues = () => { },setCustom, ...p
 
     const [chooseDayOrWeek, setChooseDayOrWeek]= useState("weeks");
     const [numberTimes, setNumberTimes]= useState(1);
-    const [chooseDays, setChooseDays]=useState([""]);
+    const [chooseDays, setChooseDays]=useState([]);
+    const[arrayDay, setArrayDay]= useState([]);
     const [repeatSettingsEnd, setRepeatSettingsEnd]= useState("endDate");
     const [repeatDateEnd, setRepeatDateEnd]= useState({});
     const [repeatTimesEnd, setRepeatTimesEnd]= useState(1)
 
-    const[clickDay, setClickDay]= useState("") 
+    const[clickDay, setClickDay]= useState({}) 
     const [isClicked, setIsClicked]=useState(false)
 
 
@@ -31,12 +32,25 @@ export default function Customized({values,setValues = () => { },setCustom, ...p
     // }
 
     useEffect(()=>{
-    chooseDays.includes(clickDay)?
-    setChooseDays(chooseDays.filter((day)=>day!==clickDay)):
-    setChooseDays([...chooseDays, clickDay]);
-    console.log(chooseDays)
+      if(chooseDays.find((dayName)=>dayName.day==clickDay.day)){
+    // chooseDays.includes(clickDay)?
+    setChooseDays(chooseDays.filter((day)=>day.day!==clickDay.day))
+      }
+    else {
+      setChooseDays([...chooseDays, clickDay]);
+    }
   },
-    [isClicked])
+    [isClicked]);
+
+useEffect(()=>{
+  console.log("chooseDays", chooseDays)
+  const filteredArray = chooseDays.filter((obj) => Object.keys(obj).length !== 0);
+  const daysName= filteredArray.map((d)=> d.day)
+  setArrayDay(daysName)
+  console.log("arrayDay" ,arrayDay)
+
+}, [chooseDays])
+
 
 
     function saveClick(){
@@ -45,24 +59,38 @@ export default function Customized({values,setValues = () => { },setCustom, ...p
        isRepeated: true, repeatType: "customized",
        repeatTimes: numberTimes, 
        personalRepeatType: chooseDayOrWeek,
-   days: chooseDays, 
+   days: arrayDay, 
+   daysObjects: chooseDays,
    repeatSettingsEnd: repeatSettingsEnd,
    repeatDateEnd: repeatDateEnd|| new Date(),
    repeatTimesEnd:repeatTimesEnd||1 
 }
 );
+console.log("days", values.days)
 setCustom(false)
     }
 
-    const days = [{value: "א", day:0}, {value: "ב", day: 1}, {value:"ג", day:2},
-    {value: "ד", day: 3}, {value: "ה", day:4 }, {value:"ו", day:5 }, {value:"ש", day: 6}];
+    const days = [{value: "א",nameDay:"ראשון", day:0}, {value: "ב",nameDay:"שני", day: 1}, {value:"ג", nameDay:"שלישי", day:2},
+    {value: "ד", nameDay:"רביעי",day: 3}, {value: "ה", nameDay:"חמישי", day:4 }, {value:"ו",nameDay:"שישי", day:5 },
+    {value:"ש", nameDay:"שבת", day: 6}];
 
 return(
     <div className={styles.container}>
     <div>חזרה כל</div>
-    <input type="number" min="1" max="30" 
+    {chooseDayOrWeek==="weeks"&&
+
+    <input type="number" min="1" max="2" 
     onInput={(e)=> setNumberTimes(e.target.value)}
-    />
+    />}
+
+{chooseDayOrWeek==="days"&&
+
+<input type="number" min="1" max="31" 
+onInput={(e)=> setNumberTimes(e.target.value)}
+/>}
+
+
+
     <span><select
      onChange={(e)=>setChooseDayOrWeek(e.target.value)}
      >
@@ -106,13 +134,23 @@ return(
             name="repeatEnd"
             value="endNumber"
           />
+
+          {chooseDayOrWeek==="weeks"&&
        <div className={styles.backNum}>
         <input type="number" 
         onInput={(e)=>setRepeatTimesEnd(e.target.value)}
-        min="1" max="30"/>
+        min="1" max="4"/>
         <span>חזרות</span>
        </div>
-       
+}
+{chooseDayOrWeek==="days"&&
+       <div className={styles.backNum}>
+        <input type="number" 
+        onInput={(e)=>setRepeatTimesEnd(e.target.value)}
+        min="1" max="31"/>
+        <span>חזרות</span>
+       </div>
+}
       </div>
     </div>
 

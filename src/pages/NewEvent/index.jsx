@@ -20,9 +20,9 @@ import popUpContext from "../../context/popUpContext";
 import { locations } from "../SearchEvent/translation";
 import { timeValidation } from "./timeValidation";
 import MultiSelect from "../../components/MultiSelect";
-import {FiRotateCw} from 'react-icons/fi'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import DateDisplay from "../../components/DateDisplay";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -124,6 +124,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     isFree: true,
     price: "",
     days: [],
+    daysObjects:[],
     cardImageURL: "",
     coverImageURL: "",
     gallery: [],
@@ -611,13 +612,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
                 className={styles.advanced}
                 onClick={() => setNewEventPopup(true)}
               >
-                {/* <u>
-                  {" "}
-                  {`${constancy} ${
-                    constancy !== {returnType} ? formattedDate : ""
-                  }`}
-                </u> */}
-                       <FiRotateCw/> {returnType}
+                <DateDisplay returnType={returnType} values={values}/>
 
               </div>
             );

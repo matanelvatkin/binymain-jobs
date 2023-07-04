@@ -3,7 +3,7 @@ import styles from "./style.module.css";
 
 
 
-export default function({days, setClickDay, isClicked, setIsClicked}){
+export default function SelectDays ({days, setClickDay, isClicked, setIsClicked}){
 
     const [chooseStyle, setChooseStyle]=useState(styles.days)
 
@@ -16,7 +16,7 @@ function handleClickDay(days){
 }
 
 return(
-    <div className={chooseStyle} onClick={()=>handleClickDay(days.day)}>{days.value}'</div>
+    <div className={chooseStyle} onClick={()=>handleClickDay(days)}>{days.value}'</div>
 )
 
 

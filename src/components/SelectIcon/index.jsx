@@ -47,13 +47,13 @@ const SelectIcon = ({
     }));
   }, [array]);
 
-  // useEffect(() => {
-  //   if (!values[name][0]) {
-  //     setIsChosen(true);
-  //   } else {
-  //     setIsChosen(false);
-  //   }
-  // });
+  useEffect(() => {
+    if (!values[name][0]) {
+      setIsChosen(true);
+    } else {
+      setIsChosen(false);
+    }
+  });
 
   return (
     <div className={styles.main}>
