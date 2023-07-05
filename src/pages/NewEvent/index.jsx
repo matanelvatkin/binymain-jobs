@@ -448,7 +448,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       values.audiences[0] &&
       values.registrationPageURL &&
       values.cardImageURL &&
-      values.coverImageURL &&
       isValid
     ) {
       setIsInputFormValid(true);
@@ -497,7 +496,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       values.audiences[0] &&
       values.registrationPageURL &&
       values.cardImageURL &&
-      values.coverImageURL &&
       isValid
     ) {
       setIsInputFormValid(true);
