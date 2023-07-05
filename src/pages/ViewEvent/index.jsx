@@ -309,7 +309,7 @@ export default function ViewEvent() {
             </div>
           ) : !loading ? (
             <Link
-              to={`https://wa.me/${eventData.advertiser.tel}?text=שלום, לגבי הארוע ${eventData.eventName} שפרסמת`}
+              to={`https://wa.me/+972${eventData.advertiser.tel}?text=שלום, לגבי הארוע ${eventData.eventName} שפרסמת`}
             >
               <FaWhatsapp /> יצירת קשר עם המפרסם{" "}
             </Link>
@@ -338,7 +338,7 @@ export default function ViewEvent() {
               <p>{eventData.advertiser.email} </p>
               <p>
                 {eventData.advertiser.tel}{" "}
-                <Link to={`https://wa.me/${eventData.advertiser.tel}`}>
+                <Link to={`https://wa.me/+972${eventData.advertiser.tel}`}>
                   <FaWhatsapp />
                 </Link>
               </p>{" "}
