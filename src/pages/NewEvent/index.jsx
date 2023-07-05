@@ -257,7 +257,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: " לינק להרשמה/כרטיסים לאירוע",
       className: "form-control",
-      required: true,
     },
     {
       id: 13,
@@ -277,7 +276,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       className: "form-control",
       instructions: "*מומלץ להעלות תמונה מלבנית 16:9",
-
       label: "תמונת כיסוי",
       accept: "image/*",
       required: true,

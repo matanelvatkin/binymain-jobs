@@ -7,7 +7,7 @@ import { MdOutlinePlace } from "react-icons/md";
 import { TbTicket } from "react-icons/tb";
 import apiCalls from "../../function/apiCalls";
 import translation from "./translation.js";
-import { FaRegCalendarAlt } from "react-icons/fa";
+import { FaRegCalendarAlt, FaWhatsapp } from "react-icons/fa";
 import { AiOutlineClockCircle, AiOutlineHome } from "react-icons/ai";
 import { MdOpenInNew } from "react-icons/md";
 import { BiMoney } from "react-icons/bi";
@@ -21,14 +21,12 @@ import { Link } from "react-router-dom";
 //This page view the details of a specific event.
 
 export default function ViewEvent() {
-
-
   const audienceMapping = {
     "64118b289057ecc057ef8a38": "נשים",
     "64118b289057ecc057ef8a39": "משפחות",
     "64118b289057ecc057ef8a3a": "מבוגרים",
     "64118b289057ecc057ef8a3b": "נוער",
-    "64118b289057ecc057ef8a3c": "ילדים"
+    "64118b289057ecc057ef8a3c": "ילדים",
   };
 
   const categoryMapping = {
@@ -36,7 +34,7 @@ export default function ViewEvent() {
     "641189cf3d762f6a181064c8": "הרצאות",
     "641189cf3d762f6a181064c9": "אוכל",
     "641189cf3d762f6a181064ca": "יצירה מקומית",
-    "641189cf3d762f6a181064cb": "מוזיקה"
+    "641189cf3d762f6a181064cb": "מוזיקה",
   };
 
   const { user } = useContext(userContext);
@@ -56,20 +54,21 @@ export default function ViewEvent() {
   const [isActive, setIsActive] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
 
-
   async function fetchEvent() {
     let apiData = await apiCalls("get", "/event/" + event);
     if (user.userType === "admin") {
       checkUserType();
-    if (apiData.status === "published") {
-      setIsPublished(true)
-      setIsActive(true)
+      if (apiData.status === "published") {
+        setIsPublished(true);
+        setIsActive(true);
+      }
     }
-  }
-  if(new Date(apiData.date[apiData.date.length-1])>new Date()){
-    const futureDates = apiData.date.filter((date) => new Date(date) >= new Date());
-    apiData.date = futureDates.slice(0, 1);
-  }
+    if (new Date(apiData.date[apiData.date.length - 1]) > new Date()) {
+      const futureDates = apiData.date.filter(
+        (date) => new Date(date) >= new Date()
+      );
+      apiData.date = futureDates.slice(0, 1);
+    }
     setEventData(apiData);
 
     console.log(apiData);
@@ -77,12 +76,13 @@ export default function ViewEvent() {
 
   async function checkUserType() {
     const token = localStorage.getItem("Token");
-    let apiData = await apiCalls('post', "user/checkUserType", { aoutherizetion: token })
+    let apiData = await apiCalls("post", "user/checkUserType", {
+      aoutherizetion: token,
+    });
     if (apiData) {
-      setIsAdmin(apiData.userType)
+      setIsAdmin(apiData.userType);
     }
   }
-
 
   useEffect(() => {
     fetchEvent();
@@ -109,7 +109,6 @@ export default function ViewEvent() {
   //   }
   // }
 
-
   const handleButtonToggle = () => {
     if (!isPublished) {
       setIsActive(!isActive);
@@ -119,12 +118,11 @@ export default function ViewEvent() {
     }
   };
 
-
   const handlePublish = async () => {
     try {
-      const updatedData = await apiCalls("put", `/event/${event}`,
-      { status: "published",
-        publishedAt:Date.now()
+      const updatedData = await apiCalls("put", `/event/${event}`, {
+        status: "published",
+        publishedAt: Date.now(),
       });
       console.log(updatedData);
       setIsPublished(true);
@@ -134,8 +132,10 @@ export default function ViewEvent() {
   };
 
   return (
-    <div className={style.container} onClick={() => console.log("registrationPageURL", eventData)}>
-
+    <div
+      className={style.container}
+      onClick={() => console.log("registrationPageURL", eventData)}
+    >
       <div>
         {!loading ? (
           <img
@@ -146,11 +146,9 @@ export default function ViewEvent() {
         ) : (
           <p>loading...</p>
         )}
-
       </div>
       <div className={style.content}>
         <div className={style.section}>
-
           {!loading ? (
             <h1 className={style.heading}>{eventData.eventName}</h1>
           ) : (
@@ -169,24 +167,25 @@ export default function ViewEvent() {
                 </div>
                 <div className={style.dates}>
                   {eventData.date.map((date, index) => {
-                    const formattedDate = new Date(date).toLocaleDateString("he-IL", {
-                      weekday: 'long',
-                      day: 'numeric',
-                      month: 'long',
-                      timeZone: 'UTC',
-                      numberingSystem: 'latn'
-                    });
+                    const formattedDate = new Date(date).toLocaleDateString(
+                      "he-IL",
+                      {
+                        weekday: "long",
+                        day: "numeric",
+                        month: "long",
+                        timeZone: "UTC",
+                        numberingSystem: "latn",
+                      }
+                    );
                     const dateObj = {
                       formattedDate,
-                      weekday: formattedDate.split(',')[0]
+                      weekday: formattedDate.split(",")[0],
                     };
                     return (
                       <div key={index} className={style.date}>
-                        {eventData.isReapeated ? (
-                          `${formattedDate} (כל  ${dateObj.weekday})`
-                        ) : (
-                          formattedDate
-                        )}
+                        {eventData.isReapeated
+                          ? `${formattedDate} (כל  ${dateObj.weekday})`
+                          : formattedDate}
                       </div>
                     );
                   })}
@@ -203,9 +202,7 @@ export default function ViewEvent() {
                 <div className={style.reactIcon}>
                   <AiOutlineClockCircle />
                 </div>
-                <div
-                  className={style.hourOfEvent}
-                >
+                <div className={style.hourOfEvent}>
                   {eventData.finishTime}- {eventData.beginningTime}
                 </div>
               </div>
@@ -213,7 +210,6 @@ export default function ViewEvent() {
               <p>loading...</p>
             )}
           </div>
-
 
           <div className={style.section}>
             {!loading ? (
@@ -224,7 +220,6 @@ export default function ViewEvent() {
 
                 <div className={style.placeOfEvent}> {eventData.place}</div>
               </div>
-
             ) : (
               <p>loading...</p>
             )}
@@ -237,7 +232,9 @@ export default function ViewEvent() {
                   <BiMoney />
                 </div>
                 <div className={style.payment}>
-                  {eventData.payment.isFree === true ? "כניסה חופשית" : "בתשלום"}
+                  {eventData.payment.isFree === true
+                    ? "כניסה חופשית"
+                    : "בתשלום"}
                 </div>
               </div>
             ) : (
@@ -297,44 +294,72 @@ export default function ViewEvent() {
           )}
         </div>
         <div className={style.linkAndButton}>
-        {eventData&&eventData.registrationPageURL&&
-        <div><a className={style.cards} href={eventData.registrationPageURL} target="_blank" ><span className="openIcon"><MdOpenInNew/></span>לדף הרשמה וכרטיסים
-        </a></div>}
+          {eventData && eventData.registrationPageURL ? (
+            <div>
+              <a
+                className={style.cards}
+                href={eventData.registrationPageURL}
+                target="_blank"
+              >
+                <span className="openIcon">
+                  <MdOpenInNew />
+                </span>
+                לדף הרשמה וכרטיסים
+              </a>
+            </div>
+          ) : !loading ? (
+            <Link
+              to={`https://wa.me/${eventData.advertiser.tel}?text=שלום, לגבי הארוע ${eventData.eventName} שפרסמת`}
+            >
+              <FaWhatsapp /> יצירת קשר עם המפרסם{" "}
+            </Link>
+          ) : (
+            <p>loading...</p>
+          )}
 
-        <div className={style.homeButton}>
-          <ClassicButton
-            width={'90%'}
-            height={'50px'}
-            type={'submit'}
-            onClick={()=>navigate('/')}
-            // onClick={loginAouth}
-          >
-            <AiOutlineHome className={style.icon} /> חזרה לדף הבית
-          </ClassicButton>
-        </div>
+          <div className={style.homeButton}>
+            <ClassicButton
+              width={"90%"}
+              height={"50px"}
+              type={"submit"}
+              onClick={() => navigate("/")}
+              // onClick={loginAouth}
+            >
+              <AiOutlineHome className={style.icon} /> חזרה לדף הבית
+            </ClassicButton>
+          </div>
         </div>
 
-        {isAdmin === user.userType && eventData &&
+        {isAdmin === user.userType && eventData && (
           <div className={style.adminContainer}>
             <div className={style.advertiserInfo}>
               <h4>פרטי המפרסם:</h4>
               <p>{eventData.advertiser.name}</p>
               <p>{eventData.advertiser.email} </p>
-              <p>{eventData.advertiser.tel} </p>
+              <p>
+                {eventData.advertiser.tel}{" "}
+                <Link to={`https://wa.me/${eventData.advertiser.tel}`}>
+                  <FaWhatsapp />
+                </Link>
+              </p>{" "}
             </div>
             <div className={style.publishButton}>
-            <button
-              className={`${style.adminPublish ? (isActive ? style.active : style.adminPublish) : style.active}`}
-              onClick={handleButtonToggle}
-              disabled={isPublished || isActive}
-            >
-              {isActive ? 'פורסם בהצלחה 👍🏽' : 'פרסם'}
-            </button>
+              <button
+                className={`${
+                  style.adminPublish
+                    ? isActive
+                      ? style.active
+                      : style.adminPublish
+                    : style.active
+                }`}
+                onClick={handleButtonToggle}
+                disabled={isPublished || isActive}
+              >
+                {isActive ? "פורסם בהצלחה 👍🏽" : "פרסם"}
+              </button>
+            </div>
           </div>
-          </div>}
-
-   
-       
+        )}
       </div>
     </div>
   );
