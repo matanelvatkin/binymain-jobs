@@ -1,7 +1,7 @@
 import styles from "./style.module.css";
 import { ImLocation2 } from "react-icons/im";
 import { AiOutlineReload } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ClassicButton from "../ClassicButton copy";
 import Loader from "../Loader";
 import EmptySearch from "../EmptySearch";
