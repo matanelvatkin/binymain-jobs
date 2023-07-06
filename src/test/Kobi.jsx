@@ -1,8 +1,8 @@
-import Loader from "../components/Loader";
+import Logo from "../components/Logo";
 export default function Kobi() {
   return (
     <div>
-      <Loader />
+      <Logo />
     </div>
   );
 }
