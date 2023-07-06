@@ -381,7 +381,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           gallery: values.gallery,
           repeatType: values.repeatType,
           personalRepeat: values.personalRepeatType,
-          isReapeated: values.repeatType !== "אירוע ללא חזרה",
+          isReapeated: values.repeatType !== "אירוע חד פעמי",
           payment: {
             isFree: values.isFree,
           },
@@ -398,12 +398,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         "האירוע שרצית לפרסם נשלח למערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
       );
       setPopUp(true);
+      setSaveEventMode(true);
       nav(`/`);
       apiCalls("post", "/event/createvent", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
         if (res._id != "") {
-          setSaveEventMode(true);
           sessionStorage.clear();
         }
       });
