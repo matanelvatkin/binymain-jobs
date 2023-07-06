@@ -140,14 +140,15 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: constancy || "אירוע חד פעמי",
       className: "form-control",
     },
-    {
-      id: 3,
-      name: "advanced",
-      type: "button",
-      errorMessage: "אוי שכחת למלא כאן את הפרטים",
-      placeholder: "מתקדם",
-      label: "מתקדם",
-    },
+    //TODO: return this when Hadar finish the work on popup
+    // {
+    //   id: 3,
+    //   name: "advanced",
+    //   type: "button",
+    //   errorMessage: "אוי שכחת למלא כאן את הפרטים",
+    //   placeholder: "מתקדם",
+    //   label: "מתקדם",
+    // },
 
     {
       id: 4,
