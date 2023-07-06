@@ -207,7 +207,10 @@ export default function ViewEvent() {
                     <MdOutlinePlace />
                   </div>
 
-                  <div className={style.placeOfEvent}> {eventData.place}</div>
+                  <div className={style.placeOfEvent}>
+                    {" "}
+                    {eventData.place} {eventData.accuratelocation}
+                  </div>
                 </div>
               </div>
 
