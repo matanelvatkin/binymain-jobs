@@ -37,16 +37,12 @@ function HeaderHome({ page, isValid, setIsValid }) {
       <div className={styles.headerHome_container}>
         <div>
           <div
-            // className={styles.titleBox}
             onClick={() => {
               setSearch("");
             }}
           >
             <Logo />
-            {/* <h1 className={styles.title}> HereEvent </h1>
-            <BiAnalyse className={styles.logo} /> */}
           </div>
-          {/* <h3 className={styles.secondTitle}>כיף לצאת בבנימין</h3> */}
         </div>
         <div className={styles.options}>
           <span

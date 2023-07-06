@@ -1,18 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext } from "react";
 import styles from "./style.module.css";
-import {BiAnalyse} from 'react-icons/bi'
+import { BiAnalyse } from "react-icons/bi";
+import Logo from "../Logo";
 
 function HeaderLogin() {
+  return (
+    <div className={styles.main}>
+      <div className={styles.header}>
+        <Logo />
+      </div>
+    </div>
+  );
+}
 
-  return ( 
-    <div className={styles.main}> 
-        <div className={styles.header} >
-          <div className={styles.hereEvent}>
-           <h1 className={styles.title}> HereEvent </h1>
-           <BiAnalyse className={styles.logo}/>
-           </div>
-           </div>
-           </div>
-)}
-
-export default HeaderLogin
+export default HeaderLogin;
