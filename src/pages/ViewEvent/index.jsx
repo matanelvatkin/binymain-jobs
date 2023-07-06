@@ -209,7 +209,8 @@ export default function ViewEvent() {
 
                   <div className={style.placeOfEvent}>
                     {" "}
-                    {eventData.place} {eventData.accuratelocation}
+                    {eventData.place} {"- "}
+                    {eventData.accuratelocation}
                   </div>
                 </div>
               </div>
