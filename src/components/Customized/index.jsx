@@ -42,25 +42,15 @@ export default function Customized({values,setValues = () => { },setCustom, ...p
   },
     [isClicked]);
 
-useEffect(()=>{
-  console.log("chooseDays", chooseDays)
-  const filteredArray = chooseDays.filter((obj) => Object.keys(obj).length !== 0);
-  const daysName= filteredArray.map((d)=> d.day)
-  setArrayDay(daysName)
-  console.log("arrayDay" ,arrayDay)
-
-}, [chooseDays])
-
-
-
     function saveClick(){
       console.log(values)
     setValues({ ...values,
        isRepeated: true, repeatType: "customized",
        repeatTimes: numberTimes, 
        personalRepeatType: chooseDayOrWeek,
-   days: arrayDay, 
-   daysObjects: chooseDays,
+  //  days: arrayDay, 
+  //  daysObjects: chooseDays,
+   days: chooseDays,
    repeatSettingsEnd: repeatSettingsEnd,
    repeatDateEnd: repeatDateEnd|| new Date(),
    repeatTimesEnd:repeatTimesEnd||1 

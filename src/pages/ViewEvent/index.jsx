@@ -16,7 +16,7 @@ import { BiCategory } from "react-icons/bi";
 import FavouriteMark from "../../components/FavouriteMark";
 import userContext from "../../context/userContext";
 import { Link } from "react-router-dom";
-import DateDisplay from "../../components/dateDisplay";
+import DateDisplay from "../../components/DateDisplay";
 
 // Creator: Naama Orlan
 //This page view the details of a specific event.
@@ -190,8 +190,8 @@ export default function ViewEvent() {
                           `${formattedDate} (כל יום)`
                           ):
                         eventData.isReapeated&& eventData.repeatType=="customized" ? (
-                            formattedDate+
-                           <DateDisplay returnType={eventData.repeatType} values={eventData}/>
+                            // formattedDate+" " +
+                           <DateDisplay returnType={eventData.repeatType} values={eventData} startDate={formattedDate}/>
                             ):
                           formattedDate
                         }

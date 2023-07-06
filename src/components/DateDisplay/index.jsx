@@ -1,19 +1,26 @@
+import style from "./style.module.css";
 import {FiRotateCw} from 'react-icons/fi'
 
-export default function DateDisplay({returnType, values}){
+export default function DateDisplay({returnType, values, startDate}){
 
     let personalType="ימים, "
-    if(values.personalRepeatType!=="days"){
-        personalType="שבועות"
+    if(values.personalRepeatType!=="days"&&values.personalRepeat!="days"
+    ||values.personalRepeat=="weeks"&&values.personalRepeat!="days"){
+        personalType="שבועות"}
+    else if(values.personalRepeat=="days"){
+        personalType="ימים) "
     }
+    
 
+
+    let end= values.repeatTimesEnd+ " פעמים"
+
+    if(!values.personalRepeat){
     let finishDate = new Date(values.repeatDateEnd.date);
     const startDate= new Date (values.date);
 
     finishDate<new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate())?finishDate=finishDate:
     finishDate=new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate())
-
-
 
     const options = {
         day: 'numeric',
@@ -23,26 +30,48 @@ export default function DateDisplay({returnType, values}){
       };
       const formattedDate = finishDate.toLocaleDateString('he-IL', options);
 
-let end= values.repeatTimesEnd+ " פעמים"
 if(values.repeatSettingsEnd=="endDate"){
     end="עד " + formattedDate
 }
+    }
+    else if(values.personalRepeat){
+    end=""};
 
 let stringDays="";
-const filteredArray = values.daysObjects.filter((obj) => Object.keys(obj).length !== 0);
+const filteredArray = values.days.filter((obj) => Object.keys(obj).length !== 0);
+const daysOfWeek =["ראשון","שני", "שלישי", "רביעי","חמישי","שישי","שבת"]
+filteredArray.sort((a,b)=>{
+
+const dayIndexA = daysOfWeek.indexOf(a.nameDay);
+const dayIndexB = daysOfWeek.indexOf(b.nameDay);
+return dayIndexA - dayIndexB;
+
+})
 if(filteredArray.length>0){
     stringDays="ב";
-    for(const i of filteredArray){
-        stringDays+=i.nameDay+", ";
+    // for(const i of filteredArray)
+   for(let i=0; i<filteredArray.length-1; i++) {
+        stringDays+=filteredArray[i].nameDay+", ";
+    }
+    if (values.personalRepeat){
+        stringDays+=(filteredArray[filteredArray.length-1]).nameDay+ ") ";
+    }
+    else{
+        stringDays+=(filteredArray[filteredArray.length-1]).nameDay+ ", ";
     }
 }
-const text= ` כל ${values.repeatTimes} ${personalType} ${stringDays} ${end} `
+
+
+let text= `כל ${values.repeatTimes} ${personalType} ${stringDays} ${end} `
+
     
 return(
 
-    <div>
-        <FiRotateCw/>
-        {returnType!="בהתאמה אישית"? returnType: text}
+    <div className={style.date}>
+        <div className={style.icon}>
+        {end!=""?
+        <FiRotateCw/>:startDate+ " ("}</div>
+        {(returnType!="בהתאמה אישית" &&returnType!="customized")? returnType: text}
     </div>
 )
 }
