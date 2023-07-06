@@ -1,0 +1,48 @@
+.titleBox {
+  direction: ltr;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  position: relative;
+
+  background-color: var(--bg-secondary-color);
+}
+.upperTitleBox {
+  direction: ltr;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  position: relative;
+}
+.title {
+  font-family: "Boogaloo", cursive;
+  font-style: normal;
+  font-size: xxx-large;
+  color: var(--text-Fourth-color);
+  font-weight: normal;
+  font-size: 30pt;
+  letter-spacing: -1pt;
+  margin-right: 6pt;
+  margin-bottom: -10pt;
+}
+.secondTitle {
+  font-family: "Varela Round", sans-serif;
+  font-style: normal;
+  font-size: small;
+  color: var(--text-Fourth-color);
+  direction: rtl;
+  margin-right: -55pt;
+  background-color: var(--bg-secondary-color);
+}
+.logo {
+  color: var(--text-Fourth-color);
+  height: 20pt;
+  width: 20pt;
+  margin-bottom: -3pt;
+  /* animation-name: spin;
+          animation-duration: 5000ms;
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;  */
+}
