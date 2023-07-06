@@ -13,14 +13,15 @@
   align-items: center;
   margin-top: 3%;
 }
-.favourite{
-margin-left: 30px;
+.favourite {
+  margin-left: 30px;
 }
 .coverImage {
   border-radius: 3px;
   max-height: 250px;
   min-height: 250px;
   min-width: 100%;
+  max-width: 100%;
 }
 .cardImage {
   border-radius: 5px;
@@ -32,7 +33,7 @@ margin-left: 30px;
     margin-right: 0px;
 } */
 
-.main{
+.main {
   display: flex;
   flex-direction: column;
   /* gap: 1rem; */
@@ -56,7 +57,7 @@ margin-left: 30px;
 
 .reactIcon {
   margin-left: 20px;
-  color: var( --text-Fourth-color);
+  color: var(--text-Fourth-color);
   padding: 7px;
   background-color: var(--bg-secondary-color);
   border-radius: 15%;
@@ -75,58 +76,87 @@ margin-left: 30px;
   font-size: 20px;
 }
 
+.linkAndButton {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+}
 
-.adminContainer{
+.adminContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin-left: 5%;
-  height: 200px;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 250px;
   font-size: large;
   font-weight: bold;
 }
 
-
-.advertiserInfo{
+.advertiserInfo {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 }
 
-.advertiserInfo >p{
+.advertiserInfo > p {
   color: var(--text-secondary-color);
 }
-.advertiserInfo >h3{
-  color: var(--text-third-color);
+.advertiserInfo > h4 {
+  color: var(--text-color);
+  font-weight: bold;
 }
 
+.publishButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
 
-.adminPublish{
-  width: 200px;
-  height: 55px;
+.adminPublish {
+  width: 90%;
+  height: 50px;
   background-color: var(--bg-secondary-color);
   color: var(--text-Fourth-color);
   font-size: large;
   border-radius: 12px;
   border: none;
-} 
+}
 
-.active{
-  width: 200px;
-  height: 55px;
+.active {
+  width: 90%;
+  height: 50px;
   background-color: var(--text-third-color);
   color: var(--text-Fourth-color);
   font-size: large;
   border-radius: 12px;
   border: none;
 }
-.cards{
+.cards {
   display: flex;
   align-items: center;
 }
 
-.homeButton{
-  margin: 10% 15% 10% 10%;
+.homeButton {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.innercontainer {
+  padding-bottom: 15px;
+}
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
 }

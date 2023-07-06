@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { settingsContext } from "../../layout/Layout";
 import Select from "../../components/Select";
+import MultiSelect from "../../components/MultiSelect";
 
 // Yair Ken
 // I tried to make the date buttons relatively generic, so to add them to this component, you only need to add them to the array and show
@@ -19,16 +20,21 @@ export default function SearchEvent({setSearch}) {
   const DefaultBtnDate = "allDate"
   const DefaultBtnDateObject= setDefaultBtnDateObject (arrBtnDates,DefaultBtnDate)
   const arrayLocations = areaAndAllLocations
-  const locationPlaceholder = textShow.choseLocation
-  
+
+  const placeData = arrayLocations.map((i) => {
+    return { value: i, label: i };
+  });
+
   const [btnDates, setBtnDates] = useState(DefaultBtnDateObject);
 
   const [loading, setLoading] = useState(true);
   
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
-  const [location, setLocation] = useState(locationPlaceholder);
-  
+  const [location, setLocation] = useState("");
+
+  // const [selectRequired, setSelectRequired] = useState(false);
+
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   
@@ -36,6 +42,7 @@ export default function SearchEvent({setSearch}) {
   
   setHeader(textShow.advencedSearch);
   
+
   
   function setDefaultBtnDateObject (arrBtnDates,DefaultBtnDate){
       const Object = {}
@@ -86,12 +93,12 @@ function handleSubmit(){
   let categoriesUpdate= createListIdSettingIsTrue(categories)
   let audiencesUpdate = createListIdSettingIsTrue (audiences)
   
-  let locationUpdate = location
-   if (location===textShow.choseLocation) {
-    locationUpdate = ""
-   }
-   else if(allAreas.includes(location)){
-    locationUpdate= areaLocations[location]
+  let locationUpdate = location.undefined
+  //  if (location===textShow.choseLocation) {
+  //   locationUpdate = ""
+  //  }
+  if(allAreas.includes(locationUpdate)){
+    locationUpdate= areaLocations[locationUpdate]
   }
 
    let btnDatesUpdate;
@@ -104,7 +111,7 @@ function handleSubmit(){
 
 // console.log(categoriesUpdate,"categoriesUpdate");
 // console.log(audiencesUpdate,"audiencesUpdate");
-// console.log(locationUpdate,"locationUpdate");
+console.log(locationUpdate,"locationUpdate");
 // console.log(btnDatesUpdate,"btnDatesUpdate");
 
 setSearch(
@@ -130,7 +137,7 @@ setSearch(
     <div>
       {/* {console.log(categories)} */}
       {/* {console.log(audiences)} */}
-      {/* {console.log(location)} */}
+      {console.log(location.undefined)}
       {/* {console.log(btnDates)} */}
 
       <div className={style.content}>
@@ -176,12 +183,16 @@ setSearch(
           <span className={style.title}>{textShow.location}</span>
           <div className={style.location}>
             {
-              <Select
-                placeholder={location}
-                choossArray={arrayLocations}
-                func={setLocation}
-                style={{width:"95%"}}
-                icon="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
+              <MultiSelect
+                options={placeData}
+                placeholder= {textShow.choseLocation}
+                // func={setLocation}
+                // style={{width:"95%"}}
+                // icon="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
+                selectRequired={true}
+                setSelectRequired={()=>{}}
+                values={location}
+                setValues={setLocation}
               />
             }
           </div>
@@ -240,7 +251,8 @@ setSearch(
 
         <div className={style.footerBtn}>
           <ClassicButton
-            width={300}
+            width="100%"
+            height={50}
             text={textShow.search}
             func={handleSubmit}
           />

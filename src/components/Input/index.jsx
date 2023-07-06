@@ -2,7 +2,8 @@ import styles from "./style.module.css";
 import { useRef, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 // creator: Kobi Krumbein
 // color: _______________
@@ -47,7 +48,8 @@ const Input = (props) => {
             <div>{label} </div>
           </label>
           <input
-            className={`${styles.input} ${className}`}
+            // className={`${styles.input} ${className}`}
+            className="form-control"
             {...inputProps}
             onInvalid={onInvalid}
             onBlur={onBlur}

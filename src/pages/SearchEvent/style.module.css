@@ -18,7 +18,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    width:100%;
+    width: 100%;
+    padding: 10px;
 }
 
 #back {
@@ -31,11 +32,11 @@
     flex-direction: column;
 }
 
-.allDateButton{
+.allDateButton {
     padding-right: 7px;
 }
 
-.otherButtons{
+.otherButtons {
     display: flex;
     justify-content: space-between;
     padding: 0 7px 0 7px;
@@ -45,37 +46,32 @@
 .categories {
     display: flex;
     justify-content: space-around;
+    flex-basis: 0;
+    flex-grow: 1;
 }
 
 .categories div {
     flex-basis: 0;
-  flex-grow: 1;
-    /* margin-top: 1.5%;
-    margin-right: 2%;
-    margin-left: -5px; */
+    flex-grow: 1;
+    height: fit-content;
 }
 
 .location {
-    margin-top: 1.5%;
-    margin-right: 2%;
-    margin-left: -5px;
+    padding: 10px;
 }
 
 .audiences {
     display: flex;
     justify-content: space-around;
-
 }
 
 .audiences div {
     flex-basis: 0;
     flex-grow: 1;
-    /* margin-top: 1.5%;
-    margin-right: 2%;
-    margin-left: -5px; */
+    height: fit-content;
 }
 
 .section {
-    margin-top: 4%;
-    margin-bottom: 4%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }

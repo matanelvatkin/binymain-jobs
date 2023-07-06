@@ -124,7 +124,6 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     isFree: true,
     price: "",
     days: [],
-    // daysObjects:[],
     cardImageURL: "",
     coverImageURL: "",
     gallery: [],
@@ -145,6 +144,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       id: 2,
       name: "constancy",
       type: constancy || "חד פעמי",
+      className: "form-control",
     },
     {
       id: 3,
@@ -263,7 +263,6 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: " לינק להרשמה/כרטיסים לאירוע",
       className: "form-control",
-      required: true,
     },
     {
       id: 13,
@@ -383,7 +382,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
           accuratelocation: values.accuratelocation,
           categories: values.categories,
           audiences: values.audiences,
-          registrationPageURL: values.registrationPageURL,
+          registrationPageURL: `${values.registrationPageURL}/?ref=here_event`,
           cardImageURL: values.cardImageURL,
           coverImageURL: values.coverImageURL,
           gallery: values.gallery,
@@ -404,18 +403,19 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
 
       console.log([...formData.entries()]);
 
+      
+      setPopUpText(
+        "האירוע שרצית לפרסם נשלח למערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
+      );
+      setPopUp(true);
+      setSaveEventMode(true);
+      nav(`/`);
+
       apiCalls("post", "/event/createvent", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
-        console.log(res)
         if (res._id != "") {
-          setSaveEventMode(true);
-          // sessionStorage.clear();
-          setPopUpText(
-            "האירוע שרצית לפרסם נקלט במערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
-          );
-          setPopUp(true);
-          nav(`/`);
+          sessionStorage.clear();
         }
       });
     }
@@ -457,7 +457,6 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       values.advertiserEmail &&
       values.categories[0] &&
       values.audiences[0] &&
-      values.registrationPageURL &&
       values.cardImageURL &&
       values.coverImageURL &&
       isValid
@@ -467,7 +466,6 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     }
 
     //if the targeted input is the beginningTime or finishingTime then- we make a validation check.
-
     if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
       //set the beginning and finishing time from the values object
       const beginningTimeObj = new Date("2000-01-01T" + values.beginningTime);
@@ -506,7 +504,6 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       values.advertiserEmail &&
       values.categories[0] &&
       values.audiences[0] &&
-      values.registrationPageURL &&
       values.cardImageURL &&
       values.coverImageURL &&
       isValid
@@ -521,7 +518,8 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
       return (
         <div className={styles.button}>
           <ClassicButton
-            width={"200px"}
+            width={"350px"}
+            height={50}
             text={"נשלח לפרסום, אנא המתן"}
             type={"submit"}
             disabled={true}
@@ -531,7 +529,12 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     } else {
       return (
         <div className={styles.button}>
-          <ClassicButton width={"200px"} text={"שמור"} type={"submit"} />
+          <ClassicButton
+            width={"350px"}
+            text={"שמור"}
+            height={50}
+            type={"submit"}
+          />
         </div>
       );
     }
@@ -553,7 +556,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
         className={styles.form}
         encType="multipart/form-data"
       >
-        {inputs.map((input) => {
+          {inputs.map((input) => {
           if (input.type === "select")
             return (
               <MultiSelect
@@ -573,27 +576,27 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
                 {...input}
               />
             );
-          else if (input.type === "selectIcon") {
-            return (
-              <div className={styles.selectIcon}>
-                <div className={styles.iconLabel}>{input.label}</div>
-                <SelectIcon
-                  isValid={isValid}
-                  errorMessage={input.errorMessage}
-                  inText={false}
-                  key={input.id}
-                  value={values[input.name]}
-                  name={input.name}
-                  values={values}
-                  setValues={setValues}
-                  isTheSubmitButtonPush={isTheSubmitButtonPush}
-                  array={input.name === "categories" ? categories : audiences}
-                  setArray={
-                    input.name === "categories" ? setCategories : setAudiences
-                  }
-                  {...input}
-                />
-              </div>
+            else if (input.type === "selectIcon") {
+              return (
+                <div className={styles.selectIcon}>
+                  <SelectIcon
+                    isValid={isValid}
+                    errorMessage={input.errorMessage}
+                    inText={false}
+                    header={input.label}
+                    key={input.id}
+                    value={values[input.name]}
+                    name={input.name}
+                    values={values}
+                    setValues={setValues}
+                    isTheSubmitButtonPush={isTheSubmitButtonPush}
+                    array={input.name === "categories" ? categories : audiences}
+                    setArray={
+                      input.name === "categories" ? setCategories : setAudiences
+                    }
+                    {...input}
+                  />
+                </div>
             );
           } else if (input.type === "חד פעמי")
           return (
