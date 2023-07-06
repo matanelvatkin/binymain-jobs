@@ -376,7 +376,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           accuratelocation: values.accuratelocation,
           categories: values.categories,
           audiences: values.audiences,
-          registrationPageURL: values.registrationPageURL,
+          registrationPageURL: `${values.registrationPageURL}/?ref=here_event`,
           cardImageURL: values.cardImageURL,
           coverImageURL: values.coverImageURL,
           gallery: values.gallery,
