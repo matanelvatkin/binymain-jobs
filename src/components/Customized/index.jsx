@@ -4,6 +4,8 @@ import Input from "../Input";
 import DateInput from "../DateInput";
 import ClassicButton from "../ClassicButton copy";
 import SelectDays from "../SelectDays";
+import {FiRotateCw} from 'react-icons/fi'
+
 
 //personalRepeatType, repeatSettingsEnd, repeatSettingsRepeatEnd,     days: [{}],
 
@@ -65,97 +67,122 @@ setCustom(false)
     {value:"ש", nameDay:"שבת", day: 6}];
 
 return(
-    <div className={styles.container}>
-    <div>חזרה כל</div>
+<div className={styles.container}>
+  <div className={styles.definitions}>
+  <div className={styles.header}><FiRotateCw/> תדירות מותאמת אישית </div> 
+    <div className={styles.back}>חזרה כל</div>
+
+    <div className={styles.numTypeReturn}>
+
+      <div className={styles.number}>
     {chooseDayOrWeek==="weeks"&&
 
     <input type="number" min="1" max="2" 
     onInput={(e)=> setNumberTimes(e.target.value)}
     />}
+    </div>
 
+<div className={styles.number}>
 {chooseDayOrWeek==="days"&&
 
 <input type="number" min="1" max="31" 
 onInput={(e)=> setNumberTimes(e.target.value)}
 />}
+</div>
 
-
-
-    <span><select
+    <span className={styles.select}><select
      onChange={(e)=>setChooseDayOrWeek(e.target.value)}
      >
 <option value="weeks">שבועות</option>
 <option value="days">ימים</option>
     </select>
           </span>
-
+        </div>
 {chooseDayOrWeek==="weeks"&&
-
+<div className={styles.dayReturn}>
+<div className={styles.back}>חזרה בימים</div>
         <div className={styles.days_div}>
           {
-            days.map((day)=><SelectDays days={day} setClickDay={setClickDay}
-            isClicked={isClicked} setIsClicked={setIsClicked}/>)
+            days.map((day)=><div className={styles.dayRound}><SelectDays days={day} setClickDay={setClickDay}
+            isClicked={isClicked} setIsClicked={setIsClicked}/></div>)
           }
+      </div>  
+    </div>}
 
-
-      </div> }
+    {chooseDayOrWeek==="days"&&
+    <div className={styles.dayReturn}><br/></div>}
 
 <div className={styles.end}>
-  <div className={styles.headerEnd}>סיום</div>
+  <div className={styles.back}>סיום</div>
         <div className={styles.endDateInputs}>
           <div className={styles.inDate}>
           <Input
             onChange={()=>setRepeatSettingsEnd("endDate")}
-            label="ב-"
+            // label="ב-"
             type="radio"
             name="repeatEnd"
             value="endDate"
             isChecked={true}
           />
           </div>
-          <span> <DateInput values={repeatDateEnd} setValues={setRepeatDateEnd} /></span>
+          <span className={styles.endTyps}>ב-</span>
+          <span className={styles.chooseDate}> <DateInput values={repeatDateEnd} setValues={setRepeatDateEnd} 
+          minDate={values.date} maxDate={new Date((values.date).getFullYear(), (values.date).getMonth() + 1, 
+            (values.date).getDate()-1)} classNameStyle={"customized"} datepickerStyle={true}
+          
+           /></span>
           </div>
 
-      <div className={styles.number}>
+      <div className={styles.numberEnd}>
+      <div className={styles.after}>
           <Input
             onChange={()=>setRepeatSettingsEnd("endNumTimes")}
-            label="אחרי"
+            // label="אחרי"
             type="radio"
             name="repeatEnd"
             value="endNumber"
           />
+          </div>
 
+  <span className={styles.endTyps}>אחרי</span>
           {chooseDayOrWeek==="weeks"&&
-       <div className={styles.backNum}>
+       <div className={styles.number}>
         <input type="number" 
         onInput={(e)=>setRepeatTimesEnd(e.target.value)}
         min="1" max="4"/>
-        <span>חזרות</span>
+        <span className={styles.endTyps}>חזרות</span>
        </div>
 }
 {chooseDayOrWeek==="days"&&
-       <div className={styles.backNum}>
+       <div className={styles.number}>
         <input type="number" 
         onInput={(e)=>setRepeatTimesEnd(e.target.value)}
         min="1" max="31"/>
-        <span>חזרות</span>
+        <span className={styles.reapets}>חזרות</span>
        </div>
 }
       </div>
     </div>
 
           <div className={styles.buttons}>
+            <div  className={styles.endButton}>
           <ClassicButton
           text="סיים"
-          width="30%"
+          width="100%"
           func={saveClick}
           />
-
+          </div> 
+          <div className={styles.endButton}>
           <ClassicButton
           text="ביטול"
-          width="30%"/>
+          width="100%"
+          backgroundColor="white"
+          color="black"
+          border="1px solid black"/>
+          </div>
         </div>
   </div>
+</div>
 
 )
 }

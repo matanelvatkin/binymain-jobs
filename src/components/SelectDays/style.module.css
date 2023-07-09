@@ -1,9 +1,14 @@
 .days,.chooseDay {
-    width: 12%;
+    height: 90%;
+    width: 90%;
     border: 1px solid var( --text-color);
     border-radius: 50%;
     padding-bottom: 1%;
-    cursor: pointer;;
+    margin: 3%;
+    cursor: pointer;
+    font-size: smaller;
+    border: hsl(0, 0%, 80%) 1px solid;
+
 }
 
 .chooseDay{

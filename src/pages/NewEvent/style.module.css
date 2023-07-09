@@ -38,12 +38,14 @@
 .date {
   /* position: relative; */
   margin-top: -20px;
+  
 }
 .advanced {
-  margin-top: -30px;
-  margin-left: 35%;
+  width: 65%;
+  margin-top: -20px;
+  /* margin-left: 53%; */
   font-size: small;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: underline;
   
 }

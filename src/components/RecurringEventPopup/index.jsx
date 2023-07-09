@@ -14,6 +14,8 @@ export default function RecurringEventPopup({setNewEventPopup, values, setValues
     setReturnType(chooseRadio)
     if(e.target.value=="בהתאמה אישית"){
 setCustom(true)
+// setNewEventPopup(false)
+
     }
     else if(e.target.value=="חד- פעמי"){
       // setTimeout(()=>{
@@ -25,14 +27,14 @@ setCustom(true)
     }
     else if(e.target.value=="מדי יום"){
       setTimeout(()=>{
-        setNewEventPopup(false)}, 400);
+        setNewEventPopup(false)}, 300);
         setValues({ ...values, isRepeated: true, repeatType: "daily", personalRepeatType: ""});
 
 
     }
     else if(e.target.value=="מדי שבוע"){
       setTimeout(()=>{
-        setNewEventPopup(false)}, 400);
+        setNewEventPopup(false)}, 300);
         setValues({ ...values, isRepeated: true, repeatType: "weekly"});
     }
   }
@@ -48,6 +50,7 @@ function endDefaultDate(date){
 }
 
 return(
+  <>
     <div className={styles.container} onClick={()=>setNewEventPopup(false)}>
         <div className={styles.popup} onClick={(event) => event.stopPropagation()}>
         <Input
@@ -83,14 +86,16 @@ return(
             isChecked={chooseRadio==="בהתאמה אישית"}
             onChange={chooseRadioClick}
           />
+    </div>      
+  </div>
 
-
+{/* <div className={styles.customized}> */}
 {custom&&
 <Customized values={values} setValues={setValues} setCustom={setCustom}/>}
-
-
-        </div>
-    </div>
+{/* </div> */}
+ 
+  
+    </>
 )
 
 
