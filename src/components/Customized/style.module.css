@@ -1,0 +1,127 @@
+.container{
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.definitions{
+  position: absolute;
+  top: 10%;
+   z-index: 2;
+    width:70%;
+    height: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    flex-direction: column;
+    background-color: var(--text-Fourth-color);
+    /* font-size: larger; */
+    text-align: right;
+    padding: 8%;
+    border-radius: 10px;
+}
+
+.header{
+    padding: 0 2% 3% 0;
+}
+
+.back{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 70%;
+    text-align: right;
+    letter-spacing: 0.01em;
+    color: #9c9ca8;
+}
+
+.numTypeReturn{
+    height: 100%;
+    display: flex;
+    align-items:center;
+    margin-bottom: 4%;
+    /* border: pink solid  3px; */
+    
+}
+
+.number{
+    height: 100%;
+    margin: 1%;
+}
+
+.number input[type=number]{
+    height:30px;
+   border-radius: 10%;
+   text-align: right;
+   font-size: small;
+   border: hsl(0, 0%, 80%) 1px solid;
+}
+
+.select select{
+    border-radius: 10%;  
+    height: 30px;
+    border: hsl(0, 0%, 80%) 1px solid;
+    box-sizing: border-box;
+    
+}
+
+.select{
+    height: 100%;
+    margin-right: 7%;
+    font-size: small;
+
+}
+
+.dayReturn{
+    width: 80%;
+    }
+.dayRound{
+    width: 100%;
+    height: 100%;
+    padding: 1% 1% 3% 1%;
+}
+
+
+.days_div{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-right: -2%;
+}
+.end{
+    width: 100%;
+}
+.endDateInputs{
+    height: 30%;
+    display: flex;
+    align-items: center;
+}
+.chooseDate{
+    width: 40%;
+}
+.numberEnd{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 3%;
+}
+
+.endTyps{
+    font-size: small;
+}
+.reapets{
+    margin: 2%;
+    padding: 2%;
+}
+.buttons{
+    display: flex;
+    width: 80%;
+    align-items: center;
+    margin:3% 9% -2% 0;
+    gap: 5%;
+
+}
+.endButton{
+    width: 100%;
+}

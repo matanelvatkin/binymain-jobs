@@ -21,6 +21,7 @@ const Input = (props) => {
     refInput,
     isValid,
     isTheSubmitButtonPush,
+    isChecked,
     onblur = () => {},
     ...inputProps
   } = props;
@@ -72,11 +73,13 @@ const Input = (props) => {
             type={type}
             onBlur={onBlur}
             onInvalid={onInvalid}
+            id={label}
+            checked={isChecked}
             {...inputProps}
             // ref={inputRef ? inputRef : tempRef}
           />
-          <label className={styles.labelRadio}>
-            <div>{label} </div>
+          <label className={styles.labelRadio}for={label}>
+            {label}
           </label>
           {!!validationMessage && (
             <span className={styles.errorMessage || validationMessage}>
