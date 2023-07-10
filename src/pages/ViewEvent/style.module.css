@@ -6,7 +6,10 @@
 .content {
   margin-right: 5%;
 }
-
+.date{
+width: 100%;
+text-align: right;
+}
 .section {
   display: flex;
   justify-content: space-between;

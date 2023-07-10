@@ -91,7 +91,8 @@ return(
 
 {/* <div className={styles.customized}> */}
 {custom&&
-<Customized values={values} setValues={setValues} setCustom={setCustom}/>}
+<Customized values={values} setValues={setValues} setCustom={setCustom} chooseRadio={chooseRadio}
+setNewEventPopup={setNewEventPopup} />}
 {/* </div> */}
  
   

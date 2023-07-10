@@ -3,5 +3,10 @@
 }
 
 .icon{
-    padding-left: 7%;
+display: flex;
+align-items: center;
+}
+
+.text{
+    margin-right: 4%;
 }
