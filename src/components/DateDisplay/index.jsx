@@ -8,7 +8,7 @@ export default function DateDisplay({returnType, values, startDate}){
     ||values.personalRepeat=="weeks"&&values.personalRepeat!="days"){
         personalType="שבועות"}
     else if(values.personalRepeat=="days"){
-        personalType="ימים) "
+        personalType="ימים)"
     }
     
 
@@ -70,8 +70,8 @@ return(
     <div className={style.date}>
         <div className={style.icon}>
         {end!=""?
-        <FiRotateCw/>:startDate+ " ("}</div>
-        {(returnType!="בהתאמה אישית" &&returnType!="customized")? returnType: text}
+         <FiRotateCw/>:startDate+ " ("}</div>
+        {(returnType!="בהתאמה אישית" &&returnType!="customized")? <div className={style.text}>{returnType}</div>: text}
     </div>
 )
 }

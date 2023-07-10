@@ -10,7 +10,7 @@ import {FiRotateCw} from 'react-icons/fi'
 //personalRepeatType, repeatSettingsEnd, repeatSettingsRepeatEnd,     days: [{}],
 
 
-export default function Customized({values,setValues = () => { },setCustom, ...props}) {
+export default function Customized({values,setValues = () => { },setCustom,chooseRadio,setNewEventPopup, ...props}) {
 
     const [chooseDayOrWeek, setChooseDayOrWeek]= useState("weeks");
     const [numberTimes, setNumberTimes]= useState(1);
@@ -23,15 +23,6 @@ export default function Customized({values,setValues = () => { },setCustom, ...p
     const[clickDay, setClickDay]= useState({}) 
     const [isClicked, setIsClicked]=useState(false)
 
-
-    // const chooseBack = (e) => {
-    //   setChooseDayOrWeek(e.target.value);
-    //   // setValues({ ...values, isRepeated: true, repeatType: "customized", personalRepeatType: e.target.value, });
-    // };
-
-    // const chooseNumber=(e)=>{
-    // setNumberTimes(e.target.value)      
-    // }
 
     useEffect(()=>{
       if(chooseDays.find((dayName)=>dayName.day==clickDay.day)){
@@ -60,7 +51,13 @@ export default function Customized({values,setValues = () => { },setCustom, ...p
 );
 console.log("days", values.days)
 setCustom(false)
+setNewEventPopup(false)
     }
+
+   function cancelClick(){
+    setCustom(false)
+    setNewEventPopup(false)
+   } 
 
     const days = [{value: "א",nameDay:"ראשון", day:0}, {value: "ב",nameDay:"שני", day: 1}, {value:"ג", nameDay:"שלישי", day:2},
     {value: "ד", nameDay:"רביעי",day: 3}, {value: "ה", nameDay:"חמישי", day:4 }, {value:"ו",nameDay:"שישי", day:5 },
@@ -178,7 +175,9 @@ onInput={(e)=> setNumberTimes(e.target.value)}
           width="100%"
           backgroundColor="white"
           color="black"
-          border="1px solid black"/>
+          border="1px solid black"
+          func={cancelClick}
+          />
           </div>
         </div>
   </div>
