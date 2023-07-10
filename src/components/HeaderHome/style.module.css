@@ -1,5 +1,5 @@
 .main {
-  direction: ltr;
+  align-items: center;
   background-color: var(--bg-secondary-color);
   width: 100%;
   border-radius: 0px 0px 25px 25px;
@@ -7,42 +7,9 @@
   transition: 0.3s;
   margin-bottom: 20px;
 }
-
-/* .titleBox {
-  display: flex;
-  flex-direction: row;
-  /* justify-content: left; */
-/* align-items: center;
-  padding: 10pt 0pt 1pt 20pt;
+.headerHome_container {
+  /* padding-top: 20pt; */
 }
-.title {
-  font-family: "Boogaloo", cursive;
-  font-style: normal;
-  font-size: xxx-large;
-  color: var(--text-Fourth-color);
-  font-weight: normal;
-  font-size: 30pt;
-  letter-spacing: -1pt;
-  margin-right: 6pt;
-  margin-bottom: 10pt;
-}
-.secondTitle {
-  color: var(--text-Fourth-color);
-  direction: rtl;
-  margin-right: 6pt;
-}
-.logo {
-  color: var(--text-Fourth-color);
-  height: 20%;
-  width: 10%;
-  margin-bottom: 5%; */
-
-/* animation-name: spin;
-        animation-duration: 5000ms;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;  */
-/* } */
-
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -106,4 +73,17 @@
 }
 ::placeholder {
   color: #cccccc;
+}
+.logo {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 13pt;
+  height: 85pt;
+}
+.logo_container {
+  display: block;
+  align-items: center;
+  position: relative;
 }

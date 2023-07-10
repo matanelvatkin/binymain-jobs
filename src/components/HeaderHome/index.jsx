@@ -35,18 +35,13 @@ function HeaderHome({ page, isValid, setIsValid }) {
   return (
     <div className={styles.main}>
       <div className={styles.headerHome_container}>
-        <div>
+        <div className={styles.logo_container}>
+          <img src={"/Frame 33508.svg"} alt="" className={styles.logo} />
           <div
-            // className={styles.titleBox}
             onClick={() => {
               setSearch("");
             }}
-          >
-            <Logo />
-            {/* <h1 className={styles.title}> HereEvent </h1>
-            <BiAnalyse className={styles.logo} /> */}
-          </div>
-          {/* <h3 className={styles.secondTitle}>כיף לצאת בבנימין</h3> */}
+          ></div>
         </div>
         <div className={styles.options}>
           <span
