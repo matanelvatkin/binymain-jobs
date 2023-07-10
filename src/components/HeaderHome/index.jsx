@@ -35,14 +35,13 @@ function HeaderHome({ page, isValid, setIsValid }) {
   return (
     <div className={styles.main}>
       <div className={styles.headerHome_container}>
-        <div>
+        <div className={styles.logo_container}>
+          <img src={"/Frame 33508.svg"} alt="" className={styles.logo} />
           <div
             onClick={() => {
               setSearch("");
             }}
-          >
-            <Logo />
-          </div>
+          ></div>
         </div>
         <div className={styles.options}>
           <span

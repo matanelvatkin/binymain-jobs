@@ -6,9 +6,7 @@ import Logo from "../Logo";
 function HeaderLogin() {
   return (
     <div className={styles.main}>
-      <div className={styles.header}>
-        <Logo />
-      </div>
+      <img src={"/Frame 33508.svg"} alt="" className={styles.logo} />
     </div>
   );
 }

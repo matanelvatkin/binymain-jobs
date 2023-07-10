@@ -1,5 +1,5 @@
 .main {
-  direction: ltr;
+  align-items: center;
   background-color: var(--bg-secondary-color);
   width: 100%;
   border-radius: 0px 0px 25px 25px;
@@ -7,7 +7,9 @@
   transition: 0.3s;
   margin-bottom: 20px;
 }
-
+.headerHome_container {
+  /* padding-top: 20pt; */
+}
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -71,4 +73,17 @@
 }
 ::placeholder {
   color: #cccccc;
+}
+.logo {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 13pt;
+  height: 85pt;
+}
+.logo_container {
+  display: block;
+  align-items: center;
+  position: relative;
 }
