@@ -16,7 +16,9 @@ import { BiCategory } from "react-icons/bi";
 import FavouriteMark from "../../components/FavouriteMark";
 import userContext from "../../context/userContext";
 import { Link } from "react-router-dom";
+import DateDisplay from "../../components/DateDisplay";
 import Loader from "../../components/Loader";
+
 
 // Creator: Naama Orlan
 //This page view the details of a specific event.
@@ -181,10 +183,19 @@ export default function ViewEvent() {
                           weekday: formattedDate.split(",")[0],
                         };
                         return (
-                          <div key={index} className={style.date}>
-                            {eventData.isReapeated
-                              ? `${formattedDate} (כל  ${dateObj.weekday})`
-                              : formattedDate}
+                            <div key={index} className={style.date}>
+                              {eventData.isReapeated&& eventData.repeatType=="weekly" ? (
+                                `${formattedDate} (כל  ${dateObj.weekday})`
+                              ) :
+                              eventData.isReapeated&& eventData.repeatType=="daily" ? (
+                                `${formattedDate} (כל יום)`
+                                ):
+                              eventData.isReapeated&& eventData.repeatType=="customized" ? (
+                                  // formattedDate+" " +
+                                 <DateDisplay returnType={eventData.repeatType} values={eventData} startDate={formattedDate}/>
+                                  ):
+                                formattedDate
+                              }
                           </div>
                         );
                       })}

@@ -1,0 +1,12 @@
+.date{
+    display: flex;
+}
+
+.icon{
+display: flex;
+align-items: center;
+}
+
+.text{
+    margin-right: 4%;
+}

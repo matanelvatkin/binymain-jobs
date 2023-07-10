@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+    font-family: 'Heebo', sans-serif;
 }
 
 .container {
@@ -9,7 +10,7 @@
   direction: rtl;
 }
 
-.icons {
+.icons { 
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 4px;
