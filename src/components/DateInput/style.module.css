@@ -38,7 +38,7 @@
 
 }
 .datepicker{
-  position: fixed;
+  position: absolute;
 }
 .calIcon,
 .arrIcon {

@@ -22,6 +22,7 @@ export default function Customized({values,setValues = () => { },setCustom,choos
 
     const[clickDay, setClickDay]= useState({}) 
     const [isClicked, setIsClicked]=useState(false)
+    const [isChoosen, setIsChoosen]=useState("endDate")
 
 
     useEffect(()=>{
@@ -64,8 +65,8 @@ setNewEventPopup(false)
     {value:"ש", nameDay:"שבת", day: 6}];
 
 return(
-<div className={styles.container}>
-  <div className={styles.definitions}>
+<div className={styles.container}onClick={(cancelClick)}>
+  <div className={styles.definitions} onClick={(event) => event.stopPropagation()}>
   <div className={styles.header}><FiRotateCw/> תדירות מותאמת אישית </div> 
     <div className={styles.back}>חזרה כל</div>
 
@@ -111,7 +112,7 @@ onInput={(e)=> setNumberTimes(e.target.value)}
 
 <div className={styles.end}>
   <div className={styles.back}>סיום</div>
-        <div className={styles.endDateInputs}>
+        <div className={styles.endDateInputs} onClick={()=>setIsChoosen("endDate")}>
           <div className={styles.inDate}>
           <Input
             onChange={()=>setRepeatSettingsEnd("endDate")}
@@ -119,13 +120,13 @@ onInput={(e)=> setNumberTimes(e.target.value)}
             type="radio"
             name="repeatEnd"
             value="endDate"
-            isChecked={true}
+            isChecked={isChoosen=="endDate"}
           />
           </div>
           <span className={styles.endTyps}>ב-</span>
           <span className={styles.chooseDate}> <DateInput values={repeatDateEnd} setValues={setRepeatDateEnd} 
           minDate={values.date} maxDate={new Date((values.date).getFullYear(), (values.date).getMonth() + 1, 
-            (values.date).getDate()-1)} classNameStyle={"customized"} datepickerStyle={true}
+            (values.date).getDate()-1)} classNameStyle={"customized"} datepickerStyle={true} startDate={values.date}
           
            /></span>
           </div>
@@ -138,15 +139,17 @@ onInput={(e)=> setNumberTimes(e.target.value)}
             type="radio"
             name="repeatEnd"
             value="endNumber"
+            isChecked={isChoosen=="endTimes"}
           />
           </div>
-
-  <span className={styles.endTyps}>אחרי</span>
+<div className={styles.repeatTimes} onClick={()=>setIsChoosen("endTimes")}>
+  <span className={styles.after}>אחרי</span>
           {chooseDayOrWeek==="weeks"&&
        <div className={styles.number}>
         <input type="number" 
         onInput={(e)=>setRepeatTimesEnd(e.target.value)}
-        min="1" max="4"/>
+        min="1" max="4"
+        />
         <span className={styles.endTyps}>חזרות</span>
        </div>
 }
@@ -154,8 +157,9 @@ onInput={(e)=> setNumberTimes(e.target.value)}
        <div className={styles.number}>
         <input type="number" 
         onInput={(e)=>setRepeatTimesEnd(e.target.value)}
-        min="1" max="31"/>
-        <span className={styles.reapets}>חזרות</span>
+        min="1" max="31"
+        />
+        <span className={styles.endTyps}>חזרות</span>
        </div>
 }
       </div>
@@ -180,6 +184,7 @@ onInput={(e)=> setNumberTimes(e.target.value)}
           />
           </div>
         </div>
+  </div>
   </div>
 </div>
 

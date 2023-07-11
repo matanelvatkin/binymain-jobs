@@ -7,9 +7,9 @@ import DatePicker from "react-datepicker";
 
 // creator: Hadar Naiman
 export default function DateInput({ values, setValues = () => {},includeDates,maxDate, minDate,classNameStyle,
-datepickerStyle, ...props }) {
+datepickerStyle,startDate, ...props }) {
   const [datepicker, setdatepicker] = useState(false);
-  const [selectDate, setSelectDate] = useState(
+  const [selectDate, setSelectDate] = useState(startDate?startDate:
     // !sessionStorage.getItem("date")
     // ?
     new Date()
