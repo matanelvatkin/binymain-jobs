@@ -1,7 +1,7 @@
 import style from "./style.module.css";
 import {FiRotateCw} from 'react-icons/fi'
 
-export default function DateDisplay({returnType, values, startDate}){
+export default function DateDisplay({returnType, values, startDate,viewEvent}){
 
     let personalType="ימים, "
     if(values.personalRepeatType!=="days"&&values.personalRepeat!="days"
@@ -61,17 +61,25 @@ if(filteredArray.length>0){
     }
 }
 
-
 let text= `כל ${values.repeatTimes} ${personalType} ${stringDays} ${end} `
-
     
 return(
-
+    <div>
+{!viewEvent?
     <div className={style.date}>
-        <div className={style.icon}>
-        {end!=""?
-         <FiRotateCw/>:startDate+ " ("}</div>
-        {(returnType!="בהתאמה אישית" &&returnType!="customized")? <div className={style.text}>{returnType}</div>: text}
+        <div className={style.icon}><FiRotateCw/></div>
+        {returnType!="בהתאמה אישית" ? <div className={style.returnType}>{returnType}</div>: 
+        <div className={style.text}>{text}</div>}
+    </div>:
+    
+    <div>
+<div className={values.days.length<2? style.date: style.long}>
+        <span className={style.startDate}>{startDate}</span>
+        {(returnType!="customized")? <div className={style.returnType}>{returnType}</div>: 
+        <div className={style.space}><div className={style.text}>(<span>{text}</span></div></div>}
+    </div>
+    </div>
+}
     </div>
 )
 }
