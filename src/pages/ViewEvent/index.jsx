@@ -192,7 +192,8 @@ export default function ViewEvent() {
                                 ):
                               eventData.isReapeated&& eventData.repeatType=="customized" ? (
                                   // formattedDate+" " +
-                                 <DateDisplay returnType={eventData.repeatType} values={eventData} startDate={formattedDate}/>
+                                 <DateDisplay returnType={eventData.repeatType} values={eventData} 
+                                 startDate={formattedDate} viewEvent={true}/>
                                   ):
                                 formattedDate
                               }
