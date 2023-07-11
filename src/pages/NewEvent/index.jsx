@@ -60,8 +60,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     "אירוע שבועי",
     "בהתאמה אישית",
   ];
-const [returnType, setReturnType]= useState("חד פעמי")
-const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
+  const [returnType, setReturnType] = useState("חד פעמי");
+  const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
   const [constancy, setConstancy] = useState("חד פעמי");
@@ -102,13 +102,13 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
     advertiserEmail: sessionStorage.getItem("advertiserEmail"),
     isRepeated: false,
     repeatType: "disposable",
-    repeatTimes:1,
+    repeatTimes: 1,
     personalRepeatType: "",
     date: "",
     repeatSettingsEnd: "endDate",
     // repeatSettingsRepeatEnd: undefined,
     repeatDateEnd: new Date(),
-    repeatTimesEnd:1,
+    repeatTimesEnd: 1,
     beginningTime: !sessionStorage.getItem("beginningTime")
       ? "18:00"
       : sessionStorage.getItem("beginningTime"),
@@ -382,7 +382,9 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
           accuratelocation: values.accuratelocation,
           categories: values.categories,
           audiences: values.audiences,
-          registrationPageURL: `${values.registrationPageURL}/?ref=here_event`,
+          registrationPageURL: values.registrationPageURL
+            ? `${values.registrationPageURL}/?ref=here_event`
+            : "",
           cardImageURL: values.cardImageURL,
           coverImageURL: values.coverImageURL,
           gallery: values.gallery,
@@ -396,14 +398,13 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
           repeatSettingsPersonal: {
             type: values.repeatSettingsEnd,
             dateEnd: values.repeatDateEnd,
-            timesEnd: values.repeatTimesEnd
+            timesEnd: values.repeatTimesEnd,
           },
         })
       );
 
       console.log([...formData.entries()]);
 
-      
       setPopUpText(
         "האירוע שרצית לפרסם נשלח למערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
       );
@@ -556,7 +557,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
         className={styles.form}
         encType="multipart/form-data"
       >
-          {inputs.map((input) => {
+        {inputs.map((input) => {
           if (input.type === "select")
             return (
               <MultiSelect
@@ -576,35 +577,35 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
                 {...input}
               />
             );
-            else if (input.type === "selectIcon") {
-              return (
-                <div className={styles.selectIcon}>
-                  <SelectIcon
-                    isValid={isValid}
-                    errorMessage={input.errorMessage}
-                    inText={false}
-                    header={input.label}
-                    key={input.id}
-                    value={values[input.name]}
-                    name={input.name}
-                    values={values}
-                    setValues={setValues}
-                    isTheSubmitButtonPush={isTheSubmitButtonPush}
-                    array={input.name === "categories" ? categories : audiences}
-                    setArray={
-                      input.name === "categories" ? setCategories : setAudiences
-                    }
-                    {...input}
-                  />
-                </div>
+          else if (input.type === "selectIcon") {
+            return (
+              <div className={styles.selectIcon}>
+                <SelectIcon
+                  isValid={isValid}
+                  errorMessage={input.errorMessage}
+                  inText={false}
+                  header={input.label}
+                  key={input.id}
+                  value={values[input.name]}
+                  name={input.name}
+                  values={values}
+                  setValues={setValues}
+                  isTheSubmitButtonPush={isTheSubmitButtonPush}
+                  array={input.name === "categories" ? categories : audiences}
+                  setArray={
+                    input.name === "categories" ? setCategories : setAudiences
+                  }
+                  {...input}
+                />
+              </div>
             );
           } else if (input.type === "חד פעמי")
-          return (
-            <div className={styles.date}>
-              {" "}
-              <NoRepeatEvent values={values} setValues={setValues} />
-            </div>
-          );
+            return (
+              <div className={styles.date}>
+                {" "}
+                <NoRepeatEvent values={values} setValues={setValues} />
+              </div>
+            );
           else if (input.type == "pTimeValidationOK")
             return (
               <p className={styles.errorMessage}>{timeValidationMessage}</p>
@@ -615,8 +616,7 @@ const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
                 className={styles.advanced}
                 onClick={() => setNewEventPopup(true)}
               >
-                <DateDisplay returnType={returnType} values={values}/>
-
+                <DateDisplay returnType={returnType} values={values} />
               </div>
             );
           else if (input.type == "toogleSwitch")
