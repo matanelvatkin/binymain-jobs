@@ -57,11 +57,13 @@
 
 .number{
     height: 100%;
+    width: 100%;
     margin: 1%;
 }
 
 .number input[type=number]{
     height:30px;
+    width: 35px;
    border-radius: 10%;
    text-align: right;
    font-size: small;
@@ -73,6 +75,7 @@
     height: 30px;
     border: hsl(0, 0%, 80%) 1px solid;
     box-sizing: border-box;
+    background-color: var(--text-Fourth-color);
     
 }
 
@@ -118,8 +121,19 @@
     margin-top: 3%;
 }
 
+.after{
+    font-size: small;
+    margin-left: 2%;
+}
+
 .endTyps{
     font-size: small;
+    margin-right: 2%;
+}
+.repeatTimes{
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
 .reapets{
     margin: 2%;

@@ -3,7 +3,7 @@ import React, {useState, useEffect } from "react";
 import Input from "../Input";
 import Customized from "../Customized"
 
-export default function RecurringEventPopup({setNewEventPopup, values, setValues, setReturnType,chooseRadio,setChooseRadio}){
+export default function RecurringEventPopup({setNewEventPopup, values, setValues, setReturnType,chooseRadio,setChooseRadio,...props}){
   // const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
   const[custom,setCustom]= useState(false);  
   
@@ -18,11 +18,8 @@ setCustom(true)
 
     }
     else if(e.target.value=="חד- פעמי"){
-      // setTimeout(()=>{
-        // setNewEventPopup(false)}, 400);
-        setNewEventPopup(false)
-      // }, 1000);
-        console.log("חד פעמי")
+      setTimeout(()=>{
+        setNewEventPopup(false)}, 300);
         setValues({ ...values, isRepeated: false, repeatType: "disposable", personalRepeatType: ""});
     }
     else if(e.target.value=="מדי יום"){
@@ -85,6 +82,8 @@ return(
             value="בהתאמה אישית"
             isChecked={chooseRadio==="בהתאמה אישית"}
             onChange={chooseRadioClick}
+            onClick={()=>setCustom(true)
+            }
           />
     </div>      
   </div>
