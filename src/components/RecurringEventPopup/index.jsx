@@ -18,11 +18,8 @@ setCustom(true)
 
     }
     else if(e.target.value=="חד- פעמי"){
-      // setTimeout(()=>{
-        // setNewEventPopup(false)}, 400);
-        setNewEventPopup(false)
-      // }, 1000);
-        console.log("חד פעמי")
+      setTimeout(()=>{
+        setNewEventPopup(false)}, 300);
         setValues({ ...values, isRepeated: false, repeatType: "disposable", personalRepeatType: ""});
     }
     else if(e.target.value=="מדי יום"){
