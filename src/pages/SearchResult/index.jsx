@@ -40,7 +40,7 @@ export default function SearchResult({search}) {
   }, []);
   return (
     <div className={style.container}>
-      <EventCard events={events} searchMode={searchMode} nextPage={nextPage} loadMore={fetchEvents}/>
+      <EventCard events={events} searchMode={searchMode} nextPage={nextPage} loadMore={fetchEvents} isAdvancedSearch= {true}/>
     </div>
   );
 }

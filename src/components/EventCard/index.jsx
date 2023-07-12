@@ -14,7 +14,7 @@ import EmptySearch from "../EmptySearch";
 // where every object is a card, this will change once we
 // have real data to work with.
 
-function EventCard({ events, nextPage, loadMore, searchMode }) {
+function EventCard({ events, nextPage, loadMore, searchMode,isAdvancedSearch }) {
   const navigate = useNavigate();
 
   const navToViewEvent = (eventID) => {
@@ -74,7 +74,9 @@ function EventCard({ events, nextPage, loadMore, searchMode }) {
             <AiOutlineReload /> טען עוד
           </u>
         </div>
-      ) : null}
+      ) : (!isAdvancedSearch)?
+      <div className={styles.loadButton}/>
+    :null}
     </>
   );
 }
