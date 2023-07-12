@@ -50,7 +50,6 @@ export default function Customized({values,setValues = () => { },setCustom,choos
    repeatTimesEnd:repeatTimesEnd||1 
 }
 );
-console.log("days", values.days)
 setCustom(false)
 setNewEventPopup(false)
     }
@@ -58,7 +57,12 @@ setNewEventPopup(false)
    function cancelClick(){
     setCustom(false)
     setNewEventPopup(false)
-   } 
+   }
+   function repeatClick(){
+    setRepeatSettingsEnd("endNumTimes")
+    setIsChoosen("endTimes")
+   }
+   
 
     const days = [{value: "א",nameDay:"ראשון", day:0}, {value: "ב",nameDay:"שני", day: 1}, {value:"ג", nameDay:"שלישי", day:2},
     {value: "ד", nameDay:"רביעי",day: 3}, {value: "ה", nameDay:"חמישי", day:4 }, {value:"ו",nameDay:"שישי", day:5 },
@@ -134,7 +138,7 @@ onInput={(e)=> setNumberTimes(e.target.value)}
       <div className={styles.numberEnd}>
       <div className={styles.after}>
           <Input
-            onChange={()=>setRepeatSettingsEnd("endNumTimes")}
+            onChange={repeatClick}
             // label="אחרי"
             type="radio"
             name="repeatEnd"
@@ -142,7 +146,7 @@ onInput={(e)=> setNumberTimes(e.target.value)}
             isChecked={isChoosen=="endTimes"}
           />
           </div>
-<div className={styles.repeatTimes} onClick={()=>setIsChoosen("endTimes")}>
+<div className={styles.repeatTimes} onClick={repeatClick}>
   <span className={styles.after}>אחרי</span>
           {chooseDayOrWeek==="weeks"&&
        <div className={styles.number}>

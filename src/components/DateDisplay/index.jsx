@@ -15,6 +15,14 @@ export default function DateDisplay({returnType, values, startDate,viewEvent}){
 
     let end= values.repeatTimesEnd+ " פעמים"
 
+if(values.repeatTimesEnd==1){
+    end=", פעם אחת"
+}
+if(values.repeatTimesEnd==2){
+    end=", פעמיים"
+}
+
+
     if(!values.personalRepeat){
     let finishDate = new Date(values.repeatDateEnd.date);
     const startDate= new Date (values.date);
@@ -61,7 +69,33 @@ if(filteredArray.length>0){
     }
 }
 
-let text= `כל ${values.repeatTimes} ${personalType} ${stringDays} ${end} `
+let repeatTimes=values.repeatTimes
+
+if(repeatTimes==1){
+    if(personalType!="שבועות"){
+       repeatTimes="";
+       personalType="יום" 
+    }
+else{
+    repeatTimes="";
+       personalType="שבוע" 
+}
+}
+
+if(repeatTimes==2){
+    if(personalType!="שבועות"){
+       repeatTimes="";
+       personalType="יומיים" 
+    }
+else{
+    repeatTimes="";
+       personalType="שבועיים"
+}
+}
+
+
+let text= `כל ${repeatTimes} ${personalType} ${stringDays} ${end} `
+
     
 return(
     <div>
