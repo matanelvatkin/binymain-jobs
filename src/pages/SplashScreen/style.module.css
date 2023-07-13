@@ -1,0 +1,29 @@
+.main{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--bg-secondary-color);
+}
+
+.logo{
+    width: 65%;
+}
+
+.textContainer{
+    width: 75%;
+    font-size: 15px;
+}
+
+.welcom{
+    align-items: flex-start;
+    font-weight: bold;
+    color: var(--text-Fourth-color);
+}
+
+.text{
+    align-items: flex-start;
+    color: var(--text-Fourth-color);
+}
