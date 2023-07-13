@@ -6,7 +6,6 @@
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  margin-bottom: 10px;
 }
 
 .eventsContainer {
@@ -21,14 +20,14 @@
 }
 
 .button {
-  align-items: center;
-  display: flex;
-  position: sticky;
+  /* display: flex;
+  align-items: center; */
+  position: fixed;
   width: fit-content;
   height: 50px;
   bottom: 2%;
   left: 13px;
-  margin-right: 36%;
+  margin-right: 30%;
   direction: rtl;
 }
 
