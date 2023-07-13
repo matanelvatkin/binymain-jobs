@@ -308,7 +308,7 @@ export default function ViewEvent() {
 
                 <div className={style.homeButton}>
                   <ClassicButton
-                    width={"90%"}
+                    width={"100%"}
                     height={"50px"}
                     type={"submit"}
                     onClick={() => navigate("/")}
