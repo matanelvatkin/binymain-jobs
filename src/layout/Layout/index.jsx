@@ -11,6 +11,7 @@ import { createContext, useEffect, useState } from "react";
 import apiCalls from "../../function/apiCalls";
 import { useLocation } from "react-router-dom";
 import NewEventPopup from "../../components/NewEventPopup";
+import SplashScreen from "../../pages/SplashScreen";
 
 export const settingsContext = createContext();
 
@@ -28,6 +29,8 @@ function Layout() {
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState([]);
   const [audiences, setAudiences] = useState([]);
+  const [loader, setLoader]=useState(true)
+
 
   async function fetchData() {
     let apiCategories, apiAudiences;
@@ -55,6 +58,12 @@ function Layout() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+      setTimeout(() => {
+        setLoader(false);
+      }, 4000);
+  }, []);
+
   // useEffect(() => {
   //   const intervalId = setInterval(() => {
   //     if (
@@ -76,6 +85,9 @@ function Layout() {
     <>
       <userContext.Provider value={{ user, setUser, isAdmin, setIsAdmin }}>
         <popUpContext.Provider value={{ setPopUp, setGuestMode, setPopUpText,setSaveEventMode }}>
+          {loader ? (
+        <SplashScreen loader={loader} setLoader={setLoader}/>
+      ) : (
           <headerContext.Provider
             value={{ header, setHeader, search, setSearch }}
           >
@@ -91,6 +103,7 @@ function Layout() {
               </fakeDataContext.Provider>
             </settingsContext.Provider>
           </headerContext.Provider>
+)}
         </popUpContext.Provider>
       </userContext.Provider>
     </>
