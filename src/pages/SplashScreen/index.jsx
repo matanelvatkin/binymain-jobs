@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "./style.module.css"
 
-function SplashScreen() {
+function SplashScreen({setLoader}) {
     return (
         <div className={styles.main}>
             <img src={"/Frame 33508.svg"} alt="" className={styles.logo} />
@@ -19,6 +19,12 @@ function SplashScreen() {
                     ואפילו לפרסם אירועים משלכם!
                 </p>
             </span>
+            <button 
+            className={styles.button}
+            onClick={()=>setLoader(false)}
+            >
+                דלג
+                </button>
         </div>
     )
 }

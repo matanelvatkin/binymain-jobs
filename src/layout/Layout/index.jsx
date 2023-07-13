@@ -61,7 +61,7 @@ function Layout() {
   useEffect(() => {
       setTimeout(() => {
         setLoader(false);
-      }, 2000);
+      }, 4000);
   }, []);
 
   // useEffect(() => {
@@ -86,7 +86,7 @@ function Layout() {
       <userContext.Provider value={{ user, setUser, isAdmin, setIsAdmin }}>
         <popUpContext.Provider value={{ setPopUp, setGuestMode, setPopUpText,setSaveEventMode }}>
           {loader ? (
-        <SplashScreen/>
+        <SplashScreen loader={loader} setLoader={setLoader}/>
       ) : (
           <headerContext.Provider
             value={{ header, setHeader, search, setSearch }}
