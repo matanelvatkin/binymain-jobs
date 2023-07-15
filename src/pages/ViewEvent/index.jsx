@@ -152,6 +152,8 @@ export default function ViewEvent() {
                 alt="cover-img"
               />
             </div>
+<div className={style.containerSecond}>
+
             <div className={style.content}>
               <div className={style.section}>
                 <h1 className={style.heading}>{eventData.eventName}</h1>
@@ -177,26 +179,26 @@ export default function ViewEvent() {
                             timeZone: "UTC",
                             numberingSystem: "latn",
                           }
-                        );
-                        const dateObj = {
-                          formattedDate,
-                          weekday: formattedDate.split(",")[0],
-                        };
-                        return (
+                          );
+                          const dateObj = {
+                            formattedDate,
+                            weekday: formattedDate.split(",")[0],
+                          };
+                          return (
                             <div key={index} className={style.date}>
                               {eventData.isReapeated&& eventData.repeatType=="weekly" ? (
                                 `${formattedDate} (כל  ${dateObj.weekday})`
-                              ) :
-                              eventData.isReapeated&& eventData.repeatType=="daily" ? (
-                                `${formattedDate} (כל יום)`
-                                ):
-                              eventData.isReapeated&& eventData.repeatType=="customized" ? (
-                                  // formattedDate+" " +
-                                 <DateDisplay returnType={eventData.repeatType} values={eventData} 
-                                 startDate={formattedDate} viewEvent={true}/>
+                                ) :
+                                eventData.isReapeated&& eventData.repeatType=="daily" ? (
+                                  `${formattedDate} (כל יום)`
                                   ):
-                                formattedDate
-                              }
+                                  eventData.isReapeated&& eventData.repeatType=="customized" ? (
+                                    // formattedDate+" " +
+                                    <DateDisplay returnType={eventData.repeatType} values={eventData} 
+                                    startDate={formattedDate} viewEvent={true}/>
+                                    ):
+                                    formattedDate
+                                  }
                           </div>
                         );
                       })}
@@ -291,7 +293,7 @@ export default function ViewEvent() {
                       className={style.cards}
                       href={eventData.registrationPageURL}
                       target="_blank"
-                    >
+                      >
                       <span className="openIcon">
                         <MdOpenInNew />
                       </span>
@@ -300,7 +302,7 @@ export default function ViewEvent() {
                   </div>
                 ) : (
                   <Link
-                    to={`https://wa.me/+972${eventData.advertiser.tel}?text=שלום, לגבי הארוע ${eventData.eventName} שפרסמת`}
+                  to={`https://wa.me/+972${eventData.advertiser.tel}?text=שלום, לגבי הארוע ${eventData.eventName} שפרסמת`}
                   >
                     <FaWhatsapp /> יצירת קשר עם המפרסם{" "}
                   </Link>
@@ -313,13 +315,12 @@ export default function ViewEvent() {
                     type={"submit"}
                     onClick={() => navigate("/")}
                     // onClick={loginAouth}
-                  >
+                    >
                     <AiOutlineHome className={style.icon} /> חזרה לדף הבית
                   </ClassicButton>
                 </div>
               </div>
             </div>
-          </div>
           {isAdmin === user.userType && eventData && (
             <div className={style.adminContainer}>
               <div className={style.advertiserInfo}>
@@ -337,10 +338,10 @@ export default function ViewEvent() {
                 <button
                   className={`${
                     style.adminPublish
-                      ? isActive
+                    ? isActive
                         ? style.active
                         : style.adminPublish
-                      : style.active
+                        : style.active
                   }`}
                   onClick={handleButtonToggle}
                   disabled={isPublished || isActive}
@@ -350,7 +351,9 @@ export default function ViewEvent() {
               </div>
             </div>
           )}
+          </div>
         </div>
+          </div>
       )}
     </>
   );
