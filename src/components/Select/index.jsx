@@ -38,6 +38,7 @@ const Select = ({
       <div
         className={`${styles.select_container} ${className}`}
         value={valueText}
+        style={style}
       >
         <img className={styles.icon} src={icon} />
         <p className={`${styles.select}`} onClick={lableOnclick}>

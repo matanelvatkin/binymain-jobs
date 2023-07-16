@@ -22,6 +22,7 @@
   direction: rtl;
   gap: 15px;
   width: 100%;
+  padding-bottom: 15px;
 }
 
 .priceNone {
@@ -37,14 +38,27 @@
 .date {
   /* position: relative; */
   margin-top: -20px;
+  
 }
 .advanced {
-  margin-top: -30px;
+  width: 65%;
+  margin-top: -20px;
+  /* margin-left: 53%; */
   font-size: small;
-  color: #9c9ca8;
+  font-weight: 500;
+  text-decoration: underline;
+  
 }
 .selectIcon {
-  margin-top: -8px;
+  /* margin-top: -8px; */
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 100%;
+}
+.selectIcon div {
+  flex-basis: 0;
+  flex-grow: 1;
+  height: fit-content;
 }
 .iconLabel {
   color: var(--text-third-color);
@@ -53,7 +67,8 @@
 }
 
 .button {
-  margin-top: 20px;
+  /* margin-top: 15px; */
+  padding: 10px;
 }
 .errorMessage {
   display: block;

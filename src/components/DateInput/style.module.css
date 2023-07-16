@@ -16,12 +16,30 @@
     background-color:var(--text-Fourth-color);
     border: none;
     /* color: var(--text-third-color); */
-    color: black;
+    color: var(--text-color);
     font-size: 15px;
     box-shadow: 2px 3px 2px 2px #ccc9c9c3;
     cursor: pointer;
 }
+.customized{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5%;
+  margin: 5%;
+  height: 100%;
+  width: 100%;
+  border: hsl(0, 0%, 80%) 1px solid;
+  border-radius: 10%;
+  background-color:var(--text-Fourth-color);
+  color: var(--text-color);;
+  font-size: 80%;
+  cursor: pointer;
 
+}
+.datepicker{
+  position: absolute;
+}
 .calIcon,
 .arrIcon {
   color: var(--text-secondary-color);

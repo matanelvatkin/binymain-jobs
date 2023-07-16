@@ -1,5 +1,9 @@
 import styles from "./style.module.css";
 import { useRef, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 // creator: Kobi Krumbein
 // color: _______________
@@ -17,6 +21,7 @@ const Input = (props) => {
     refInput,
     isValid,
     isTheSubmitButtonPush,
+    isChecked,
     onblur = () => {},
     ...inputProps
   } = props;
@@ -43,7 +48,8 @@ const Input = (props) => {
             <div>{label} </div>
           </label>
           <input
-            className={`${styles.input} ${className}`}
+            // className={`${styles.input} ${className}`}
+            className="form-control"
             {...inputProps}
             onInvalid={onInvalid}
             onBlur={onBlur}
@@ -67,11 +73,13 @@ const Input = (props) => {
             type={type}
             onBlur={onBlur}
             onInvalid={onInvalid}
+            id={label}
+            checked={isChecked}
             {...inputProps}
             // ref={inputRef ? inputRef : tempRef}
           />
-          <label className={styles.labelRadio}>
-            <div>{label} </div>
+          <label className={styles.labelRadio}for={label}>
+            {label}
           </label>
           {!!validationMessage && (
             <span className={styles.errorMessage || validationMessage}>

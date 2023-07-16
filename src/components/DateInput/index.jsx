@@ -6,17 +6,19 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 
 // creator: Hadar Naiman
-export default function DateInput({ values, setValues = () => {} ,  ...props }) {
+export default function DateInput({ values, setValues = () => {},includeDates,maxDate, minDate,classNameStyle,
+datepickerStyle,startDate, ...props }) {
   const [datepicker, setdatepicker] = useState(false);
-  const [selectDate, setSelectDate] = useState(
-    props.val ? props.val : new Date()
-  );
+  const [selectDate, setSelectDate] = useState(startDate?startDate: new Date());
+  
   useEffect(() => {
-    setValues({ ...values, date: selectDate });
+    setValues({ ...values, date: selectDate })
+    {console.log(values.date)};
   }, [selectDate]);
 
   function dateSelectHandle(date) {
     setSelectDate(() => date);
+    sessionStorage.setItem("date", date);
     setdatepicker(!datepicker);
     if (typeof props.func === "function") props.func(date);
   }
@@ -36,27 +38,32 @@ export default function DateInput({ values, setValues = () => {} ,  ...props }) 
   return (
     <div className={style.container}>
       <button
-        className={style.button}
+        className={classNameStyle? style.customized: style.button}
         onClick={() => setdatepicker(!datepicker)}
         type="button"
       >
+        {!classNameStyle&&
         <span className={style.arrIcon}>
           <IoIosArrowBack />
-        </span>
+        </span>}
         <span className={style.buttonText}>
           {selectDate ? dateFormat(selectDate) : buttonText}
         </span>
+        {!classNameStyle&&
         <span className={style.calIcon}>
           <FaRegCalendarAlt />
-        </span>
+        </span>}
       </button>
       {datepicker && (
-        <div>
+        <div className={datepickerStyle? style.datepicker: style.calander}>
           <DatePicker
             inline
             dateFormat="dd/MM/yyyy"
             selected={props.val ? props.val : selectDate}
             onSelect={(date) => dateSelectHandle(date)}
+            includeDates={includeDates}
+            minDate={minDate?minDate: new Date()}
+            maxDate={maxDate}
           />
         </div>
       )}

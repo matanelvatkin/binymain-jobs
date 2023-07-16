@@ -1,0 +1,15 @@
+.date{
+    display: flex;
+}
+
+.icon{
+display: flex;
+align-items: center;
+}
+
+.returnType{
+    margin-right: 4%;
+}
+.space{
+    margin-right: 3px;
+}
