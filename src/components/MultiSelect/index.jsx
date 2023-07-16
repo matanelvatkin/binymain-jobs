@@ -22,7 +22,6 @@ const MultiSelect = ({
       setValues({ ...values, [name]: selectedOption.value });
       setSelectRequired(false)
     }
-    console.log(isValid);
   }, [selectedOption]);
   return (
     <>
@@ -36,7 +35,6 @@ const MultiSelect = ({
         required={true}
         className={styles.submitted}
         onChange={setSelectedOption}
-        onBlur={()=>{setSelectRequired(true)}}
       />
       {!validationMessage && selectRequired&&(
         <span className={styles.errorMessage || validationMessage}>
