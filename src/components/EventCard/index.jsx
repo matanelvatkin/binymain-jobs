@@ -70,7 +70,7 @@ function EventCard({ events, nextPage, loadMore, searchMode,isAdvancedSearch }) 
       )}
       {nextPage ? (
         <div className={styles.loadButton}>
-          <u onClick={loadMore}>
+          <u onClick={loadMore} className={styles.load}>
             <AiOutlineReload /> טען עוד
           </u>
         </div>
