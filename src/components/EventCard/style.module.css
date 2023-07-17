@@ -82,11 +82,21 @@
 .loadButton {
   display: flex;
   width: 100%;
-  height: 50px;
+  height: 60px;
   align-items: center;
-  margin: -14px;
-  padding: 45px 15px 0px 10px;
+  margin: 5px;
+  padding: 5px 15px 0px 10px;
+  justify-content: flex-start;
 }
+
+.load:hover {
+  cursor: pointer;
+}
+
 .eventName {
   font-size: large;
+}
+
+.loadingNextPage{
+margin: -4% 0 0 70%;
 }

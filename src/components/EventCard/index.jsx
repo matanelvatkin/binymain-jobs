@@ -22,7 +22,7 @@ function EventCard({ events, nextPage, loadMore, searchMode,isAdvancedSearch }) 
   };
   return (
     <>
-      {searchMode == "loading" ? (
+      {(searchMode == "loading")&& (events.length==0)? (
         <Loader />
       ) : searchMode == "noResult" ? (
         <EmptySearch />
@@ -68,13 +68,13 @@ function EventCard({ events, nextPage, loadMore, searchMode,isAdvancedSearch }) 
           );
         })
       )}
-      {nextPage ? (
+      {nextPage && searchMode == "loading" ? <div className={styles.loadingNextPage}><Loader/></div>  : (nextPage)?
         <div className={styles.loadButton}>
-          <u onClick={loadMore}>
+          <u onClick={loadMore} className={styles.load}>
             <AiOutlineReload /> טען עוד
           </u>
         </div>
-      ) : (!isAdvancedSearch)?
+       : (!isAdvancedSearch)?
       <div className={styles.loadButton}/>
     :null}
     </>

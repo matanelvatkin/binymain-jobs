@@ -57,12 +57,17 @@ function Home() {
   };
 
   const fetchEventsNext = () => {
+    setSearchMode("loading");
     apiCalls("post", "event", {
       page: nextPage,
       search: search,
     }).then((data) => {
       setEvents((currentEvent) => currentEvent.concat(data.event));
       setNextPage(data.nextPage);
+      if (data.event.length === 0) setSearchMode("noResult");
+      else {
+        setSearchMode("isResult");
+      }
     });
   };
 
