@@ -10,7 +10,7 @@ export default function SearchResult({search}) {
 
   const [searchMode, setSearchMode] = useState("loading")
   const [events, setEvents] = useState([]);
-  const [nextPage, setNextPage] = useState(1);
+  const [nextPage, setNextPage] = useState(undefined);
 
 
   const { setHeader } = useContext(headerContext);
@@ -18,6 +18,7 @@ export default function SearchResult({search}) {
   setHeader(translation.advencedSearch);
 
   async function fetchEvents() {
+    setSearchMode("loading")
     let apiSingleEvents = await apiCalls("post", "/event/search", {
       page:nextPage,
       ...search
