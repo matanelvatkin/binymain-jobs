@@ -11,11 +11,16 @@ import { setToken } from "../../function/token";
 import axios from "axios";
 import userContext from "../../context/userContext";
 import apiCalls from "../../function/apiCalls";
+import ReactGA from "react-ga4";
 
 // creator: Yisrael Olonoff
 // login page
 
 function Login() {
+
+  const eventTracker = (action = "test action", label = "test label",category="Blog category") => {
+    ReactGA.event({category, action, label});
+  }
   const { user, setUser } = useContext(userContext);
   const { setHeader } = useContext(headerContext);
   const [isValid, setIsValid] = useState(true);
@@ -51,6 +56,7 @@ function Login() {
       setUser(res.user);
       setToken(res.token);
       localStorage.setItem("Token", res.token);
+      eventTracker('login',res.user,'userLogin')
       navigate("/");
     } else {
       alert(res);
