@@ -23,6 +23,7 @@
 .scroll {
   direction: rtl;
   display: flex;
+  justify-content: flex-start;
   padding-right: 5%;
   padding-bottom: 12pt;
 }
@@ -41,7 +42,6 @@
   border: 1px var(--text-Fourth-color) solid;
   border-radius: 20px;
   width: 80%;
-  margin-left: 18%;
 }
 
 .icon,
