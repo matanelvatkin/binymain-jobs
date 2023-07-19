@@ -61,6 +61,7 @@ function Layout() {
   useEffect(() => {
       setTimeout(() => {
         setLoader(false);
+        localStorage.noSplashScreen = true 
       }, 4000);
   }, []);
 
@@ -85,7 +86,7 @@ function Layout() {
     <>
       <userContext.Provider value={{ user, setUser, isAdmin, setIsAdmin }}>
         <popUpContext.Provider value={{ setPopUp, setGuestMode, setPopUpText,setSaveEventMode }}>
-          {loader ? (
+          {loader && !localStorage.noSplashScreen ? (
         <SplashScreen loader={loader} setLoader={setLoader}/>
       ) : (
           <headerContext.Provider
