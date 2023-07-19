@@ -91,7 +91,7 @@ function Home() {
     <div className={styles.main}>
       <Helmet>
         <title>HereEvent</title>
-        <link rel="icon" href="%PUBLIC_URL%/logo-hereHvent.ico" />
+        <link rel="icon" href="../../../public/logo-hereHvent.ico" />
         <meta name="description" content="האירוע שלך נמצא כאן HereEvent" />
         <meta
           name="keywords"
