@@ -89,7 +89,7 @@ function Home() {
 
   return (
     <div className={styles.main}>
-      <Helmet>
+      {/* <Helmet>
         <title>HereEvent</title>
         <link rel="icon" href="../../../public/logo-hereHvent.ico" />
         <meta name="description" content="האירוע שלך נמצא כאן HereEvent" />
@@ -97,7 +97,7 @@ function Home() {
           name="keywords"
           content="אירועים בבנימין,הופעות בבנימין,בנימין,אירועים"
         />
-      </Helmet>
+      </Helmet> */}
       {/* <BiLogOutCircle className={styles.logOut} onClick={logOut} /> */}
       <div className={styles.eventsContainer}>
         <EventCard
