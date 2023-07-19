@@ -31,6 +31,14 @@
   direction: rtl;
 }
 
+@media (min-width: 500px) {
+  .button {
+    position: sticky;
+    margin-right: 46%;
+  }
+}
+
+
 .newButton {
   /* display: flex;
     align-items: center; */

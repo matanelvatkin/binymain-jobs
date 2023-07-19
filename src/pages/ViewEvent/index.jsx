@@ -18,7 +18,7 @@ import userContext from "../../context/userContext";
 import { Link } from "react-router-dom";
 import DateDisplay from "../../components/DateDisplay";
 import Loader from "../../components/Loader";
-
+import { Helmet } from "react-helmet";
 
 // Creator: Naama Orlan
 //This page view the details of a specific event.
@@ -58,24 +58,30 @@ export default function ViewEvent() {
   const [isPublished, setIsPublished] = useState(false);
 
   async function fetchEvent() {
-    let apiData = await apiCalls("get", "/event/" + event);
-    if (user.userType === "admin") {
-      checkUserType();
-      if (apiData.status === "published") {
-        setIsPublished(true);
-        setIsActive(true);
+    try {
+      let apiData = await apiCalls("get", "/event/" + event);
+      if (user.userType === "admin") {
+        checkUserType();
+        if (apiData.status === "published") {
+          setIsPublished(true);
+          setIsActive(true);
+        }
       }
+      if (new Date(apiData.date[apiData.date.length - 1]) > new Date()) {
+        const futureDates = apiData.date.filter(
+          (date) => new Date(date) >= new Date()
+        );
+        apiData.date = futureDates.slice(0, 1);
+      }
+      setEventData(apiData);
+  
+      console.log(apiData);
+    } catch (error) {
+      console.log("catch");
+      setLoading(() => "error");
     }
-    if (new Date(apiData.date[apiData.date.length - 1]) > new Date()) {
-      const futureDates = apiData.date.filter(
-        (date) => new Date(date) >= new Date()
-      );
-      apiData.date = futureDates.slice(0, 1);
+      
     }
-    setEventData(apiData);
-
-    console.log(apiData);
-  }
 
   async function checkUserType() {
     const token = localStorage.getItem("Token");
@@ -136,14 +142,24 @@ export default function ViewEvent() {
 
   return (
     <>
-      {loading ? (
+      {loading=="error" ? "404 העמוד הוסר או אינו קיים" : loading? (
         <Loader />
       ) : (
         <div
           className={style.container}
           onClick={() => console.log("registrationPageURL", eventData)}
         >
-          {" "}
+          <Helmet>
+            <title>{eventData.eventName}</title>
+            <link rel="icon" href={eventData.cardImageURL} />
+            <meta name="description" content={eventData.summary} />
+            <meta
+              name="keywords"
+              content="אירועים בבנימין,הופעות בבנימין,בנימין,אירועים"
+            />
+            <meta name="keywords" content={eventData.eventName} />
+            <meta name="keywords" content={eventData.place} />
+          </Helmet>{" "}
           <div className={style.innercontainer}>
             <div>
               <img
@@ -152,208 +168,213 @@ export default function ViewEvent() {
                 alt="cover-img"
               />
             </div>
-<div className={style.containerSecond}>
-
-            <div className={style.content}>
-              <div className={style.section}>
-                <h1 className={style.heading}>{eventData.eventName}</h1>
-
-                <div className={style.favourite}>
-                  <FavouriteMark />
-                </div>
-              </div>
-              <div className={style.main}>
+            <div className={style.containerSecond}>
+              <div className={style.content}>
                 <div className={style.section}>
-                  <div className={style.dataSection}>
-                    <div className={style.reactIcon}>
-                      <FaRegCalendarAlt />
-                    </div>
-                    <div className={style.dates}>
-                      {eventData.date.map((date, index) => {
-                        const formattedDate = new Date(date).toLocaleDateString(
-                          "he-IL",
-                          {
+                  <h1 className={style.heading}>{eventData.eventName}</h1>
+
+                  <div className={style.favourite}>
+                    <FavouriteMark />
+                  </div>
+                </div>
+                <div className={style.main}>
+                  <div className={style.section}>
+                    <div className={style.dataSection}>
+                      <div className={style.reactIcon}>
+                        <FaRegCalendarAlt />
+                      </div>
+                      <div className={style.dates}>
+                        {eventData.date.map((date, index) => {
+                          const formattedDate = new Date(
+                            date
+                          ).toLocaleDateString("he-IL", {
                             weekday: "long",
                             day: "numeric",
                             month: "long",
                             timeZone: "UTC",
                             numberingSystem: "latn",
-                          }
-                          );
+                          });
                           const dateObj = {
                             formattedDate,
                             weekday: formattedDate.split(",")[0],
                           };
                           return (
                             <div key={index} className={style.date}>
-                              {eventData.isReapeated&& eventData.repeatType=="weekly" ? (
+                              {eventData.isReapeated &&
+                              eventData.repeatType == "weekly" ? (
                                 `${formattedDate} (כל  ${dateObj.weekday})`
-                                ) :
-                                eventData.isReapeated&& eventData.repeatType=="daily" ? (
-                                  `${formattedDate} (כל יום)`
-                                  ):
-                                  eventData.isReapeated&& eventData.repeatType=="customized" ? (
-                                    // formattedDate+" " +
-                                    <DateDisplay returnType={eventData.repeatType} values={eventData} 
-                                    startDate={formattedDate} viewEvent={true}/>
-                                    ):
-                                    formattedDate
-                                  }
-                          </div>
-                        );
-                      })}
+                              ) : eventData.isReapeated &&
+                                eventData.repeatType == "daily" ? (
+                                `${formattedDate} (כל יום)`
+                              ) : eventData.isReapeated &&
+                                eventData.repeatType == "customized" ? (
+                                // formattedDate+" " +
+                                <DateDisplay
+                                  returnType={eventData.repeatType}
+                                  values={eventData}
+                                  startDate={formattedDate}
+                                  viewEvent={true}
+                                />
+                              ) : (
+                                formattedDate
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={style.section}>
+                    <div className={style.dataSection}>
+                      <div className={style.reactIcon}>
+                        <AiOutlineClockCircle />
+                      </div>
+                      <div className={style.hourOfEvent}>
+                        {eventData.finishTime}- {eventData.beginningTime}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={style.section}>
+                    <div className={style.dataSection}>
+                      <div className={style.reactIcon}>
+                        <MdOutlinePlace />
+                      </div>
+
+                      <div className={style.placeOfEvent}>
+                        {" "}
+                        {eventData.place} {"- "}
+                        {eventData.accuratelocation}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={style.section}>
+                    <div className={style.dataSection}>
+                      <div className={style.reactIcon}>
+                        <BiMoney />
+                      </div>
+                      <div className={style.payment}>
+                        {eventData.payment.isFree === true
+                          ? "כניסה חופשית"
+                          : "בתשלום"}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={style.section}>
+                    <div className={style.dataSection}>
+                      <div className={style.reactIcon}>
+                        <BsPeopleFill />
+                      </div>
+                      <div className={style.payment}>
+                        {eventData.audiences.map((audience, index) => (
+                          <span key={index}>
+                            {audienceMapping[audience]}
+                            {index !== eventData.audiences.length - 1 && ", "}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={style.section}>
+                    <div className={style.dataSection}>
+                      <div className={style.reactIcon}>
+                        <BiCategory />
+                      </div>
+                      <div className={style.payment}>
+                        {eventData.categories.map((category, index) => (
+                          <span key={index}>
+                            {categoryMapping[category]}
+                            {index !== eventData.categories.length - 1 && ", "}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <div className={style.section}>
-                  <div className={style.dataSection}>
-                    <div className={style.reactIcon}>
-                      <AiOutlineClockCircle />
-                    </div>
-                    <div className={style.hourOfEvent}>
-                      {eventData.finishTime}- {eventData.beginningTime}
-                    </div>
-                  </div>
-                </div>
-
-                <div className={style.section}>
-                  <div className={style.dataSection}>
-                    <div className={style.reactIcon}>
-                      <MdOutlinePlace />
-                    </div>
-
-                    <div className={style.placeOfEvent}>
-                      {" "}
-                      {eventData.place} {"- "}
-                      {eventData.accuratelocation}
-                    </div>
-                  </div>
-                </div>
-
-                <div className={style.section}>
-                  <div className={style.dataSection}>
-                    <div className={style.reactIcon}>
-                      <BiMoney />
-                    </div>
-                    <div className={style.payment}>
-                      {eventData.payment.isFree === true
-                        ? "כניסה חופשית"
-                        : "בתשלום"}
-                    </div>
-                  </div>
-                </div>
-
-                <div className={style.section}>
-                  <div className={style.dataSection}>
-                    <div className={style.reactIcon}>
-                      <BsPeopleFill />
-                    </div>
-                    <div className={style.payment}>
-                      {eventData.audiences.map((audience, index) => (
-                        <span key={index}>
-                          {audienceMapping[audience]}
-                          {index !== eventData.audiences.length - 1 && ", "}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className={style.section}>
-                  <div className={style.dataSection}>
-                    <div className={style.reactIcon}>
-                      <BiCategory />
-                    </div>
-                    <div className={style.payment}>
-                      {eventData.categories.map((category, index) => (
-                        <span key={index}>
-                          {categoryMapping[category]}
-                          {index !== eventData.categories.length - 1 && ", "}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className={style.section}>
-                <div>
-                  <p className={style.detailsTitle}>{translation.details}</p>
-                  <p className={style.detailsContent}>
-                    {" "}
-                    {eventData.summary}
-                  </p>{" "}
-                </div>
-              </div>
-              <div className={style.linkAndButton}>
-                {eventData && eventData.registrationPageURL ? (
                   <div>
-                    <a
-                      className={style.cards}
-                      href={eventData.registrationPageURL}
-                      target="_blank"
-                      >
-                      <span className="openIcon">
-                        <MdOpenInNew />
-                      </span>
-                      לדף הרשמה וכרטיסים
-                    </a>
+                    <p className={style.detailsTitle}>{translation.details}</p>
+                    <p className={style.detailsContent}>
+                      {" "}
+                      {eventData.summary}
+                    </p>{" "}
                   </div>
-                ) : (
-                  <Link
-                  to={`https://wa.me/+972${eventData.advertiser.tel}?text=שלום, לגבי הארוע ${eventData.eventName} שפרסמת`}
-                  >
-                    <FaWhatsapp /> יצירת קשר עם המפרסם{" "}
-                  </Link>
-                )}
-
-                <div className={style.homeButton}>
-                  <ClassicButton
-                    width={"100%"}
-                    height={"50px"}
-                    type={"submit"}
-                    onClick={() => navigate("/")}
-                    // onClick={loginAouth}
+                </div>
+                <div className={style.linkAndButton}>
+                  {eventData && eventData.registrationPageURL ? (
+                    <div>
+                      <a
+                        className={style.cards}
+                        href={eventData.registrationPageURL}
+                        target="_blank"
+                      >
+                        <span className="openIcon">
+                          <MdOpenInNew />
+                        </span>
+                        לדף הרשמה וכרטיסים
+                      </a>
+                    </div>
+                  ) : (
+                    <Link
+                      to={`https://wa.me/+972${eventData.advertiser.tel}?text=שלום, לגבי הארוע ${eventData.eventName} שפרסמת`}
                     >
-                    <AiOutlineHome className={style.icon} /> חזרה לדף הבית
-                  </ClassicButton>
+                      <FaWhatsapp /> יצירת קשר עם המפרסם{" "}
+                    </Link>
+                  )}
+
+                  <div className={style.homeButton}>
+                    <ClassicButton
+                      width={"100%"}
+                      height={"50px"}
+                      type={"submit"}
+                      onClick={() => navigate("/")}
+                      // onClick={loginAouth}
+                    >
+                      <AiOutlineHome className={style.icon} /> חזרה לדף הבית
+                    </ClassicButton>
+                  </div>
                 </div>
               </div>
+              {isAdmin === user.userType && eventData && (
+                <div className={style.adminContainer}>
+                  <div className={style.advertiserInfo}>
+                    <h4>פרטי המפרסם:</h4>
+                    <p>{eventData.advertiser.name}</p>
+                    <p>{eventData.advertiser.email} </p>
+                    <p>
+                      {eventData.advertiser.tel}{" "}
+                      <Link
+                        to={`https://wa.me/+972${eventData.advertiser.tel}`}
+                      >
+                        <FaWhatsapp />
+                      </Link>
+                    </p>{" "}
+                  </div>
+                  <div className={style.publishButton}>
+                    <button
+                      className={`${
+                        style.adminPublish
+                          ? isActive
+                            ? style.active
+                            : style.adminPublish
+                          : style.active
+                      }`}
+                      onClick={handleButtonToggle}
+                      disabled={isPublished || isActive}
+                    >
+                      {isActive ? "פורסם בהצלחה 👍🏽" : "פרסם"}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-          {isAdmin === user.userType && eventData && (
-            <div className={style.adminContainer}>
-              <div className={style.advertiserInfo}>
-                <h4>פרטי המפרסם:</h4>
-                <p>{eventData.advertiser.name}</p>
-                <p>{eventData.advertiser.email} </p>
-                <p>
-                  {eventData.advertiser.tel}{" "}
-                  <Link to={`https://wa.me/+972${eventData.advertiser.tel}`}>
-                    <FaWhatsapp />
-                  </Link>
-                </p>{" "}
-              </div>
-              <div className={style.publishButton}>
-                <button
-                  className={`${
-                    style.adminPublish
-                    ? isActive
-                        ? style.active
-                        : style.adminPublish
-                        : style.active
-                  }`}
-                  onClick={handleButtonToggle}
-                  disabled={isPublished || isActive}
-                >
-                  {isActive ? "פורסם בהצלחה 👍🏽" : "פרסם"}
-                </button>
-              </div>
-            </div>
-          )}
           </div>
         </div>
-          </div>
       )}
     </>
   );

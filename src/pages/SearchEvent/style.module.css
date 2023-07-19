@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: space-between;
     direction: rtl;
-    margin-right: 10px;
+    margin: 10px;
 }
 
 .title {

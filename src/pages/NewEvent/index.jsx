@@ -2,17 +2,12 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { settingsContext } from "../../layout/Layout";
 import ClassicButton from "../../components/ClassicButton copy";
 import Input from "../../components/Input";
-import Select from "../../components/Select";
 import SelectIcon from "../../components/SelectIcon";
-import SelectInput from "../../components/SelectInput";
 import styles from "./style.module.css";
 import headerContext from "../../context/headerContext";
 import apiCalls from "../../function/apiCalls";
 import { useNavigate } from "react-router-dom";
 import NoRepeatEvent from "../../components/NoRepeatEvent";
-import { FaShekelSign } from "react-icons/fa";
-import DateInput from "../../components/DateInput";
-import NewEventPopup from "../../components/NewEventPopup";
 import RecurringEventPopup from "../../components/RecurringEventPopup";
 import ToggleSwitch from "../../components/ToggleSwitch";
 import beginDateUpdate from "../../function/beginDateUpdate";
@@ -68,32 +63,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
   setHeader("פרסם אירוע");
-  // const [values, setValues] = useState({
-  //   eventName: sessionStorage.getItem("eventName"),
-  //   summary: sessionStorage.getItem("summary"),
-  //   advertiserName: sessionStorage.getItem("advertiserName"),
-  //   advertiserTel: sessionStorage.getItem("advertiserTel"),
-  //   advertiserEmail: sessionStorage.getItem("advertiserEmail"),
-  //   isRepeated: false,
-  //   repeatType: "אירוע חד פעמי",
-  //   personalRepeatType: "",
-  //   date: new Date(),
-  //   repeatSettingsType: "endDate",
-  //   repeatSettingsRepeatEnd: undefined,
-  //   beginningTime: "18:00",
-  //   finishTime: "20:00",
-  //   place: sessionStorage.getItem("place"),
-  //   accuratelocation: sessionStorage.getItem("accuratelocation"),
-  //   registrationPageURL: sessionStorage.getItem("registrationPageURL"),
-  //   categories: [{}],
-  //   audiences: [{}],
-  //   isFree: true,
-  //   price: sessionStorage.getItem("price"),
-  //   days: [],
-  //   cardImageURL: sessionStorage.getItem("cardImageURL"),
-  //   coverImageURL: sessionStorage.getItem("coverImageURL"),
-  //   gallery: [],
-  // });
   const [values, setValues] = useState({
     eventName: sessionStorage.getItem("eventName"),
     summary: sessionStorage.getItem("summary"),
@@ -211,22 +180,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
     },
-    // {
-    //   id: 1,
-    //   name: "price",
-    //   type: "text",
-    //   placeholder: "מחיר",
-    // },
-
-    // {
-    //   id: 7,
-    //   name: "repeatType",
-    //   type: "select",
-    //   label: "תדירות",
-    //  erroreMesagge:"",
-    //  placeholder: "אירוע ללא חזרה",
-    // },
-
     {
       id: 9,
       name: "categories",
@@ -249,7 +202,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 11,
       name: "summary",
       type: "text",
-      // label: "תקציר",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "תיאור האירוע",
       className: "form-control",
@@ -259,7 +211,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 12,
       name: "registrationPageURL",
       type: "url",
-      // label: "דף הרשמה לאירוע",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: " לינק להרשמה/כרטיסים לאירוע",
       className: "form-control",
@@ -300,7 +251,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 15,
       name: "advertiserName",
       type: "text",
-      // label: "שם המפרסם",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       className: "form-control",
       placeholder: "שם המפרסם",
@@ -310,7 +260,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 16,
       name: "advertiserTel",
       type: "tel",
-      // label: "טלפון",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       className: "form-control",
       placeholder: "טלפון",
@@ -321,7 +270,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 17,
       name: "advertiserEmail",
       type: "email",
-      // label: "מייל",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       className: "form-control",
       placeholder: "מייל",
@@ -329,10 +277,8 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     },
   ];
 
-  const [eventData, setEventData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setIsTheSubmitButtonPush(true);
     setSubmittedForDisableButton(true);
     // הכנסת שעת התחלה לתאריך ולתאריך סיום
@@ -344,16 +290,24 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       );
     }
     const formElement = e.target;
-    console.log(formElement.checkValidity());
     setIsValid(formElement.checkValidity());
     if (!values.place) setSelectRequired(true);
     formElement.classList.add(styles.submitted);
     const firstInvalidField = formElement.querySelector(":invalid");
     firstInvalidField?.focus();
 
-    if (!isInputFormValid) {
-      console.log("invalid");
-    } else {
+    if (
+      values.eventName &&
+      values.summary &&
+      values.advertiserName &&
+      values.advertiserTel &&
+      values.advertiserEmail &&
+      values.categories[0] &&
+      values.audiences[0] &&
+      values.cardImageURL &&
+      values.coverImageURL &&
+      formElement.checkValidity()
+    ) {
       const formData = new FormData();
       for (const key in fileData) {
         if (Array.isArray(fileData[key])) {
@@ -382,9 +336,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
           accuratelocation: values.accuratelocation,
           categories: values.categories,
           audiences: values.audiences,
-          registrationPageURL: values.registrationPageURL
-            ? `${values.registrationPageURL}/?ref=here_event`
-            : "",
+          registrationPageURL: `${values.registrationPageURL}/?ref=here_event`,
           cardImageURL: values.cardImageURL,
           coverImageURL: values.coverImageURL,
           gallery: values.gallery,
@@ -427,18 +379,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     else setTimeValidationOK(true);
   }, [timeValidationMessage]);
 
-  // useEffect(() => {
-  //   setConstancy(values.repeatType);
-  //   setValues({
-  //     ...values,
-  //     repeatSettingsType: "endDate",
-  //     repeatSettingsRepeatEnd: undefined,
-  //     days: [],
-  //     personalRepeatType: undefined,
-  //     date: new Date(),
-  //   });
-  // }, [values.repeatType]);
-
   useEffect(() => {
     setAudiences(() => [...settingContext.audiences]);
     setCategories(() => [...settingContext.categories]);
@@ -449,22 +389,6 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     setValues({ ...values, [e.target.name]: e.target.value });
     sessionStorage.setItem(e.target.name, e.target.value);
     setSubmittedForDisableButton(false);
-
-    if (
-      values.eventName &&
-      values.summary &&
-      values.advertiserName &&
-      values.advertiserTel &&
-      values.advertiserEmail &&
-      values.categories[0] &&
-      values.audiences[0] &&
-      values.cardImageURL &&
-      values.coverImageURL &&
-      isValid
-    ) {
-      setIsInputFormValid(true);
-      console.log({ isInputFormValid });
-    }
 
     //if the targeted input is the beginningTime or finishingTime then- we make a validation check.
     if (e.target.name === "beginningTime" || e.target.name === "finishTime") {
@@ -491,28 +415,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   };
   const formattedDate = new Date(values.date).toLocaleDateString("he-IL", {
     weekday: "long",
-    // day: 'numeric',
-    // month: 'long',
     timeZone: "UTC",
     numberingSystem: "latn",
   });
-  useEffect(() => {
-    if (
-      values.eventName &&
-      values.summary &&
-      values.advertiserName &&
-      values.advertiserTel &&
-      values.advertiserEmail &&
-      values.categories[0] &&
-      values.audiences[0] &&
-      values.cardImageURL &&
-      values.coverImageURL &&
-      isValid
-    ) {
-      setIsInputFormValid(true);
-      console.log({ isInputFormValid });
-    }
-  }, [onChange]);
 
   function SubmitButton() {
     if (isInputFormValid && submittedForDisableButton) {
