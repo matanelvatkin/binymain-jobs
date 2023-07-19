@@ -73,8 +73,6 @@ export default function ViewEvent() {
       apiData.date = futureDates.slice(0, 1);
     }
     setEventData(apiData);
-
-    console.log(apiData);
   }
 
   async function checkUserType() {
