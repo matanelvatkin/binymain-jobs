@@ -77,7 +77,7 @@ export default function ViewEvent() {
 
       console.log(apiData);
     } catch (error) {
-      console.log("catch");
+      console.log("error - url no be");
       setLoading(() => "error");
     }
   }
