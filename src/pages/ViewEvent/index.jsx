@@ -142,7 +142,7 @@ export default function ViewEvent() {
 
   return (
     <>
-      {loading=="error" ? "404 העמוד הוסר או אינו קיים" : loading? (
+      {loading=="error" ? "האירוע שחיפסת לא קיים יותר במערכת" : loading? (
         <Loader />
       ) : (
         <div

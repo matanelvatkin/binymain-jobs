@@ -19,12 +19,11 @@ function SplashScreen({setLoader}) {
                     ואפילו לפרסם אירועים משלכם!
                 </p>
             </span>
-            <button 
-            className={styles.button}
-            onClick={()=>setLoader(false)}
-            >
-                דלג
-                </button>
+            <div className={styles.continueButton}>
+                <u onClick={()=>setLoader(false)}>
+             להמשיך
+                </u>
+            </div>
         </div>
     )
 }
