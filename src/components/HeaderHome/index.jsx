@@ -44,15 +44,6 @@ function HeaderHome({ page, isValid, setIsValid }) {
           ></div>
         </div>
         <div className={styles.options}>
-          <span
-            className={styles.advanceContainer}
-            onClick={() => {
-              navigate("/searchEvent");
-            }}
-          >
-            {" "}
-            <GoSettings className={styles.icon} />
-          </span>
           <div className={styles.searchContainer}>
             <span>
               <GoSearch className={styles.iconSearch} />{" "}
@@ -70,6 +61,15 @@ function HeaderHome({ page, isValid, setIsValid }) {
               }}
             />
           </div>
+          <span
+            className={styles.advanceContainer}
+            onClick={() => {
+              navigate("/searchEvent");
+            }}
+          >
+            {" "}
+            <GoSettings className={styles.icon} />
+          </span>
         </div>
       </div>
     </div>
