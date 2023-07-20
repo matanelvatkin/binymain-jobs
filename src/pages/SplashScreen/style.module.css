@@ -9,7 +9,8 @@
 }
 
 .logo{
-    width: 65%;
+    width: 100%;
+    /* margin: 0% 0% -17% 0%; */
 }
 
 .textContainer{
@@ -19,7 +20,6 @@
 
 .welcom{
     align-items: flex-start;
-    font-weight: bold;
     color: var(--text-Fourth-color);
 }
 
