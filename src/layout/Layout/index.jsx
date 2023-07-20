@@ -59,7 +59,7 @@ function Layout() {
   }, []);
 
   useEffect(() => {
-    let milliSecond= 4000
+    let milliSecond= 1000*60*2
     if(localStorage.secondTime){milliSecond = 750}
       setTimeout(() => {
         setLoader(false);
