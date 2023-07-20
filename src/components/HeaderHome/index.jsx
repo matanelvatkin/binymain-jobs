@@ -36,7 +36,7 @@ function HeaderHome({ page, isValid, setIsValid }) {
     <div className={styles.main}>
       <div className={styles.headerHome_container}>
         <div className={styles.logo_container}>
-          <img src={"/Frame 33508.svg"} alt="" className={styles.logo} />
+          <img src={"/Frame 33509.svg"} alt="" className={styles.logo} />
           <div
             onClick={() => {
               setSearch("");

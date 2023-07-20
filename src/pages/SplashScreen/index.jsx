@@ -7,8 +7,9 @@ function SplashScreen({setLoader}) {
                 <img src={"/Frame 33508.svg"} alt="" className={styles.logo} />
             {!localStorage.secondTime?<>
                 <span className={styles.textContainer}>
-                    <p className={styles.welcom}>
-                        ברוכים הבאים ל Here Event!
+                    <p dir='rtl' className={styles.welcom}>
+                        ברוכים הבאים ל- 
+                        <b> קורה פה!</b>
                     </p>
                     <p className={styles.text}>
                         אפליקציית האירועים וההופעות של בנימין
