@@ -89,15 +89,15 @@ function Home() {
 
   return (
     <div className={styles.main}>
-      {/* <Helmet>
-        <title>HereEvent</title>
+      <Helmet>
+        <title>KorePo</title>
         <link rel="icon" href="../../../public/logo-hereHvent.ico" />
-        <meta name="description" content="האירוע שלך נמצא כאן HereEvent" />
+        <meta name="description" content="האירוע שלך נמצא כאן KorePo" />
         <meta
           name="keywords"
           content="אירועים בבנימין,הופעות בבנימין,בנימין,אירועים"
         />
-      </Helmet> */}
+      </Helmet>
       {/* <BiLogOutCircle className={styles.logOut} onClick={logOut} /> */}
       <div className={styles.eventsContainer}>
         <EventCard

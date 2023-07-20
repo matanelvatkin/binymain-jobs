@@ -13,9 +13,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Helmet>
-          <title>HereEvent</title>
-          <link rel="icon" href="../public/favicon.ico" />
-          <meta name="description" content="האירוע שלך נמצא כאן HereEvent" />
+          <title>KorePo</title>
+          {/* <link rel="icon" href="../public/favicon.ico" /> */}
+          <meta name="description" content="האירוע שלך נמצא כאן KorePo" />
           <meta
             name="keywords"
             content="אירועים בבנימין,הופעות בבנימין,בנימין,אירועים"
