@@ -5,8 +5,8 @@ import Logo from "../../components/Logo";
 import { TbListSearch } from "react-icons/tb";
 import { BiAnalyse } from "react-icons/bi";
 import { GoSettings, GoSearch } from "react-icons/go";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { useNavigate, useParams } from "react-router-dom";
+import { BsDot, BsThreeDotsVertical } from "react-icons/bs";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import headerContext from "../../context/headerContext";
 
 function HeaderHome({ page, isValid, setIsValid }) {
@@ -36,7 +36,7 @@ function HeaderHome({ page, isValid, setIsValid }) {
     <div className={styles.main}>
       <div className={styles.headerHome_container}>
         <div className={styles.logo_container}>
-          <img src={"/Frame 33509.svg"} alt="" className={styles.logo} />
+          <img src={"/KorePo.svg"} alt="" className={styles.logo} />
           <div
             onClick={() => {
               setSearch("");
@@ -71,6 +71,19 @@ function HeaderHome({ page, isValid, setIsValid }) {
             <GoSettings className={styles.icon} />
           </span>
         </div>
+        <Link
+          className={styles.declaimer}
+          to={`https://wa.me/+972525666679?text=היי לגבי האפליקציה KorePo רציתי להגיד ש`}
+        >
+          <img
+            src={"/uil_comment-message.svg"}
+            alt=""
+            className={styles.iconDeclaimer}
+          />
+          <span className={styles.declaimertext}>
+            אנחנו בהרצה נשמח לקבל ממך פידבק
+          </span>
+        </Link>
       </div>
     </div>
 
