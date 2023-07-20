@@ -22,7 +22,7 @@ function SplashScreen({setLoader}) {
                     </p>
                 </span>
                 <div className={styles.continueButton}>
-                    <u onClick={()=>setLoader(false)}>
+                    <u onClick={()=>{setLoader(false);localStorage.secondTime = true}}>
                 להמשיך
                     </u>
                 </div>
