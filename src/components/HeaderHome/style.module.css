@@ -64,9 +64,9 @@
   margin-top: 4pt;
 }
 .iconDeclaimer {
-  height: 15px;
-  margin-right: 22pt;
-  margin-top: 7pt;
+  height: 18px;
+  margin-right: 5%;
+  margin-top: 9pt;
 }
 
 .visibleInput {
@@ -86,7 +86,7 @@
   margin-right: 1px;
   margin-bottom: -3px;
   display: flex;
-  font-size: 10px;
+  font-size: 15px;
   font-family: "Heebo";
   font-weight: 500;
   font-style: normal;
