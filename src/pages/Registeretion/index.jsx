@@ -27,7 +27,7 @@ function Registeretion() {
       id: 1,
       name: "fullName",
       type: "text",
-      placeholder: `🙍🏽‍♂️ שם מלא`,
+      placeholder: `🙍🏽‍♂️ שם מלא באנגלית`,
       errorMessage: "הכנס שם",
       maxLength: "22",
       required: true,
