@@ -42,15 +42,6 @@ function Registeretion() {
       required: true,
     },
     {
-      id: 3,
-      name: "confirmPassword",
-      type: "password",
-      placeholder: "🗝️ אמת סיסמא",
-      errorMessage: "אמת סיסמא",
-      maxLength: "14",
-      required: true,
-    },
-    {
       id: 4,
       name: "email",
       type: "email",
@@ -74,8 +65,7 @@ function Registeretion() {
     const filteredWords = words.filter((word) => word.length >= 2);
 
     if (filteredWords.length >= 2) {
-      if (userData.password === userData.confirmPassword) {
-        const { confirmPassword, ...data } = userData;
+        const data = userData;
         const updatedData = {
           ...data,
           userType: "regular",
@@ -92,9 +82,6 @@ function Registeretion() {
         } catch (error) {
           alert(error);
         }
-      } else {
-        alert("ססמאות לא תואמות");
-      }
     } else {
       alert("יש לבחור שם משתמש מלא באנגלית");
     }
