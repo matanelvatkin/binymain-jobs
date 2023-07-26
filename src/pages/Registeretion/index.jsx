@@ -128,7 +128,7 @@ function Registeretion() {
         className={styles.formArea}
         noValidate
         onSubmit={createUser}
-        autoComplete="off"
+        autoComplete="on"
       >
         <div className={styles.header}>
           <span> נעים מאוד :)</span>
