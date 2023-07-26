@@ -27,7 +27,7 @@ function Registeretion() {
       id: 1,
       name: "fullName",
       type: "text",
-      placeholder: `🙍🏽‍♂️ שם מלא באנגלית`,
+      placeholder: `🙍🏽‍♂️ שם מלא`,
       errorMessage: "הכנס שם",
       maxLength: "22",
       required: true,
@@ -83,12 +83,12 @@ function Registeretion() {
           alert(error);
         }
     } else {
-      alert("יש לבחור שם משתמש מלא באנגלית");
+      alert("יש לבחור שם מלא תיקני");
     }
   };
 
   const handleKeyDown = (e) => {
-    const allowedKeys = /^[a-zA-Z ]$/;
+    const allowedKeys = /^[a-zA-Zא-ת ]$/;
     if (
       e.target.name === "fullName" &&
       !allowedKeys.test(e.key) &&
@@ -101,7 +101,7 @@ function Registeretion() {
   const handleChange = (e) => {
     if (e.target.name === "fullName") {
       const name = e.target.value;
-      const filteredName = name.replace(/[^a-zA-Z ]/g, "");
+      const filteredName = name.replace(/[^a-zA-Zא-ת ]/g, "");
       setUserData({ ...userData, [e.target.name]: filteredName });
     } else {
       setUserData({ ...userData, [e.target.name]: e.target.value });
