@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState,useContext } from "react";
 import styles from "./style.module.css";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import headerContext from "../../context/headerContext";
 import Input from "../../components/Input";
@@ -9,9 +8,12 @@ import { IoIosCreate } from "react-icons/io";
 import axios from "axios";
 import { error } from "jquery";
 import apiCalls from "../../function/apiCalls";
+import { setToken } from "../../function/token";
+import userContext from "../../context/userContext";
 
 function Registeretion() {
   const { setHeader } = useContext(headerContext);
+  const { setUser } = useContext(userContext);
   setHeader("דף הרשמה");
   const [isValid, setIsValid] = useState(true);
   const [userData, setUserData] = useState({});
@@ -74,10 +76,18 @@ function Registeretion() {
 
         try {
           const res = await apiCalls("post", "user/creatUser", updatedData);
-          if (!res.newUser.error) {
-            navigate("/login");
+          console.log(res.user);
+          if (res) {
+            if (res.token) {
+              setUser(res.user);
+              setToken(res.token);
+              localStorage.setItem("Token", res.token);
+              navigate("/");
+            } else {
+              alert(res);
+            }
           } else {
-            alert(res.newUser.error);
+            alert(res.error);
           }
         } catch (error) {
           alert(error);
@@ -118,7 +128,7 @@ function Registeretion() {
         className={styles.formArea}
         noValidate
         onSubmit={createUser}
-        autoComplete="off"
+        autoComplete="on"
       >
         <div className={styles.header}>
           <span> נעים מאוד :)</span>
