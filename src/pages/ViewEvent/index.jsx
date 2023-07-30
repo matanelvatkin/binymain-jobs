@@ -174,6 +174,17 @@ export default function ViewEvent() {
     }
   };
 
+  const handleTag = async (e) => {
+    try {
+      const updatedData = await apiCalls("put", `/event/${event}`, {
+        tag: e.target.value,
+      });
+      console.log(updatedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {loading == "error" ? (setHeader("login")||<div className={style.notBe}>
@@ -402,6 +413,12 @@ export default function ViewEvent() {
                       </Link>
                     </p>{" "}
                   </div>
+                  <select name="tags" onChange={handleTag} defaultValue={eventData.tag?eventData.tag:"noTag"}>
+                    <option value="noTag">תיוג אירוע</option>
+                    <option value="event">אירוע כללי</option>
+                    <option value="food">אוכל עם אווירה</option>
+                    <option value="attraction">אטרקציות וסדנאות בהתאמה אישית</option>
+                  </select>
                   <div className={style.publishButton}>
                     <button
                       className={`${
