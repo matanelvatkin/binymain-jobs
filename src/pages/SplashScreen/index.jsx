@@ -4,7 +4,7 @@ import styles from "./style.module.css"
 function SplashScreen({setLoader}) {
     return (
         <div className={styles.main}>
-                <img src={"/Frame 33508.svg"} alt="" className={styles.logo} />
+                <img src={"/Frame 33508.svg"} alt="" className={!localStorage.secondTime?styles.logo:styles.logo2} />
             {!localStorage.secondTime?<>
                 <span className={styles.textContainer}>
                     <p dir='rtl' className={styles.welcom}>
@@ -22,7 +22,7 @@ function SplashScreen({setLoader}) {
                     </p>
                 </span>
                 <div className={styles.continueButton}>
-                    <u onClick={()=>setLoader(false)}>
+                    <u onClick={()=>{setLoader(false);localStorage.secondTime = true}}>
                 להמשיך
                     </u>
                 </div>
