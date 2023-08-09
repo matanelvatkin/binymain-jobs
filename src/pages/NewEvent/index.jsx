@@ -466,6 +466,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         כמה פרטים כדי שנוכל לפרסם את האירוע שלך
       </div>{" "}
       <form
+        key={1}
         onSubmit={handleSubmit}
         noValidate
         className={styles.form}
