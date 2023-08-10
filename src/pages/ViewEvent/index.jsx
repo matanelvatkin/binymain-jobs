@@ -96,36 +96,18 @@ export default function ViewEvent() {
     }
   }
 
-  const VerifyToken = async (e) => {
-    const token = localStorage.getItem("Token");
-    if (token) {
-      const verifiedUser = await apiCalls("post", "/user/verify", {
-        aoutherizetion: token,
-      });
-      if (verifiedUser.email) {
-        setUser(verifiedUser);
-      } else if (verifiedUser.status === 401) {
-        setUser(false);
+  const VerifyToken = async () => {
+    if(user===""){
         setGuestMode(true);
         setPopUp(true);
         setPopUpText(
-          "🏄🏽😎 הנך נמצא כרגע על מצב אורח, אנו ממליצים להתחבר לאפליקצייה כדי שתוכל להנות מחוויית גלישה מקסימלית"
+          "הנך נמצא על מצב אורח, התחבר ותהנה מחווית גלישה מקסימלית 🏄🏽"
         );
-      } else {
-        console.log(`somthing went wrong: ${verifiedUser}`);
-      }
-    } else {
-      setGuestMode(true);
-      setPopUp(true);
-      setPopUpText(
-        "הנך נמצא על מצב אורח, התחבר ותהנה מחווית גלישה מקסימלית 🏄🏽"
-      );
-    }
-  };
+      }}
 
   useEffect(() => {
     VerifyToken();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     fetchEvent();
@@ -417,7 +399,7 @@ export default function ViewEvent() {
                     <option value="noTag">תיוג אירוע</option>
                     <option value="event">אירוע כללי</option>
                     <option value="food">אוכל עם אווירה</option>
-                    <option value="attraction">אטרקציות וסדנאות בהתאמה אישית</option>
+                    <option value="attraction">אטרקציות וסדנאות בהזמנה אישית</option>
                   </select>
                   <div className={style.publishButton}>
                     <button

@@ -76,8 +76,8 @@ function Registeretion() {
 
         try {
           const res = await apiCalls("post", "user/creatUser", updatedData);
-          console.log(res.user);
-          if (res) {
+          console.log(res.user.error);
+          if (!res.user.error) {
             if (res.token) {
               setUser(res.user);
               setToken(res.token);
@@ -87,7 +87,7 @@ function Registeretion() {
               alert(res);
             }
           } else {
-            alert(res.error);
+            alert(res.user.error);
           }
         } catch (error) {
           alert(error);
