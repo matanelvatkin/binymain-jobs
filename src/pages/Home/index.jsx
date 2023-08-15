@@ -22,7 +22,6 @@ function Home() {
   const [events, setEvents] = useState([]);
   const [nextPage, setNextPage] = useState(undefined);
   const [searchMode, setSearchMode] = useState("loading");
-  const [isPopup, setIsPopup] = useState(false);
 
   const { search, setHeader } = useContext(headerContext);
   const { user, setUser } = useContext(userContext);
@@ -33,13 +32,6 @@ function Home() {
   useEffect(() => {
     fetchEventsSearch();
   }, [search]);
-
-  useEffect(()=>{
-    console.log(user);
-    if (user==="") {
-      setIsPopup(true)
-    }
-  },[user])
 
   const navToNewEvent = () => {
     if (!user) {
@@ -138,7 +130,6 @@ function Home() {
           }}
         />
       </div> */}
-      {isPopup&&<IntroductionFormPopup setIsPopup={setIsPopup}/>}
     </div>
   );
 }
