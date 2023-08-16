@@ -44,7 +44,7 @@ const Input = (props) => {
   return (
     <>
       {type != "radio" ? (
-        <div>
+        <div className={styles.containerInput}>
           {noLabelAndError||<label className={styles.label}>
             <div>{label} </div>
           </label>}
