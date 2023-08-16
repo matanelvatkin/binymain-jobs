@@ -5,8 +5,6 @@ import headerContext from "../../context/headerContext";
 import Input from "../../components/Input";
 import ClassicButton from "../../components/ClassicButton copy";
 import { IoIosCreate } from "react-icons/io";
-import axios from "axios";
-import { error } from "jquery";
 import apiCalls from "../../function/apiCalls";
 import { setToken } from "../../function/token";
 import userContext from "../../context/userContext";
@@ -66,7 +64,7 @@ function Registeretion() {
     // Filter out words with less than 2 letters
     const filteredWords = words.filter((word) => word.length >= 2);
 
-    if (filteredWords.length >= 2) {
+    if (filteredWords.length >= 1) {
         const data = userData;
         const updatedData = {
           ...data,
@@ -76,7 +74,6 @@ function Registeretion() {
 
         try {
           const res = await apiCalls("post", "user/creatUser", updatedData);
-          console.log(res.user.error);
           if (!res.user.error) {
             if (res.token) {
               setUser(res.user);
