@@ -45,7 +45,7 @@ function Registeretion() {
       id: 4,
       name: "email",
       type: "email",
-      placeholder: "📧 כתובת אימייל",
+      placeholder: "כתובת אימייל 📧",
       errorMessage: "הכנס אימייל תקין",
       required: true,
     },
