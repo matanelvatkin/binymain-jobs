@@ -445,7 +445,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       return (
         <div className={styles.button}>
           <ClassicButton
-            width={"350px"}
+            width={"300px"}
             text={"שמור"}
             height={50}
             type={"submit"}
@@ -536,11 +536,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
           else if (input.type == "toogleSwitch")
             return (
-              <ToggleSwitch
-                text="בתשלום"
-                checked={checked}
-                onChange={handleToggleSwitch}
-              />
+              <div className={styles.dateLoction}>
+                <ToggleSwitch
+                  text="בתשלום"
+                  checked={checked}
+                  onChange={handleToggleSwitch}
+                  className={input.className}
+                />
+              </div>
             );
           else
             return (
