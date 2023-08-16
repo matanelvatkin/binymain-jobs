@@ -9,6 +9,7 @@ import popUpContext from "../../context/popUpContext";
 import apiCalls from "../../function/apiCalls";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { Helmet } from "react-helmet";
+import IntroductionFormPopup from "../../components/IntroductionFormPopup";
 
 // Creator: Yisrael_Olonoff
 // i created the home page using the "Header", "EventCard",

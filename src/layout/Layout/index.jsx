@@ -67,6 +67,18 @@ function Layout() {
       }, milliSecond);
   }, []);
 
+  useEffect(async() => {
+      const token = localStorage.getItem("Token");
+      if (token) {
+        const verifiedUser = await apiCalls("post", "/user/verify", {
+          aoutherizetion: token,
+        });
+        console.log(verifiedUser);
+        if (verifiedUser.email) {
+          setUser(verifiedUser);
+    }else{setUser("")}}else{setUser("")}
+  }, []);
+
   // useEffect(() => {
   //   const intervalId = setInterval(() => {
   //     if (
