@@ -1,8 +1,7 @@
 import styles from "./style.module.css";
 import { ImLocation2 } from "react-icons/im";
 import { AiOutlineReload } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
-import ClassicButton from "../ClassicButton copy";
+import { useNavigate } from "react-router-dom";
 import Loader from "../Loader";
 import EmptySearch from "../EmptySearch";
 
@@ -77,6 +76,7 @@ function EventCard({ events, nextPage, loadMore, searchMode,isAdvancedSearch }) 
        : (!isAdvancedSearch)?
       <div className={styles.loadButton}/>
     :null}
+    {/* <span className={styles.secondTitle}> אוכל עם אוירה</span> */}
     </>
   );
 }
