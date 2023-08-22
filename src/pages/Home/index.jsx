@@ -35,7 +35,6 @@ function Home() {
   }, [search]);
 
   useEffect(()=>{
-    console.log(user);
     if (user==="") {
       setIsPopup(true)
     }

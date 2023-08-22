@@ -12,15 +12,19 @@ import axios from "axios";
 import userContext from "../../context/userContext";
 import apiCalls from "../../function/apiCalls";
 import ReactGA from "react-ga4";
+import getGoogleOAuthURL from "../../function/getGoogleOAuthURL";
 
 // creator: Yisrael Olonoff
 // login page
 
 function Login() {
-
-  const eventTracker = (action = "test action", label = "test label",category="Blog category") => {
-    ReactGA.event({category, action, label});
-  }
+  const eventTracker = (
+    action = "test action",
+    label = "test label",
+    category = "Blog category"
+  ) => {
+    ReactGA.event({ category, action, label });
+  };
   const { user, setUser } = useContext(userContext);
   const { setHeader } = useContext(headerContext);
   const [isValid, setIsValid] = useState(true);
@@ -56,7 +60,7 @@ function Login() {
       setUser(res.user);
       setToken(res.token);
       localStorage.setItem("Token", res.token);
-      eventTracker('login',res.user.email,'userLogin')
+      eventTracker("login", res.user.email, "userLogin");
       navigate("/");
     } else {
       alert(res);
@@ -120,16 +124,17 @@ function Login() {
         </div>
 
         <div className={styles.firstButton}>
-          <ClassicButton
-            width={'100%'}
-            height={'50px'}
-            type={'submit'}
-          >
+          <ClassicButton width={"100%"} height={"50px"} type={"submit"}>
             <FaSignInAlt className={styles.icon} /> התחברות
           </ClassicButton>
         </div>
       </form>
-
+      <div className={styles.firstButton}>
+        <ClassicButton width={"100%"} height={"50px"} type={"submit"}>
+          <a href={getGoogleOAuthURL()}>Login with Google</a>
+        </ClassicButton>
+        
+      </div>
       <div className={styles.question}>
         <div className={styles.forgotPassword} onClick={navToForgetPassword}>
           ?שכחת סיסמא{" "}
