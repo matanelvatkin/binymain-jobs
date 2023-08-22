@@ -2,7 +2,7 @@ import EmptySearch from "../EmptySearch";
 import EventCard from "../EventCard";
 import styles from "./style.module.css";
 
-function ContainerCard({events , nextPage, loadMore, searchMode}) {
+function ContainerCard({events , nextPage, loadMore, searchMode, isAdvancedSearch}) {
  
   return (
     <>
@@ -33,7 +33,7 @@ function ContainerCard({events , nextPage, loadMore, searchMode}) {
       id = "attraction"
       />
       </>}
-      {((nextPage.event&&!nextPage.food&&!nextPage.attraction)||(nextPage.food&&!nextPage.attraction)||(nextPage.attraction))?null:<div className={styles.loadButton}/>}
+      {((nextPage.event&&!nextPage.food&&!nextPage.attraction)||(nextPage.food&&!nextPage.attraction)||(nextPage.attraction)||(isAdvancedSearch))?null:<div className={styles.loadButton}/>}
     </>
   );
 }
