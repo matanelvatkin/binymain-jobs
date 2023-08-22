@@ -13,7 +13,7 @@ import EmptySearch from "../EmptySearch";
 // where every object is a card, this will change once we
 // have real data to work with.
 
-function EventCard({ events, nextPage, loadMore, searchMode,isAdvancedSearch }) {
+function EventCard({ events, nextPage, loadMore, searchMode,isAdvancedSearch, title, id }) {
   const navigate = useNavigate();
 
   const navToViewEvent = (eventID) => {
@@ -21,11 +21,11 @@ function EventCard({ events, nextPage, loadMore, searchMode,isAdvancedSearch }) 
   };
   return (
     <>
+    {searchMode === "noResult"||<>
+      <span className={styles.secondTitle}> {title} </span>
       {(searchMode == "loading")&& (events.length==0)? (
         <Loader />
-      ) : searchMode == "noResult" ? (
-        <EmptySearch />
-      ) : (
+        )  : (
         events?.map((v) => {
           const date = new Date(v.date[0]);
           const formattedDate = date.toLocaleDateString("he-IL", {
@@ -33,21 +33,21 @@ function EventCard({ events, nextPage, loadMore, searchMode,isAdvancedSearch }) 
             month: "long",
             day: "numeric",
           });
-
+          
           return (
             <div
-              className={styles.main}
-              key={v._id}
-              onClick={() => {
-                navToViewEvent(v._id);
-              }}
+            className={styles.main}
+            key={v._id}
+            onClick={() => {
+              navToViewEvent(v._id);
+            }}
             >
               <div className={styles.imgFrame}>
                 <img
                   className={styles.img}
                   src={v.cardImageURL || v.coverImageURL}
                   alt="Event pic"
-                />
+                  />
               </div>
 
               <div className={styles.infoBar}>
@@ -66,17 +66,15 @@ function EventCard({ events, nextPage, loadMore, searchMode,isAdvancedSearch }) 
             </div>
           );
         })
-      )}
+        )}
       {nextPage && searchMode == "loading" ? <div className={styles.loadingNextPage}><Loader/></div>  : (nextPage)?
         <div className={styles.loadButton}>
-          <u onClick={loadMore} className={styles.load}>
+          <u onClick={loadMore} className={styles.load} id={id}>
             <AiOutlineReload /> טען עוד
           </u>
         </div>
-       : (!isAdvancedSearch)?
-      <div className={styles.loadButton}/>
-    :null}
-    {/* <span className={styles.secondTitle}> אוכל עם אוירה</span> */}
+       : null}
+       </>}
     </>
   );
 }
