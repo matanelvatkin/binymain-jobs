@@ -63,7 +63,6 @@ function Registeretion() {
 
     // Filter out words with less than 2 letters
     const filteredWords = words.filter((word) => word.length >= 2);
-
     if (filteredWords.length >= 1) {
         const data = userData;
         const updatedData = {
@@ -71,7 +70,7 @@ function Registeretion() {
           userType: "regular",
         };
         console.log(updatedData);
-
+      if(formElement.checkValidity()){
         try {
           const res = await apiCalls("post", "user/creatUser", updatedData);
           if (!res.user.error) {
@@ -88,7 +87,7 @@ function Registeretion() {
           }
         } catch (error) {
           alert(error);
-        }
+        }}
     } else {
       alert("יש לבחור שם מלא תיקני");
     }
