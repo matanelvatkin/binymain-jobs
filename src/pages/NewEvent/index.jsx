@@ -281,12 +281,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     e.preventDefault();
     setIsTheSubmitButtonPush(true);
     setSubmittedForDisableButton(true);
-    // הכנסת שעת התחלה לתאריך ולתאריך סיום
-    values.date = beginDateUpdate(values.date, values.beginningTime);
+    // הכנסת שעת סיום לתאריך ולתאריך סיום
+    values.date = beginDateUpdate(values.date, values.finishTime);
     if (values.repeatDateEnd instanceof Date) {
       values.repeatDateEnd = beginDateUpdate(
         values.repeatDateEnd,
-        values.beginningTime
+        values.finishTime
       );
     }
     const formElement = e.target;
@@ -445,7 +445,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       return (
         <div className={styles.button}>
           <ClassicButton
-            width={"350px"}
+            width={"300px"}
             text={"שמור"}
             height={50}
             type={"submit"}
@@ -466,6 +466,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
         כמה פרטים כדי שנוכל לפרסם את האירוע שלך
       </div>{" "}
       <form
+        key={1}
         onSubmit={handleSubmit}
         noValidate
         className={styles.form}
@@ -481,6 +482,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 value={values[input.name]}
                 name={input.name}
                 values={values}
+                saveToSession={"place"}
                 setValues={setValues}
                 isValid={isValid}
                 selectRequired={selectRequired}
@@ -535,11 +537,14 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
           else if (input.type == "toogleSwitch")
             return (
-              <ToggleSwitch
-                text="בתשלום"
-                checked={checked}
-                onChange={handleToggleSwitch}
-              />
+              <div className={styles.dateLoction}>
+                <ToggleSwitch
+                  text="בתשלום"
+                  checked={checked}
+                  onChange={handleToggleSwitch}
+                  className={input.className}
+                />
+              </div>
             );
           else
             return (

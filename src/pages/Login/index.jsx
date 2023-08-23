@@ -80,7 +80,7 @@ function Login() {
       id: 1,
       name: "email",
       type: "email",
-      placeholder: "📧 אימייל",
+      placeholder: "אימייל 📧",
       errMessage: "הכנס מייל חוקי",
       required: true,
     },

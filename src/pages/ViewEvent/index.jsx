@@ -20,6 +20,7 @@ import DateDisplay from "../../components/DateDisplay";
 import Loader from "../../components/Loader";
 import { Helmet } from "react-helmet";
 import popUpContext from "../../context/popUpContext";
+import IntroductionFormPopup from "../../components/IntroductionFormPopup";
 
 
 // Creator: Naama Orlan
@@ -60,6 +61,7 @@ export default function ViewEvent() {
   const [eventData, setEventData] = useState();
   const [isActive, setIsActive] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
+  const [isPopup, setIsPopup] = useState(false);
 
   async function fetchEvent() {
     try {
@@ -98,11 +100,7 @@ export default function ViewEvent() {
 
   const VerifyToken = async () => {
     if(user===""){
-        setGuestMode(true);
-        setPopUp(true);
-        setPopUpText(
-          "הנך נמצא על מצב אורח, התחבר ותהנה מחווית גלישה מקסימלית 🏄🏽"
-        );
+            setIsPopup(true)
       }}
 
   useEffect(() => {
@@ -422,6 +420,7 @@ export default function ViewEvent() {
           </div>
         </div>
       )}
+            {isPopup&&<IntroductionFormPopup setIsPopup={setIsPopup}/>}
     </>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./style.module.css";
 import ClassicButton from "../../components/ClassicButton copy";
-import EventCard from "../../components/EventCard";
 import { useNavigate } from "react-router-dom";
 import headerContext from "../../context/headerContext";
 import userContext from "../../context/userContext";
@@ -10,6 +9,7 @@ import apiCalls from "../../function/apiCalls";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { Helmet } from "react-helmet";
 import IntroductionFormPopup from "../../components/IntroductionFormPopup";
+import ContainerCard from "../../components/ContainerCard";
 
 // Creator: Yisrael_Olonoff
 // i created the home page using the "Header", "EventCard",
@@ -19,10 +19,9 @@ import IntroductionFormPopup from "../../components/IntroductionFormPopup";
 // כמות התוצאות שבכל עמוד בדף הבית- נקבע בשרת
 
 function Home() {
-  const [events, setEvents] = useState([]);
-  const [nextPage, setNextPage] = useState(undefined);
-  const [searchMode, setSearchMode] = useState("loading");
-  const [isPopup, setIsPopup] = useState(false);
+  const [events, setEvents] = useState({event:[],food:[],attraction:[]});
+  const [nextPage, setNextPage] = useState({event:undefined,food:undefined,attraction:undefined});
+  const [searchMode, setSearchMode] = useState({event:"loading",food:"loading",attraction:"loading"});
 
   const { search, setHeader } = useContext(headerContext);
   const { user, setUser } = useContext(userContext);
@@ -35,6 +34,7 @@ function Home() {
   }, [search]);
 
   useEffect(()=>{
+    console.log(user);
     if (user==="") {
       setIsPopup(true)
     }
@@ -65,35 +65,42 @@ function Home() {
     }
   };
 
-  const fetchEventsNext = () => {
-    setSearchMode("loading");
+  const fetchEventsNext = (e) => {
+    setSearchMode((Prev) => ({ ...Prev, [e.target.id]: "loading" }));
     apiCalls("post", "event", {
-      page: nextPage,
+      page: nextPage[e.target.id],
       search: search,
+      tag:e.target.id
     }).then((data) => {
-      setEvents((currentEvent) => currentEvent.concat(data.event));
-      setNextPage(data.nextPage);
-      if (data.event.length === 0) setSearchMode("noResult");
+      setEvents((prev) => ({...prev,[e.target.id]:prev[e.target.id].concat(data.event)}));
+      setNextPage((Prev) => ({ ...Prev, [e.target.id]: data.nextPage }));
+      if (data.event.length === 0)  setSearchMode((Prev) => ({ ...Prev, [e.target.id]: "noResult" }));
       else {
-        setSearchMode("isResult");
+        setSearchMode((Prev) => ({ ...Prev, [e.target.id]: "isResult" }));
       }
     });
   };
 
   const fetchEventsSearch = () => {
-    setSearchMode("loading");
-    apiCalls("post", "event", {
-      page: 1,
-      search: search,
-    }).then((data) => {
-      setEvents(data.event);
-      setNextPage(data.nextPage);
-      if (data.event.length === 0) setSearchMode("noResult");
-      else {
-        setSearchMode("isResult");
-      }
+    setSearchMode({ event: "loading", food: "loading", attraction: "loading" });
+    const tags = ["event", "food", "attraction"];
+    tags.forEach((tag) => {
+      apiCalls("post", "event", {
+        page: 1,
+        search: search,
+        tag: tag,
+      }).then((data) => {
+        setEvents((Prev) => ({ ...Prev, [tag]: data.event }));
+        setNextPage((Prev) => ({ ...Prev, [tag]: data.nextPage }));
+        if (data.event.length === 0)
+          setSearchMode((Prev) => ({ ...Prev, [tag]: "noResult" }));
+        else {
+          setSearchMode((Prev) => ({ ...Prev, [tag]: "isResult" }));
+        }
+      });
     });
   };
+  
 
   return (
     <div className={styles.main}>
@@ -108,7 +115,7 @@ function Home() {
       </Helmet>
       {/* <BiLogOutCircle className={styles.logOut} onClick={logOut} /> */}
       <div className={styles.eventsContainer}>
-        <EventCard
+        <ContainerCard
           events={events}
           nextPage={nextPage}
           loadMore={fetchEventsNext}
@@ -137,9 +144,10 @@ function Home() {
           }}
         />
       </div> */}
-      {isPopup&&<IntroductionFormPopup setIsPopup={setIsPopup}/>}
     </div>
   );
 }
 
 export default Home;
+
+

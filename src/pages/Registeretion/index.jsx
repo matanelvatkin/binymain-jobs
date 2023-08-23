@@ -5,8 +5,6 @@ import headerContext from "../../context/headerContext";
 import Input from "../../components/Input";
 import ClassicButton from "../../components/ClassicButton copy";
 import { IoIosCreate } from "react-icons/io";
-import axios from "axios";
-import { error } from "jquery";
 import apiCalls from "../../function/apiCalls";
 import { setToken } from "../../function/token";
 import userContext from "../../context/userContext";
@@ -47,7 +45,7 @@ function Registeretion() {
       id: 4,
       name: "email",
       type: "email",
-      placeholder: "📧 כתובת אימייל",
+      placeholder: "כתובת אימייל 📧",
       errorMessage: "הכנס אימייל תקין",
       required: true,
     },
@@ -65,18 +63,16 @@ function Registeretion() {
 
     // Filter out words with less than 2 letters
     const filteredWords = words.filter((word) => word.length >= 2);
-
-    if (filteredWords.length >= 2) {
+    if (filteredWords.length >= 1) {
         const data = userData;
         const updatedData = {
           ...data,
           userType: "regular",
         };
         console.log(updatedData);
-
+      if(formElement.checkValidity()){
         try {
           const res = await apiCalls("post", "user/creatUser", updatedData);
-          console.log(res.user.error);
           if (!res.user.error) {
             if (res.token) {
               setUser(res.user);
@@ -91,7 +87,7 @@ function Registeretion() {
           }
         } catch (error) {
           alert(error);
-        }
+        }}
     } else {
       alert("יש לבחור שם מלא תיקני");
     }
