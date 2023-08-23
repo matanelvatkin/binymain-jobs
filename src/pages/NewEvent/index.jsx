@@ -140,7 +140,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 5,
       name: "accuratelocation",
-      type: "map",
+      type: "text",
       errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "מיקום מדויק או כתובת",
       className: "form-control",
@@ -524,12 +524,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 <NoRepeatEvent values={values} setValues={setValues} />
               </div>
             );
-          else if (input.type === "map")
-            return (
-              <div className={styles.map}>
-                <LocationSearchInput />
-              </div>
-            );
+          // else if (input.type === "map")
+          //   return (
+          //     <div className={styles.map}>
+          //       <LocationSearchInput />
+          //     </div>
+          //   );
           else if (input.type == "pTimeValidationOK")
             return (
               <p className={styles.errorMessage}>{timeValidationMessage}</p>
