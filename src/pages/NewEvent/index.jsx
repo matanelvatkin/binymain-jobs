@@ -482,6 +482,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
                 value={values[input.name]}
                 name={input.name}
                 values={values}
+                saveToSession={"place"}
                 setValues={setValues}
                 isValid={isValid}
                 selectRequired={selectRequired}
