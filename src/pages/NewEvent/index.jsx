@@ -18,6 +18,8 @@ import MultiSelect from "../../components/MultiSelect";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import DateDisplay from "../../components/DateDisplay";
+import Map from "../../components/Map";
+import LocationSearchInput from "../../components/LocationSearchInput/LocationSearchInput";
 
 export default function NewEvent({ style = {}, className = "", ...props }) {
   const [fileData, setFileData] = useState([]);
@@ -138,7 +140,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     {
       id: 5,
       name: "accuratelocation",
-      type: "text",
+      type: "map",
       errorMessage: "אוי שכחת למלא כאן את פרטים",
       placeholder: "מיקום מדויק או כתובת",
       className: "form-control",
@@ -520,6 +522,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
               <div className={styles.date}>
                 {" "}
                 <NoRepeatEvent values={values} setValues={setValues} />
+              </div>
+            );
+          else if (input.type === "map")
+            return (
+              <div className={styles.map}>
+                <LocationSearchInput />
               </div>
             );
           else if (input.type == "pTimeValidationOK")
