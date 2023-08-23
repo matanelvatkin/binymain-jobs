@@ -21,7 +21,10 @@ import MultiSelect from "../../components/MultiSelect";
 export default function SearchEvent({ setSearch }) {
   const textShow = translation;
   const arrBtnDates = ["allDate", "today", "tomorrow", "thisWeek"];
-  const DefaultBtnDate = "allDate";
+  const DefaultBtnDate = !sessionStorage.getItem("date to search")
+    ? "allDate"
+    : sessionStorage.getItem("date to search");
+  console.log(DefaultBtnDate);
   const DefaultBtnDateObject = setDefaultBtnDateObject(
     arrBtnDates,
     DefaultBtnDate
@@ -80,6 +83,7 @@ export default function SearchEvent({ setSearch }) {
       let newBtnDates = { ...prev };
       Object.keys(prev).forEach((v) => (newBtnDates[v] = false));
       newBtnDates[e.target.name] = true;
+      sessionStorage.setItem("date to search", e.target.name);
       return newBtnDates;
     });
   }
@@ -114,7 +118,7 @@ export default function SearchEvent({ setSearch }) {
 
     // console.log(categoriesUpdate,"categoriesUpdate");
     // console.log(audiencesUpdate,"audiencesUpdate");
-    console.log(locationUpdate, "locationUpdate");
+    // console.log(locationUpdate, "locationUpdate");
     // console.log(btnDatesUpdate,"btnDatesUpdate");
 
     setSearch({
@@ -139,10 +143,10 @@ export default function SearchEvent({ setSearch }) {
 
   return (
     <div>
-      {/* {console.log(categories)} */}
-      {/* {console.log(audiences)} */}
+      {/* {console.log(categories)}
+      {console.log(audiences)}
       {console.log(location.undefined)}
-      {/* {console.log(btnDates)} */}
+      {console.log(btnDates)} */}
 
       <div className={style.content}>
         <div className={style.section}>
@@ -189,6 +193,7 @@ export default function SearchEvent({ setSearch }) {
             {
               <MultiSelect
                 options={placeData}
+                name={"placeToSearch"}
                 placeholder={textShow.choseLocation}
                 // func={setLocation}
                 // style={{width:"95%"}}
@@ -196,6 +201,7 @@ export default function SearchEvent({ setSearch }) {
                 selectRequired={true}
                 setSelectRequired={() => {}}
                 values={location}
+                saveToSession={"placeToSearch"}
                 setValues={setLocation}
               />
             }
