@@ -281,12 +281,12 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
     e.preventDefault();
     setIsTheSubmitButtonPush(true);
     setSubmittedForDisableButton(true);
-    // הכנסת שעת התחלה לתאריך ולתאריך סיום
-    values.date = beginDateUpdate(values.date, values.beginningTime);
+    // הכנסת שעת סיום לתאריך ולתאריך סיום
+    values.date = beginDateUpdate(values.date, values.finishTime);
     if (values.repeatDateEnd instanceof Date) {
       values.repeatDateEnd = beginDateUpdate(
         values.repeatDateEnd,
-        values.beginningTime
+        values.finishTime
       );
     }
     const formElement = e.target;
