@@ -58,7 +58,11 @@ function Login() {
       localStorage.setItem("Token", res.token);
       eventTracker('login',res.user.email,'userLogin')
       navigate("/");
-    } else {
+    } else if(res.error==='Error generating JWT token'){
+      alert("למשתמש זה אין סיסמא, יש לבצע הרשמה!")
+    } 
+    else {
+      console.log(res)
       alert(res);
     }
   };
