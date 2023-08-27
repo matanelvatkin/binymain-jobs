@@ -5,23 +5,39 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+<<<<<<< HEAD
 
+=======
+import LocationSearchInput from "../LocationSearchInput/LocationSearchInput";
+>>>>>>> f69dff34badae2fd750f1831d939df60146dc404
 
 export default function Map() {
   const google = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_API_GOOGLE_MAPS,
+<<<<<<< HEAD
     libraries:["places"]
+=======
+    libraries: ["places"],
+>>>>>>> f69dff34badae2fd750f1831d939df60146dc404
   });
   if (!google.isLoaded) return <div>Loading...</div>;
   return <MapIn />;
 }
 
 function MapIn() {
+<<<<<<< HEAD
   const center = useMemo(() => ({ lat: 31.94864, lng: 35.25680 }), []);
   const [selected, setSelected] = useState([]);
   useEffect(() => {
     console.log(selected);
   },[selected])
+=======
+  const center = useMemo(() => ({ lat: 31.94864, lng: 35.2568 }), []);
+  const [selected, setSelected] = useState([]);
+  useEffect(() => {
+    console.log(selected);
+  }, [selected]);
+>>>>>>> f69dff34badae2fd750f1831d939df60146dc404
   return (
     <>
       <div className={styles.places_container}>
@@ -29,7 +45,12 @@ function MapIn() {
       </div>
 
       <GoogleMap zoom={10} center={center} mapContainerClassName={styles.map}>
+<<<<<<< HEAD
         {selected.length>0 && selected.map(mark=><Marker position={mark} />)}
+=======
+        {selected.length > 0 &&
+          selected.map((mark) => <Marker position={mark} />)}
+>>>>>>> f69dff34badae2fd750f1831d939df60146dc404
       </GoogleMap>
     </>
   );
