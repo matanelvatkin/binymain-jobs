@@ -1,14 +1,7 @@
 .main {
-  width: 75%;
-  display: flex;
-  align-self: flex-end;
-  justify-content: center;
-  font-family: "Heebo", sans-serif;
 }
 
 .container {
-  width: 95%;
-  direction: rtl;
 }
 
 .icons {
@@ -40,4 +33,9 @@
 }
 .isChosen {
   display: none;
+}
+.title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 10px;
 }

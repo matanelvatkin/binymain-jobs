@@ -433,9 +433,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   function SubmitButton() {
     if (isInputFormValid && submittedForDisableButton) {
       return (
-        <div className={styles.button}>
+        <div className={styles.footerBtn}>
           <ClassicButton
-            width="110%"
+            width="100%"
             height={50}
             text={"נשלח לפרסום, אנא המתן"}
             type={"submit"}
@@ -447,7 +447,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       return (
         <div className={styles.button}>
           <ClassicButton
-            width="110%"
+            width="100%"
             text={"שמור"}
             height={50}
             type={"submit"}
@@ -464,7 +464,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       style={style}
       {...props}
     >
-      <div className={styles.header}>
+      <div className={styles.title}>
         כמה פרטים כדי שנוכל לפרסם את האירוע שלך
       </div>{" "}
       <form
@@ -497,7 +497,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             );
           else if (input.type === "selectIcon") {
             return (
-              <div className={styles.selectIcon}>
+              <div>
                 <SelectIcon
                   isValid={isValid}
                   errorMessage={input.errorMessage}
