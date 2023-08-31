@@ -9,6 +9,7 @@ import userContext from "../../context/userContext";
 export default function IntroductionFormPopup({setIsPopup}){
 
   const {setUser} = useContext(userContext)
+  const [isEmail,setIsEmail] = useState(false)
   
   async function createUser (e){
     e.preventDefault();
@@ -18,13 +19,10 @@ export default function IntroductionFormPopup({setIsPopup}){
       phon:    (e.target[1].value),
       city:    (e.target[2].value),
       email:   (e.target[3].value),
-      approval:(!e.target[4].checked)
+      approval:(e.target[4].checked)
       }
-      console.log(body);
-      console.dir(e.target);
       if(body.email){
         const res = await apiCalls("post", "user/creatUser",body)
-        console.log(res);
         setUser(res.user);
         setToken(res.token);
         localStorage.setItem("Token", res.token);
@@ -48,12 +46,12 @@ return(
           <Input id="fullName" type="text"  name="fullName" placeholder="השם שלך" noLabelAndError={true}/>
           <Input id="phone"    type="tel"   name="phone" placeholder="הטלפון שלך" noLabelAndError={true}/>
           <Input id="city"     type="text"  name="city" placeholder="היישוב שלך"  noLabelAndError={true}/>
-          <Input id="email"    type="email" name="email" placeholder="המייל שלך"  noLabelAndError={true}/>
+          <Input id="email"    type="email" name="email" placeholder="המייל שלך"  noLabelAndError={true} onChange={(e)=>(setIsEmail(e.target.value!==""&&e.target.checkValidity()))}/>
           <label className={styles.containerCheckbox}>
-            <input name="checkbox" type="checkbox"/>
-            <div className={styles.labelCheckbox}> אשמח שלא תשלחו לי אירועים שיכולים לעניין אותי</div>
+            <input name="checkbox" type="checkbox" defaultChecked="true"/>
+            <div className={styles.labelCheckbox}> יאלה, שלחו לי אירועים שיכולים לעניין אותי!</div>
           </label>
-          <ClassicButton width="100%" text="הבא" type="submit" />
+          <ClassicButton width="100%" text="הבא" type="submit" disabled={!(isEmail)}/>
         </div>      
       </form>
     </div>

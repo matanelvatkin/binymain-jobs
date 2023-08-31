@@ -62,7 +62,6 @@ function Login() {
       alert("למשתמש זה אין סיסמא, יש לבצע הרשמה!")
     } 
     else {
-      console.log(res)
       alert(res);
     }
   };

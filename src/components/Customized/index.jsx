@@ -10,7 +10,7 @@ import {FiRotateCw} from 'react-icons/fi'
 //personalRepeatType, repeatSettingsEnd, repeatSettingsRepeatEnd,     days: [{}],
 
 
-export default function Customized({values,setValues = () => { },setCustom,chooseRadio,setNewEventPopup, ...props}) {
+export default function Customized({values,setValues = () => { },setCustom,chooseRadio,setNewEventPopup, setReturnType, setChooseRadio, ...props}) {
 
     const [chooseDayOrWeek, setChooseDayOrWeek]= useState("weeks");
     const [numberTimes, setNumberTimes]= useState(1);
@@ -57,7 +57,18 @@ setNewEventPopup(false)
    function cancelClick(){
     setCustom(false)
     setNewEventPopup(false)
-   }
+    setReturnType("חד- פעמי")
+    setChooseRadio("חד- פעמי")
+    setValues({ ...values,
+      isRepeated: false, repeatType: "disposable",
+      repeatTimes: 1, 
+      personalRepeatType: "",
+      days: [],
+      repeatSettingsEnd: "endDate",
+      repeatDateEnd: repeatDateEnd|| new Date(),
+      repeatTimesEnd:1 
+   })
+  }
    function repeatClick(){
     setRepeatSettingsEnd("endNumTimes")
     setIsChoosen("endTimes")
