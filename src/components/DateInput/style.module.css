@@ -1,8 +1,8 @@
 .container {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 100%;
+  width: 100%; */
 }
 
 .button {
@@ -11,7 +11,7 @@
   align-items: center;
   margin: 20px 0px 20px 20px;
   height: 42px;
-  width: 241px;
+  width: 100%;
   border-radius: 10px;
   background-color: var(--text-Fourth-color);
   border: none;
