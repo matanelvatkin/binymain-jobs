@@ -114,6 +114,7 @@ export default function RecurringEventPopup({
           chooseRadio={chooseRadio}
           setNewEventPopup={setNewEventPopup}
           setReturnType={setReturnType}
+          setChooseRadio={setChooseRadio}
         />
       )}
       {/* </div> */}
