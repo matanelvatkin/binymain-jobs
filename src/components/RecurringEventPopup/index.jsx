@@ -105,13 +105,19 @@ export default function RecurringEventPopup({
         </div>
       </div>
 
-{/* <div className={styles.customized}> */}
-{custom&&
-<Customized values={values} setValues={setValues} setCustom={setCustom} chooseRadio={chooseRadio}
-setNewEventPopup={setNewEventPopup}  setChooseRadio={setChooseRadio}/>}
-{/* </div> */}
- 
-  
+      {/* <div className={styles.customized}> */}
+      {custom && (
+        <Customized
+          values={values}
+          setValues={setValues}
+          setCustom={setCustom}
+          chooseRadio={chooseRadio}
+          setNewEventPopup={setNewEventPopup}
+          setReturnType={setReturnType}
+          setChooseRadio={setChooseRadio}
+        />
+      )}
+      {/* </div> */}
     </>
   );
 }

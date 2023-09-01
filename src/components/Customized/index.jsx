@@ -15,6 +15,7 @@ export default function Customized({
   chooseRadio,
   setNewEventPopup,
   setReturnType,
+  setChooseRadio,
   ...props
 }) {
   const [chooseDayOrWeek, setChooseDayOrWeek] = useState("weeks");
@@ -25,7 +26,9 @@ export default function Customized({
   const [repeatDateEnd, setRepeatDateEnd] = useState({});
   const [repeatTimesEnd, setRepeatTimesEnd] = useState(1);
 
-export default function Customized({values,setValues = () => { },setCustom,chooseRadio,setNewEventPopup, ...props}) {
+  const [clickDay, setClickDay] = useState({});
+  const [isClicked, setIsClicked] = useState(false);
+  const [isChoosen, setIsChoosen] = useState("endDate");
 
   useEffect(() => {
     if (chooseDays.find((dayName) => dayName.day == clickDay.day)) {
@@ -55,15 +58,36 @@ export default function Customized({values,setValues = () => { },setCustom,choos
     setNewEventPopup(false);
   }
 
-   function cancelClick(){
+  function cancelClick(){
     setCustom(false)
     setNewEventPopup(false)
-   }
-   function repeatClick(){
-    setRepeatSettingsEnd("endNumTimes")
-    setIsChoosen("endTimes")
-   }
-   
+    setReturnType("חד- פעמי")
+    setChooseRadio("חד- פעמי")
+    setValues({ ...values,
+      isRepeated: false, repeatType: "disposable",
+      repeatTimes: 1, 
+      personalRepeatType: "",
+      days: [],
+      repeatSettingsEnd: "endDate",
+      repeatDateEnd: repeatDateEnd|| new Date(),
+      repeatTimesEnd:1 
+   })
+  }
+
+  function repeatClick() {
+    setRepeatSettingsEnd("endNumTimes");
+    setIsChoosen("endTimes");
+  }
+
+  const days = [
+    { value: "א", nameDay: "ראשון", day: 0 },
+    { value: "ב", nameDay: "שני", day: 1 },
+    { value: "ג", nameDay: "שלישי", day: 2 },
+    { value: "ד", nameDay: "רביעי", day: 3 },
+    { value: "ה", nameDay: "חמישי", day: 4 },
+    { value: "ו", nameDay: "שישי", day: 5 },
+    { value: "ש", nameDay: "שבת", day: 6 },
+  ];
 
   return (
     <div className={styles.container} onClick={cancelClick}>
