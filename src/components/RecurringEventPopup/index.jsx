@@ -16,8 +16,10 @@ export default function RecurringEventPopup({
   const [custom, setCustom] = useState(false);
 
   const chooseRadioClick = (e) => {
+    if (e.target.value !== "בהתאמה אישית") {
     setChooseRadio(e.target.value);
     setReturnType(chooseRadio);
+    }
     if (e.target.value == "בהתאמה אישית") {
       setCustom(true);
       // setNewEventPopup(false)

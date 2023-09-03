@@ -40,7 +40,8 @@ export default function Customized({
   }, [isClicked]);
 
   function saveClick() {
-    console.log(values);
+    setReturnType("בהתאמה אישית")
+    setChooseRadio("בהתאמה אישית")
     setValues({
       ...values,
       isRepeated: true,
@@ -61,17 +62,6 @@ export default function Customized({
   function cancelClick(){
     setCustom(false)
     setNewEventPopup(false)
-    setReturnType("חד- פעמי")
-    setChooseRadio("חד- פעמי")
-    setValues({ ...values,
-      isRepeated: false, repeatType: "disposable",
-      repeatTimes: 1, 
-      personalRepeatType: "",
-      days: [],
-      repeatSettingsEnd: "endDate",
-      repeatDateEnd: repeatDateEnd|| new Date(),
-      repeatTimesEnd:1 
-   })
   }
 
   function repeatClick() {
