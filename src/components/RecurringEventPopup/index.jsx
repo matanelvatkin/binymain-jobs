@@ -1,102 +1,125 @@
 import styles from "./style.module.css";
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../Input";
-import Customized from "../Customized"
+import Customized from "../Customized";
 
-export default function RecurringEventPopup({setNewEventPopup, values, setValues, setReturnType,chooseRadio,setChooseRadio,...props}){
+export default function RecurringEventPopup({
+  setNewEventPopup,
+  values,
+  setValues,
+  setReturnType,
+  chooseRadio,
+  setChooseRadio,
+  ...props
+}) {
   // const [chooseRadio, setChooseRadio] = useState("חד- פעמי");
-  const[custom,setCustom]= useState(false);  
-  
-  
+  const [custom, setCustom] = useState(false);
 
   const chooseRadioClick = (e) => {
-    setChooseRadio(e.target.value)
-    setReturnType(chooseRadio)
-    if(e.target.value=="בהתאמה אישית"){
-setCustom(true)
-// setNewEventPopup(false)
+    if (e.target.value !== "בהתאמה אישית") {
+    setChooseRadio(e.target.value);
+    setReturnType(chooseRadio);
+    }
+    if (e.target.value == "בהתאמה אישית") {
+      setCustom(true);
+      // setNewEventPopup(false)
+    } else if (e.target.value == "חד- פעמי") {
+      setTimeout(() => {
+        setNewEventPopup(false);
+      }, 300);
+      setValues({
+        ...values,
+        isRepeated: false,
+        repeatType: "disposable",
+        personalRepeatType: "",
+      });
+    } else if (e.target.value == "מדי יום") {
+      setTimeout(() => {
+        setNewEventPopup(false);
+      }, 300);
+      setValues({
+        ...values,
+        isRepeated: true,
+        repeatType: "daily",
+        personalRepeatType: "",
+      });
+    } else if (e.target.value == "מדי שבוע") {
+      setTimeout(() => {
+        setNewEventPopup(false);
+      }, 300);
+      setValues({ ...values, isRepeated: true, repeatType: "weekly" });
+    }
+  };
 
-    }
-    else if(e.target.value=="חד- פעמי"){
-      setTimeout(()=>{
-        setNewEventPopup(false)}, 300);
-        setValues({ ...values, isRepeated: false, repeatType: "disposable", personalRepeatType: ""});
-    }
-    else if(e.target.value=="מדי יום"){
-      setTimeout(()=>{
-        setNewEventPopup(false)}, 300);
-        setValues({ ...values, isRepeated: true, repeatType: "daily", personalRepeatType: ""});
+  useEffect(() => {
+    setReturnType(chooseRadio);
+  }, [chooseRadio]);
 
-
-    }
-    else if(e.target.value=="מדי שבוע"){
-      setTimeout(()=>{
-        setNewEventPopup(false)}, 300);
-        setValues({ ...values, isRepeated: true, repeatType: "weekly"});
-    }
+  function endDefaultDate(date) {
+    const endDate = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate() - 1
+    );
+    return endDate;
   }
 
-useEffect(()=>{
-setReturnType(chooseRadio)
-}, [chooseRadio]
-)
-
-function endDefaultDate(date){
-  const endDate=new Date(date.getFullYear(), date.getMonth() + 1, date.getDate()-1);
-  return endDate
-}
-
-return(
-  <>
-    <div className={styles.container} onClick={()=>setNewEventPopup(false)}>
-        <div className={styles.popup} onClick={(event) => event.stopPropagation()}>
-        <Input
+  return (
+    <>
+      <div className={styles.container} onClick={() => setNewEventPopup(false)}>
+        <div
+          className={styles.popup}
+          onClick={(event) => event.stopPropagation()}
+        >
+          <Input
             label="חד- פעמי"
             type="radio"
             name="recurring"
             value="חד- פעמי"
-            isChecked={chooseRadio==="חד- פעמי"}
-            onChange={chooseRadioClick}            
-          />   
-        <Input
+            isChecked={chooseRadio === "חד- פעמי"}
+            onChange={chooseRadioClick}
+          />
+          <Input
             label="מדי יום"
             type="radio"
             name="recurring"
             value="מדי יום"
-            isChecked={chooseRadio==="מדי יום"}
+            isChecked={chooseRadio === "מדי יום"}
             onChange={chooseRadioClick}
-            
           />
-         <Input
+          <Input
             label="מדי שבוע"
             type="radio"
             name="recurring"
             value="מדי שבוע"
-            isChecked={chooseRadio==="מדי שבוע"}
+            isChecked={chooseRadio === "מדי שבוע"}
             onChange={chooseRadioClick}
           />
-     <Input
+          <Input
             label="התאמה אישית..."
             type="radio"
             name="recurring"
             value="בהתאמה אישית"
-            isChecked={chooseRadio==="בהתאמה אישית"}
+            isChecked={chooseRadio === "בהתאמה אישית"}
             onChange={chooseRadioClick}
-            onClick={()=>setCustom(true)
-            }
+            onClick={() => setCustom(true)}
           />
-    </div>      
-  </div>
+        </div>
+      </div>
 
-{/* <div className={styles.customized}> */}
-{custom&&
-<Customized values={values} setValues={setValues} setCustom={setCustom} chooseRadio={chooseRadio}
-setNewEventPopup={setNewEventPopup} />}
-{/* </div> */}
- 
-  
+      {/* <div className={styles.customized}> */}
+      {custom && (
+        <Customized
+          values={values}
+          setValues={setValues}
+          setCustom={setCustom}
+          chooseRadio={chooseRadio}
+          setNewEventPopup={setNewEventPopup}
+          setReturnType={setReturnType}
+          setChooseRadio={setChooseRadio}
+        />
+      )}
+      {/* </div> */}
     </>
-)
-
-
+  );
 }
