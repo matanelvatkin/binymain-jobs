@@ -25,6 +25,7 @@ export default function Map({
   );
 }
 
+
 function MapIn({ marker, setMarker, center, mainMarker }) {
   const [selected, setSelected] = useState([]);
   useEffect(() => {
