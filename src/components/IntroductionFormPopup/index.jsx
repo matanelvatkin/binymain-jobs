@@ -16,18 +16,18 @@ export default function IntroductionFormPopup({setIsPopup}){
 
   
   async function createUser (e){
+    e.preventDefault();
     if(step==2){
-      e.preventDefault();
       try {
-        const body = {
+        const firstForm = {
       fullName:(e.target[0].value),
       email:   (e.target[1].value),
       // phon:    (e.target[2].value),
       // city:    (e.target[3].value),
       // approval:(e.target[4].checked)
     }
-      if(body.email){
-        const res = await apiCalls("post", "user/creatUser",body)
+      if(firstForm.email){
+        const res = await apiCalls("post", "user/creatUser",firstForm)
         setUser(res.user);
         setToken(res.token);
         localStorage.setItem("Token", res.token);
@@ -40,7 +40,28 @@ export default function IntroductionFormPopup({setIsPopup}){
       console.log(error);
     }
   }
-  else{setIsPopup(false)}
+  else{
+    try {
+  const fullForm = {
+    fullName:(e.target[0].value),
+    email:   (e.target[1].value),
+    phon:    (e.target[2].value),
+    city:    (e.target[3].value),
+    approval:(e.target[4].checked)
+  }
+    if(fullForm.email){
+      const res = await apiCalls("put", "user/updateDetails",fullForm)
+      setUser(res);
+      setStep(3)
+    }
+    else{
+      console.log("error");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+    setIsPopup(false)
+  }
     
   }
 return(
