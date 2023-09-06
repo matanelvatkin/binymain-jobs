@@ -20,5 +20,4 @@ function getGoogleOAuthURL() {
 
   return `${rootUrl}?${qs.toString()}`;
 }
-
 export default getGoogleOAuthURL;
