@@ -61,17 +61,20 @@ return(
                 </div>
             </>:
       <form onSubmit={createUser}>
-        {step==2?<>
-          <Input id="fullName" type="text"  name="fullName" placeholder="השם שלך" noLabelAndError={true}/>
-          <Input id="email"    type="email" name="email" placeholder="המייל שלך"  noLabelAndError={true} onChange={(e)=>(setIsEmail(e.target.value!==""&&e.target.checkValidity()))}/>
-        </>:<>
-          <Input id="phone"    type="tel"   name="phone" placeholder="הטלפון שלך" noLabelAndError={true}/>
-          <Input id="city"     type="text"  name="city" placeholder="היישוב שלך"  noLabelAndError={true}/>
-          <label className={styles.containerCheckbox}>
-            <input name="checkbox" type="checkbox" defaultChecked="true"/>
-            <div className={styles.labelCheckbox}> יאלה, שלחו לי אירועים שיכולים לעניין אותי!</div>
-          </label>
-        </>}
+        {step>1?<>
+          <div className={step==3?styles.hidden:null}>
+            <Input id="fullName" type="text"  name="fullName" placeholder="השם שלך" noLabelAndError={true}/>
+            <Input id="email"    type="email" name="email" placeholder="המייל שלך"  noLabelAndError={true} onChange={(e)=>(setIsEmail(e.target.value!==""&&e.target.checkValidity()))}/>
+          </div>
+          <div className={step==2?styles.hidden:null}>
+            <Input id="phone"    type="tel"   name="phone" placeholder="הטלפון שלך" noLabelAndError={true}/>
+            <Input id="city"     type="text"  name="city" placeholder="היישוב שלך"  noLabelAndError={true}/>
+            <label className={styles.containerCheckbox}>
+              <input name="checkbox" type="checkbox" defaultChecked="true"/>
+              <div className={styles.labelCheckbox}> יאלה, שלחו לי אירועים שיכולים לעניין אותי!</div>
+            </label>
+          </div>
+        </>:null}
           <ClassicButton width="100%" text={step==2?"יצירת חשבון":"מדהים, המשכנו!"} type="submit" disabled={!(isEmail)}/>
       </form>}
         </div>      

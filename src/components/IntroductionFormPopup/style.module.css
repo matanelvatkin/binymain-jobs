@@ -67,3 +67,7 @@
     text-decoration: underline;
     color: var(--bg-secondary-color);
   }
+
+.hidden{
+    display: none;
+  }
