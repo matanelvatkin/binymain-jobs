@@ -1,6 +1,5 @@
 function getGoogleOAuthURL() {
   const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth";
-
   const options = {
     redirect_uri:
       process.env.REACT_APP_GOOGLE_OAUTH_REDIRECT_URL,
@@ -12,9 +11,9 @@ function getGoogleOAuthURL() {
     scope: [
       "https://www.googleapis.com/auth/userinfo.profile",
       "https://www.googleapis.com/auth/userinfo.email",
-      // "https://www.googleapis.com/auth/user.addresses.read",
-      // "https://www.googleapis.com/auth/user.phonenumbers.read",
-    ].join(" "),
+      window.location.href==='https://server-vike.vercel.app/login'?"https://www.googleapis.com/auth/user.addresses.read":
+      "https://www.googleapis.com/auth/user.phonenumbers.read",
+    ].join(" "),  
   };
 
   const qs = new URLSearchParams(options);

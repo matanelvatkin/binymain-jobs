@@ -134,7 +134,7 @@ function Login() {
         </div>
       </form>
       <div className={styles.firstButton}>
-        <ClassicButton width={"100%"} height={"50px"} type={"submit"}>
+        <ClassicButton width={"100%"} height={"50px"}>
           <a href={getGoogleOAuthURL()}>Login with Google</a>
         </ClassicButton>
         
