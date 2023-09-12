@@ -8,16 +8,20 @@ export default function GoogleRegister() {
   const nav = useNavigate();
   let search = window.location.search;
   let params = new URLSearchParams(search);
-  const go = async()=>{const verifiedUser = await apiCalls("post", "/user/verify", {
-      aoutherizetion: params.get('token'),
+  const go = async () => {
+    const verifiedUser = await apiCalls("post", "/user/verify", {
+      aoutherizetion: params.get("token"),
     });
     if (verifiedUser.email) {
       setUser(verifiedUser);
-}else{setUser("")}
-  nav('../')}
+    } else {
+      setUser("");
+    }
+    nav("../");
+  };
   useEffect(() => {
-    localStorage.setItem("Token",params.get('token'));
-    go()
+    localStorage.setItem("Token", params.get("token"));
+    go();
   }, []);
   return <div>GoogleRegister</div>;
 }
