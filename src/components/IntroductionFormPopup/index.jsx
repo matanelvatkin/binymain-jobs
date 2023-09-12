@@ -6,6 +6,7 @@ import apiCalls from "../../function/apiCalls";
 import { setToken } from "../../function/token";
 import userContext from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
+import getGoogleOAuthURL from "../../function/getGoogleOAuthURL";
 
 export default function IntroductionFormPopup({setIsPopup}){
 
@@ -22,9 +23,6 @@ export default function IntroductionFormPopup({setIsPopup}){
         const firstForm = {
       fullName:(e.target[0].value),
       email:   (e.target[1].value),
-      // phon:    (e.target[2].value),
-      // city:    (e.target[3].value),
-      // approval:(e.target[4].checked)
     }
       if(firstForm.email){
         const res = await apiCalls("post", "user/creatUser",firstForm)
@@ -71,7 +69,9 @@ return(
           <div className={styles.title}><b>{step==1?"איזה כיף שבאת!":step==2?"נעים מאוד!":"שניה לפני שנמשיך,"}</b>
             <br /> <span className={styles.secondTitle}>{step==1?"נשמח להכיר ולעדכן על אירועים שלא בא לך לפספס!":step==2?"הרשמה קצרה וממשיכים":"השלימו את הפרופיל ותקבלו הצעות מותאמות אישית"}</span></div>
             {(step===1)?<>
-              <Input type="button" onClick={()=>console.log("g")} noLabelAndError={true} value="אני רוצה להמשיך באמצעות G"/> 
+            <a href={getGoogleOAuthURL()}>
+              <Input type="button" noLabelAndError={true} value="אני רוצה להמשיך באמצעות G"/> 
+            </a>
               <Input type="button" onClick={()=>setStep(2)} noLabelAndError={true} value="אני רוצה להירשם באמצעות מייל"/> 
                 <div>
                   {" "}
