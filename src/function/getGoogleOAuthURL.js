@@ -11,7 +11,7 @@ function getGoogleOAuthURL() {
     scope: [
       "https://www.googleapis.com/auth/userinfo.profile",
       "https://www.googleapis.com/auth/userinfo.email",
-      window.location.href==='https://server-vike.vercel.app/login'?"https://www.googleapis.com/auth/user.addresses.read":
+      window.location.href.startsWith('https://server-vike.vercel.app')?"https://www.googleapis.com/auth/user.addresses.read":
       "https://www.googleapis.com/auth/user.phonenumbers.read",
     ].join(" "),  
   };
