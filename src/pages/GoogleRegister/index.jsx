@@ -18,9 +18,11 @@ export default function GoogleRegister() {
       setUser("");
     }
   if (localStorage.lastEvent) {
-    nav("/"+localStorage.lastEvent)    
+    nav("/viewEvent/"+localStorage.lastEvent)
+    console.log("lastEvent");    
   }
   else{
+    console.log("no");
     nav("../");
   }
   };
