@@ -61,7 +61,7 @@ export default function ViewEvent() {
   const [eventData, setEventData] = useState();
   const [isActive, setIsActive] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
-  const [isPopup, setIsPopup] = useState(false);
+  const [isPopup, setIsPopup] = useState(localStorage.lastEvent?true:false);
 
   async function fetchEvent() {
     try {
