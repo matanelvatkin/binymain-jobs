@@ -16,7 +16,7 @@ export default function IntroductionFormPopup({setIsPopup,event}){
   const navigate = useNavigate();
 
   useEffect(()=>{
-    if (localStorage.lastEvent&&localStorage.token) {
+    if (localStorage.lastEvent&&localStorage.Token) {
       localStorage.lastEvent=null
       setStep(2)
     }
