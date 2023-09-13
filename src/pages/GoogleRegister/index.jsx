@@ -17,7 +17,12 @@ export default function GoogleRegister() {
     } else {
       setUser("");
     }
+  if (localStorage.lastEvent) {
+    nav("/"+localStorage.lastEvent)    
+  }
+  else{
     nav("../");
+  }
   };
   useEffect(() => {
     localStorage.setItem("Token", params.get("token"));

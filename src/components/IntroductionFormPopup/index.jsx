@@ -1,4 +1,4 @@
-import { useState , useContext } from "react";
+import { useState , useContext, useEffect } from "react";
 import ClassicButton from "../ClassicButton copy";
 import Input from "../Input";
 import styles from "./style.module.css";
@@ -8,12 +8,20 @@ import userContext from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 import getGoogleOAuthURL from "../../function/getGoogleOAuthURL";
 
-export default function IntroductionFormPopup({setIsPopup}){
+export default function IntroductionFormPopup({setIsPopup,event}){
 
   const {setUser} = useContext(userContext)
   const [isEmail,setIsEmail] = useState(false)
   const [step , setStep] = useState(1)
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if (localStorage.lastEvent&&localStorage.token) {
+      localStorage.lastEvent=null
+      setStep(2)
+    }
+  }
+  ,[])
 
   
   async function createUser (e){
@@ -70,7 +78,7 @@ return(
             <br /> <span className={styles.secondTitle}>{step==1?"נשמח להכיר ולעדכן על אירועים שלא בא לך לפספס!":step==2?"הרשמה קצרה וממשיכים":"השלימו את הפרופיל ותקבלו הצעות מותאמות אישית"}</span></div>
             {(step===1)?<>
             <a href={getGoogleOAuthURL()}>
-              <Input type="button" noLabelAndError={true} value="אני רוצה להמשיך באמצעות G"/> 
+              <Input type="button" noLabelAndError={true} value="אני רוצה להמשיך באמצעות G" onClick={()=>localStorage.lastEvent=event}/> 
             </a>
               <Input type="button" onClick={()=>setStep(2)} noLabelAndError={true} value="אני רוצה להירשם באמצעות מייל"/> 
                 <div>
