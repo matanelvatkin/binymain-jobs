@@ -50,7 +50,7 @@ function HeaderHome({ page, isValid, setIsValid }) {
             </span>
             <input
               dir="rtl"
-              placeholder=" אירועים בסביבה שלך..."
+              placeholder=" דרושים בסביבה שלך..."
               className={styles.visibleInput}
               type="search"
               defaultValue={search}

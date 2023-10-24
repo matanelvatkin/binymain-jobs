@@ -48,11 +48,11 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   });
   const [loading, setLoading] = useState(true);
 
-  const paymentData = ["בתשלום", "בחינם"];
+  const paymentData = ["בשכר", "בהתנדבות"];
   const typeData = [
-    "אירוע חד פעמי",
-    "אירוע יומי",
-    "אירוע שבועי",
+    "התנדבות או משרה חד פעמית",
+    "התנדבות או משרה יומית",
+    "התנדבות או משרה שבועית",
     "בהתאמה אישית",
   ];
   const [returnType, setReturnType] = useState("חד פעמי");
@@ -62,7 +62,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [constancy, setConstancy] = useState("חד פעמי");
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
-  setHeader("פרסם אירוע");
+  setHeader("פרסם פרסם התנדבות או משרה");
   const [values, setValues] = useState({
     eventName: sessionStorage.getItem("eventName"),
     summary: sessionStorage.getItem("summary"),
@@ -103,9 +103,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 1,
       name: "eventName",
       type: "text",
-      // label: "שם האירוע",
+      // label: "שם הפרויקט",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
-      placeholder: "שם האירוע",
+      placeholder: "שם הפרויקט",
       className: "form-control",
       required: true,
     },
@@ -148,7 +148,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 6,
       name: "beginningTime",
       type: "time",
-      label: "מתי האירוע מתחיל?",
+      label: "מתי ההתנדבות או העבודה מתחילה?",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "זמן התחלה",
       className: "form-control",
@@ -163,7 +163,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 7,
       name: "finishTime",
       type: "time",
-      label: "מתי האירוע מסתיים?",
+      label: "מתי ההתנדבות או העבודה מסתיימת?",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       placeholder: "זמן סיום",
       className: "form-control",
@@ -173,9 +173,9 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       id: 8,
       name: "payment",
       type: "toogleSwitch",
-      label: "עלות",
+      label: "שכר",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
-      placeholder: "עלות",
+      placeholder: "שכר",
       className: "form-control",
       icon: "https://cdn4.iconfinder.com/data/icons/tabler-vol-3/24/currency-shekel-512.png",
       required: true,
@@ -203,7 +203,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "summary",
       type: "text",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
-      placeholder: "תיאור האירוע",
+      placeholder: "תיאור המשרה או ההתנדבות",
       className: "form-control",
       required: true,
     },
@@ -212,7 +212,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       name: "registrationPageURL",
       type: "url",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
-      placeholder: " לינק להרשמה/כרטיסים לאירוע",
+      placeholder: "לינק לפרטים נוספים",
       className: "form-control",
     },
     {
@@ -221,7 +221,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       type: "file",
       errorMessage: "אוי שכחת למלא כאן את הפרטים",
       instructions: "*מומלץ להעלות תמונה מרובעת 1:1",
-      label: "תמונת אירוע",
+      label: "תמונה של הפרסום או תמונה רלוונטית אחרת",
       accept: "image/*",
       className: "form-control",
       required: true,
@@ -360,7 +360,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       console.log([...formData.entries()]);
 
       setPopUpText(
-        "האירוע שרצית לפרסם נשלח למערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
+        "מודעת הדרושים שרצית לפרסם נשלחה למערכת נודיע לך ברגע שמנהל המערכת יאשר את פרסומו"
       );
       setPopUp(true);
       setSaveEventMode(true);
@@ -463,7 +463,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
       {...props}
     >
       <div className={styles.title}>
-        כמה פרטים כדי שנוכל לפרסם את האירוע שלך
+        כמה פרטים כדי שנוכל לפרסם את מודעת הדרושים שלך
       </div>{" "}
       <form
         key={1}
@@ -539,7 +539,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
             return (
               <div className={styles.dateLoction}>
                 <ToggleSwitch
-                  text="בתשלום"
+                  text="העסקה בשכר"
                   checked={checked}
                   onChange={handleToggleSwitch}
                   className={input.className}

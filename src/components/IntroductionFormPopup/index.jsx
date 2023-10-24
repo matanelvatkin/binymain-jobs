@@ -75,7 +75,7 @@ return(
     <div className={styles.container} onClick={()=>(setIsPopup(false))}>
         <div className={styles.popup} onClick={(event)=>{event.stopPropagation()}}>
           <div className={styles.title}><b>{step==1?"איזה כיף שבאת!":step==2?"נעים מאוד!":"שניה לפני שנמשיך,"}</b>
-            <br /> <span className={styles.secondTitle}>{step==1?"נשמח להכיר ולעדכן על אירועים שלא בא לך לפספס!":step==2?"הרשמה קצרה וממשיכים":"השלימו את הפרופיל ותקבלו הצעות מותאמות אישית"}</span></div>
+            <br /> <span className={styles.secondTitle}>{step==1?"נשמח להכיר ולעדכן על התנדבויות ומשרות שלא בא לך לפספס!":step==2?"הרשמה קצרה וממשיכים":"השלימו את הפרופיל ותקבלו הצעות מותאמות אישית"}</span></div>
             {(step===1)?<>
             <a href={getGoogleOAuthURL()}>
               <Input type="button" noLabelAndError={true} value="אני רוצה להמשיך באמצעות G" onClick={()=>localStorage.lastEvent=event}/> 
@@ -100,7 +100,7 @@ return(
             <Input id="city"     type="text"  name="city" placeholder="היישוב שלך"  noLabelAndError={true}/>
             <label className={styles.containerCheckbox}>
               <input name="checkbox" type="checkbox" defaultChecked="true"/>
-              <div className={styles.labelCheckbox}> יאלה, שלחו לי אירועים שיכולים לעניין אותי!</div>
+              <div className={styles.labelCheckbox}> יאלה, שלחו לי משרות והתנדבויות שיכולות לעניין אותי!</div>
             </label>
           </div>
         </>:null}

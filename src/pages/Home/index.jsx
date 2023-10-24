@@ -19,9 +19,9 @@ import ContainerCard from "../../components/ContainerCard";
 // כמות התוצאות שבכל עמוד בדף הבית- נקבע בשרת
 
 function Home() {
-  const [events, setEvents] = useState({event:[],food:[],attraction:[]});
-  const [nextPage, setNextPage] = useState({event:undefined,food:undefined,attraction:undefined});
-  const [searchMode, setSearchMode] = useState({event:"loading",food:"loading",attraction:"loading"});
+  const [events, setEvents] = useState({ event: [], food: [], attraction: [] });
+  const [nextPage, setNextPage] = useState({ event: undefined, food: undefined, attraction: undefined });
+  const [searchMode, setSearchMode] = useState({ event: "loading", food: "loading", attraction: "loading" });
 
   const { search, setHeader } = useContext(headerContext);
   const { user, setUser } = useContext(userContext);
@@ -44,7 +44,7 @@ function Home() {
     if (!user) {
       setPopUp(true);
       setGuestMode(false);
-      setPopUpText("כדי שתוכל לפרסם אירוע, נהיה חייבים להכיר😊");
+      setPopUpText("כדי שתוכל לפרסם משרה או התנדבות, נהיה חייבים להכיר😊");
     } else {
       navigate("/newEvent");
     }
@@ -70,11 +70,11 @@ function Home() {
     apiCalls("post", "event", {
       page: nextPage[e.target.id],
       search: search,
-      tag:e.target.id
+      tag: e.target.id
     }).then((data) => {
-      setEvents((prev) => ({...prev,[e.target.id]:prev[e.target.id].concat(data.event)}));
+      setEvents((prev) => ({ ...prev, [e.target.id]: prev[e.target.id].concat(data.event) }));
       setNextPage((Prev) => ({ ...Prev, [e.target.id]: data.nextPage }));
-      if (data.event.length === 0)  setSearchMode((Prev) => ({ ...Prev, [e.target.id]: "noResult" }));
+      if (data.event.length === 0) setSearchMode((Prev) => ({ ...Prev, [e.target.id]: "noResult" }));
       else {
         setSearchMode((Prev) => ({ ...Prev, [e.target.id]: "isResult" }));
       }
@@ -100,17 +100,17 @@ function Home() {
       });
     });
   };
-  
+
 
   return (
     <div className={styles.main}>
       <Helmet>
         <title>KorePo</title>
         <link rel="icon" href="../../../public/logo-hereHvent.ico" />
-        <meta name="description" content="האירוע שלך נמצא כאן KorePo" />
+        <meta name="description" content="הפרויקט שלך נמצא כאן KorePo" />
         <meta
           name="keywords"
-          content="אירועים בבנימין,הופעות בבנימין,בנימין,אירועים"
+          content="התנדבות בבנימין,דרושים בבנימין,בנימין,משרות בבנימין"
         />
       </Helmet>
       {/* <BiLogOutCircle className={styles.logOut} onClick={logOut} /> */}
@@ -131,14 +131,14 @@ function Home() {
           }}
         >
           <IoIosAddCircleOutline className={styles.icon} />
-          פרסם אירוע
+          פרסם התנדבות או משרה
         </ClassicButton>
       </div>
       {/* <div className={styles.newButton}>
         <ClassicButton
           width={"250px"}
           height={"100%"}
-          text={" פרסם אירוע חדש ➕"}
+          text={" פרסם התנדבות או משרה חדשה ➕"}
           onClick={() => {
             navToNewNewEvent();
           }}

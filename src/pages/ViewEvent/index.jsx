@@ -48,7 +48,7 @@ export default function ViewEvent() {
   const { user, setUser } = useContext(userContext);
   const { setPopUp, setGuestMode, setPopUpText } = useContext(popUpContext);
 
-  setHeader("פרטי האירוע");
+  setHeader("פרטי הוע");
 
   // In the routing there is a param called event which contains the event id.
   // I collect the eventID from the event param and then I call the server to give me the whole event's data.
@@ -168,7 +168,7 @@ export default function ViewEvent() {
   return (
     <>
       {loading == "error" ? (setHeader("login")||<div className={style.notBe}>
-        <span>האירוע שחיפשת לא קיים יותר במערכת</span>
+        <span>הפרויקט שחיפשת לא קיים יותר במערכת</span>
         <div className={style.homeButton}>
                     <ClassicButton
                       width={"100%"}
@@ -193,7 +193,7 @@ export default function ViewEvent() {
             <meta name="description" content={eventData.summary} />
             <meta
               name="keywords"
-              content="אירועים בבנימין,הופעות בבנימין,בנימין,אירועים"
+              content="התנדבות בבנימין,דרושים בבנימין,בנימין,משרות"
             />
             <meta name="keywords" content={eventData.eventName} />
             <meta name="keywords" content={eventData.place} />
@@ -295,8 +295,8 @@ export default function ViewEvent() {
                       </div>
                       <div className={style.payment}>
                         {eventData.payment.isFree === true
-                          ? "כניסה חופשית"
-                          : "בתשלום"}
+                          ? "התנדבות"
+                          : "העסקה בשכר"}
                       </div>
                     </div>
                   </div>
@@ -394,9 +394,9 @@ export default function ViewEvent() {
                     </p>{" "}
                   </div>
                   <select name="tags" onChange={handleTag} defaultValue={eventData.tag?eventData.tag:"noTag"}>
-                    <option value="noTag">תיוג אירוע</option>
-                    <option value="event">אירוע כללי</option>
-                    <option value="food">אוכל עם אווירה</option>
+                    <option value="noTag">תיוג פרויקט</option>
+                    <option value="event">התנדבויות</option>
+                    <option value="food">משרות בתשלום</option>
                     <option value="attraction">אטרקציות וסדנאות בהזמנה אישית</option>
                   </select>
                   <div className={style.publishButton}>

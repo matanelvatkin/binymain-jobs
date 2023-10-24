@@ -11,7 +11,7 @@ function NewEventPopup({ setNewEventPopup, values, setValues, constancy, setCons
 
 
   const cencelPopup = () => {
-    setConstancy("אירוע ללא חזרה")
+    setConstancy("משרה או התנדבות ללא חזרה")
     setNewEventPopup(false)
 
   };
@@ -25,18 +25,18 @@ function NewEventPopup({ setNewEventPopup, values, setValues, constancy, setCons
         <form className={styles.form} action="">
           <div className={styles.select}>
           <Select
-            placeholder={"אירוע יומי"}
+            placeholder={"משרה או התנדבות יומית"}
             value={values.repeatType}
             name={"repeatType"}
             values={values}
             setValues={setValues}
-            choossArray={["אירוע יומי", "אירוע שבועי", "בהתאמה אישית"]}
+            choossArray={["משרה או התנדבות יומית", "משרה או התנדבות שבועית", "בהתאמה אישית"]}
           />
           </div>
           <div className={styles.p}>
-             {values.repeatType === "אירוע יומי" ?
+             {values.repeatType === "משרה או התנדבות יומית" ?
             <DailyEvent values={values} setValues={setValues} />
-            : values.repeatType === "אירוע שבועי" ?
+            : values.repeatType === "משרה או התנדבות שבועית" ?
               <WeeklyEvent values={values} setValues={setValues} /> :
               values.repeatType === "בהתאמה אישית" ?
                 <PersonalEvent values={values} setValues={setValues} /> : console.log("asd")}

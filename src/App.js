@@ -15,10 +15,10 @@ function App() {
         <Helmet>
           <title>KorePo</title>
           {/* <link rel="icon" href="../public/favicon.ico" /> */}
-          <meta name="description" content="האירוע שלך נמצא כאן KorePo" />
+          <meta name="description" content="הפרויקט שלך נמצא כאן KorePo" />
           <meta
             name="keywords"
-            content="אירועים בבנימין,הופעות בבנימין,בנימין,אירועים"
+            content="התנדבויות בבנימין,דרושים בבנימין,בנימין,התנדבות"
           />
         </Helmet>
         <Layout />
