@@ -48,7 +48,7 @@ export default function ViewEvent() {
   const { user, setUser } = useContext(userContext);
   const { setPopUp, setGuestMode, setPopUpText } = useContext(popUpContext);
 
-  setHeader("פרטי הוע");
+  setHeader("פרטים על ההתנדבות או המשרה");
 
   // In the routing there is a param called event which contains the event id.
   // I collect the eventID from the event param and then I call the server to give me the whole event's data.

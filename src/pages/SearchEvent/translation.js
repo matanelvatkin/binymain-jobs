@@ -1,5 +1,5 @@
 const translation = {
-  advencedSearch: "חיפוש מתקדם",
+  advencedSearch: "חיפוש עבודה או התנדבות",
   category: "קטגוריה",
   audience: "קהל יעד",
   location: "מיקום",

@@ -62,7 +62,7 @@ export default function NewEvent({ style = {}, className = "", ...props }) {
   const [constancy, setConstancy] = useState("חד פעמי");
   const settingContext = useContext(settingsContext);
   const { setHeader } = useContext(headerContext);
-  setHeader("פרסם פרסם התנדבות או משרה");
+  setHeader("פרסם התנדבות או משרה");
   const [values, setValues] = useState({
     eventName: sessionStorage.getItem("eventName"),
     summary: sessionStorage.getItem("summary"),
